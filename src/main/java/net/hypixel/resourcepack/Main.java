@@ -15,8 +15,7 @@ public class Main {
 
         new PackConverter(optionSet).run();
 
-        System.out.println("Done, press any key to exit!");
-        System.in.read();
+        
     }
 
 }
