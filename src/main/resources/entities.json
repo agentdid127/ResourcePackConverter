@@ -1,0 +1,28 @@
+{
+  "endercrystal": "end_crystal",
+  "endercrystal_beam": "end_crystal_beam",
+  "snowman": "snow_golem",
+  "boat_acacia": "acacia",
+  "boat_birch": "birch",
+  "boat_darkoak": "dark_oak",
+  "boat_jungle": "jungle",
+  "boat_oak": "oak",
+  "boat_spruce": "spruce",
+  "fangs": "evoker_fangs",
+  "decor_black": "black",
+  "decor_blue": "blue",
+  "decor_brown": "brown",
+  "decor_cyan": "cyan",
+  "decor_green": "green",
+  "decor_light_blue": "light_blue",
+  "decor_silver": "light_gray",
+  "decor_lime": "lime",
+  "decor_magenta": "magenta",
+  "decor_orange": "orange",
+  "decor_pink": "pink",
+  "decor_purple": "purple",
+  "decor_red": "red",
+  "decor_white": "white",
+  "decor_yellow": "yellow"
+
+}

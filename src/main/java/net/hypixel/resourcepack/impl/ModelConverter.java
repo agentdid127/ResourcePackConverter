@@ -43,43 +43,43 @@ public class ModelConverter extends Converter {
     }
     protected void remapModelJson(Path path) throws IOException {
 
-        if (!path.toFile().exists()) return;
+    if (!path.toFile().exists()) return;
 
-        Files.list(path)
-                .filter(path1 -> path1.toString().endsWith(".json"))
-                .forEach(model -> {
-                    try {
-                        JsonObject jsonObject = Util.readJson(packConverter.getGson(), model);
+    Files.list(path)
+            .filter(path1 -> path1.toString().endsWith(".json"))
+            .forEach(model -> {
+                try {
+                    JsonObject jsonObject = Util.readJson(packConverter.getGson(), model);
 
-                        // minify the json so we can replace spaces in paths easily
-                        // TODO Improvement: handle this in a cleaner way?
-                        String content = jsonObject.toString();
-                        content = content.replaceAll("items/", "item/");
-                        content = content.replaceAll("blocks/", "block/");
-                        content = content.replaceAll(" ", "_");
+                    // minify the json so we can replace spaces in paths easily
+                    // TODO Improvement: handle this in a cleaner way?
+                    String content = jsonObject.toString();
+                    content = content.replaceAll("items/", "item/");
+                    content = content.replaceAll("blocks/", "block/");
+                    content = content.replaceAll(" ", "_");
 
-                        Files.write(model, Collections.singleton(content), Charset.forName("UTF-8"));
+                    Files.write(model, Collections.singleton(content), Charset.forName("UTF-8"));
 
-                        // handle the remapping of textures, for models that use default texture names
-                        jsonObject = Util.readJson(packConverter.getGson(), model);
-                        if (jsonObject.has("textures")) {
-                            NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
+                    // handle the remapping of textures, for models that use default texture names
+                    jsonObject = Util.readJson(packConverter.getGson(), model);
+                    if (jsonObject.has("textures")) {
+                        NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
 
-                            JsonObject textureObject = jsonObject.getAsJsonObject("textures");
-                            for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
-                                String value = entry.getValue().getAsString();
-                                if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())));
-                                } else if (value.startsWith("item/")) {
-                                    textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
-                                }
+                        JsonObject textureObject = jsonObject.getAsJsonObject("textures");
+                        for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
+                            String value = entry.getValue().getAsString();
+                            if (value.startsWith("block/")) {
+                                textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())));
+                            } else if (value.startsWith("item/")) {
+                                textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
                             }
                         }
-
-                        Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
-                    } catch (IOException e) {
-                        throw Util.propagate(e);
                     }
-                });
-    }
+
+                    Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
+                } catch (IOException e) {
+                    throw Util.propagate(e);
+                }
+            });
+}
 }

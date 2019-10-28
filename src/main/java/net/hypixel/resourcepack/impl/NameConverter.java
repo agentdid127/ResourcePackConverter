@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class NameConverter extends Converter {
 
     protected final Mapping blockMapping = new BlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
+    protected final Mapping entityMapping = new EntityMapping();
 
     public NameConverter(PackConverter packConverter) {
         super(packConverter);
@@ -43,6 +45,23 @@ public class NameConverter extends Converter {
         if (textures.resolve("items").toFile().exists()) Files.move(textures.resolve("items"), textures.resolve("item"));
         renameAll(itemMapping, ".png", textures.resolve("item"));
         renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+        if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
+        findEntityFiles(textures.resolve("entity"));
+    }
+    // Added to find files in the entity folder
+    protected void findEntityFiles(Path path) throws IOException {
+        if (path.toFile().exists()) {
+        File directory = new File(path.toString());
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isDirectory()) {
+                renameAll(entityMapping, ".png", Paths.get(file.getPath()));
+                renameAll(entityMapping, ".png.mcmeta", Paths.get(file.getPath()));
+                findEntityFiles(Paths.get(file.getPath()));
+
+            }
+            }
+        }
     }
 
     protected void renameAll(Mapping mapping, String extension, Path path) throws IOException {
@@ -105,6 +124,22 @@ public class NameConverter extends Converter {
         }
 
     }
+
+
+    protected class EntityMapping extends Mapping {
+
+        @Override
+        protected void load() {
+            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/entities.json");
+            if (entities != null) {
+                for (Map.Entry<String, JsonElement> entry : entities.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
+
+    }
+
 
     protected class ItemMapping extends Mapping {
 

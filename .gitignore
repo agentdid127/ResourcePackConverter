@@ -6,6 +6,7 @@
 target/
 build/
 out/
+classes/
 
 # Maven
 dependency-reduced-pom.xml
