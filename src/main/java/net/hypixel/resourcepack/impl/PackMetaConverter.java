@@ -27,7 +27,7 @@ public class PackMetaConverter extends Converter {
         if (!file.toFile().exists()) return;
 
         if (version.equals("1.15")) versionInt = 5;
-        else if (version.equals("1.13")) versionInt = 4;
+        else if (version.equals("1.13") || version.equals("1.14")) versionInt = 4;
 
         JsonObject json = Util.readJson(packConverter.getGson(), file);
         {

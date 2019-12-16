@@ -1,5 +1,6 @@
 package net.hypixel.resourcepack;
 
+import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
 import joptsimple.OptionSpec;
 import joptsimple.ValueConverter;
@@ -19,7 +20,9 @@ public class Options {
             .withValuesConvertedBy(new PathConverter())
             .defaultsTo(Paths.get("./"));
 
-    public static final OptionSpec<Void> ONEFIFTEEN = PARSER.accepts("1.15", "Updates to 1.15 version");
+    public static final OptionSpec<String> TO = PARSER.accepts("to", "Updates to version").withRequiredArg().ofType(String.class).defaultsTo("1.13");
+
+    public static final ArgumentAcceptingOptionSpec<String> FROM = PARSER.accepts("from", "Updates from version").withRequiredArg().ofType(String.class).defaultsTo("1.12");
 
     public static final OptionSpec<Void> MINIFY = PARSER.accepts("minify", "Minify the json files.");
 
