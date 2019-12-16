@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is our 1.8-1.12 -> 1.13 Resource pack converter. We used this to do most of the grunt work to convert Hypixel's various resource packs for the 1.13 update.
+This is our 1.8-1.12 -> 1.13/1.14/1.15 Resource pack converter. We used this to do most of the grunt work to convert Hypixel's various resource packs for the 1.13 update.
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
