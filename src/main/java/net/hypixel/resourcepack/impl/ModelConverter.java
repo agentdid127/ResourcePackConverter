@@ -2,6 +2,7 @@ package net.hypixel.resourcepack.impl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import net.hypixel.resourcepack.Converter;
 import net.hypixel.resourcepack.PackConverter;
 import net.hypixel.resourcepack.Util;
@@ -74,8 +75,14 @@ public class ModelConverter extends Converter {
                                 textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
                             }
                         }
-                    }
 
+                    }
+                    if (jsonObject.has("parent")) {
+                        for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                            if(entry.getKey().equals("parent")) jsonObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase());
+                        }
+
+                    }
                     Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
                 } catch (IOException e) {
                     throw Util.propagate(e);
