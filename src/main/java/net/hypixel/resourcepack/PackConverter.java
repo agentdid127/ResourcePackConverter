@@ -6,6 +6,7 @@ import joptsimple.OptionSet;
 import net.hypixel.resourcepack.impl.*;
 import net.hypixel.resourcepack.pack.Pack;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
@@ -27,21 +28,30 @@ public class PackConverter {
         GsonBuilder gsonBuilder = new GsonBuilder();
         if (!this.optionSet.has(Options.MINIFY)) gsonBuilder.setPrettyPrinting();
         this.gson = gsonBuilder.create();
+        String from = "";
+        String to = "";
+        System.out.println(this.optionSet.valueOf(Options.FROM));
+        System.out.println(this.optionSet.valueOf(Options.TO));
+        from = this.optionSet.valueOf(Options.FROM);
+        to = this.optionSet.valueOf(Options.TO);
 
         // this needs to be run first, other converters might reference new directory names
+        if (from.equals("1.12"))
         this.registerConverter(new NameConverter(this));
-
-        this.registerConverter(new PackMetaConverter(this));
-
-        this.registerConverter(new ModelConverter(this));
-        this.registerConverter(new SpacesConverter(this));
-        this.registerConverter(new SoundsConverter(this));
-        this.registerConverter(new ParticleConverter(this));
-        this.registerConverter(new BlockStateConverter(this));
-        this.registerConverter(new AnimationConverter(this));
-        this.registerConverter(new MapIconConverter(this));
-
-        this.registerConverter(new MCPatcherConverter(this));
+        if (to.equals("1.15")) this.registerConverter(new PackMetaConverter(this, "1.15"));
+        else if (to.equals("1.14")) this.registerConverter(new PackMetaConverter(this, "1.14"));
+        else this.registerConverter(new PackMetaConverter(this, "1.13"));
+        if (from.equals("1.12")) {
+            this.registerConverter(new ModelConverter(this));
+            this.registerConverter(new SpacesConverter(this));
+            this.registerConverter(new SoundsConverter(this));
+            this.registerConverter(new ParticleConverter(this));
+            this.registerConverter(new BlockStateConverter(this));
+            this.registerConverter(new AnimationConverter(this));
+            this.registerConverter(new MapIconConverter(this));
+            this.registerConverter(new MCPatcherConverter(this));
+        }
+        if (to.equals("1.15")) this.registerConverter(new ChestConverter(this));
     }
 
     public void registerConverter(Converter converter) {

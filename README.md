@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is our 1.8-1.12 -> 1.13 Resource pack converter. We used this to do most of the grunt work to convert Hypixel's various resource packs for the 1.13 update.
+This is our 1.8-1.12 -> 1.13/1.14/1.15 Resource pack converter. We used this to do most of the grunt work to convert Hypixel's various resource packs for the 1.13 update.
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
@@ -20,5 +20,10 @@ You can set the input directory using one of the following parameters.
 `-i <path>`, `--input <path>` or `--input-dir <path>`.
 
     java -jar ResourcePackConverter.jar --input input/
+	
+You can also convert to 1.15 using this addon.
+`--1.15`.
+
+	java -jar ResourcePackConverter.jar --1.15
 
 We hope this helps out!
