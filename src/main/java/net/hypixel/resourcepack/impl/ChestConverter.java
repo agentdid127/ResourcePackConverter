@@ -101,6 +101,8 @@ public class ChestConverter extends Converter {
             normal.subImage(73, 14, 88, 19, 14, 14, 1);
             normal.subImage(14, 14, 29, 19, 43, 14, 1);
             normal.subImage(44, 19, 58, 33, 14, 19, true);
+            normal.subImage(14, 14, 28, 19, 43, 14, 1);
+            normal.subImage(44, 19, 59, 33, 14, 19, true);
             normal.subImage(14, 33, 29, 43, 43, 33, 1);
             normal.subImage(0, 33, 14, 43, 0, 33, 1);
             normal.subImage(73, 33, 88, 43, 14, 33, 1);

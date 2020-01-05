@@ -41,6 +41,8 @@ public class ImageConverter {
     public void newImage(int newWidth, int newHeight)
     {
         newImage = new BufferedImage(newWidth*wMultiplier, newHeight*hMultiplier, BufferedImage.TYPE_INT_ARGB);
+        newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+
         g2d = (Graphics2D) newImage.getGraphics();
     }
 
@@ -54,6 +56,14 @@ public class ImageConverter {
         if (y == 0) y = 0; else y = y*hMultiplier;
         BufferedImage part = subImage2(x, y, width2, height2);
         g2d.drawImage( part, storex, storey, null);
+        int x3;
+        int y3;
+        int width2 = x2*wMultiplier - x*wMultiplier;
+        int height2 = y2*hMultiplier - y*hMultiplier;
+        if (x == 0) x3 = 0; else x3 = x*wMultiplier;
+        if (y == 0) y3= 0; else y3 = y*hMultiplier;
+        BufferedImage part = subImage2(x3, y3, width2, height2);
+        g2d.drawImage( part, storex*wMultiplier, storey*hMultiplier, null);
     }
 
     //Takes a part of an image and flips it either horizontally or vertically
@@ -65,6 +75,14 @@ public class ImageConverter {
         if (y == 0) y = 0; else y = y*hMultiplier;
         BufferedImage part = subImage2(x, y, width2, height2);
         g2d.drawImage( createFlipped(part, flip), storex, storey, null);
+        int x3;
+        int y3;
+        int width2 = x2*wMultiplier - x*wMultiplier;
+        int height2 = y2*hMultiplier - y*hMultiplier;
+        if (x == 0) x3 = 0; else x3 = x*wMultiplier;
+        if (y == 0) y3= 0; else y3 = y*hMultiplier;
+        BufferedImage part = subImage2(x3, y3, width2, height2);
+        g2d.drawImage( createFlipped(part, flip), storex*wMultiplier, storey*hMultiplier, null);
     }
     //Only allows for the number 1 and flips it both horizontally and vertically
     public void subImage (int x, int y, int x2, int y2, int storex, int storey, int flip)
@@ -75,6 +93,14 @@ public class ImageConverter {
         if (y == 0) y = 0; else y = y*hMultiplier;
         BufferedImage part = subImage2(x, y, width2, height2);
         g2d.drawImage( createFlipped(part, flip), storex, storey, null);
+        int x3;
+        int y3;
+        int width2 = x2*wMultiplier - x*wMultiplier;
+        int height2 = y2*hMultiplier - y*hMultiplier;
+        if (x == 0) x3 = 0; else x3 = x*wMultiplier;
+        if (y == 0) y3= 0; else y3 = y*hMultiplier;
+        BufferedImage part = subImage2(x3, y3, width2, height2);
+        g2d.drawImage( createFlipped(part, flip), storex*wMultiplier, storey*hMultiplier, null);
     }
     //Allows for the flip to happen
     private static BufferedImage createFlipped(BufferedImage image2, int flip)
