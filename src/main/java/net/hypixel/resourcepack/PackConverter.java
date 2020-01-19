@@ -30,6 +30,8 @@ public class PackConverter {
         this.gson = gsonBuilder.create();
         String from = "";
         String to = "";
+        String light = "";
+        light = this.optionSet.valueOf(Options.LIGHT);
         System.out.println(this.optionSet.valueOf(Options.FROM));
         System.out.println(this.optionSet.valueOf(Options.TO));
         from = this.optionSet.valueOf(Options.FROM);
@@ -42,7 +44,7 @@ public class PackConverter {
         else if (to.equals("1.14")) this.registerConverter(new PackMetaConverter(this, "1.14"));
         else this.registerConverter(new PackMetaConverter(this, "1.13"));
         if (from.equals("1.12")) {
-            this.registerConverter(new ModelConverter(this));
+            this.registerConverter(new ModelConverter(this, light));
             this.registerConverter(new SpacesConverter(this));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));

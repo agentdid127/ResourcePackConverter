@@ -18,9 +18,10 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ModelConverter extends Converter {
-
-    public ModelConverter(PackConverter packConverter) {
+    protected String light = "none";
+    public ModelConverter(PackConverter packConverter, String lightIn) {
         super(packConverter);
+        light = lightIn;
     }
 
     @Override
@@ -52,6 +53,8 @@ public class ModelConverter extends Converter {
                 try {
                     JsonObject jsonObject = Util.readJson(packConverter.getGson(), model);
 
+                    //GUI light system for 1.15.2
+                    if (!light.equals("none") && (light.equals("front") || light.equals("side"))) jsonObject.addProperty("gui_light", light);
                     // minify the json so we can replace spaces in paths easily
                     // TODO Improvement: handle this in a cleaner way?
                     String content = jsonObject.toString();

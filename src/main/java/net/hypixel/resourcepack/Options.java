@@ -24,6 +24,8 @@ public class Options {
 
     public static final ArgumentAcceptingOptionSpec<String> FROM = PARSER.accepts("from", "Updates from version").withRequiredArg().ofType(String.class).defaultsTo("1.12");
 
+    public static final ArgumentAcceptingOptionSpec<String> LIGHT = PARSER.accepts("light", "Updates from version").withRequiredArg().ofType(String.class).defaultsTo("none");
+
     public static final OptionSpec<Void> MINIFY = PARSER.accepts("minify", "Minify the json files.");
 
     public static class PathConverter implements ValueConverter<Path> {
