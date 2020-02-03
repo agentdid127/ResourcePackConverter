@@ -36,6 +36,7 @@ public class ChestConverter extends Converter {
     private void chest(Path imagePath, String name) throws IOException
     {
         int defaultW = 64, defaultH = 64;
+        if (!imagePath.resolve(name + ".png").toFile().exists()) return;
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
         //Create a new Image
         normal.newImage(normal.getWidth(), normal.getHeight());
