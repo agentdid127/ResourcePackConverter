@@ -28,7 +28,7 @@ public class NameConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
-        if (mc.resolve("mcpatcher").toFile().exists()) Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+        if (!mc.resolve("mcpatcher").toFile().exists()) if (mc.resolve("mcpatcher").toFile().exists()) Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
         Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
         if (models.resolve("blocks").toFile().exists()) Files.move(models.resolve("blocks"), models.resolve("block"));
         renameAll(blockMapping, ".json", models.resolve("block"));
