@@ -18,7 +18,7 @@ public class PackConverter {
     public static final boolean DEBUG = true;
 
     protected final OptionSet optionSet;
-    protected final Gson gson;
+    protected Gson gson;
 
     protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
 
@@ -27,7 +27,7 @@ public class PackConverter {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         if (!this.optionSet.has(Options.MINIFY)) gsonBuilder.setPrettyPrinting();
-        this.gson = gsonBuilder.create();
+        this.gson = gsonBuilder.disableHtmlEscaping().create();
         String from = "";
         String to = "";
         String light = "";
@@ -39,7 +39,7 @@ public class PackConverter {
 
         // this needs to be run first, other converters might reference new directory names
         if (from.equals("1.12"))
-        this.registerConverter(new NameConverter(this));
+            this.registerConverter(new NameConverter(this));
         if (to.equals("1.15")) this.registerConverter(new PackMetaConverter(this, "1.15"));
         else if (to.equals("1.14")) this.registerConverter(new PackMetaConverter(this, "1.14"));
         else this.registerConverter(new PackMetaConverter(this, "1.13"));
@@ -77,7 +77,8 @@ public class PackConverter {
 
                         System.out.println("  Running Converters");
                         for (Converter converter : converters.values()) {
-                            if (PackConverter.DEBUG) System.out.println("    Running " + converter.getClass().getSimpleName());
+                            if (PackConverter.DEBUG)
+                                System.out.println("    Running " + converter.getClass().getSimpleName());
                             converter.convert(pack);
                         }
 
@@ -91,13 +92,5 @@ public class PackConverter {
 
     public Gson getGson() {
         return gson;
-    }
-
-    @Override
-    public String toString() {
-        return "PackConverter{" +
-                "optionSet=" + optionSet +
-                ", converters=" + converters +
-                '}';
     }
 }
