@@ -3,6 +3,7 @@ package net.hypixel.resourcepack;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import joptsimple.OptionSet;
+import net.hypixel.resourcepack.extra.BomDetector;
 import net.hypixel.resourcepack.impl.*;
 import net.hypixel.resourcepack.pack.Pack;
 
@@ -74,6 +75,19 @@ public class PackConverter {
                         System.out.println("Converting " + pack);
 
                         pack.getHandler().setup();
+
+                        BomDetector bom = new BomDetector(
+                                pack.getWorkingPath().toString(),
+                                ".txt", ".json", ".mcmeta", ".properties"
+                        );
+
+                        int count = 0;
+                        for(String file : bom.findBOMs()){
+                            count++;
+                        }
+                        if (count > 0){
+                            System.out.println("Removing BOMs from " + count + " files.");
+                        } bom.removeBOMs();
 
                         System.out.println("  Running Converters");
                         for (Converter converter : converters.values()) {

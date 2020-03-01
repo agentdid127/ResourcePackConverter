@@ -1,6 +1,7 @@
 package net.hypixel.resourcepack;
 
 import joptsimple.OptionSet;
+import net.hypixel.resourcepack.extra.BomDetector;
 
 import java.io.IOException;
 
@@ -17,5 +18,7 @@ public class Main {
 
 
     }
+
+
 
 }

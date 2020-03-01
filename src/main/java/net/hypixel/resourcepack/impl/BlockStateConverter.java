@@ -53,6 +53,7 @@ public class BlockStateConverter extends Converter {
                                         value.addProperty("model", "block/" + value.get("model").getAsString());
                                         anyChanges = true;
                                     }
+
                                 } else if (entry.getValue() instanceof JsonArray) { // some states have arrays
                                     for (JsonElement jsonElement : ((JsonArray) entry.getValue())) {
                                         if (jsonElement instanceof JsonObject) {

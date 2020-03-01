@@ -67,7 +67,6 @@ public final class Util {
     }
 
     public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
-        // TODO Improvement: this will fail if there is a BOM in the file
         return gson.fromJson(new JsonReader(new FileReader(path.toFile())), clazz);
     }
 
