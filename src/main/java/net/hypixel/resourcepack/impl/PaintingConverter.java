@@ -28,9 +28,10 @@ public class PaintingConverter extends Converter {
         painting(paintingPath, "bomb.png", 64, 0, 1, 1);
         painting(paintingPath, "plant.png", 80, 0, 1, 1);
         painting(paintingPath, "wasteland.png", 96, 0, 1, 1);
+        painting(paintingPath, "back.png", 192, 0, 1, 1);
 
         //32x16
-        painting(paintingPath, "back.png", 0, 32, 2, 1);
+        painting(paintingPath, "pool.png", 0, 32, 2, 1);
         painting(paintingPath, "courbet.png", 32, 32, 2, 1);
         painting(paintingPath, "sea.png", 64, 32, 2, 1);
         painting(paintingPath, "sunset.png", 96, 32, 2, 1);

@@ -51,7 +51,6 @@ public class PackConverter {
         if (from.equals("1.12")) {
             this.registerConverter(new ModelConverter(this, light));
             this.registerConverter(new SpacesConverter(this));
-            this.registerConverter(new LangConverter(this));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new BlockStateConverter(this));
@@ -59,7 +58,7 @@ public class PackConverter {
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
         }
-        this.registerConverter(new LangConverter(this));
+        this.registerConverter(new LangConverter(this, from, to));
         if (to.equals("1.15")) this.registerConverter(new ChestConverter(this));
         if ((from.equals("1.13") || from.equals("1.12")) && (to.equals("1.14") || (to.equals("1.15")))) this.registerConverter(new PaintingConverter(this));
     }

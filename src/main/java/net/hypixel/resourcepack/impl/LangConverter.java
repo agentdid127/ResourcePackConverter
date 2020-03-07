@@ -15,8 +15,13 @@ import java.util.Enumeration;
 import java.util.Map;
 
 public class LangConverter extends Converter {
-    public LangConverter(PackConverter packConverter) {
+    private String version;
+    private String from;
+    public LangConverter(PackConverter packConverter, String fromIn, String versionIn) {
+
         super(packConverter);
+        version = versionIn;
+        from = fromIn;
     }
 
     @Override
@@ -28,38 +33,65 @@ public class LangConverter extends Converter {
         Files.list(path)
                 .filter(path1 -> path1.toString().endsWith(".lang"))
                 .forEach(model -> {
-                    try (InputStream input = new FileInputStream(model.toString())) {
+                    try(
+                            InputStream input = new FileInputStream(model.toString())) {
                         PropertiesEx prop = new PropertiesEx();
                         PropertiesEx prop2 = new PropertiesEx();
                         prop.load(input);
-                        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang.json");
-                        try (OutputStream output = new FileOutputStream(model.toString())) {
-                        Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
-                        while (enums.hasMoreElements()) {
-                            String key = enums.nextElement();
-                            String value = prop.getProperty(key);
-                            for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-                                if (key.equals(id2.getKey())) {
-                                    prop2.setProperty(id2.getValue().getAsString(), value);
-                                } else prop2.setProperty(key, value);
+                        if (Double.parseDouble(from) == 1.12) {
+                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang.json");
+                            try (OutputStream output = new FileOutputStream(model.toString())) {
+                                Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
+                                while (enums.hasMoreElements()) {
+                                    String key = enums.nextElement();
+                                    String value = prop.getProperty(key);
+                                    for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
+                                        if (key.equals(id2.getKey())) {
+                                            prop2.setProperty(id2.getValue().getAsString(), value);
+                                        } else prop2.setProperty(key, value);
+                                    }
+                                }
+
+
+                                //Saves File
+                                prop2.store(output, "");
+
+                            } catch (IOException io) {
+                                io.printStackTrace();
+                            }
+                        }
+                        if (Double.parseDouble(version) > 1.13)
+                        {
+                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang1_14.json");
+                            try (OutputStream output = new FileOutputStream(model.toString())) {
+                                Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
+                                while (enums.hasMoreElements()) {
+                                    String key = enums.nextElement();
+                                    String value = prop.getProperty(key);
+                                    for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
+                                        if (key.equals(id2.getKey())) {
+                                            prop2.setProperty(id2.getValue().getAsString(), value);
+                                        } else prop2.setProperty(key, value);
+                                    }
+                                }
+
+
+                                //Saves File
+                                prop2.store(output, "");
+
+                            } catch (IOException io) {
+                                io.printStackTrace();
                             }
                         }
 
-
-
-                            //Saves File
-                            prop2.store(output, "");
-                        } catch (IOException io) {
-                            io.printStackTrace();
-                        }
-
-
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     } catch (IOException e) {
-                        throw Util.propagate(e);
+                        e.printStackTrace();
                     }
+
                 });
     }
-
 
         }
 
