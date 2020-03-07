@@ -20,6 +20,7 @@ public class NameConverter extends Converter {
     protected final Mapping blockMapping = new BlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
     protected final Mapping entityMapping = new EntityMapping();
+    protected final Mapping langMapping = new LangMapping();
 
     public NameConverter(PackConverter packConverter) {
         super(packConverter);
@@ -91,6 +92,9 @@ public class NameConverter extends Converter {
     public Mapping getItemMapping() {
         return itemMapping;
     }
+    public Mapping getLangMapping() {
+        return langMapping;
+    }
 
     protected abstract static class Mapping {
 
@@ -123,6 +127,20 @@ public class NameConverter extends Converter {
             }
         }
 
+    }
+
+
+
+    protected class LangMapping extends Mapping {
+        @Override
+        protected void load() {
+            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/lang.json");
+            if (entities != null) {
+                for (Map.Entry<String, JsonElement> entry : entities.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
     }
 
 
