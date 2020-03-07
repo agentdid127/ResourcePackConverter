@@ -41,8 +41,12 @@ public class PackConverter {
         // this needs to be run first, other converters might reference new directory names
         if (from.equals("1.12"))
             this.registerConverter(new NameConverter(this));
-        if (to.equals("1.15")) this.registerConverter(new PackMetaConverter(this, "1.15"));
-        else if (to.equals("1.14")) this.registerConverter(new PackMetaConverter(this, "1.14"));
+        if (to.equals("1.15")){
+            this.registerConverter(new PackMetaConverter(this, "1.15"));
+        }
+        else if (to.equals("1.14")){
+            this.registerConverter(new PackMetaConverter(this, "1.14"));
+        }
         else this.registerConverter(new PackMetaConverter(this, "1.13"));
         if (from.equals("1.12")) {
             this.registerConverter(new ModelConverter(this, light));
@@ -57,6 +61,7 @@ public class PackConverter {
         }
         this.registerConverter(new LangConverter(this));
         if (to.equals("1.15")) this.registerConverter(new ChestConverter(this));
+        if ((from.equals("1.13") || from.equals("1.12")) && (to.equals("1.14") || (to.equals("1.15")))) this.registerConverter(new PaintingConverter(this));
     }
 
     public void registerConverter(Converter converter) {
