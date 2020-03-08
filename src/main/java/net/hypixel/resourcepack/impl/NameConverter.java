@@ -17,13 +17,17 @@ import java.util.Map;
 
 public class NameConverter extends Converter {
 
+
+    protected double version;
     protected final Mapping blockMapping = new BlockMapping();
+    protected final Mapping newBlockMapping = new NewBlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
     protected final Mapping entityMapping = new EntityMapping();
     protected final Mapping langMapping = new LangMapping();
 
-    public NameConverter(PackConverter packConverter) {
+    public NameConverter(PackConverter packConverter, String version) {
         super(packConverter);
+        this.version = Double.parseDouble(version);
     }
 
     @Override
@@ -43,9 +47,15 @@ public class NameConverter extends Converter {
         if (textures.resolve("blocks").toFile().exists()) Files.move(textures.resolve("blocks"), textures.resolve("block"));
         renameAll(blockMapping, ".png", textures.resolve("block"));
         renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+        if (version > 1.13){
+            renameAll(newBlockMapping, ".png", textures.resolve("block"));
+            renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
+        }
         if (textures.resolve("items").toFile().exists()) Files.move(textures.resolve("items"), textures.resolve("item"));
+
         renameAll(itemMapping, ".png", textures.resolve("item"));
         renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+
         if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
         findEntityFiles(textures.resolve("entity"));
     }
@@ -92,6 +102,9 @@ public class NameConverter extends Converter {
     public Mapping getItemMapping() {
         return itemMapping;
     }
+    public Mapping getNewBlockMapping() {
+        return newBlockMapping;
+    }
     public Mapping getLangMapping() {
         return langMapping;
     }
@@ -120,6 +133,20 @@ public class NameConverter extends Converter {
         @Override
         protected void load() {
             JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/blocks.json");
+            if (blocks != null) {
+                for (Map.Entry<String, JsonElement> entry : blocks.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
+
+    }
+
+    protected class NewBlockMapping extends Mapping {
+
+        @Override
+        protected void load() {
+            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/blocks1_14.json");
             if (blocks != null) {
                 for (Map.Entry<String, JsonElement> entry : blocks.entrySet()) {
                     this.mapping.put(entry.getKey(), entry.getValue().getAsString());

@@ -18,10 +18,13 @@ import java.util.Collections;
 import java.util.Map;
 
 public class ModelConverter extends Converter {
+
+    private double version;
     protected String light = "none";
-    public ModelConverter(PackConverter packConverter, String lightIn) {
+    public ModelConverter(PackConverter packConverter, String lightIn, String versionIn) {
         super(packConverter);
         light = lightIn;
+        version = Double.parseDouble(versionIn);
     }
 
     @Override
@@ -72,12 +75,20 @@ public class ModelConverter extends Converter {
                         JsonObject textureObject = jsonObject.getAsJsonObject("textures");
                         for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
+                            if (version == 1.13) {
                             if (value.startsWith("block/")) {
                                 textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())));
                             } else if (value.startsWith("item/")) {
                                 textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
                             }
                         }
+                            if (version > 1.13) {
+                                if (value.startsWith("block/")) {
+                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
+                                }
+                            }
+                        }
+
 
                     }
                     if (jsonObject.has("parent")) {

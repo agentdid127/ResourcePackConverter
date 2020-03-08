@@ -330,8 +330,6 @@
   "stone_diorite_smooth": "polished_diorite",
   "stone_granite": "granite",
   "stone_granite_smooth": "polished_granite",
-  "stone_slab_top": "smooth_stone",
-  "stone_slab_side": "smooth_stone_slab_side",
   "stone_inner_stairs": "cobblestone_stairs_inner,",
   "stone_outer_stairs": "cobblestone_stairs_outer",
   "stone_stairs": "cobblestone_stairs",
