@@ -1,7 +1,7 @@
 package net.hypixel.resourcepack.pack;
 
 import net.hypixel.resourcepack.Util;
-import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 
@@ -64,7 +64,7 @@ public class ZipPack extends Pack {
                 ZipFile zipFile = new ZipFile(getConvertedZipPath().toFile());
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
-                zipFile.createZipFileFromFolder(pack.getWorkingPath().toFile(), parameters, false, 65536);
+                zipFile.createSplitZipFileFromFolder(pack.getWorkingPath().toFile(), parameters, false, 65536);
             } catch (ZipException e) {
                 Util.propagate(e);
             }
