@@ -47,10 +47,13 @@ public class BlockStateConverter extends Converter {
 
                             // update model paths to prepend block
                             for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet()) {
+
+                                NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
+
                                 if (entry.getValue() instanceof JsonObject) {
                                     JsonObject value = (JsonObject) entry.getValue();
                                     if (value.has("model")) {
-                                        value.addProperty("model", "block/" + value.get("model").getAsString());
+                                        value.addProperty("model", "block/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
                                         anyChanges = true;
                                     }
 
@@ -59,7 +62,7 @@ public class BlockStateConverter extends Converter {
                                         if (jsonElement instanceof JsonObject) {
                                             JsonObject value = (JsonObject) jsonElement;
                                             if (value.has("model")) {
-                                                value.addProperty("model", "block/" + value.get("model").getAsString());
+                                                value.addProperty("model", "block/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
                                                 anyChanges = true;
                                             }
                                         }
