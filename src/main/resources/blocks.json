@@ -290,6 +290,7 @@
   "oak_wall_gate_closed": "oak_fence_gate_wall",
   "oak_wall_gate_open": "oak_fence_gate_wall_open",
   "observer_back_lit": "observer_back_on",
+  "orchid": "blue_orchid",
   "piston_inventory_normal": "piston_inventory",
   "piston_inventory_sticky": "sticky_piston_inventory",
   "piston_normal": "piston",
@@ -451,6 +452,9 @@
   "wooden_pressure_plate_up": "oak_pressure_plate",
   "wooden_pressure_plate_down": "oak_pressure_plate_down",
   "wood_pressure_plate": "oak_pressure_plate",
+  "wooden_trapdoor_bottom": "oak_trapdoor_bottom",
+  "wooden_trapdoor_top": "oak_trapdoor_top",
+  "wooden_trapdoor_open": "oak_trapdoor_open",
   "trapdoor": "oak_trapdoor",
   "hopper_down": "hopper"
 }

@@ -33,7 +33,6 @@ public class BlockStateConverter extends Converter {
                 .filter(file -> file.toString().endsWith(".json"))
                 .forEach(file -> {
                     try {
-                    	System.out.println("      file : " + file.toString());
                         JsonObject json = Util.readJson(packConverter.getGson(), file);
                         anyChanges = false;
 
@@ -86,11 +85,9 @@ public class BlockStateConverter extends Converter {
             }
 
         } else if (entry.getValue() instanceof JsonArray) { // some states have arrays
-            System.out.println("      Array detected");
             for (JsonElement jsonElement : ((JsonArray) entry.getValue())) {
                 if (jsonElement instanceof JsonObject) {
                     JsonObject value = (JsonObject) jsonElement;
-                    System.out.println("      value : " + value.toString());
                     if (value.has("model")) {
                         value.addProperty("model", "block/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
                         anyChanges = true;
