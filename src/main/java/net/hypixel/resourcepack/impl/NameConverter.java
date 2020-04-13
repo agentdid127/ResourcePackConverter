@@ -41,7 +41,7 @@ public class NameConverter extends Converter {
         renameAll(itemMapping, ".json", models.resolve("item"));
 
         Path blockStates = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-        renameAll(itemMapping, ".json", blockStates);
+        renameAll(blockMapping, ".json", blockStates);
 
         Path textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
         if (textures.resolve("blocks").toFile().exists()) Files.move(textures.resolve("blocks"), textures.resolve("block"));

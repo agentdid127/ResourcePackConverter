@@ -75,7 +75,7 @@ public final class Util {
      */
     public static Boolean renameFile(Path file, String newName) {
         if (!file.toFile().exists()) return null;
-        return file.toFile().renameTo(new File(file.getParent() + "/" + newName));
+        return file.toFile().renameTo(new File(file.getParent() + File.separator + newName));
     }
 
     public static RuntimeException propagate(Throwable t) {
