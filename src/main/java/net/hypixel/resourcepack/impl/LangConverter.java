@@ -44,7 +44,7 @@ public class LangConverter extends Converter {
                         PropertiesEx prop2 = new PropertiesEx();
                         prop.load(input);
 
-                        if (Double.parseDouble(from) == 1.12) {
+                        if (Double.parseDouble(from) <= 1.12 && (Double.parseDouble(version) == 1.13) ) {
                             JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang.json");
 
                                 Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();

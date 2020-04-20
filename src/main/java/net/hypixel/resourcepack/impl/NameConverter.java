@@ -33,31 +33,41 @@ public class NameConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
-        if (!mc.resolve("mcpatcher").toFile().exists()) if (mc.resolve("mcpatcher").toFile().exists()) Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
-        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
-        if (models.resolve("blocks").toFile().exists()) Files.move(models.resolve("blocks"), models.resolve("block"));
-        renameAll(blockMapping, ".json", models.resolve("block"));
-        if (models.resolve("items").toFile().exists()) Files.move(models.resolve("items"), models.resolve("item"));
-        renameAll(itemMapping, ".json", models.resolve("item"));
-
-        Path blockStates = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-        renameAll(blockMapping, ".json", blockStates);
-
-        Path textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
-        if (textures.resolve("blocks").toFile().exists()) Files.move(textures.resolve("blocks"), textures.resolve("block"));
-        renameAll(blockMapping, ".png", textures.resolve("block"));
-        renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
-        if (version > 1.13){
-            renameAll(newBlockMapping, ".png", textures.resolve("block"));
-            renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
+        if (version <= 1.12) {
+           findFiles(mc);
         }
-        if (textures.resolve("items").toFile().exists()) Files.move(textures.resolve("items"), textures.resolve("item"));
+        if (version >= 1.13) {
+            if (mc.resolve("mcpatcher").toFile().exists())
+                Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+            Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
+            if (models.resolve("blocks").toFile().exists())
+                Files.move(models.resolve("blocks"), models.resolve("block"));
+            renameAll(blockMapping, ".json", models.resolve("block"));
+            if (models.resolve("items").toFile().exists()) Files.move(models.resolve("items"), models.resolve("item"));
+            renameAll(itemMapping, ".json", models.resolve("item"));
 
-        renameAll(itemMapping, ".png", textures.resolve("item"));
-        renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+            Path blockStates = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
+            renameAll(blockMapping, ".json", blockStates);
 
-        if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
-        findEntityFiles(textures.resolve("entity"));
+            Path textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
+            if (textures.resolve("blocks").toFile().exists())
+                Files.move(textures.resolve("blocks"), textures.resolve("block"));
+            renameAll(blockMapping, ".png", textures.resolve("block"));
+            renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+            if (version > 1.13) {
+                renameAll(newBlockMapping, ".png", textures.resolve("block"));
+                renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
+            }
+            if (textures.resolve("items").toFile().exists())
+                Files.move(textures.resolve("items"), textures.resolve("item"));
+
+            renameAll(itemMapping, ".png", textures.resolve("item"));
+            renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+
+            if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())
+                Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
+            findEntityFiles(textures.resolve("entity"));
+        }
     }
     // Added to find files in the entity folder
     protected void findEntityFiles(Path path) throws IOException {
@@ -71,6 +81,20 @@ public class NameConverter extends Converter {
                 findEntityFiles(Paths.get(file.getPath()));
 
             }
+            }
+        }
+    }
+
+    protected void findFiles(Path path) throws IOException {
+        if (path.toFile().exists()) {
+            File directory = new File(path.toString());
+            File[] fList = directory.listFiles();
+            for (File file : fList) {
+                if (file.isDirectory()) {
+                    findFiles(Paths.get(file.getPath()));
+
+                }
+                Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
         }
     }

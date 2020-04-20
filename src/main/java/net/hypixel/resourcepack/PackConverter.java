@@ -9,6 +9,7 @@ import net.hypixel.resourcepack.pack.Pack;
 
 import javax.swing.text.html.Option;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,18 +40,19 @@ public class PackConverter {
         to = this.optionSet.valueOf(Options.TO);
 
         // this needs to be run first, other converters might reference new directory names
-        if (from.equals("1.12"))
             this.registerConverter(new NameConverter(this, to));
-        if (to.equals("1.15")){
+        if (Double.parseDouble(to) >= 1.15){
             this.registerConverter(new PackMetaConverter(this, to));
         }
         else if (to.equals("1.14")){
             this.registerConverter(new PackMetaConverter(this, to));
         }
         else this.registerConverter(new PackMetaConverter(this, "1.13"));
-        if (from.equals("1.12")) {
-            this.registerConverter(new ModelConverter(this, light, to));
+
+        if (Double.parseDouble(from) < 1.11 && Double.parseDouble(to) >= 1.11)
             this.registerConverter(new SpacesConverter(this));
+        if (Double.parseDouble(from) <= 1.12 && Double.parseDouble(to) >= 1.13) {
+            this.registerConverter(new ModelConverter(this, light, to));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new BlockStateConverter(this));
@@ -58,9 +60,11 @@ public class PackConverter {
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
         }
-        this.registerConverter(new LangConverter(this, from, to));
-        if (to.equals("1.15")) this.registerConverter(new ChestConverter(this));
-        if ((from.equals("1.13") || from.equals("1.12")) && (to.equals("1.14") || (to.equals("1.15")))) this.registerConverter(new PaintingConverter(this));
+
+        if (Double.parseDouble(to) >= 1.13)
+            this.registerConverter(new LangConverter(this, from, to));
+        if (Double.parseDouble(from) < 1.15 && Double.parseDouble(to) >= 1.15) this.registerConverter(new ChestConverter(this));
+        if (Double.parseDouble(from) <= 1.13 && Double.parseDouble(to) >= 1.14) this.registerConverter(new PaintingConverter(this));
     }
 
     public void registerConverter(Converter converter) {
