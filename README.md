@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is our 1.8-1.12 -> 1.13/1.14/1.15 Resource pack converter. MCParks uses this to allow resource pack support to all versions from 1.12 and onwards.
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.15.2
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
