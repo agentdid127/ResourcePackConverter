@@ -1,8 +1,7 @@
 package net.hypixel.resourcepack.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import net.hypixel.resourcepack.Converter;
 import net.hypixel.resourcepack.PackConverter;
 import net.hypixel.resourcepack.Util;
@@ -10,11 +9,14 @@ import net.hypixel.resourcepack.pack.Pack;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class ModelConverter extends Converter {
@@ -30,6 +32,7 @@ public class ModelConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "models");
+        if (!models.toFile().exists()) return;
         findFiles(models);
         //remapModelJson(models.resolve("item"));
         //remapModelJson(models.resolve("block"));
@@ -86,8 +89,30 @@ public class ModelConverter extends Converter {
                                 } else if (value.startsWith("item/")) {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
                                 }
+                                else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
                             }
                         }
+                    }
+                    if (jsonObject.has("overrides")) {
+                        for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+
+                            if (entry.getKey().equals("overrides")) {
+                                JsonArray overrides = jsonObject.get("overrides").getAsJsonArray();
+                                JsonArray overrides2 = new JsonArray();
+                                for (int i = 0; i < overrides.size(); i++) {
+                                    JsonObject object = overrides.get(i).getAsJsonObject();
+                                    for (Map.Entry<String, JsonElement> json : object.entrySet()) {
+                                        if (json.getKey().equals("model"))
+                                            object.addProperty(json.getKey(), json.getValue().getAsString().replaceAll("[()]", ""));
+                                        else object.add(json.getKey(), json.getValue());
+                                    }
+                                    overrides2.add(object);
+                                }
+                            jsonObject.add(entry.getKey(), overrides2);
+                            }
+
+                        }
+
                     }
                     if (jsonObject.has("parent")) {
                         for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
@@ -95,6 +120,7 @@ public class ModelConverter extends Converter {
                         }
 
                     }
+                    System.out.println("Updating Model: " + model.getFileName());
                     Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
                 } catch (IOException e) {
                     throw Util.propagate(e);
