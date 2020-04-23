@@ -30,6 +30,7 @@ public class ModelConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "models");
+        if (!models.toFile().exists()) return;
         findFiles(models);
         //remapModelJson(models.resolve("item"));
         //remapModelJson(models.resolve("block"));
@@ -86,6 +87,7 @@ public class ModelConverter extends Converter {
                                 } else if (value.startsWith("item/")) {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())));
                                 }
+                                else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase());
                             }
                         }
                     }

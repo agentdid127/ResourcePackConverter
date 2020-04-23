@@ -19,21 +19,23 @@ public class NameConverter extends Converter {
 
 
     protected double version;
+    protected double from;
     protected final Mapping blockMapping = new BlockMapping();
     protected final Mapping newBlockMapping = new NewBlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
     protected final Mapping entityMapping = new EntityMapping();
     protected final Mapping langMapping = new LangMapping();
 
-    public NameConverter(PackConverter packConverter, String version) {
+    public NameConverter(PackConverter packConverter, String version, String from) {
         super(packConverter);
         this.version = Double.parseDouble(version);
+        this.from = Double.parseDouble(from);
     }
 
     @Override
     public void convert(Pack pack) throws IOException {
         Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
-        if (version <= 1.12) {
+        if (from <= 1.12) {
            findFiles(mc);
         }
         if (version >= 1.13) {
@@ -94,6 +96,7 @@ public class NameConverter extends Converter {
                     findFiles(Paths.get(file.getPath()));
 
                 }
+                System.out.println("Renamed: " + file.getName() + "->" +file.getName().toLowerCase());
                 Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
         }

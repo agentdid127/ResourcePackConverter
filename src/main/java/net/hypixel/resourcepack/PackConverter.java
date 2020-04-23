@@ -40,7 +40,7 @@ public class PackConverter {
         to = this.optionSet.valueOf(Options.TO);
 
         // this needs to be run first, other converters might reference new directory names
-            this.registerConverter(new NameConverter(this, to));
+            this.registerConverter(new NameConverter(this, to, from));
         if (Double.parseDouble(to) >= 1.15){
             this.registerConverter(new PackMetaConverter(this, to));
         }
