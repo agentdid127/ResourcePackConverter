@@ -95,7 +95,11 @@ public class NameConverter extends Converter {
                 if (file.isDirectory()) {
                     findFiles(Paths.get(file.getPath()));
 
+                    if (file.getName().contains("items")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
+                    if (file.getName().contains("blocks")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
                 }
+                if (file.getName().contains("(")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
+                if (!file.getName().equals(file.getName().toLowerCase()))
                 System.out.println("Renamed: " + file.getName() + "->" +file.getName().toLowerCase());
                 Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
