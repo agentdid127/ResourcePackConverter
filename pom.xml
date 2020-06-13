@@ -6,7 +6,7 @@
 
     <groupId>technology.agentdid127.resourcepack</groupId>
     <artifactId>ResourcePackConverter</artifactId>
-    <version>1.4.2-SNAPSHOT</version>
+    <version>1.4.3</version>
     <build>
         <finalName>ResourcePackConverter</finalName>
         <defaultGoal>clean package install</defaultGoal>

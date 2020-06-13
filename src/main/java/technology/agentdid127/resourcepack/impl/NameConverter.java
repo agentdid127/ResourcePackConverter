@@ -50,7 +50,7 @@ public class NameConverter extends Converter {
             if (mc.resolve("mcpatcher").toFile().exists()) {
                 if (mc.resolve("optifine").toFile().exists())
                 {
-                    Util.mergeDirectories(mc.resolve("opfitine").toFile(), mc.resolve("mcpatcher").toFile());
+                    Util.mergeDirectories(mc.resolve("optifine").toFile(), mc.resolve("mcpatcher").toFile());
                 }
                 else Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
             }

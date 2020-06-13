@@ -112,13 +112,27 @@ public final class Util {
      * @param dir1
      * @param dir2
      */
-    public static void mergeDirectories(File dir1, File dir2){
+    public static Boolean mergeDirectories(File dir1, File dir2) throws IOException {
+        if (!dir1.exists() && !dir2.exists()) return null;
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
         for (File file : files) {
-            file.renameTo(new File(targetDirPath+File.separator+file.getName()));
-            System.out.println(file.getName() + " is moved!");
+            if (file.isDirectory()) {
+                System.out.println(dir1.getAbsolutePath() + File.separator + file.getName());
+                File file3 = new File(dir1.getAbsolutePath() + File.separator + file.getName());
+                file3.mkdirs();
+                System.out.println("Created" + file3.getName());
+                mergeDirectories(file3, file);
+            }
+            else {
+                System.out.println(dir1.getAbsolutePath() + File.separator + file.getName());
+                file.renameTo(new File(dir1.getAbsolutePath() + File.separator + file.getName()));
+            }
         }
+        if((dir2.list().length==0)) {
+        Files.delete(dir2.toPath());
+        }
+        return true;
     }
     public static RuntimeException propagate(Throwable t) {
         throw new RuntimeException(t);
