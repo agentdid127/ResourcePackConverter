@@ -12,7 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class NameConverter extends Converter {
@@ -111,7 +113,8 @@ public class NameConverter extends Converter {
                     findFiles(Paths.get(file.getPath()));
 
                     if (file.getName().contains("items")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
-                    if (file.getName().contains("blocks")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
+                    if (file.getName().equals("blocks")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
+
                 }
                 if (file.getName().contains("(")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
                 if (!file.getName().equals(file.getName().toLowerCase()))
@@ -130,10 +133,29 @@ public class NameConverter extends Converter {
      */
     protected void renameAll(Mapping mapping, String extension, Path path) throws IOException {
         if (path.toFile().exists()) {
+            // remap grass blocks in order due to the cyclical way their names have changed,
+            // i.e grass -> grass_block, tall_grass -> grass, double_grass -> tall_grass
+            List<String> grasses = Arrays.asList("grass", "tall_grass", "double_grass");
+            if (path.endsWith("blockstates")) {
+                grasses.stream().forEach(name -> {
+                    String newName = mapping.remap(name);
+                    Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension), newName + extension);
+                    if (ret == null) return;
+                    if (ret && PackConverter.DEBUG) {
+                        System.out.println("      Renamed: " + name + extension + "->" + newName + extension);
+                    } else if (!ret) {
+                        System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
+                    }
+                });
+            }
             Files.list(path).forEach(path1 -> {
                 if (!path1.toString().endsWith(extension)) return;
 
                 String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
+                // skip the already renamed grass blocks
+                if (grasses.contains(baseName) && path.endsWith("blockstates")) {
+                    return;
+                }
                 String newName = mapping.remap(baseName);
                 if (newName != null && !newName.equals(baseName)) {
                     Boolean ret = Util.renameFile(path1, newName + extension);
