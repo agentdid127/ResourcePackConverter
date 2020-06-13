@@ -2,6 +2,7 @@ package technology.agentdid127.resourcepack.impl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.lingala.zip4j.util.FileUtils;
 import technology.agentdid127.resourcepack.Converter;
 import technology.agentdid127.resourcepack.PackConverter;
 import technology.agentdid127.resourcepack.Util;
@@ -44,8 +45,14 @@ public class NameConverter extends Converter {
            findFiles(mc);
         }
         if (version >= 1.13) {
-            if (mc.resolve("mcpatcher").toFile().exists())
-                Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+            if (mc.resolve("mcpatcher").toFile().exists()) {
+                if (mc.resolve("optifine").toFile().exists())
+                {
+                    Util.mergeDirectories(mc.resolve("opfitine").toFile(), mc.resolve("mcpatcher").toFile());
+                }
+                else Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+            }
+
             Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
             if (models.resolve("blocks").toFile().exists())
                 Files.move(models.resolve("blocks"), models.resolve("block"));

@@ -107,6 +107,19 @@ public final class Util {
         return file.toFile().renameTo(new File(file.getParent() + File.separator + newName));
     }
 
+    /**
+     * Takes dir2 and merges it into dir1
+     * @param dir1
+     * @param dir2
+     */
+    public static void mergeDirectories(File dir1, File dir2){
+        String targetDirPath = dir1.getAbsolutePath();
+        File[] files = dir2.listFiles();
+        for (File file : files) {
+            file.renameTo(new File(targetDirPath+File.separator+file.getName()));
+            System.out.println(file.getName() + " is moved!");
+        }
+    }
     public static RuntimeException propagate(Throwable t) {
         throw new RuntimeException(t);
     }
