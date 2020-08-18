@@ -2,7 +2,6 @@ package technology.agentdid127.resourcepack.impl;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.lingala.zip4j.util.FileUtils;
 import technology.agentdid127.resourcepack.Converter;
 import technology.agentdid127.resourcepack.PackConverter;
 import technology.agentdid127.resourcepack.Util;
@@ -26,6 +25,7 @@ public class NameConverter extends Converter {
     protected final Mapping blockMapping = new BlockMapping();
     protected final Mapping newBlockMapping = new NewBlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
+    protected final Mapping newItemMapping = new NewItemMapping();
     protected final Mapping entityMapping = new EntityMapping();
     protected final Mapping langMapping = new LangMapping();
 
@@ -61,6 +61,9 @@ public class NameConverter extends Converter {
             renameAll(blockMapping, ".json", models.resolve("block"));
             if (models.resolve("items").toFile().exists()) Files.move(models.resolve("items"), models.resolve("item"));
             renameAll(itemMapping, ".json", models.resolve("item"));
+            if (version > 1.13) {
+                renameAll(newItemMapping, ".json", models.resolve("item"));
+            }
 
             Path blockStates = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
             renameAll(blockMapping, ".json", blockStates);
@@ -79,6 +82,10 @@ public class NameConverter extends Converter {
 
             renameAll(itemMapping, ".png", textures.resolve("item"));
             renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+            if (version > 1.13) {
+                renameAll(newItemMapping, ".png", textures.resolve("item"));
+                renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
+            }
 
             if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())
                 Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
@@ -184,9 +191,15 @@ public class NameConverter extends Converter {
     public Mapping getItemMapping() {
         return itemMapping;
     }
+
     public Mapping getNewBlockMapping() {
         return newBlockMapping;
     }
+
+    public Mapping getNewItemMapping() {
+        return newItemMapping;
+    }
+
     public Mapping getLangMapping() {
         return langMapping;
     }
@@ -207,7 +220,6 @@ public class NameConverter extends Converter {
         public String remap(String in) {
             return mapping.getOrDefault(in, in);
         }
-
     }
 
     protected class BlockMapping extends Mapping {
@@ -221,7 +233,6 @@ public class NameConverter extends Converter {
                 }
             }
         }
-
     }
 
     protected class NewBlockMapping extends Mapping {
@@ -235,10 +246,7 @@ public class NameConverter extends Converter {
                 }
             }
         }
-
     }
-
-
 
     protected class LangMapping extends Mapping {
         @Override
@@ -252,9 +260,7 @@ public class NameConverter extends Converter {
         }
     }
 
-
     protected class EntityMapping extends Mapping {
-
         @Override
         protected void load() {
             JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/entities.json");
@@ -264,9 +270,7 @@ public class NameConverter extends Converter {
                 }
             }
         }
-
     }
-
 
     protected class ItemMapping extends Mapping {
 
@@ -279,6 +283,18 @@ public class NameConverter extends Converter {
                 }
             }
         }
+    }
 
+    protected class NewItemMapping extends Mapping {
+
+        @Override
+        protected void load() {
+            JsonObject items = Util.readJsonResource(packConverter.getGson(), "/items1_14.json");
+            if (items != null) {
+                for (Map.Entry<String, JsonElement> entry : items.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
     }
 }

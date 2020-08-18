@@ -90,11 +90,6 @@ public class ModelConverter extends Converter {
                         JsonObject textureObject = jsonObject.getAsJsonObject("textures");
                         for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
-                            if (version > 1.13) {
-                                if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
-                                }
-                            }
                             if (version >= 1.13) {
                                 if (value.startsWith("block/")) {
                                     textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
@@ -102,6 +97,15 @@ public class ModelConverter extends Converter {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", ""));
                                 }
                                 else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
+                            }
+                            if (version > 1.13) {
+                                if (value.startsWith("block/")) {
+                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
+                                } else {
+                                    if (value.startsWith("item/")) {
+                                        textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length())));
+                                    }
+                                }
                             }
                         }
                     }
