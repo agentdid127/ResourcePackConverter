@@ -103,8 +103,8 @@ public class ModelConverter extends Converter {
                                 }
                                 else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
                             }
-                            if (version > 1.13) {
-                                if (value.startsWith("item/") && value.contains("dye")) {
+                            if (value.startsWith("item/") && value.contains("dye")) {
+                                if (version > 1.13) {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length())));
                                 }
                             }
