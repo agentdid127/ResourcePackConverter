@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.15.2
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.16.3
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
