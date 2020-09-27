@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.15.2
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.16.3
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
@@ -22,9 +22,9 @@ You can set the input directory using one of the following parameters.
 
     java -jar ResourcePackConverter.jar --input input/
 	
-To update to a newer version than 1.13, you can use these parameters.
+To update to any other version than 1.12-1.13, you can use these parameters.
 `--from <version>` and `--to <version>`
 
-	java -jar ResourcePackConverter.jar --from 1.12 --to 1.15
+	java -jar ResourcePackConverter.jar --from 1.12 --to 1.16.2
 
 We hope this helps out!
