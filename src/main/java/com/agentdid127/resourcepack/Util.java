@@ -1,4 +1,4 @@
-package technology.agentdid127.resourcepack;
+package com.agentdid127.resourcepack;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -9,7 +9,11 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public final class Util {
 
@@ -91,6 +95,34 @@ public final class Util {
         }
     }
 
+    /**
+     * Gets protocol version for each version of MC.
+     * @param version string of version
+     * @return
+     */
+    public static int getVersionProtocol(Gson gson, String version) {
+        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        if (protocols != null) {
+            return Integer.parseInt(protocols.get(version).getAsString());
+        }
+        else return 0;
+    }
+    public static String getVersionFromProtocol(Gson gson, int protocol) {
+        AtomicReference<String> version = new AtomicReference<String>("ok boomer");
+        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        if (protocols != null) {
+            List<String> keys = protocols.entrySet()
+                    .stream()
+                    .map(i -> i.getKey())
+                    .collect(Collectors.toCollection(ArrayList::new));
+            keys.forEach(key -> {
+               if (Integer.parseInt(protocols.get(key).getAsString()) == protocol) version.set(key);
+            });
+            return version.toString();
+        }
+        else return null;
+
+    }
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
         return Util.readJson(gson, path, JsonObject.class);
     }

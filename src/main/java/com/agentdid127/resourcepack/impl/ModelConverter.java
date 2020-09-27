@@ -1,10 +1,10 @@
-package technology.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl;
 
+import com.agentdid127.resourcepack.Converter;
+import com.agentdid127.resourcepack.PackConverter;
+import com.agentdid127.resourcepack.Util;
+import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.*;
-import technology.agentdid127.resourcepack.Converter;
-import technology.agentdid127.resourcepack.PackConverter;
-import technology.agentdid127.resourcepack.Util;
-import technology.agentdid127.resourcepack.pack.Pack;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,12 +17,12 @@ import java.util.Map;
 
 public class ModelConverter extends Converter {
 
-    private double version;
+    private int version;
     protected String light = "none";
-    public ModelConverter(PackConverter packConverter, String lightIn, String versionIn) {
+    public ModelConverter(PackConverter packConverter, String lightIn, int versionIn) {
         super(packConverter);
         light = lightIn;
-        version = Double.parseDouble(versionIn);
+        version = versionIn;
     }
 
     /**
@@ -90,12 +90,12 @@ public class ModelConverter extends Converter {
                         JsonObject textureObject = jsonObject.getAsJsonObject("textures");
                         for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
-                            if (version > 1.13) {
+                            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                 if (value.startsWith("block/")) {
                                     textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
                                 }
                             }
-                            if (version >= 1.13) {
+                            if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                 if (value.startsWith("block/")) {
                                     textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
                                 } else if (value.startsWith("item/")) {
@@ -104,7 +104,7 @@ public class ModelConverter extends Converter {
                                 else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
                             }
                             if (value.startsWith("item/") && value.contains("dye")) {
-                                if (version > 1.13) {
+                                if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length())));
                                 }
                             }

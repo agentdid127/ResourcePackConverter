@@ -1,9 +1,9 @@
-package technology.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl;
 
-import technology.agentdid127.resourcepack.Converter;
-import technology.agentdid127.resourcepack.PackConverter;
-import technology.agentdid127.resourcepack.Util;
-import technology.agentdid127.resourcepack.pack.Pack;
+import com.agentdid127.resourcepack.Converter;
+import com.agentdid127.resourcepack.PackConverter;
+import com.agentdid127.resourcepack.Util;
+import com.agentdid127.resourcepack.pack.Pack;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

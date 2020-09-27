@@ -1,4 +1,4 @@
-package technology.agentdid127.resourcepack.extra;
+package com.agentdid127.resourcepack.extra;
 
 import java.io.*;
 import java.util.*;

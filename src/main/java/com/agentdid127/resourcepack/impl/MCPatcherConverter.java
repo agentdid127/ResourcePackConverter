@@ -1,18 +1,18 @@
-package technology.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl;
 
+import com.agentdid127.resourcepack.Converter;
+import com.agentdid127.resourcepack.PackConverter;
+import com.agentdid127.resourcepack.Util;
+import com.agentdid127.resourcepack.extra.PropertiesEx;
+import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import technology.agentdid127.resourcepack.Converter;
-import technology.agentdid127.resourcepack.PackConverter;
-import technology.agentdid127.resourcepack.Util;
-import technology.agentdid127.resourcepack.pack.Pack;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import technology.agentdid127.resourcepack.extra.PropertiesEx;
 
 
 public class MCPatcherConverter extends Converter {

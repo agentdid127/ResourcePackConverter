@@ -1,4 +1,4 @@
-package technology.agentdid127.resourcepack;
+package com.agentdid127.resourcepack;
 
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>technology.agentdid127.resourcepack</groupId>
+    <groupId>com.agentdid127.resourcepack</groupId>
     <artifactId>ResourcePackConverter</artifactId>
     <version>1.4.3</version>
     <build>
@@ -54,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>technology.agentdid127.resourcepack.Main</mainClass>
+                            <mainClass>com.agentdid127.resourcepack.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

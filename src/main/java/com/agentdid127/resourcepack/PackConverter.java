@@ -1,17 +1,21 @@
-package technology.agentdid127.resourcepack;
+package com.agentdid127.resourcepack;
 
+import com.agentdid127.resourcepack.impl.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import joptsimple.OptionSet;
-import technology.agentdid127.resourcepack.extra.BomDetector;
-import technology.agentdid127.resourcepack.pack.Pack;
-import technology.agentdid127.resourcepack.impl.*;
-
+import com.agentdid127.resourcepack.extra.BomDetector;
+import com.agentdid127.resourcepack.pack.Pack;
+import com.agentdid127.resourcepack.Util.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.agentdid127.resourcepack.Util.getVersionProtocol;
 
 public class PackConverter {
 
@@ -42,19 +46,13 @@ public class PackConverter {
         to = this.optionSet.valueOf(Options.TO);
 
         // this needs to be run first, other converters might reference new directory names
-            this.registerConverter(new NameConverter(this, to, from));
-        if (Double.parseDouble(to) >= 1.15){
-            this.registerConverter(new PackMetaConverter(this, to));
-        }
-        else if (to.equals("1.14")){
-            this.registerConverter(new PackMetaConverter(this, to));
-        }
-        else this.registerConverter(new PackMetaConverter(this, "1.13"));
+            this.registerConverter(new NameConverter(this, getVersionProtocol(gson, to), getVersionProtocol(gson, from)));
+        this.registerConverter(new PackMetaConverter(this, getVersionProtocol(gson, to)));
 
-        if (Double.parseDouble(from) < 1.11 && Double.parseDouble(to) >= 1.11)
+        if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.11") && getVersionProtocol(gson, to) >= getVersionProtocol(gson,"1.11"))
             this.registerConverter(new SpacesConverter(this));
-        if (Double.parseDouble(from) <= 1.12 && Double.parseDouble(to) >= 1.13) {
-            this.registerConverter(new ModelConverter(this, light, to));
+        if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.12.2") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13")) {
+            this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to)));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new BlockStateConverter(this));
@@ -63,10 +61,10 @@ public class PackConverter {
             this.registerConverter(new MCPatcherConverter(this));
         }
 
-        if (Double.parseDouble(to) >= 1.13)
+        if (getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13"))
             this.registerConverter(new LangConverter(this, from, to));
-        if (Double.parseDouble(from) < 1.15 && Double.parseDouble(to) >= 1.15) this.registerConverter(new ChestConverter(this));
-        if (Double.parseDouble(from) <= 1.13 && Double.parseDouble(to) >= 1.14) this.registerConverter(new PaintingConverter(this));
+        if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.15") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.16.1")) this.registerConverter(new ChestConverter(this));
+        if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.13") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.14.4")) this.registerConverter(new PaintingConverter(this));
     }
 
 

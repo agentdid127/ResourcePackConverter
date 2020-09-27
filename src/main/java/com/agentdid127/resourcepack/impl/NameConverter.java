@@ -1,11 +1,11 @@
-package technology.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl;
 
+import com.agentdid127.resourcepack.Converter;
+import com.agentdid127.resourcepack.PackConverter;
+import com.agentdid127.resourcepack.Util;
+import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import technology.agentdid127.resourcepack.Converter;
-import technology.agentdid127.resourcepack.PackConverter;
-import technology.agentdid127.resourcepack.Util;
-import technology.agentdid127.resourcepack.pack.Pack;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +20,8 @@ import java.util.Map;
 public class NameConverter extends Converter {
 
 
-    protected double version;
-    protected double from;
+    protected int version;
+    protected int from;
     protected final Mapping blockMapping = new BlockMapping();
     protected final Mapping newBlockMapping = new NewBlockMapping();
     protected final Mapping itemMapping = new ItemMapping();
@@ -29,10 +29,10 @@ public class NameConverter extends Converter {
     protected final Mapping entityMapping = new EntityMapping();
     protected final Mapping langMapping = new LangMapping();
 
-    public NameConverter(PackConverter packConverter, String version, String from) {
+    public NameConverter(PackConverter packConverter, int version, int from) {
         super(packConverter);
-        this.version = Double.parseDouble(version);
-        this.from = Double.parseDouble(from);
+        this.version = version;
+        this.from = from;
     }
 
     /**
@@ -43,10 +43,10 @@ public class NameConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
-        if (from <= 1.12) {
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12")) {
            findFiles(mc);
         }
-        if (version >= 1.13) {
+        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             if (mc.resolve("mcpatcher").toFile().exists()) {
                 if (mc.resolve("optifine").toFile().exists())
                 {
@@ -61,7 +61,7 @@ public class NameConverter extends Converter {
             renameAll(blockMapping, ".json", models.resolve("block"));
             if (models.resolve("items").toFile().exists()) Files.move(models.resolve("items"), models.resolve("item"));
             renameAll(itemMapping, ".json", models.resolve("item"));
-            if (version > 1.13) {
+            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                 renameAll(newItemMapping, ".json", models.resolve("item"));
             }
 
@@ -73,7 +73,7 @@ public class NameConverter extends Converter {
                 Files.move(textures.resolve("blocks"), textures.resolve("block"));
             renameAll(blockMapping, ".png", textures.resolve("block"));
             renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
-            if (version > 1.13) {
+            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                 renameAll(newBlockMapping, ".png", textures.resolve("block"));
                 renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
             }
@@ -82,7 +82,7 @@ public class NameConverter extends Converter {
 
             renameAll(itemMapping, ".png", textures.resolve("item"));
             renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
-            if (version > 1.13) {
+            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                 renameAll(newItemMapping, ".png", textures.resolve("item"));
                 renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
             }
@@ -150,7 +150,7 @@ public class NameConverter extends Converter {
             // remap grass blocks in order due to the cyclical way their names have changed,
             // i.e grass -> grass_block, tall_grass -> grass, double_grass -> tall_grass
             List<String> grasses = Arrays.asList("grass", "tall_grass", "double_grass");
-            if (from <= 1.12 && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
+            if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12") && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
                 grasses.stream().forEach(name -> {
                     String newName = mapping.remap(name);
                     Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension), newName + extension);

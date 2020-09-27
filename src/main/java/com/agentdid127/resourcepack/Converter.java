@@ -1,6 +1,6 @@
-package technology.agentdid127.resourcepack;
+package com.agentdid127.resourcepack;
 
-import technology.agentdid127.resourcepack.pack.Pack;
+import com.agentdid127.resourcepack.pack.Pack;
 
 import java.io.IOException;
 

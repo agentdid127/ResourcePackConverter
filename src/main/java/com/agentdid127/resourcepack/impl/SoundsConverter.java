@@ -1,13 +1,13 @@
-package technology.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl;
 
+import com.agentdid127.resourcepack.Converter;
+import com.agentdid127.resourcepack.PackConverter;
+import com.agentdid127.resourcepack.Util;
+import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import technology.agentdid127.resourcepack.Converter;
-import technology.agentdid127.resourcepack.PackConverter;
-import technology.agentdid127.resourcepack.Util;
-import technology.agentdid127.resourcepack.pack.Pack;
 
 import java.io.File;
 import java.io.IOException;
