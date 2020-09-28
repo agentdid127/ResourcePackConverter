@@ -18,11 +18,13 @@ import java.util.Map;
 public class ModelConverter extends Converter {
 
     private int version;
+    private int from;
     protected String light = "none";
-    public ModelConverter(PackConverter packConverter, String lightIn, int versionIn) {
+    public ModelConverter(PackConverter packConverter, String lightIn, int versionIn, int fromIn) {
         super(packConverter);
         light = lightIn;
         version = versionIn;
+        from = fromIn;
     }
 
     /**
@@ -110,6 +112,20 @@ public class ModelConverter extends Converter {
                             }
                         }
                     }
+                    if (jsonObject.has("display") && from == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
+                        JsonObject display = jsonObject.getAsJsonObject("display");
+                        if (display.has("firstperson")){
+                            display.add("firstperson_righthand", display.get("firstperson"));
+                            display.remove("firstperson");
+
+                        }
+                        if (display.has("thirdperson")) {
+                            display.add("thirdperson_righthand", display.get("thirdperson"));
+                            display.remove("thirdperson");
+                        }
+                        jsonObject.remove("display");
+                        jsonObject.add("display", display);
+                    }
                     if (jsonObject.has("overrides")) {
                         for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 
@@ -137,7 +153,7 @@ public class ModelConverter extends Converter {
                         }
 
                     }
-                    System.out.println("Updating Model: " + model.getFileName());
+                    if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) System.out.println("Updating Model: " + model.getFileName());
                     Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
                 } catch (IOException e) {
                     throw Util.propagate(e);

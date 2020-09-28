@@ -37,6 +37,7 @@ public class PackMetaConverter extends Converter {
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13") && version < Util.getVersionProtocol(packConverter.getGson(), "1.15")) versionInt = 4;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.11") && version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) versionInt = 3;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.9") && version < Util.getVersionProtocol(packConverter.getGson(), "1.11")) versionInt = 2;
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.8") && version < Util.getVersionProtocol(packConverter.getGson(), "1.9")) versionInt = 1;
         else versionInt = 0;
 
 

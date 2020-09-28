@@ -48,8 +48,8 @@ public class PackConverter {
 
         if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.11") && getVersionProtocol(gson, to) >= getVersionProtocol(gson,"1.11"))
             this.registerConverter(new SpacesConverter(this));
+        this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to), getVersionProtocol(gson, from)));
         if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.12.2") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13")) {
-            this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to)));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new BlockStateConverter(this));
