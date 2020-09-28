@@ -3,12 +3,9 @@ package com.agentdid127.resourcepack;
 import com.agentdid127.resourcepack.impl.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import joptsimple.OptionSet;
 import com.agentdid127.resourcepack.extra.BomDetector;
 import com.agentdid127.resourcepack.pack.Pack;
-import com.agentdid127.resourcepack.Util.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.LinkedHashMap;
@@ -51,8 +48,8 @@ public class PackConverter {
 
         if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.11") && getVersionProtocol(gson, to) >= getVersionProtocol(gson,"1.11"))
             this.registerConverter(new SpacesConverter(this));
+        this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to), getVersionProtocol(gson, from)));
         if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.12.2") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13")) {
-            this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to)));
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new BlockStateConverter(this));
@@ -104,7 +101,7 @@ public class PackConverter {
 
                         BomDetector bom = new BomDetector(
                                 pack.getWorkingPath().toString(),
-                                ".txt", ".json", ".mcmeta", ".properties"
+                                ".txt", ".json", ".mcmeta", ".properties", ".lang"
                         );
 
                         int count = 0;
@@ -133,7 +130,7 @@ public class PackConverter {
 
     /**
      * Gson
-     * @return
+     * @return Gson Object of PackConverter Class
      */
     public Gson getGson() {
         return gson;

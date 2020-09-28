@@ -66,8 +66,8 @@ public final class Util {
 
     /**
      * Reads Json
-     * @param gson
-     * @param path
+     * @param gson Gson Object to use
+     * @param path Json File Path.
      * @return
      */
     public static JsonObject readJsonResource(Gson gson, String path) {
@@ -83,8 +83,8 @@ public final class Util {
 
     /**
      * Reads Image as BufferedImage
-     * @param path
-     * @return
+     * @param path Path to file
+     * @return Buffered Image
      */
     public static BufferedImage readImageResource(String path) {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
@@ -96,9 +96,10 @@ public final class Util {
     }
 
     /**
-     * Gets protocol version for each version of MC.
-     * @param version string of version
-     * @return
+     * Gets version protocol number
+     * @param gson Gson object to use
+     * @param version Minecraft Version Number.
+     * @return Protocol Integer Number
      */
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
@@ -107,6 +108,13 @@ public final class Util {
         }
         else return 0;
     }
+
+    /**
+     * Gets Minecraft Version from Protocol number
+     * @param gson Gson object to use
+     * @param protocol Protocol version number
+     * @return Minecraft Version number
+     */
     public static String getVersionFromProtocol(Gson gson, int protocol) {
         AtomicReference<String> version = new AtomicReference<String>("ok boomer");
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
