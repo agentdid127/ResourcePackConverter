@@ -26,7 +26,7 @@ jobs:
           java-version: 1.11
       - name: "Get Information"
         run: |
-         echo name=VERSION::$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}') >> $GITHUB_ENV
+         echo 'VERSION=$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}')' >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
