@@ -9,6 +9,7 @@ import com.google.gson.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,7 +83,7 @@ public class ModelConverter extends Converter {
                     content = content.replaceAll("blocks/", "block/");
                     content = content.replaceAll(" ", "_");
 
-                    Files.write(model, Collections.singleton(content), Charset.forName("UTF-8"));
+                    Files.write(model, Collections.singleton(content), StandardCharsets.UTF_8);
 
                     // handle the remapping of textures, for models that use default texture names
                     jsonObject = Util.readJson(packConverter.getGson(), model);
@@ -112,6 +113,7 @@ public class ModelConverter extends Converter {
                             }
                         }
                     }
+                    //fix display settings for packs from 1.8
                     if (jsonObject.has("display") && from == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
                         JsonObject display = jsonObject.getAsJsonObject("display");
                         if (display.has("firstperson")){
@@ -147,11 +149,37 @@ public class ModelConverter extends Converter {
                         }
 
                     }
-                    if (jsonObject.has("parent")) {
-                        for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                            if(entry.getKey().equals("parent")) jsonObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase());
-                        }
 
+                    //Parent Stuff
+                    if (jsonObject.has("parent")) {
+                        //Change parent to lowercase
+                        for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                            if (entry.getKey().equals("parent")) {
+                                String parent = entry.getValue().getAsString().toLowerCase();
+
+
+
+                                parent = parent.replace(" ", "_");
+                                //Get block/item parents renamed
+                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                                    if (parent.startsWith("block/")) {
+                                        parent = setParent("block/", "/blocks.json", parent);
+                                    }
+                                    if (parent.startsWith("item/")) {
+                                       parent = setParent("item/", "/items.json", parent);
+                                    }
+                                }
+                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+                                    if (parent.startsWith("block/")) {
+                                        parent = setParent("block/", "/blocks1_14.json", parent);
+                                    }
+                                    if (parent.startsWith("item/")) {
+                                        parent = setParent("item/", "/items1_14.json", parent);
+                                    }
+                                }
+                                jsonObject.addProperty(entry.getKey(), parent);
+                            }
+                        }
                     }
                     if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) System.out.println("Updating Model: " + model.getFileName());
                     Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
@@ -159,5 +187,24 @@ public class ModelConverter extends Converter {
                     throw Util.propagate(e);
                 }
             });
+}
+
+    /**
+     * Gets parent object and sets a new one
+     * @param prefix prefix of file path
+     * @param path File path of json control
+     * @param parent Parent String
+     * @return New string with changed parent.
+     */
+    protected String setParent(String prefix, String path, String parent)
+{
+    String parent2 = parent.replace(prefix, "");
+    JsonObject file = Util.readJsonResource(packConverter.getGson(), path);
+    if (file != null) {
+        if (file.has(parent2))
+        return prefix + file.get(parent2).getAsString();
+        else return parent;
+    }
+    else return "Prefix Failed.";
 }
 }

@@ -219,7 +219,7 @@
   "glazed_terracotta_silver": "light_gray_glazed_terracotta",
   "glazed_terracotta_white": "white_glazed_terracotta",
   "glazed_terracotta_yellow": "yellow_glazed_terracotta",
-  "grass": "grass_block",
+  "grass": "grass_parent",
   "grass_normal": "grass_block",
   "grass_snowed": "grass_block_snow",
   "tall_grass": "grass",
