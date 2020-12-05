@@ -6,7 +6,7 @@
 
     <groupId>com.agentdid127.resourcepack</groupId>
     <artifactId>ResourcePackConverter</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <build>
         <finalName>ResourcePackConverter</finalName>
         <defaultGoal>clean package install</defaultGoal>
