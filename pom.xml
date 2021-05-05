@@ -8,7 +8,7 @@
     <artifactId>ResourcePackConverter</artifactId>
     <version>1.5.2</version>
     <build>
-        <finalName>ResourcePackConverter</finalName>
+        <finalName>ResourcePackConverter-${project.version}</finalName>
         <defaultGoal>clean package install</defaultGoal>
 
         <plugins>
@@ -32,7 +32,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <minimizeJar>false</minimizeJar>
+                            <minimizeJar>true</minimizeJar>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>

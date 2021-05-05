@@ -72,7 +72,15 @@ public class ModelConverter extends Converter {
             .filter(path1 -> path1.toString().endsWith(".json"))
             .forEach(model -> {
                 try {
-                    JsonObject jsonObject = Util.readJson(packConverter.getGson(), model);
+                    JsonObject jsonObject;
+                    if (Util.readJson(packConverter.getGson(), model) != null && Util.readJson(packConverter.getGson(), model).isJsonObject())
+                    jsonObject = Util.readJson(packConverter.getGson(), model);
+                    else {
+                        System.out.println("Could not convert model: " + model.getFileName());
+                        if (Util.readJson(packConverter.getGson(), model) == null) System.out.println("Check for Syntax Errors in file.");
+                        else System.out.println("File is not JSON Object.");
+                        return;
+                    }
 
                     //GUI light system for 1.15.2
                     if (!light.equals("none") && (light.equals("front") || light.equals("side"))) jsonObject.addProperty("gui_light", light);
@@ -87,17 +95,15 @@ public class ModelConverter extends Converter {
 
                     // handle the remapping of textures, for models that use default texture names
                     jsonObject = Util.readJson(packConverter.getGson(), model);
-                    if (jsonObject.has("textures")) {
+                    if (jsonObject.has("textures") && jsonObject.get("textures").isJsonObject()) {
                         NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
 
                         JsonObject textureObject = jsonObject.getAsJsonObject("textures");
                         for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
-                            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                                if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
-                                }
-                            }
+
+
+                            //1.13 Mappings
                             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                 if (value.startsWith("block/")) {
                                     textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
@@ -106,6 +112,16 @@ public class ModelConverter extends Converter {
                                 }
                                 else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
                             }
+
+                            //1.14 Mappings
+                            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                                if (value.startsWith("block/")) {
+                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
+                                }
+                            }
+
+
+                            //Dyes
                             if (value.startsWith("item/") && value.contains("dye")) {
                                 if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                     textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length())));
@@ -163,18 +179,18 @@ public class ModelConverter extends Converter {
                                 //Get block/item parents renamed
                                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                     if (parent.startsWith("block/")) {
-                                        parent = setParent("block/", "/blocks.json", parent);
+                                        parent = setParent("block/", "/blocks.json", parent, "1_13");
                                     }
                                     if (parent.startsWith("item/")) {
-                                       parent = setParent("item/", "/items.json", parent);
+                                       parent = setParent("item/", "/items.json", parent, "1_13");
                                     }
                                 }
                                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                                     if (parent.startsWith("block/")) {
-                                        parent = setParent("block/", "/blocks1_14.json", parent);
+                                        parent = setParent("block/", "/archive/blocks1_14.json", parent, "1_14");
                                     }
                                     if (parent.startsWith("item/")) {
-                                        parent = setParent("item/", "/items1_14.json", parent);
+                                        parent = setParent("item/", "/archive/items1_14.json", parent, "1_14");
                                     }
                                 }
                                 jsonObject.addProperty(entry.getKey(), parent);
@@ -196,10 +212,10 @@ public class ModelConverter extends Converter {
      * @param parent Parent String
      * @return New string with changed parent.
      */
-    protected String setParent(String prefix, String path, String parent)
+    protected String setParent(String prefix, String path, String parent, String item)
 {
     String parent2 = parent.replace(prefix, "");
-    JsonObject file = Util.readJsonResource(packConverter.getGson(), path);
+    JsonObject file = Util.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
     if (file != null) {
         if (file.has(parent2))
         return prefix + file.get(parent2).getAsString();
