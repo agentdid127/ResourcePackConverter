@@ -5,6 +5,7 @@ import com.agentdid127.resourcepack.PackConverter;
 import com.agentdid127.resourcepack.extra.ImageConverter;
 import com.agentdid127.resourcepack.pack.Pack;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;

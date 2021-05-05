@@ -28,3 +28,14 @@ To update to any other version than 1.12-1.13, you can use these parameters.
 	java -jar ResourcePackConverter.jar --from 1.12 --to 1.16.2
 
 We hope this helps out!
+
+
+
+# To be Added
+Of course there will always be some discrepencies and issues when converting that developers won't always notice, so if you find one, feel free to fix it and send a PR or write an issue here on Github.
+
+Known issues:
+ - None at the moment
+
+Things that we want to add/need to be added:
+ - Converting to older versions.

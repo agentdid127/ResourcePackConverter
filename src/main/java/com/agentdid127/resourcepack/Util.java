@@ -134,9 +134,33 @@ public final class Util {
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
         return Util.readJson(gson, path, JsonObject.class);
     }
+    public static boolean isJson(Gson gson, String Json) {
+        try {
+            gson.fromJson(Json, Object.class);
+            return true;
+        } catch (com.google.gson.JsonSyntaxException ex) {
+            return false;
+        }
+    }
+
+    private static String readFromFile(Path path) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
+        StringBuilder resultStringBuilder = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            resultStringBuilder.append(line).append("\n");
+        }
+        return resultStringBuilder.toString();
+    }
 
     public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
-        return gson.fromJson(new JsonReader(new FileReader(path.toFile())), clazz);
+        String json = readFromFile(path);
+        if (isJson(gson, json)) {
+            JsonReader reader = new JsonReader(new StringReader(json));
+            reader.setLenient(true);
+            return gson.fromJson(reader, clazz);
+        }
+        else return null;
     }
 
     /**
