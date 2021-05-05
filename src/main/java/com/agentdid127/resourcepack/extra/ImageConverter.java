@@ -30,8 +30,8 @@ public class ImageConverter {
                location = locationIn;
                defaultH = defaultHIn;
                height = image.getHeight();
-               wMultiplier = width / defaultW;
-               hMultiplier = height / defaultH;
+               wMultiplier = image.getWidth() / defaultW;
+               hMultiplier = image.getHeight() / defaultH;
 
            }
            else System.out.println("File is not a power of 2");
@@ -40,7 +40,7 @@ public class ImageConverter {
     //Creates a new Image to store
     public void newImage(int newWidth, int newHeight)
     {
-        newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        newImage = new BufferedImage(newWidth * wMultiplier, newHeight * hMultiplier, BufferedImage.TYPE_INT_ARGB);
         g2d = (Graphics2D) newImage.getGraphics();
     }
 
