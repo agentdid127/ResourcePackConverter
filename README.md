@@ -1,6 +1,6 @@
 # Resource Pack Converter
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.9 - 1.16.3
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8 - 1.16.3
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
@@ -39,3 +39,7 @@ Known issues:
 
 Things that we want to add/need to be added:
  - Converting to older versions.
+
+# Not On the list to add
+
+ - Horse and Zombified Piglin Conversion (the models were changed, which may make that much more difficult to convert)

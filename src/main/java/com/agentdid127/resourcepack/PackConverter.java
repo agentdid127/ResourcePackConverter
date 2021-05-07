@@ -1,6 +1,6 @@
 package com.agentdid127.resourcepack;
 
-import com.agentdid127.resourcepack.impl.*;
+import com.agentdid127.resourcepack.impl.forwarads.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import joptsimple.OptionParser;
@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.agentdid127.resourcepack.Util.getVersionFromProtocol;
 import static com.agentdid127.resourcepack.Util.getVersionProtocol;
 
 public class PackConverter {
