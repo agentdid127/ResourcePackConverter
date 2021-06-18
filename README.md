@@ -35,7 +35,8 @@ We hope this helps out!
 Of course there will always be some discrepencies and issues when converting that developers won't always notice, so if you find one, feel free to fix it and send a PR or write an issue here on Github.
 
 Known issues:
- - None at the moment
+ - Particles aren't converting very nicely with larger resource packs.
 
 Things that we want to add/need to be added:
  - Converting to older versions.
+ - Support for 1.17
