@@ -6,7 +6,7 @@
 
     <groupId>com.agentdid127.resourcepack</groupId>
     <artifactId>ResourcePackConverter</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
     <build>
         <finalName>ResourcePackConverter-${project.version}</finalName>
         <defaultGoal>clean package install</defaultGoal>
