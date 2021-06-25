@@ -160,5 +160,8 @@
     "dye_powder_silver": "light_gray_dye",
     "dye_powder_white": "white_dye",
     "dye_powder_yellow": "yellow_dye"
+  },
+  "1_17": {
+    "grass_path": "dirt_path"
   }
 }
