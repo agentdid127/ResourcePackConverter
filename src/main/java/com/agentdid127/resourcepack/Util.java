@@ -66,8 +66,8 @@ public final class Util {
 
     /**
      * Reads Json
-     * @param gson
-     * @param path
+     * @param gson Gson Object to use
+     * @param path Json File Path.
      * @return
      */
     public static JsonObject readJsonResource(Gson gson, String path) {
@@ -83,8 +83,8 @@ public final class Util {
 
     /**
      * Reads Image as BufferedImage
-     * @param path
-     * @return
+     * @param path Path to file
+     * @return Buffered Image
      */
     public static BufferedImage readImageResource(String path) {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
@@ -96,9 +96,10 @@ public final class Util {
     }
 
     /**
-     * Gets protocol version for each version of MC.
-     * @param version string of version
-     * @return
+     * Gets version protocol number
+     * @param gson Gson object to use
+     * @param version Minecraft Version Number.
+     * @return Protocol Integer Number
      */
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
@@ -107,6 +108,13 @@ public final class Util {
         }
         else return 0;
     }
+
+    /**
+     * Gets Minecraft Version from Protocol number
+     * @param gson Gson object to use
+     * @param protocol Protocol version number
+     * @return Minecraft Version number
+     */
     public static String getVersionFromProtocol(Gson gson, int protocol) {
         AtomicReference<String> version = new AtomicReference<String>("ok boomer");
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
@@ -126,9 +134,33 @@ public final class Util {
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
         return Util.readJson(gson, path, JsonObject.class);
     }
+    public static boolean isJson(Gson gson, String Json) {
+        try {
+            gson.fromJson(Json, Object.class);
+            return true;
+        } catch (com.google.gson.JsonSyntaxException ex) {
+            return false;
+        }
+    }
+
+    private static String readFromFile(Path path) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
+        StringBuilder resultStringBuilder = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            resultStringBuilder.append(line).append("\n");
+        }
+        return resultStringBuilder.toString();
+    }
 
     public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
-        return gson.fromJson(new JsonReader(new FileReader(path.toFile())), clazz);
+        String json = readFromFile(path);
+        if (isJson(gson, json)) {
+            JsonReader reader = new JsonReader(new StringReader(json));
+            reader.setLenient(true);
+            return gson.fromJson(reader, clazz);
+        }
+        else return null;
     }
 
     /**
