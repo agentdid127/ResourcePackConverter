@@ -52,7 +52,7 @@ public class ChestConverter extends Converter {
         if (!imagePath.resolve(name + ".png").toFile().exists()) return;
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
         //Create a new Image
-        normal.newImage(normal.getWidth(), normal.getHeight());
+        normal.newImage(defaultW, defaultH);
 
         //Body
         normal.subImage(14, 0, 28, 14, 28, 0, true);
@@ -92,7 +92,7 @@ public class ChestConverter extends Converter {
 
             //Left Side
             //Body
-            normal.newImage(normal.getWidth() / 2, normal.getHeight());
+            normal.newImage(64, 64);
             normal.subImage(59, 19, 74, 33, 14, 19, true);
             normal.subImage(59, 0, 74, 14, 14, 0, true);
             normal.subImage(29, 19, 44, 33, 29, 19, true);
@@ -113,7 +113,7 @@ public class ChestConverter extends Converter {
 
             //Right Side
             //Body
-            normal.newImage(normal.getWidth() / 2, normal.getHeight());
+            normal.newImage(64, 64);
             normal.subImage(44, 0, 59, 14, 14, 0, true);
             normal.subImage(14, 0, 29, 14, 29, 0, true);
             normal.subImage(14, 19, 29, 33, 29, 19, true);

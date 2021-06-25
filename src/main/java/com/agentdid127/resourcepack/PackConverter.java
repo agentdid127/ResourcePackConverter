@@ -84,7 +84,7 @@ public class PackConverter {
             if (getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13"))
                 this.registerConverter(new LangConverter(this, from, to));
                this.registerConverter(new ParticleConverter(this, getVersionProtocol(gson, from), getVersionProtocol(gson, to)));
-            if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.15") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.16.1"))
+            if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.15") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.15"))
                 this.registerConverter(new ChestConverter(this));
             if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.13") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.14.4"))
                 this.registerConverter(new PaintingConverter(this));

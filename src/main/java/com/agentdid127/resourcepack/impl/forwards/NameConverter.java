@@ -90,7 +90,7 @@ public class NameConverter extends Converter {
                 renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
             }
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
-                if (!textures.resolve("entity" + File.separator + "iron_golem").toFile().exists()) textures.resolve("entity" + File.separator + "iron_golem" + File.separator).toFile().createNewFile();
+                if (!textures.resolve("entity" + File.separator + "iron_golem").toFile().exists()) textures.resolve("entity" + File.separator + "iron_golem" + File.separator).toFile().mkdir();
                 Files.move(textures.resolve("entity" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
             }
             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && from < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
@@ -98,7 +98,7 @@ public class NameConverter extends Converter {
                 renameAll(itemMapping17, ".png", textures.resolve("item"));
                 renameAll(blockMapping17, ".png", models.resolve("block"));
                 renameAll(itemMapping17, ".png", models.resolve("item"));
-                if (!textures.resolve("entity" + File.separator + "squid").toFile().exists()) textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().createNewFile();
+                if (!textures.resolve("entity" + File.separator + "squid").toFile().exists()) textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().mkdir();
                 Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
             }
 
