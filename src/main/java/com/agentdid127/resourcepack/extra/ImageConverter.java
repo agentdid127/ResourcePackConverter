@@ -25,6 +25,7 @@ public class ImageConverter {
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
         image = ImageIO.read(locationIn.toFile());
         if (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight())){
+               newImage = image;
                defaultW = defaultWIn;
                width = image.getWidth();
                location = locationIn;
@@ -32,9 +33,21 @@ public class ImageConverter {
                height = image.getHeight();
                wMultiplier = image.getWidth() / defaultW;
                hMultiplier = image.getHeight() / defaultH;
-
            }
            else System.out.println("File is not a power of 2");
+    }
+
+    public void setImage(int defaultWIn, int defaultHIn) throws IOException {
+        image = newImage;
+        if (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight())){
+            defaultW = defaultWIn;
+            width = image.getWidth();
+            defaultH = defaultHIn;
+            height = image.getHeight();
+            wMultiplier = image.getWidth() / defaultW;
+            hMultiplier = image.getHeight() / defaultH;
+        }
+        else System.out.println("File is not a power of 2");
     }
 
     //Creates a new Image to store
@@ -127,11 +140,13 @@ public class ImageConverter {
         return newImage;
     }
     //Stores the image
-    public void store() throws IOException {
+    public boolean store() throws IOException {
         ImageIO.write(newImage, "png", location.toFile());
+        return true;
     }
-    public void store(Path locationIn) throws IOException {
+    public boolean store(Path locationIn) throws IOException {
         ImageIO.write(newImage, "png", locationIn.toFile());
+        return true;
     }
     //Gets a sub image
     private BufferedImage subImage2(int x, int y, int width, int height)

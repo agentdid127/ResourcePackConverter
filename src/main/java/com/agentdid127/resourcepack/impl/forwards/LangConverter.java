@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl.forwards;
 
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
@@ -49,7 +49,7 @@ public class LangConverter extends Converter {
                         prop.load(input);
 
                         if (Util.getVersionProtocol(packConverter.getGson(), from) <= Util.getVersionProtocol(packConverter.getGson(), "1.12") && ((Util.getVersionProtocol(packConverter.getGson(), version) >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) && (Util.getVersionProtocol(packConverter.getGson(), version) <= Util.getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang.json").getAsJsonObject("1_13");
+                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json").getAsJsonObject("1_13");
 
                                 Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
                                 while (enums.hasMoreElements()) {
@@ -69,7 +69,7 @@ public class LangConverter extends Converter {
                         }
                         if (Util.getVersionProtocol(packConverter.getGson(), version) > Util.getVersionProtocol(packConverter.getGson(), "1.14"))
                         {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/lang.json").getAsJsonObject("1_14");
+                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json").getAsJsonObject("1_14");
 
                                 Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
                                 while (enums.hasMoreElements()) {

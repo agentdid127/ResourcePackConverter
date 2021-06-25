@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl.forwards;
 
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
@@ -179,10 +179,10 @@ public class ModelConverter extends Converter {
                                 //Get block/item parents renamed
                                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                     if (parent.startsWith("block/")) {
-                                        parent = setParent("block/", "/blocks.json", parent, "1_13");
+                                        parent = setParent("block/", "/forwards/blocks.json", parent, "1_13");
                                     }
                                     if (parent.startsWith("item/")) {
-                                       parent = setParent("item/", "/items.json", parent, "1_13");
+                                       parent = setParent("item/", "/forwards/items.json", parent, "1_13");
                                     }
                                 }
                                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {

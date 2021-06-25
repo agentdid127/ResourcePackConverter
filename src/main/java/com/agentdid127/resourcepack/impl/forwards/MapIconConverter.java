@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl.forwards;
 
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
@@ -40,10 +40,10 @@ public class MapIconConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "map" + File.separator + "map_icons.png");
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "map" + File.separator + "forwards/map_icons.png");
         if (!imagePath.toFile().exists()) return;
 
-        BufferedImage newImage = Util.readImageResource("/map_icons.png");
+        BufferedImage newImage = Util.readImageResource("/forwards/map_icons.png");
         if (newImage == null) throw new NullPointerException();
         Graphics2D g2d = (Graphics2D) newImage.getGraphics();
 

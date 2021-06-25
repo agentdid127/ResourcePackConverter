@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.impl;
+package com.agentdid127.resourcepack.impl.forwards;
 
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
@@ -126,7 +126,7 @@ public class MCPatcherConverter extends Converter {
      * @return
      */
     protected String updateID(String type, PropertiesEx prop) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/ids.json");
+        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json");
         String properties2 = new String();
         for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
             if (prop.getProperty(type).contains(" ")) {
