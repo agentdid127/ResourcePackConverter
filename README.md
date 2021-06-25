@@ -1,6 +1,7 @@
 # Resource Pack Converter
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8 - 1.16.3
+
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.17
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
@@ -35,11 +36,15 @@ We hope this helps out!
 Of course there will always be some discrepencies and issues when converting that developers won't always notice, so if you find one, feel free to fix it and send a PR or write an issue here on Github.
 
 Known issues:
- - None at the moment
+ - Particles aren't converting very nicely with larger resource packs.
 
 Things that we want to add/need to be added:
  - Converting to older versions.
+<<<<<<< HEAD
 
 # Not On the list to add
 
  - Horse and Zombified Piglin Conversion (the models were changed, which may make that much more difficult to convert)
+=======
+ - Support for 1.17
+>>>>>>> cc57773c767eb55a4c4cbda5cc7bf1ad9f126c2e
