@@ -3,12 +3,10 @@ package com.agentdid127.resourcepack;
 import com.agentdid127.resourcepack.impl.forwards.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import jdk.javadoc.internal.doclets.toolkit.util.DocFinder;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import com.agentdid127.resourcepack.utilities.BomDetector;
 import com.agentdid127.resourcepack.pack.Pack;
-import org.graalvm.compiler.replacements.InstanceOfSnippetsTemplates;
 
 import java.io.IOException;
 import java.nio.file.Files;
