@@ -30,6 +30,7 @@ public class NameConverter extends Converter {
     protected final Mapping itemMapping17 = new ItemMapping17();
     protected final Mapping entityMapping = new EntityMapping();
     protected final Mapping langMapping = new LangMapping();
+    protected final Mapping langMapping14 = new LangMapping14();
 
     public NameConverter(PackConverter packConverter, int version, int from) {
         super(packConverter);
@@ -152,7 +153,7 @@ public class NameConverter extends Converter {
                 }
                 if (file.getName().contains("(")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
                 if (!file.getName().equals(file.getName().toLowerCase()))
-                System.out.println("Renamed: " + file.getName() + "->" +file.getName().toLowerCase());
+                if (packConverter.DEBUG) System.out.println("Renamed: " + file.getName() + "->" +file.getName().toLowerCase());
                 Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
         }
@@ -228,6 +229,8 @@ public class NameConverter extends Converter {
         return langMapping;
     }
 
+    public Mapping getLangMapping14() {return langMapping14; };
+
     protected abstract static class Mapping {
 
         protected final Map<String, String> mapping = new HashMap<>();
@@ -289,6 +292,18 @@ public class NameConverter extends Converter {
         @Override
         protected void load() {
             JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json").getAsJsonObject("1_13");
+            if (entities != null) {
+                for (Map.Entry<String, JsonElement> entry : entities.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
+    }
+
+    protected class LangMapping14 extends Mapping {
+        @Override
+        protected void load() {
+            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json").getAsJsonObject("1_14");
             if (entities != null) {
                 for (Map.Entry<String, JsonElement> entry : entities.entrySet()) {
                     this.mapping.put(entry.getKey(), entry.getValue().getAsString());

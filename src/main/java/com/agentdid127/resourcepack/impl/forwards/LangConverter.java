@@ -3,7 +3,7 @@ package com.agentdid127.resourcepack.impl.forwards;
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
 import com.agentdid127.resourcepack.Util;
-import com.agentdid127.resourcepack.extra.PropertiesEx;
+import com.agentdid127.resourcepack.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -45,7 +45,6 @@ public class LangConverter extends Converter {
                     try(
                             InputStream input = new FileInputStream(model.toString())) {
                         PropertiesEx prop = new PropertiesEx();
-                        PropertiesEx prop2 = new PropertiesEx();
                         prop.load(input);
 
                         if (Util.getVersionProtocol(packConverter.getGson(), from) <= Util.getVersionProtocol(packConverter.getGson(), "1.12") && ((Util.getVersionProtocol(packConverter.getGson(), version) >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) && (Util.getVersionProtocol(packConverter.getGson(), version) <= Util.getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
