@@ -3,12 +3,16 @@ package com.agentdid127.resourcepack;
 import com.agentdid127.resourcepack.impl.forwards.*;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import jdk.javadoc.internal.doclets.toolkit.util.DocFinder;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
-import com.agentdid127.resourcepack.extra.BomDetector;
+import com.agentdid127.resourcepack.utilities.BomDetector;
 import com.agentdid127.resourcepack.pack.Pack;
+import org.graalvm.compiler.replacements.InstanceOfSnippetsTemplates;
+
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -17,7 +21,7 @@ import static com.agentdid127.resourcepack.Util.getVersionProtocol;
 
 public class PackConverter {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     protected final OptionSet optionSet;
     protected Gson gson;
@@ -36,30 +40,24 @@ public class PackConverter {
         GsonBuilder gsonBuilder = new GsonBuilder();
         if (!this.optionSet.has(Options.MINIFY)) gsonBuilder.setPrettyPrinting();
         this.gson = gsonBuilder.disableHtmlEscaping().create();
-        String from;
-        String to;
-        String light;
-        light = this.optionSet.valueOf(Options.LIGHT);
+        String light = this.optionSet.valueOf(Options.LIGHT);
         System.out.println(this.optionSet.valueOf(Options.FROM));
         System.out.println(this.optionSet.valueOf(Options.TO));
-        from = this.optionSet.valueOf(Options.FROM);
-        to = this.optionSet.valueOf(Options.TO);
+        String from = this.optionSet.valueOf(Options.FROM);
+        String to = this.optionSet.valueOf(Options.TO);
 
         converterRunner(from, to, light);
     }
 
     public PackConverter(String from, String to, String light, boolean minify) {
-        OptionParser parser = new OptionParser();
-        this.optionSet = parser.parse("");
-
+        this.optionSet = Options.PARSER.parse("");
         GsonBuilder gsonBuilder = new GsonBuilder();
         if (!minify) gsonBuilder.setPrettyPrinting();
         this.gson = gsonBuilder.disableHtmlEscaping().create();
         System.out.println(from);
         System.out.println(to);
 
-
-            converterRunner(from, to, light);
+        converterRunner(from, to, light);
     }
 
 
