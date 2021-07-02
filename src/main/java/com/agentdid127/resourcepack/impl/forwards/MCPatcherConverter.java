@@ -3,7 +3,7 @@ package com.agentdid127.resourcepack.impl.forwards;
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
 import com.agentdid127.resourcepack.Util;
-import com.agentdid127.resourcepack.extra.PropertiesEx;
+import com.agentdid127.resourcepack.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.pack.Pack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

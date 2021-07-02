@@ -2,7 +2,7 @@ package com.agentdid127.resourcepack.impl.forwards;
 
 import com.agentdid127.resourcepack.Converter;
 import com.agentdid127.resourcepack.PackConverter;
-import com.agentdid127.resourcepack.extra.ImageConverter;
+import com.agentdid127.resourcepack.utilities.ImageConverter;
 import com.agentdid127.resourcepack.pack.Pack;
 
 import java.io.File;

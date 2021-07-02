@@ -114,10 +114,20 @@ public class ModelConverter extends Converter {
                             }
 
                             //1.14 Mappings
-                            if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                            if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                                 if (value.startsWith("block/")) {
                                     textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
                                 }
+                            }
+
+                            //1.17 Mappings
+                            if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
+                                if (value.startsWith("block/")) {
+                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping17().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
+                                } else if (value.startsWith("item/")) {
+                                    textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping17().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", ""));
+                                }
+                                else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
                             }
 
 
@@ -187,17 +197,25 @@ public class ModelConverter extends Converter {
                                 }
                                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                                     if (parent.startsWith("block/")) {
-                                        parent = setParent("block/", "/archive/blocks1_14.json", parent, "1_14");
+                                        parent = setParent("block/", "/forwards/blocks.json", parent, "1_14");
                                     }
                                     if (parent.startsWith("item/")) {
-                                        parent = setParent("item/", "/archive/items1_14.json", parent, "1_14");
+                                        parent = setParent("item/", "/forwards/items.json", parent, "1_14");
+                                    }
+                                }
+                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.17") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+                                    if (parent.startsWith("block/")) {
+                                        parent = setParent("block/", "/forwards/blocks.json", parent, "1_17");
+                                    }
+                                    if (parent.startsWith("item/")) {
+                                        parent = setParent("item/", "/forwards/items.json", parent, "1_17");
                                     }
                                 }
                                 jsonObject.addProperty(entry.getKey(), parent);
                             }
                         }
                     }
-                    if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) System.out.println("Updating Model: " + model.getFileName());
+                    if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject) && packConverter.DEBUG) System.out.println("Updating Model: " + model.getFileName());
                     Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
                 } catch (IOException e) {
                     throw Util.propagate(e);
@@ -221,6 +239,9 @@ public class ModelConverter extends Converter {
         return prefix + file.get(parent2).getAsString();
         else return parent;
     }
-    else return "Prefix Failed.";
+    else{
+        System.out.println("Prefix Failed on: " + parent);
+        return "";
+    }
 }
 }
