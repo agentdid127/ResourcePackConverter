@@ -1,4 +1,5 @@
 # Resource Pack Converter
+[![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
 
 This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.17
@@ -42,5 +43,4 @@ Things that we want to add/need to be added:
  - Converting to older versions.
 
 # Not On the list to add
-
  - Horse and Zombified Piglin Conversion (the models were changed, which may make that much more difficult to convert)
