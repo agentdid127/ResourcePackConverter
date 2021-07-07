@@ -41,11 +41,7 @@ Known issues:
 
 Things that we want to add/need to be added:
  - Converting to older versions.
-<<<<<<< HEAD
 
 # Not On the list to add
 
  - Horse and Zombified Piglin Conversion (the models were changed, which may make that much more difficult to convert)
-=======
- - Support for 1.17
->>>>>>> cc57773c767eb55a4c4cbda5cc7bf1ad9f126c2e
