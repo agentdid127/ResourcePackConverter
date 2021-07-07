@@ -1,4 +1,5 @@
 # Resource Pack Converter
+[![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
 
 This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.17

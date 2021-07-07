@@ -20,6 +20,8 @@ public class Options {
             .withValuesConvertedBy(new PathConverter())
             .defaultsTo(Paths.get("./"));
 
+    public static final OptionSpec<Boolean> DEBUG = PARSER.accepts("debug", "Displays other output").withRequiredArg().ofType(Boolean.class).defaultsTo(true);
+
     public static final OptionSpec<String> TO = PARSER.accepts("to", "Updates to version").withRequiredArg().ofType(String.class).defaultsTo("1.13");
 
     public static final ArgumentAcceptingOptionSpec<String> FROM = PARSER.accepts("from", "Updates from version").withRequiredArg().ofType(String.class).defaultsTo("1.12");

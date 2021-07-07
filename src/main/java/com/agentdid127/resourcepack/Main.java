@@ -18,7 +18,7 @@ public class Main {
             return;
         }
 
-        new PackConverter(optionSet).run();
+        new PackConverter(optionSet, true).run();
 
 
     }
