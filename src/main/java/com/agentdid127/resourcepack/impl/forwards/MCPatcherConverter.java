@@ -64,6 +64,7 @@ public class MCPatcherConverter extends Converter {
                 .filter(path1 -> path1.toString().endsWith(".properties"))
                 .forEach(model -> {
                     try (InputStream input = new FileInputStream( model.toString())) {
+                        if (packConverter.DEBUG) System.out.println("Updating:" + model.getFileName());
                         PropertiesEx prop = new PropertiesEx();
                         prop.load(input);
 
@@ -74,11 +75,14 @@ public class MCPatcherConverter extends Converter {
                             }
                             //Updates Item IDs
                             if (prop.containsKey("matchItems")) {
-                                prop.setProperty("matchItems", updateID("matchItems", prop).replaceAll("\"", ""));
+                                prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
 
                             }
+                            if (prop.containsKey("items")) {
+                                prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
+                            }
                             if (prop.containsKey("matchBlocks")) {
-                                prop.setProperty("matchBlocks", updateID("matchBlocks", prop).replaceAll("\"", ""));
+                                prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
 
                             }
 
@@ -125,53 +129,22 @@ public class MCPatcherConverter extends Converter {
      * @param prop
      * @return
      */
-    protected String updateID(String type, PropertiesEx prop) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json");
-        String properties2 = new String();
-        for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-            if (prop.getProperty(type).contains(" ")) {
-                String[] split = prop.getProperty(type).split(" ");
-                for (int i = 0; i < split.length; i++) {
-                        if (prop.containsKey("metadata")) {
-                            if ((split[i] + ":" + prop.getProperty("metadata")).equals(id2.getKey())) {
-                                properties2 = properties2 + " " + id2.getValue().getAsString();
-                                System.out.println("renamed " + prop.getProperty(type) + " to " + properties2);
-                            }
-                        }
-
-                    else if ((split[i]).equals(id2.getKey())) {
-                        properties2 = properties2 + " " + id2.getValue().getAsString();
-                        System.out.println("renamed " + prop.getProperty(type) + " to " + properties2);
-                    }
-
-                }
-
-
-            } else {
-
-                if (prop.getProperty(type).equals(id2.getKey())) {
-                    String value = new String();
-                        if (prop.containsKey("metadata")) {
-                            value = id2.getValue().getAsString() + ":" + prop.getProperty("metadata");
-
-                        } else {
-                            value = id2.getValue().getAsString();
-                        }
-
-                    properties2 = value;
-                    System.out.println("renamed " + prop.getProperty(type) + " to " + value);
-                    return properties2;
-                }
+    protected String updateID(String type, PropertiesEx prop, String selection) {
+        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection).getAsJsonObject();
+        String[] split = prop.getProperty(type).split(" ");
+        String properties2 = " ";
+        for (int i=0; i < split.length; i++) {
+            if (id.get(split[i]) != null) {
+                split[i] = "minecraft:" + id.get(split[i]).getAsString();
             }
-
-            }
-        if(prop.containsKey("metadata")) prop.remove("metadata");
-        if (properties2 != "") {
-            return properties2;
-
-        } else {;
-            return prop.getProperty(type);
         }
+
+        for (String item : split) {
+            properties2 += item + " ";
+        }
+        properties2.substring(0, properties2.length() -1);
+        if(prop.containsKey("metadata")) prop.remove("metadata");
+        return properties2;
 
 
     }

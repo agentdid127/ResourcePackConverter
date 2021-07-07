@@ -56,6 +56,7 @@ public class NameConverter extends Converter {
                     Util.mergeDirectories(mc.resolve("optifine").toFile(), mc.resolve("mcpatcher").toFile());
                 }
                 else Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+                if (mc.resolve("mcpatcher").toFile().exists()) Util.deleteDirectoryAndContents(mc.resolve("mcpatcher"));
             }
 
             Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
@@ -92,7 +93,7 @@ public class NameConverter extends Converter {
             }
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
                 if (!textures.resolve("entity" + File.separator + "iron_golem").toFile().exists()) textures.resolve("entity" + File.separator + "iron_golem" + File.separator).toFile().mkdir();
-                Files.move(textures.resolve("entity" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
+                if (textures.resolve("entity" + File.separator + "iron_golem.png").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
             }
             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && from < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                 renameAll(blockMapping17, ".png", textures.resolve("block"));
@@ -100,7 +101,7 @@ public class NameConverter extends Converter {
                 renameAll(blockMapping17, ".png", models.resolve("block"));
                 renameAll(itemMapping17, ".png", models.resolve("item"));
                 if (!textures.resolve("entity" + File.separator + "squid").toFile().exists()) textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().mkdir();
-                Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
+                if (textures.resolve("entity" + File.separator + "squid.png").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
             }
 
             if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())

@@ -19,7 +19,7 @@ import static com.agentdid127.resourcepack.Util.getVersionProtocol;
 
 public class PackConverter {
 
-    public static final boolean DEBUG = false;
+    public static boolean DEBUG = false;
 
     protected final OptionSet optionSet;
     protected Gson gson;
@@ -32,9 +32,9 @@ public class PackConverter {
      * Starts New Conversion
      * @param optionSet options
      */
-    public PackConverter(OptionSet optionSet) {
+    public PackConverter(OptionSet optionSet, boolean debug) {
         this.optionSet = optionSet;
-
+        this.DEBUG = debug;
         GsonBuilder gsonBuilder = new GsonBuilder();
         if (!this.optionSet.has(Options.MINIFY)) gsonBuilder.setPrettyPrinting();
         this.gson = gsonBuilder.disableHtmlEscaping().create();
@@ -63,27 +63,6 @@ public class PackConverter {
 
         if (!(getVersionProtocol(this.gson, from) > getVersionProtocol(this.gson, to))) {
 
-            // this needs to be run first, other converters might reference new directory names
-            this.registerConverter(new NameConverter(this, getVersionProtocol(gson, to), getVersionProtocol(gson, from)));
-            this.registerConverter(new PackMetaConverter(this, getVersionProtocol(gson, to)));
-            if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.11") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.11"))
-                this.registerConverter(new SpacesConverter(this));
-            this.registerConverter(new ModelConverter(this, light, getVersionProtocol(gson, to), getVersionProtocol(gson, from)));
-            if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.12.2") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13")) {
-                this.registerConverter(new SoundsConverter(this));
-                this.registerConverter(new BlockStateConverter(this));
-                this.registerConverter(new AnimationConverter(this));
-                this.registerConverter(new MapIconConverter(this));
-                this.registerConverter(new MCPatcherConverter(this));
-            }
-
-            if (getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.13"))
-                this.registerConverter(new LangConverter(this, from, to));
-               this.registerConverter(new ParticleConverter(this, getVersionProtocol(gson, from), getVersionProtocol(gson, to)));
-            if (getVersionProtocol(gson, from) < getVersionProtocol(gson, "1.15") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.15"))
-                this.registerConverter(new ChestConverter(this));
-            if (getVersionProtocol(gson, from) <= getVersionProtocol(gson, "1.13") && getVersionProtocol(gson, to) >= getVersionProtocol(gson, "1.14.4"))
-                this.registerConverter(new PaintingConverter(this));
         }
         else {
             System.out.println("Sorry! You can't convert to a lower version at the moment! We plan on supporting this in the future, so stay tuned.");
