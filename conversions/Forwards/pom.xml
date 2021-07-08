@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.agentdid127.resourcepack.conversions</groupId>
+    <groupId>com.agentdid127.resourcepack</groupId>
     <artifactId>Forwards</artifactId>
     <packaging>jar</packaging>
 

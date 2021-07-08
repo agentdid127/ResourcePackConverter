@@ -1,6 +1,6 @@
 package com.agentdid127.resourcepack;
 
-import com.agentdid127.resourcepack.forwards.PackForwardsConverter;
+import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,7 +37,7 @@ public class Main {
             System.out.println("Sorry! You can't currently downgrade your resource pack. With version 2.0, the software will allow the possibility");
         }
         else {
-            new PackForwardsConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR)).runDirectory();
+            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
         }
 
 

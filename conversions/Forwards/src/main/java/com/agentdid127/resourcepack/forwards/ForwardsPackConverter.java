@@ -5,6 +5,7 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.forwards.impl.*;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -16,7 +17,10 @@ public class ForwardsPackConverter extends PackConverter {
 
     Path INPUT_DIR;
 
-    public ForwardsPackConverter(String from, String to, String light, Path input, boolean debug, PrintStream out) {
+    public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug, PrintStream out) {
+        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
+        if (!minify) gsonBuilder.setPrettyPrinting();
+        gson = gsonBuilder.create();
         this.DEBUG = debug;
         this.out = out;
         this.INPUT_DIR = input;
