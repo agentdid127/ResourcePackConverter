@@ -27,7 +27,7 @@ jobs:
           echo 'VERSIONID='$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}')'' >> $GITHUB_ENV
       - name: Build with Maven
         run: |
-          mvn -B package --file pom.xml
+          mvn clean install --file pom.xml
 
       - name: Upload Console Software
         uses: actions/upload-artifact@v2.2.4
