@@ -131,6 +131,28 @@ public final class Util {
         else return null;
 
     }
+
+    /**
+     * Gets Supported versions of Resource Pack Converter
+     * @param gson Gson object to use
+     * @return String list of all minecraft versions
+     */
+    public static String[] getSupportedVersions(Gson gson) {
+        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        if (protocols != null) {
+            List<String> keys = protocols.entrySet()
+                    .stream()
+                    .map(i -> i.getKey())
+                    .collect(Collectors.toCollection(ArrayList::new));
+            String[] keys2 = new String[keys.size()];
+            for (int i = 0; i < keys.size(); i++) {
+                keys2[i] = keys.get(i);
+            }
+            return keys2;
+        }
+        else return null;
+
+    }
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
         return Util.readJson(gson, path, JsonObject.class);
     }

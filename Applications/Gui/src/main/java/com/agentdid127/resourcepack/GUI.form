@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.agentdid127.resourcepack.GUI">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="199" y="566" width="700" height="375"/>
+    </constraints>
+    <properties>
+      <focusable value="true"/>
+      <maximumSize width="700" height="375"/>
+      <minimumSize width="700" height="375"/>
+      <preferredSize width="700" height="375"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="ecd53" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="826f6" class="javax.swing.JComboBox" binding="initialVersionBox">
+            <constraints/>
+            <properties/>
+          </component>
+          <component id="87942" class="javax.swing.JLabel" binding="initialVersionLabel">
+            <constraints/>
+            <properties>
+              <text value="Initial Version"/>
+            </properties>
+          </component>
+          <component id="269f4" class="javax.swing.JComboBox" binding="finalVersionBox">
+            <constraints/>
+            <properties/>
+          </component>
+          <component id="2d51f" class="javax.swing.JLabel" binding="finalVersionLabel">
+            <constraints/>
+            <properties>
+              <text value="Final Version"/>
+            </properties>
+          </component>
+          <component id="b55bd" class="javax.swing.JCheckBox" binding="minifyCheckBox" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Minify"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="80e14" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+        <constraints/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="f3e4" class="javax.swing.JLabel" binding="outputLabel">
+            <constraints/>
+            <properties>
+              <text value="Output"/>
+            </properties>
+          </component>
+          <scrollpane id="b5c18">
+            <constraints/>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="c99c7" class="javax.swing.JTextArea" binding="outputArea">
+                <constraints/>
+                <properties>
+                  <columns value="60"/>
+                  <rows value="15"/>
+                  <text value=""/>
+                </properties>
+              </component>
+            </children>
+          </scrollpane>
+        </children>
+      </grid>
+      <component id="c33e5" class="javax.swing.JButton" binding="convertButton">
+        <constraints/>
+        <properties>
+          <actionCommand value="Convert"/>
+          <label value="Convert"/>
+          <text value="Convert"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

@@ -16,6 +16,7 @@
 
     <modules>
         <module>Console</module>
+        <module>Gui</module>
     </modules>
 
     <properties>
