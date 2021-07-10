@@ -36,4 +36,11 @@ jobs:
           path: Applications/Console/target/ResourcePackConverter-CONSOLE-${{ env.VERSIONID }}.jar
           retention-days: 40
 
+      - name: Upload GUI Software
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: Build
+          path: Applications/Gui/target/ResourcePackConverter-Gui-${{ env.VERSIONID }}.jar
+          retention-days: 40
+
 
