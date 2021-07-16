@@ -3,10 +3,10 @@
 *.iml
 
 # Compiled Data
-target/
-build/
-out/
-classes/
+*target/
+*build/
+*out/
+*classes/
 
 # Maven
 dependency-reduced-pom.xml

@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.agentdid127.resourcepack"},{"l":"com.agentdid127.resourcepack.extra"},{"l":"com.agentdid127.resourcepack.impl"},{"l":"com.agentdid127.resourcepack.pack"}]
