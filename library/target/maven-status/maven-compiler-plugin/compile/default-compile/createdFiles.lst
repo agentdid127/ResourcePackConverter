@@ -1,0 +1,10 @@
+com\agentdid127\resourcepack\library\utilities\BomDetector.class
+com\agentdid127\resourcepack\library\PackConverter.class
+com\agentdid127\resourcepack\library\pack\Pack.class
+com\agentdid127\resourcepack\library\pack\ZipPack.class
+com\agentdid127\resourcepack\library\Util.class
+com\agentdid127\resourcepack\library\Converter.class
+com\agentdid127\resourcepack\library\utilities\ImageConverter.class
+com\agentdid127\resourcepack\library\pack\ZipPack$Handler.class
+com\agentdid127\resourcepack\library\utilities\PropertiesEx.class
+com\agentdid127\resourcepack\library\pack\Pack$Handler.class
