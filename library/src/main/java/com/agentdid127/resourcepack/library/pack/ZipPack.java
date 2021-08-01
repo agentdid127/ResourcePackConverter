@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.library.pack;
 
+import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.utilities.BomDetector;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -44,13 +44,13 @@ public class ZipPack extends Pack {
         @Override
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                System.out.println("  Deleting existing conversion");
+                PackConverter.log("  Deleting existing conversion");
                 Util.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
             Path convertedZipPath = getConvertedZipPath();
             if (convertedZipPath.toFile().exists()) {
-                System.out.println("  Deleting existing conversion zip");
+                PackConverter.log("  Deleting existing conversion zip");
                 convertedZipPath.toFile().delete();
             }
 
@@ -75,7 +75,7 @@ public class ZipPack extends Pack {
         @Override
         public void finish() throws IOException {
             try {
-                System.out.println("  Zipping working directory");
+                PackConverter.log("  Zipping working directory");
                 ZipFile zipFile = new ZipFile(getConvertedZipPath().toFile());
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
@@ -84,7 +84,7 @@ public class ZipPack extends Pack {
                 Util.propagate(e);
             }
 
-            System.out.println("  Deleting working directory");
+            PackConverter.log("  Deleting working directory");
             Util.deleteDirectoryAndContents(pack.getWorkingPath());
         }
 

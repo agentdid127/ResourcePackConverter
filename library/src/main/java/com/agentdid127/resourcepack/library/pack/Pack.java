@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.library.pack;
 
+import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.utilities.BomDetector;
 
@@ -76,11 +77,11 @@ public class Pack {
          */
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                System.out.println("  Deleting existing conversion");
+                PackConverter.log("  Deleting existing conversion");
                 Util.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
-            System.out.println("  Copying existing pack");
+            PackConverter.log("  Copying existing pack");
             Util.copyDir(pack.getOriginalPath(), pack.getWorkingPath());
 
             bomRemover(pack.getWorkingPath());
@@ -98,7 +99,7 @@ public class Pack {
                 count++;
             }
             if (count > 0){
-                System.out.println("Removing BOMs from " + count + " files.");
+                PackConverter.log("Removing BOMs from " + count + " files.");
             }
             bom.removeBOMs();
         }
