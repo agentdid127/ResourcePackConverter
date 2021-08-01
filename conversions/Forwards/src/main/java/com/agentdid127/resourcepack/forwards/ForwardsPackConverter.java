@@ -21,8 +21,8 @@ public class ForwardsPackConverter extends PackConverter {
         GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
         if (!minify) gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
-        this.DEBUG = debug;
-        this.out = out;
+        DEBUG = debug;
+        PackConverter.out = out;
         this.INPUT_DIR = input;
 
         log(from);
@@ -34,7 +34,7 @@ public class ForwardsPackConverter extends PackConverter {
     
     protected void converterRunner(String from, String to, String light) {
         // this needs to be run first, other converters might reference new directory names
-        this.registerConverter(new NameConverter(this, Util.getVersionProtocol(gson, to), Util.getVersionProtocol(gson, from)));
+        this.registerConverter(new NameConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.11") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.11"))
             this.registerConverter(new SpacesConverter(this));

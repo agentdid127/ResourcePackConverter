@@ -13,7 +13,7 @@ public abstract class PackConverter {
     protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
     protected Gson gson;
     public boolean DEBUG = true;
-    protected PrintStream out;
+    protected static PrintStream out;
     /**
      * Registers Converter.
      * @param converter
@@ -32,7 +32,7 @@ public abstract class PackConverter {
         return (T) converters.get(clazz);
     }
 
-    public void log(String output) {
+    public static void log(String output) {
         out.println(output);
     }
 
