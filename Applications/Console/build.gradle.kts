@@ -47,6 +47,7 @@ tasks.shadowJar {
         archiveClassifier.set("")
         archiveBaseName.set("ResourcePackConverter-Console-${project.version}")
         mergeServiceFiles()
+        minimize()
         exclude("META-INF/*.SF")
         exclude("META-INF/*.DSA")
         exclude("META-INF/*.RSA")
