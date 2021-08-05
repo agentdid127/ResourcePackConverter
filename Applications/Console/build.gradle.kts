@@ -48,15 +48,16 @@ tasks.shadowJar {
         archiveBaseName.set("ResourcePackConverter-Console-${project.version}")
         mergeServiceFiles()
         minimize()
-        exclude("META-INF/*.SF")
-        exclude("META-INF/*.DSA")
-        exclude("META-INF/*.RSA")
     }
 
 tasks.jar {
     archiveVersion.set("")
     archiveBaseName.set("original")
     archiveClassifier.set("ResourcePackConverter-Console-${project.version}")
+
+    exclude("META-INF/*.SF")
+    exclude("META-INF/*.DSA")
+    exclude("META-INF/*.RSA")
 
     manifest {
          attributes(
