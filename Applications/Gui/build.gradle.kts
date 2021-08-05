@@ -64,7 +64,7 @@ tasks.jar {
             "Implementation-Version" to "git-ResourcePackConverterGui-\"$gitHash\"",
             "Implementation-Vendor" to "$date",
             "Specification-Title" to "ResourcePackConverter",
-            "Specification-Version" to "$project.version",
+            "Specification-Version" to "${project.version}",
             "Specification-Vendor" to "HypixelDev",
             "Multi-Release" to "true",
             "Git-Branch" to "$gitBranch",
