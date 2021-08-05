@@ -10,6 +10,14 @@
 
 # Maven
 dependency-reduced-pom.xml
+pom.xml
 
 # macOS
 .DS_Store
+
+# Gradle
+build/*
+.gradle/*
+*.class
+*.jar
+!gradle-wrapper.jar

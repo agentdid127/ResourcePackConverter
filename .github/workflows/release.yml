@@ -26,7 +26,7 @@ jobs:
           java-version: 1.8
       - name: "Get Information"
         run: |
-         echo 'VERSION='$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}') >> $GITHUB_ENV
+         echo "VERSION=$(cat "gradle.properties" | grep version | cut -d '=' -f 2)" >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -41,7 +41,7 @@ jobs:
           prerelease: false
       # Runs a single command using the runners shell
       - name: Build Software
-        run: mvn -B package --file pom.xml
+        run: ./gradlew build
 
       # Runs a set of commands using the runners shell
       - name: Upload Release Asset
