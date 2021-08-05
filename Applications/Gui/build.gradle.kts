@@ -8,6 +8,7 @@ plugins {
 dependencies {
     implementation(project(":Forwards"))
     implementation(project(":Library"))
+    implementation("com.google.code.gson:gson:2.8.7")
 }
 
 group = "com.agentdid127.resourcepack"
@@ -48,7 +49,7 @@ tasks.shadowJar {
         archiveBaseName.set("ResourcePackConverter-Gui-${project.version}")
         mergeServiceFiles()
         minimize()
-    }
+}
 
 tasks.jar {
     archiveVersion.set("")

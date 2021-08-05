@@ -11,6 +11,8 @@ description = "Console"
 dependencies {
     implementation(project(":Forwards"))
     implementation(project(":Library"))
+    implementation("com.google.code.gson:gson:2.8.7")
+    implementation("net.sf.jopt-simple:jopt-simple:5.0.4")
 }
 
 val gitHash: String by lazy {
@@ -48,7 +50,7 @@ tasks.shadowJar {
         archiveBaseName.set("ResourcePackConverter-Console-${project.version}")
         mergeServiceFiles()
         minimize()
-    }
+}
 
 tasks.jar {
     archiveVersion.set("")
