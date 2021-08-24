@@ -51,6 +51,7 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new LangConverter(this, from, to));
         this.registerConverter(new ParticleConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.15") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.15"))
+            this.registerConverter(new EnchantConverter(this));
             this.registerConverter(new ChestConverter(this));
         if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.13") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.14.4"))
             this.registerConverter(new PaintingConverter(this));
@@ -71,7 +72,7 @@ public class ForwardsPackConverter extends PackConverter {
 
             pack.getHandler().finish();
         } catch (Throwable t) {
-            System.err.println("Failed to convert!");
+            log("Failed to convert!");
             Util.propagate(t);
         }
     }
