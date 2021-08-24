@@ -36,6 +36,8 @@ public class ForwardsPackConverter extends PackConverter {
         // this needs to be run first, other converters might reference new directory names
         this.registerConverter(new NameConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
+        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.9") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.9"))
+            this.registerConverter(new CompassConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.11") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.11"))
             this.registerConverter(new SpacesConverter(this));
         this.registerConverter(new ModelConverter(this, light, Util.getVersionProtocol(gson, to), Util.getVersionProtocol(gson, from)));
