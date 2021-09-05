@@ -5,7 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
+import java.awt.image.LookupOp;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -223,5 +226,4 @@ public final class Util {
     public static RuntimeException propagate(Throwable t) {
         throw new RuntimeException(t);
     }
-
 }
