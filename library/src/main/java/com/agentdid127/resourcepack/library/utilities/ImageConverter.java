@@ -1,5 +1,8 @@
 package com.agentdid127.resourcepack.library.utilities;
 
+import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.Util;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -34,7 +37,13 @@ public class ImageConverter {
                wMultiplier = image.getWidth() / defaultW;
                hMultiplier = image.getHeight() / defaultH;
            }
-           else System.out.println("File is not a power of 2");
+           else {
+               PackConverter.log("File is not a power of 2");
+           }
+    }
+
+    public boolean fileIsPowerOfTwo() {
+        return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
@@ -47,7 +56,7 @@ public class ImageConverter {
             wMultiplier = image.getWidth() / defaultW;
             hMultiplier = image.getHeight() / defaultH;
         }
-        else System.out.println("File is not a power of 2");
+        else PackConverter.log("File is not a power of 2");
     }
 
     //Creates a new Image to store
@@ -95,6 +104,19 @@ public class ImageConverter {
         BufferedImage part = subImage2(x3, y3, width2, height2);
         g2d.drawImage( createFlipped(part, flip), storex*wMultiplier, storey*hMultiplier, null);
     }
+
+    public void colorize(Color rgb) {
+        g2d.setPaint(rgb);
+        g2d.drawImage(image, 0, 0, null );
+        g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
+    }
+
+    private static BufferedImage toRGB(BufferedImage i) {
+        BufferedImage rgb = new BufferedImage(i.getWidth(), i.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        rgb.createGraphics().drawImage(i, 0, 0, null);
+        return rgb;
+    }
+
     //Allows for the flip to happen
     private static BufferedImage createFlipped(BufferedImage image2, int flip)
     {

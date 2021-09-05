@@ -33,6 +33,7 @@ public class ParticleConverter extends Converter {
 
         int defaultW = 128, defaultH = 128;
         ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
+        if (!iconvert.fileIsPowerOfTwo()) return;
         //Particles
         boolean isLegacy = false;
         if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")) {
