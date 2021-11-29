@@ -58,7 +58,7 @@ public class SoundsConverter extends Converter {
                         Path path = baseSoundsPath.resolve(sound + ".ogg");
                         if (!Util.fileExistsCorrectCasing(path)) {
                             String rewrite = path.toFile().getCanonicalPath().substring(baseSoundsPath.toString().length() + 1, path.toFile().getCanonicalPath().length() - 4);
-                            if (packConverter.DEBUG) packConverter.log("      Rewriting Sound: '" + jsonElement.getAsString() + "' -> '" + rewrite + "'");
+                            if (packConverter.DEBUG) packConverter.log("      Rewriting Sound: '" + jsonElement.getAsJsonObject().get("name").getAsString() + "' -> '" + rewrite + "'");
                             sound = rewrite;
                         } else {
                             sound = jsonElement.getAsString();
