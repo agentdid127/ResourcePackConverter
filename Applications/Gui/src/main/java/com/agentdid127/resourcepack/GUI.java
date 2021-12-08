@@ -67,7 +67,7 @@ public class GUI {
                 convertButton.setVisible(false);
                 try {
                     if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
-                        out.println("Sorry! You can't currently convert backwards, will be possible with 2.0 though!");
+                        out.println("Sorry! You can't currently convert backwards, This is a feature that is planned for the future! Feel free to help out on Github!");
                     } else {
                         new ForwardsPackConverter(from, to, light, minify, Paths.get("./"), true, out).runDir();
 
