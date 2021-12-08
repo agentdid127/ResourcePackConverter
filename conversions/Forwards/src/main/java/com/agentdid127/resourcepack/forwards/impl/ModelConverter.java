@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
+@Deprecated //Will be removed when Extensions are made.
 public class ModelConverter extends Converter {
 
     private int version;

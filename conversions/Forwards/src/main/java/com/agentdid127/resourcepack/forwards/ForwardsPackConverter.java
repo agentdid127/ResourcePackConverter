@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.forwards;
 
+import com.agentdid127.resourcepack.forwards.impl.textures.*;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
@@ -60,6 +61,7 @@ public class ForwardsPackConverter extends PackConverter {
 
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.18") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.18"))
             this.registerConverter(new ParticleConverter(this));
+            this.registerConverter(new InventoryConverter(this));
     }
 
     public void runPack(Pack pack) {
