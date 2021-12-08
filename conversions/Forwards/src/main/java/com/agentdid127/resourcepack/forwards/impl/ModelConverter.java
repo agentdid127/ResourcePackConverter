@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
+@Deprecated //Will be removed when Extensions are made.
 public class ModelConverter extends Converter {
 
     private int version;
@@ -78,13 +79,16 @@ public class ModelConverter extends Converter {
                     if (Util.readJson(packConverter.getGson(), model) != null && Util.readJson(packConverter.getGson(), model).isJsonObject())
                     jsonObject = Util.readJson(packConverter.getGson(), model);
                     else {
-                        packConverter.log("Could not convert model: " + model.getFileName());
-                        if (Util.readJson(packConverter.getGson(), model) == null) packConverter.log("Check for Syntax Errors in file.");
-                        else packConverter.log("File is not JSON Object.");
-                        return;
-                    }
+                        if (packConverter.DEBUG) {
+                            packConverter.log("Could not convert model: " + model.getFileName());
+                            if (Util.readJson(packConverter.getGson(), model) == null)
+                                packConverter.log("Check for Syntax Errors in file.");
+                            else packConverter.log("File is not JSON Object.");
+                        }
+                            return;
+                        }
 
-                    //GUI light system for 1.15.2
+                //GUI light system for 1.15.2
                     if (!light.equals("none") && (light.equals("front") || light.equals("side"))) jsonObject.addProperty("gui_light", light);
                     // minify the json so we can replace spaces in paths easily
                     // TODO Improvement: handle this in a cleaner way?
@@ -93,53 +97,57 @@ public class ModelConverter extends Converter {
                     content = content.replaceAll("blocks/", "block/");
                     content = content.replaceAll(" ", "_");
 
-                    Files.write(model, Collections.singleton(content), StandardCharsets.UTF_8);
-
                     // handle the remapping of textures, for models that use default texture names
-                    jsonObject = Util.readJson(packConverter.getGson(), model);
+                    jsonObject = packConverter.getGson().fromJson(content, JsonObject.class);
                     if (jsonObject.has("textures") && jsonObject.get("textures").isJsonObject()) {
                         NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
 
-                        JsonObject textureObject = jsonObject.getAsJsonObject("textures");
-                        for (Map.Entry<String, JsonElement> entry : textureObject.entrySet()) {
+                        JsonObject initialTextureObject = jsonObject.getAsJsonObject("textures");
+                        JsonObject textureObject = initialTextureObject.deepCopy();
+                        for (Map.Entry<String, JsonElement> entry : initialTextureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
-
-
+                            packConverter.log(entry.getKey() + ": " + entry.getValue());
+                            textureObject.remove(entry.getKey());
                             //1.13 Mappings
                             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                 if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
+                                   value = "block/" + nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                                    packConverter.log(value.substring("block/".length()).toLowerCase().replaceAll("[()]", ""));
+                                    packConverter.log(nameConverter.getBlockMapping().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
                                 } else if (value.startsWith("item/")) {
-                                    textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", ""));
+                                    value = "item/" + nameConverter.getItemMapping().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
                                 }
-                                else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
+                                else value =  value.toLowerCase().replaceAll("[()]", "");
                             }
 
                             //1.14 Mappings
                             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                                 if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length())));
+                                    value =  "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length()));
                                 }
                             }
 
                             //1.17 Mappings
                             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                                 if (value.startsWith("block/")) {
-                                    textureObject.addProperty(entry.getKey(), "block/" + nameConverter.getBlockMapping17().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", ""));
+                                    value = "block/" + nameConverter.getBlockMapping17().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
                                 } else if (value.startsWith("item/")) {
-                                    textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getItemMapping17().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", ""));
+                                   value = "item/" + nameConverter.getItemMapping17().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
                                 }
-                                else textureObject.addProperty(entry.getKey(), entry.getValue().getAsString().toLowerCase().replaceAll("[()]", ""));
+                               value = value.toLowerCase().replaceAll("[()]", "");
                             }
 
 
                             //Dyes
                             if (value.startsWith("item/") && value.contains("dye")) {
                                 if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                                    textureObject.addProperty(entry.getKey(), "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length())));
+                                   value = "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length()));
                                 }
                             }
+                            if (!textureObject.has(entry.getKey())) textureObject.addProperty(entry.getKey(), value);
                         }
+                        jsonObject.remove("textures");
+                        jsonObject.add("textures", textureObject);
                     }
                     //fix display settings for packs from 1.8
                     if (jsonObject.has("display") && from == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
@@ -217,8 +225,10 @@ public class ModelConverter extends Converter {
                             }
                         }
                     }
-                    if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject) && packConverter.DEBUG) packConverter.log("Updating Model: " + model.getFileName());
-                    Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
+                    if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
+                        if (packConverter.DEBUG) packConverter.log("Updating Model: " + model.getFileName());
+                        Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)), Charset.forName("UTF-8"));
+                    }
                 } catch (IOException e) {
                     throw Util.propagate(e);
                 }

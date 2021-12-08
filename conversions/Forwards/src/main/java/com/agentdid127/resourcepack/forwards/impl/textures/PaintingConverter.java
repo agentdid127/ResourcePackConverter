@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl;
+package com.agentdid127.resourcepack.forwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -61,8 +61,9 @@ public class PaintingConverter extends Converter {
         //64x64
         painting(paintingPath, "pointer.png", 0, 192, 4, 4);
         painting(paintingPath, "pigscene.png", 64, 192, 4, 4);
-        painting(paintingPath, "burning_skull.png", 128, 192, 4, 4, true);
-
+        painting(paintingPath, "burning_skull.png", 128, 192, 4, 4);
+        if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists())
+            paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().delete();
     }
 
     private void painting (Path paintingPath, String name, int x, int y, int scaleX, int scaleY) throws IOException
@@ -71,27 +72,12 @@ public class PaintingConverter extends Converter {
 
         if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists()) {
             ImageConverter normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
-
+            if (!normal.fileIsPowerOfTwo()) return;
             normal.newImage(defaultW * scaleX, defaultH* scaleY);
 
             normal.subImage(x, y, x + defaultW * scaleX, y + defaultH * scaleY, 0, 0);
             normal.store(paintingPath.resolve(name));
         }
-    }
-    private void painting (Path paintingPath, String name, int x, int y, int scaleX, int scaleY, boolean delete) throws IOException
-    {
-        int defaultW = 16, defaultH = 16;
-
-        if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists()) {
-            ImageConverter normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
-
-            normal.newImage(defaultW * scaleX, defaultH* scaleY);
-
-            normal.subImage(x, y, x + defaultW * scaleX, y + defaultH * scaleY, 0, 0);
-            normal.store(paintingPath.resolve(name));
-            if (delete) paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().delete();
-        }
-
     }
 
     }

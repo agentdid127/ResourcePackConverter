@@ -45,9 +45,9 @@ public class NameConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
-
         //Less than 1.12
-        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12")) {
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2") && to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+            if (packConverter.DEBUG) PackConverter.log("Finding files that are less than 1.12");
             findFiles(mc);
         }
 
@@ -55,74 +55,84 @@ public class NameConverter extends Converter {
         if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             //OptiFine conversion
             if (mc.resolve("mcpatcher").toFile().exists()) {
-                if (mc.resolve("optifine").toFile().exists())
-                {
+                if (packConverter.DEBUG) PackConverter.log("MCPatcher exists, switching to optifine");
+                if (mc.resolve("optifine").toFile().exists()) {
+                    if (packConverter.DEBUG) PackConverter.log("OptiFine exists, merging directories");
                     Util.mergeDirectories(mc.resolve("optifine").toFile(), mc.resolve("mcpatcher").toFile());
-                }
-                else Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
+                } else Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
                 if (mc.resolve("mcpatcher").toFile().exists()) Util.deleteDirectoryAndContents(mc.resolve("mcpatcher"));
             }
 
-            //Models
+            //1.13 Models
             Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
-            //1.13 block/item name change
-            if (models.resolve("blocks").toFile().exists())
-                Files.move(models.resolve("blocks"), models.resolve("block"));
-            //Update all blocks for 1.13
-            renameAll(blockMapping, ".json", models.resolve("block"));
-            if (models.resolve("items").toFile().exists()) Files.move(models.resolve("items"), models.resolve("item"));
-            //Update all items for 1.13
-            renameAll(itemMapping, ".json", models.resolve("item"));
+            if (models.toFile().exists()) {
+                //1.13 block/item name change
+                if (models.resolve("blocks").toFile().exists())
+                    Files.move(models.resolve("blocks"), models.resolve("block"));
+                //Update all blocks for 1.13
+                renameAll(blockMapping, ".json", models.resolve("block"));
+                if (models.resolve("items").toFile().exists())
+                    Files.move(models.resolve("items"), models.resolve("item"));
+                //Update all items for 1.13
+                renameAll(itemMapping, ".json", models.resolve("item"));
 
-            //Update 1.14 items
-            if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(newItemMapping, ".json", models.resolve("item"));
+                //Update 1.14 items
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                    renameAll(newItemMapping, ".json", models.resolve("item"));
+                }
             }
 
             //Update BlockStates
             Path blockStates = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-            renameAll(blockMapping, ".json", blockStates);
+
+            if (blockStates.toFile().exists()) renameAll(blockMapping, ".json", blockStates);
 
 
             //Update textures
             Path textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
-            if (textures.resolve("blocks").toFile().exists())
-                Files.move(textures.resolve("blocks"), textures.resolve("block"));
-            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(blockMapping, ".png", textures.resolve("block"));
-                renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
-            }
-            if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(newBlockMapping, ".png", textures.resolve("block"));
-                renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
-            }
-            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(itemMapping, ".png", textures.resolve("item"));
-                renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
-            }
-            if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
-                renameAll(newItemMapping, ".png", textures.resolve("item"));
-                renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
-            }
-            //1.16 Iron golems
-            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
-                if (!textures.resolve("entity" + File.separator + "iron_golem").toFile().exists()) textures.resolve("entity" + File.separator + "iron_golem" + File.separator).toFile().mkdir();
-                if (textures.resolve("entity" + File.separator + "iron_golem.png").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
-            }
-            //1.17 Squid
-            if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && from < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
-                renameAll(blockMapping17, ".png", textures.resolve("block"));
-                renameAll(itemMapping17, ".png", textures.resolve("item"));
-                renameAll(blockMapping17, ".png", models.resolve("block"));
-                renameAll(itemMapping17, ".png", models.resolve("item"));
-                if (!textures.resolve("entity" + File.separator + "squid").toFile().exists()) textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().mkdir();
-                if (textures.resolve("entity" + File.separator + "squid.png").toFile().exists()) Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
-            }
+            if (textures.toFile().exists()) {
+                if (textures.resolve("blocks").toFile().exists())
+                    Files.move(textures.resolve("blocks"), textures.resolve("block"));
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                    renameAll(blockMapping, ".png", textures.resolve("block"));
+                    renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+                }
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                    renameAll(newBlockMapping, ".png", textures.resolve("block"));
+                    renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
+                }
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                    renameAll(itemMapping, ".png", textures.resolve("item"));
+                    renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+                }
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
+                    renameAll(newItemMapping, ".png", textures.resolve("item"));
+                    renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
+                }
+                //1.16 Iron golems
+                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
+                    if (!textures.resolve("entity" + File.separator + "iron_golem").toFile().exists())
+                        textures.resolve("entity" + File.separator + "iron_golem" + File.separator).toFile().mkdir();
+                    if (textures.resolve("entity" + File.separator + "iron_golem.png").toFile().exists())
+                        Files.move(textures.resolve("entity" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
+                }
+                //1.17 Squid
+                if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && from < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
+                    renameAll(blockMapping17, ".png", textures.resolve("block"));
+                    renameAll(itemMapping17, ".png", textures.resolve("item"));
+                    renameAll(blockMapping17, ".png", models.resolve("block"));
+                    renameAll(itemMapping17, ".png", models.resolve("item"));
+                    if (!textures.resolve("entity" + File.separator + "squid").toFile().exists())
+                        textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().mkdir();
+                    if (textures.resolve("entity" + File.separator + "squid.png").toFile().exists())
+                        Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
+                }
 
-            //1.13 End Crystals
-            if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())
-                Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
-            findEntityFiles(textures.resolve("entity"));
+                //1.13 End Crystals
+                if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())
+                    Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
+                findEntityFiles(textures.resolve("entity"));
+            }
         }
 
     }
@@ -158,11 +168,17 @@ public class NameConverter extends Converter {
             File[] fList = directory.listFiles();
             for (File file : fList) {
                 if (file.isDirectory()) {
+
+                    if (file.getName().equals("items")) {
+                        if (packConverter.DEBUG) packConverter.log("Found Items folder, renaming");
+                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
+                    }
+                    if (file.getName().equals("blocks")) {
+                        if (packConverter.DEBUG) packConverter.log("Found blocks folder, renaming");
+                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
+                    }
+
                     findFiles(Paths.get(file.getPath()));
-
-                    if (file.getName().contains("items")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
-                    if (file.getName().equals("blocks")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
-
                 }
                 if (file.getName().contains("(")) Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
                 if (!file.getName().equals(file.getName().toLowerCase()))
