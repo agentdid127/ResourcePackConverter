@@ -183,7 +183,6 @@ public final class Util {
         while ((line = br.readLine()) != null) {
             resultStringBuilder.append(line).append("\n");
         }
-        br.close();
         return resultStringBuilder.toString();
     }
 
