@@ -197,8 +197,10 @@ public final class Util {
      * @return null if file doesn't exist, {@code true} if successfully renamed, {@code false} if failed
      */
     public static Boolean renameFile(Path file, String newName) {
+        File newFile = new File(file.getParent() + File.separator + newName);
+        if (newFile.exists()) try {Files.delete(newFile.toPath());} catch (IOException e) {e.printStackTrace();}
         if (!file.toFile().exists()) return null;
-        return file.toFile().renameTo(new File(file.getParent() + File.separator + newName));
+        return file.toFile().renameTo(newFile);
     }
 
     /**

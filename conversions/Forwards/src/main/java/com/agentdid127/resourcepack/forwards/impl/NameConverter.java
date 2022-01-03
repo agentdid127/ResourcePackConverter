@@ -67,12 +67,16 @@ public class NameConverter extends Converter {
             Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
             if (models.toFile().exists()) {
                 //1.13 block/item name change
-                if (models.resolve("blocks").toFile().exists())
+                if (models.resolve("blocks").toFile().exists()) {
+                    if (models.resolve("block").toFile().exists()) Util.deleteDirectoryAndContents( models.resolve("block"));
                     Files.move(models.resolve("blocks"), models.resolve("block"));
+                }
                 //Update all blocks for 1.13
                 renameAll(blockMapping, ".json", models.resolve("block"));
-                if (models.resolve("items").toFile().exists())
+                if (models.resolve("items").toFile().exists()) {
+                    if (models.resolve("item").toFile().exists()) Util.deleteDirectoryAndContents(models.resolve("item"));
                     Files.move(models.resolve("items"), models.resolve("item"));
+                }
                 //Update all items for 1.13
                 renameAll(itemMapping, ".json", models.resolve("item"));
 
