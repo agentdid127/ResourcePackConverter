@@ -212,6 +212,11 @@ public class NameConverter extends Converter {
                     }
                 });
             }
+            //remap snow jsons, but not images.
+            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                if (path.resolve("snow.json").toFile().exists()) Util.renameFile(path.resolve("snow" + extension), "snow_block" + extension);
+                if (path.resolve("snow_layer.json").toFile().exists()) Util.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
+            }
             Files.list(path).forEach(path1 -> {
                 if (!path1.toString().endsWith(extension)) return;
 
