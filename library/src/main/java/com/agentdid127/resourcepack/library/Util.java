@@ -53,7 +53,10 @@ public final class Util {
         Files.walk(dirPath)
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
-                .forEach(File::delete);
+                .forEach(file -> {
+                    file.delete();
+                    System.out.println(file.getName());
+                });
 
     }
 
