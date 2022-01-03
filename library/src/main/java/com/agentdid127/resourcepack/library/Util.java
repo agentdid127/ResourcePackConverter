@@ -82,7 +82,10 @@ public final class Util {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
             if (stream == null) return null;
             try (InputStreamReader streamReader = new InputStreamReader(stream)) {
-                return gson.fromJson(streamReader, JsonObject.class);
+                JsonObject out = gson.fromJson(streamReader, JsonObject.class);
+                stream.close();
+                return out;
+
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -180,6 +183,7 @@ public final class Util {
         while ((line = br.readLine()) != null) {
             resultStringBuilder.append(line).append("\n");
         }
+        br.close();
         return resultStringBuilder.toString();
     }
 
