@@ -486,12 +486,12 @@
     "stone_slab_top": "smooth_stone",
     "stone_slab_side": "smooth_stone_slab_side"
   },
-"1_17": {
-  "grass_path": "dirt_path",
-  "grass_path_top": "dirt_path_top",
-  "grass_path_side": "dirt_path_side",
-  "cauldron_level1": "water_cauldron_level1",
-  "cauldron_level2": "water_cauldron_level2",
-  "cauldron_level3": "water_cauldron_full"
-}
+  "1_17": {
+    "grass_path": "dirt_path",
+    "grass_path_top": "dirt_path_top",
+    "grass_path_side": "dirt_path_side",
+    "cauldron_level1": "water_cauldron_level1",
+    "cauldron_level2": "water_cauldron_level2",
+    "cauldron_level3": "water_cauldron_full"
+  }
 }

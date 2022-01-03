@@ -89,6 +89,7 @@ public class MCPatcherConverter extends Converter {
 
                             //Saves File
                             prop.store(output, "");
+							output.close();
                         }
 
                         catch (IOException io) {
