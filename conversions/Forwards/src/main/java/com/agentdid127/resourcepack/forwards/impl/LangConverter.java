@@ -85,8 +85,9 @@ public class LangConverter extends Converter {
                                 //Saves File
 
 
-
+							
                         }
+						input.close();
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
