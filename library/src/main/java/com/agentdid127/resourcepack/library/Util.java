@@ -81,6 +81,7 @@ public final class Util {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
             if (stream == null) return null;
             try (InputStreamReader streamReader = new InputStreamReader(stream)) {
+                stream.close();
                 return gson.fromJson(streamReader, JsonObject.class);
             }
         } catch (IOException e) {
