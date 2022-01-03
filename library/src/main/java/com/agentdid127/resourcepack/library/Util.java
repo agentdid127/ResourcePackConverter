@@ -82,10 +82,7 @@ public final class Util {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
             if (stream == null) return null;
             try (InputStreamReader streamReader = new InputStreamReader(stream)) {
-                JsonObject out = gson.fromJson(streamReader, JsonObject.class);
-                stream.close();
-                return out;
-
+                return gson.fromJson(streamReader, JsonObject.class);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -200,10 +197,8 @@ public final class Util {
      * @return null if file doesn't exist, {@code true} if successfully renamed, {@code false} if failed
      */
     public static Boolean renameFile(Path file, String newName) {
-        File newFile = new File(file.getParent() + File.separator + newName);
-        if (newFile.exists()) try {Files.delete(newFile.toPath());} catch (IOException e) {e.printStackTrace();}
         if (!file.toFile().exists()) return null;
-        return file.toFile().renameTo(newFile);
+        return file.toFile().renameTo(new File(file.getParent() + File.separator + newName));
     }
 
     /**
