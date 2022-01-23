@@ -13,16 +13,16 @@ import java.nio.file.Path;
 public class ImageConverter {
 
     //Instance Variables
-    private int width = 0;
-    private int height = 0;
-    private int defaultW = 1;
-    private int defaultH = 1;
-    private BufferedImage image;
-    private BufferedImage newImage;
-    private Path location;
-    private Graphics2D g2d;
-    private int wMultiplier = 1;
-    private int hMultiplier = 1;
+    protected int width = 0;
+    protected int height = 0;
+    protected int defaultW = 1;
+    protected int defaultH = 1;
+    protected BufferedImage image;
+    protected BufferedImage newImage;
+    protected Path location;
+    protected Graphics2D g2d;
+    protected int wMultiplier = 1;
+    protected int hMultiplier = 1;
 
     //Default Constructor
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
@@ -167,10 +167,6 @@ public class ImageConverter {
         return true;
     }
 
-    public boolean storeTGA() throws IOException {
-        ImageIO.write(newImage, "tga", location.toFile());
-        return true;
-    }
     public boolean store(Path locationIn) throws IOException {
         ImageIO.write(newImage, "png", locationIn.toFile());
         return true;
