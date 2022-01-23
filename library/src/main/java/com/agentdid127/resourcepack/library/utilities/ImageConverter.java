@@ -38,7 +38,22 @@ public class ImageConverter {
                hMultiplier = image.getHeight() / defaultH;
            }
            else {
-               PackConverter.log("File is not a power of 2");
+            PackConverter.log("File is not a power of 2. Converting image to be so.");
+            newImage  = new BufferedImage((int)Math.ceil(Math.log(image.getWidth())/Math.log(2)), (int)Math.ceil(Math.log(image.getHeight())/Math.log(2)), image.getType());
+            width = (int)Math.ceil(Math.log(image.getWidth())/Math.log(2));
+            defaultW = defaultWIn;
+            defaultH = defaultHIn;
+            height = (int)Math.ceil(Math.log(image.getHeight())/Math.log(2));
+            Graphics2D g = newImage.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.drawImage(image, 0, 0, width, height, 0, 0, image.getWidth(), image.getHeight(), null);
+            g.dispose();
+            defaultW = defaultWIn;
+            width = image.getWidth();
+            location = locationIn;
+            wMultiplier = width / defaultW;
+            hMultiplier = height / defaultH;
            }
     }
 
