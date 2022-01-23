@@ -166,6 +166,11 @@ public class ImageConverter {
         ImageIO.write(newImage, "png", location.toFile());
         return true;
     }
+
+    public boolean storeTGA() throws IOException {
+        ImageIO.write(newImage, "tga", location.toFile());
+        return true;
+    }
     public boolean store(Path locationIn) throws IOException {
         ImageIO.write(newImage, "png", locationIn.toFile());
         return true;

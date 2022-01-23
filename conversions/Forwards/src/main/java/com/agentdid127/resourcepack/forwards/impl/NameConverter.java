@@ -247,6 +247,7 @@ public class NameConverter extends Converter {
         return blockMapping;
     }
 
+
     public Mapping getItemMapping() {
         return itemMapping;
     }
