@@ -148,6 +148,7 @@ public class PropertiesEx extends Properties {
         }
 
         bw.flush();
+		bw.close();
     }
 
     private static char toHex(int nibble) {

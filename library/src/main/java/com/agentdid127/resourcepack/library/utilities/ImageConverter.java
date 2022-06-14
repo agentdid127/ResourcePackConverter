@@ -13,16 +13,16 @@ import java.nio.file.Path;
 public class ImageConverter {
 
     //Instance Variables
-    private int width = 0;
-    private int height = 0;
-    private int defaultW = 1;
-    private int defaultH = 1;
-    private BufferedImage image;
-    private BufferedImage newImage;
-    private Path location;
-    private Graphics2D g2d;
-    private int wMultiplier = 1;
-    private int hMultiplier = 1;
+    protected int width = 0;
+    protected int height = 0;
+    protected int defaultW = 1;
+    protected int defaultH = 1;
+    protected BufferedImage image;
+    protected BufferedImage newImage;
+    protected Path location;
+    protected Graphics2D g2d;
+    protected int wMultiplier = 1;
+    protected int hMultiplier = 1;
 
     //Default Constructor
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
@@ -38,7 +38,22 @@ public class ImageConverter {
                hMultiplier = image.getHeight() / defaultH;
            }
            else {
-               PackConverter.log("File is not a power of 2");
+            PackConverter.log("File is not a power of 2. Converting image to be so.");
+            newImage  = new BufferedImage((int)Math.ceil(Math.log(image.getWidth())/Math.log(2)), (int)Math.ceil(Math.log(image.getHeight())/Math.log(2)), image.getType());
+            width = (int)Math.ceil(Math.log(image.getWidth())/Math.log(2));
+            defaultW = defaultWIn;
+            defaultH = defaultHIn;
+            height = (int)Math.ceil(Math.log(image.getHeight())/Math.log(2));
+            Graphics2D g = newImage.createGraphics();
+            g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+            g.drawImage(image, 0, 0, width, height, 0, 0, image.getWidth(), image.getHeight(), null);
+            g.dispose();
+            defaultW = defaultWIn;
+            width = image.getWidth();
+            location = locationIn;
+            wMultiplier = width / defaultW;
+            hMultiplier = height / defaultH;
            }
     }
 
@@ -166,6 +181,7 @@ public class ImageConverter {
         ImageIO.write(newImage, "png", location.toFile());
         return true;
     }
+
     public boolean store(Path locationIn) throws IOException {
         ImageIO.write(newImage, "png", locationIn.toFile());
         return true;
