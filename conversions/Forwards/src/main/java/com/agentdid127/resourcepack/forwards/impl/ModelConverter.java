@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
-@Deprecated //Will be removed when Extensions are made.
+
 public class ModelConverter extends Converter {
 
     private int version;
@@ -41,8 +41,6 @@ public class ModelConverter extends Converter {
         Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "models");
         if (!models.toFile().exists()) return;
         findFiles(models);
-        //remapModelJson(models.resolve("item"));
-        //remapModelJson(models.resolve("block"));
     }
 
     /**
@@ -137,6 +135,14 @@ public class ModelConverter extends Converter {
                                value = value.toLowerCase().replaceAll("[()]", "");
                             }
 
+                            //1.17 Mappings
+                            if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
+                                if (value.startsWith("block/")) {
+                                    value = "block/" + nameConverter.getBlockMapping19().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                                }
+                                value = value.toLowerCase().replaceAll("[()]", "");
+                            }
+
 
                             //Dyes
                             if (value.startsWith("item/") && value.contains("dye")) {
@@ -213,12 +219,18 @@ public class ModelConverter extends Converter {
                                         parent = setParent("item/", "/forwards/items.json", parent, "1_14");
                                     }
                                 }
-                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.17") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.17") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                                     if (parent.startsWith("block/")) {
                                         parent = setParent("block/", "/forwards/blocks.json", parent, "1_17");
                                     }
                                     if (parent.startsWith("item/")) {
                                         parent = setParent("item/", "/forwards/items.json", parent, "1_17");
+                                    }
+                                }
+
+                                if (from < Util.getVersionProtocol(packConverter.getGson(), "1.19") && version >= Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
+                                    if (parent.startsWith("block/")) {
+                                        parent = setParent("block/", "/forwards/blocks.json", parent, "1_19");
                                     }
                                 }
                                 jsonObject.addProperty(entry.getKey(), parent);

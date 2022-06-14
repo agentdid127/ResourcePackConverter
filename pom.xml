@@ -6,7 +6,7 @@
 
     <groupId>com.agentdid127</groupId>
     <artifactId>ResourcePackConverter</artifactId>
-    <version>2.1.0-pre1</version>
+    <version>2.1.1</version>
     <packaging>pom</packaging>
     <name>ResourcePackConverter</name>
 
