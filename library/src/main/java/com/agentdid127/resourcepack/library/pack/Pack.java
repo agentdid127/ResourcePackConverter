@@ -14,7 +14,7 @@ public class Pack {
     protected Path path;
     protected Handler handler;
 
-    protected Pack(Path path) {
+    public Pack(Path path) {
         this.path = path;
         this.handler = createHandler();
     }
