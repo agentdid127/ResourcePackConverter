@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+@Deprecated // will be removed when extensions are made
 public class MCPatcherConverter extends Converter {
 
     public MCPatcherConverter(PackConverter packConverter) {
@@ -89,6 +89,7 @@ public class MCPatcherConverter extends Converter {
 
                             //Saves File
                             prop.store(output, "");
+							output.close();
                         }
 
                         catch (IOException io) {

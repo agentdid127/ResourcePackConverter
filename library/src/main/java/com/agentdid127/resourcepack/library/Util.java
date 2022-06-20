@@ -33,6 +33,7 @@ public final class Util {
     public static void copyDir(Path src, Path dest) throws IOException {
         Files.walk(src).forEach(path -> {
             try {
+                if (dest.resolve(src.relativize(path)).toFile().exists()) Files.delete(dest.resolve(src.relativize(path)));
                 Files.copy(path, dest.resolve(src.relativize(path)));
             } catch (Throwable e) {
                 throw Util.propagate(e);
@@ -53,7 +54,11 @@ public final class Util {
         Files.walk(dirPath)
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
-                .forEach(File::delete);
+                .forEach(file -> {
+                    file.delete();
+                    System.out.println(file.getName());
+                });
+
     }
 
     /**

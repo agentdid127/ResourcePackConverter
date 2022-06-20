@@ -25,6 +25,7 @@ public class NameConverter extends Converter {
     protected final Mapping blockMapping = new BlockMapping13();
     protected final Mapping newBlockMapping = new BlockMapping14();
     protected final Mapping blockMapping17 = new BlockMapping17();
+    protected final Mapping blockMapping19 = new BlockMapping19();
     protected final Mapping itemMapping = new ItemMapping13();
     protected final Mapping newItemMapping = new ItemMapping14();
     protected final Mapping itemMapping17 = new ItemMapping17();
@@ -67,18 +68,26 @@ public class NameConverter extends Converter {
             Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
             if (models.toFile().exists()) {
                 //1.13 block/item name change
-                if (models.resolve("blocks").toFile().exists())
+                if (models.resolve("blocks").toFile().exists()) {
+                    if (models.resolve("block").toFile().exists()) Util.deleteDirectoryAndContents( models.resolve("block"));
                     Files.move(models.resolve("blocks"), models.resolve("block"));
+                }
                 //Update all blocks for 1.13
                 renameAll(blockMapping, ".json", models.resolve("block"));
-                if (models.resolve("items").toFile().exists())
+                if (models.resolve("items").toFile().exists()) {
+                    if (models.resolve("item").toFile().exists()) Util.deleteDirectoryAndContents(models.resolve("item"));
                     Files.move(models.resolve("items"), models.resolve("item"));
+                }
                 //Update all items for 1.13
                 renameAll(itemMapping, ".json", models.resolve("item"));
 
                 //Update 1.14 items
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                     renameAll(newItemMapping, ".json", models.resolve("item"));
+                }
+
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
+                    renameAll(blockMapping19, ".json", models.resolve("block"));
                 }
             }
 
@@ -126,6 +135,10 @@ public class NameConverter extends Converter {
                         textures.resolve("entity" + File.separator + "squid" + File.separator).toFile().mkdir();
                     if (textures.resolve("entity" + File.separator + "squid.png").toFile().exists())
                         Files.move(textures.resolve("entity" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"));
+                }
+
+                if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19") && from < Util.getVersionProtocol(packConverter.getGson(),"1.19")) {
+                    renameAll(blockMapping19, ".png", textures.resolve("block"));
                 }
 
                 //1.13 End Crystals
@@ -212,6 +225,11 @@ public class NameConverter extends Converter {
                     }
                 });
             }
+            //remap snow jsons, but not images.
+            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                if (path.resolve("snow.json").toFile().exists()) Util.renameFile(path.resolve("snow" + extension), "snow_block" + extension);
+                if (path.resolve("snow_layer.json").toFile().exists()) Util.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
+            }
             Files.list(path).forEach(path1 -> {
                 if (!path1.toString().endsWith(extension)) return;
 
@@ -238,6 +256,7 @@ public class NameConverter extends Converter {
         return blockMapping;
     }
 
+
     public Mapping getItemMapping() {
         return itemMapping;
     }
@@ -253,6 +272,8 @@ public class NameConverter extends Converter {
     public Mapping getItemMapping17() {return itemMapping17;}
 
     public Mapping getBlockMapping17() {return blockMapping17; }
+
+    public Mapping getBlockMapping19() {return blockMapping19; }
 
     public Mapping getLangMapping() {
         return langMapping;
@@ -309,6 +330,19 @@ public class NameConverter extends Converter {
         @Override
         protected void load() {
             JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/forwards/blocks.json").getAsJsonObject("1_17");
+            if (blocks != null) {
+                for (Map.Entry<String, JsonElement> entry : blocks.entrySet()) {
+                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+                }
+            }
+        }
+    }
+
+    protected class BlockMapping19 extends Mapping {
+
+        @Override
+        protected void load() {
+            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/forwards/blocks.json").getAsJsonObject("1_19");
             if (blocks != null) {
                 for (Map.Entry<String, JsonElement> entry : blocks.entrySet()) {
                     this.mapping.put(entry.getKey(), entry.getValue().getAsString());
