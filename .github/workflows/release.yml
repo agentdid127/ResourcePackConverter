@@ -44,8 +44,8 @@ jobs:
         run: mvn -B package --file pom.xml
 
       # Runs a set of commands using the runners shell
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Upload Console Release
+        id: upload-console-release 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,8 +54,8 @@ jobs:
           asset_path: ./Applications/Console/target/ResourcePackConverter-Console-${{ env.VERSION }}.jar
           asset_name: ResourcePackConverter.jar
           asset_content_type: application/zip
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Upload GUI Release
+        id: upload-gui-release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
