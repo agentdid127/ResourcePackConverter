@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack;
 
+import com.agentdid127.resourcepack.backwards.BackwardsPackConverter;
 import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.google.gson.Gson;
@@ -34,7 +35,7 @@ public class Main {
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
 
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
-            System.out.println("Sorry! You can't currently downgrade your resource pack. With version 2.0, the software will allow the possibility");
+            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
         }
         else {
             new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
