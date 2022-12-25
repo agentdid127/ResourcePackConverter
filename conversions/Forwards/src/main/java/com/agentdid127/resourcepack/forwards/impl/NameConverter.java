@@ -84,6 +84,10 @@ public class NameConverter extends Converter {
                 //Update 1.14 items
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                     renameAll(newItemMapping, ".json", models.resolve("item"));
+                    Files.copy(models.resolve("item" + File.separator + "black_dye.json"), models.resolve("item" + File.separator + "ink_sac.json"));
+                    Files.copy(models.resolve("item" + File.separator + "brown_dye.json"), models.resolve("item" + File.separator + "cocoa_beans.json"));
+                    Files.copy(models.resolve("item" + File.separator + "white_dye.json"), models.resolve("item" + File.separator + "bone_meal.json"));
+                    Files.copy(models.resolve("item" + File.separator + "blue_dye.json"), models.resolve("item" + File.separator + "lapis_lazuli.json"));
                 }
 
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
@@ -117,6 +121,10 @@ public class NameConverter extends Converter {
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
                     renameAll(newItemMapping, ".png", textures.resolve("item"));
                     renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
+                    Files.copy(models.resolve("item" + File.separator + "black_dye.png"), models.resolve("item" + File.separator + "ink_sac.png"));
+                    Files.copy(models.resolve("item" + File.separator + "brown_dye.png"), models.resolve("item" + File.separator + "cocoa_beans.png"));
+                    Files.copy(models.resolve("item" + File.separator + "white_dye.png"), models.resolve("item" + File.separator + "bone_meal.png"));
+                    Files.copy(models.resolve("item" + File.separator + "blue_dye.png"), models.resolve("item" + File.separator + "lapis_lazuli.png"));
                 }
                 //1.16 Iron golems
                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
