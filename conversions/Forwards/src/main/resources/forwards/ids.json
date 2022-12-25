@@ -179,7 +179,7 @@
     "95:15": "minecraft:black_stained_glass",
     "96": "minecraft:oak_trapdoor",
     "97": "minecraft:infested_stone",
-    "97:1": "minecraft:infested+cpbblestone",
+    "97:1": "minecraft:infested_cobblestone",
     "97:2": "minecraft:infested_stone_bricks",
     "97:3": "minecraft:infested_mossy_stone_bricks",
     "97:4": "minecraft:infested_cracked_stone_bricks",
