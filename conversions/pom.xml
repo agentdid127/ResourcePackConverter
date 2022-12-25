@@ -16,6 +16,7 @@
 
     <modules>
         <module>Forwards</module>
+        <module>Backwards</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.backwards.impl.textures;
 
 
 import com.agentdid127.resourcepack.library.Converter;
@@ -26,12 +26,12 @@ public class MapIconConverter extends Converter {
         mapping.put(pack(8, 0), pack(8, 0));
         mapping.put(pack(16, 0), pack(16, 0));
         mapping.put(pack(24, 0), pack(24, 0));
-        mapping.put(pack(0, 8), pack(32, 0));
-        mapping.put(pack(8, 8), pack(40, 0));
-        mapping.put(pack(16, 8), pack(48, 0));
-        mapping.put(pack(24, 8), pack(56, 0));
-        mapping.put(pack(0, 16), pack(64, 0));
-        mapping.put(pack(8, 16), pack(72, 0));
+        mapping.put(pack(32, 0), pack(0, 8));
+        mapping.put(pack(40, 0), pack(8, 8));
+        mapping.put(pack(48, 0), pack(16, 8));
+        mapping.put(pack(56, 0), pack(24, 8));
+        mapping.put(pack(64, 0), pack(0, 16));
+        mapping.put(pack(72, 0), pack(8, 16));
     }
 
     /**
@@ -41,10 +41,10 @@ public class MapIconConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "map" + File.separator + "forwards/map_icons.png");
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "map" + File.separator + "backwards/map_icons.png");
         if (!imagePath.toFile().exists()) return;
 
-        BufferedImage newImage = Util.readImageResource("/forwards/map_icons.png");
+        BufferedImage newImage = Util.readImageResource("/backwards/map_icons.png");
         if (newImage == null) throw new NullPointerException();
         Graphics2D g2d = (Graphics2D) newImage.getGraphics();
 
