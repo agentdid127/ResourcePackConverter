@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.backwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -26,8 +26,8 @@ public class InventoryConverter extends Converter {
         ImageConverter image = new ImageConverter(defaultW, defaultH, imagePath);
         image.newImage(defaultH, defaultW);
         image.subImage(0,0,256,256,0,0);
-        image.subImage(0,166,16,198,0,198);
-        image.subImage(104,166,120,198,16,198);
+        image.subImage(0,198,16,230,0,166);
+        image.subImage(16,198,32,230,104,166);
 
         image.store();
     }

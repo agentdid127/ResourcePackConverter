@@ -81,6 +81,10 @@ public class ImageConverter {
         g2d = (Graphics2D) newImage.getGraphics();
     }
 
+    public void addImage(Path imagePath, int x, int y) throws IOException {
+        BufferedImage image = ImageIO.read(imagePath.toFile());
+        g2d.drawImage(image, x*wMultiplier, y*hMultiplier, null);
+    }
     //Takes part of an image and stores it in the new image
     public void subImage (int x, int y, int x2, int y2, int storex, int storey)
     {
@@ -124,6 +128,12 @@ public class ImageConverter {
         g2d.setPaint(rgb);
         g2d.drawImage(image, 0, 0, null );
         g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
+    }
+
+    public void grayscale() {
+        BufferedImage gray = new BufferedImage(newImage.getWidth(), newImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        gray.createGraphics().drawImage(image, 0, 0, null);
+        newImage = gray;
     }
 
     private static BufferedImage toRGB(BufferedImage i) {

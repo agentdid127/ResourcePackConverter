@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.backwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -27,7 +27,7 @@ public class EnchantConverter extends Converter {
         ImageConverter imageConverter = new ImageConverter(64, 64, paintingPath);
         if (!imageConverter.fileIsPowerOfTwo()) return;
         imageConverter.newImage(64, 64);
-        imageConverter.colorize(new Color(94, 9, 178, 120));
+        imageConverter.grayscale();
         imageConverter.store();
     }
 }

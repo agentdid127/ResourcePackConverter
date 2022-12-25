@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl;
+package com.agentdid127.resourcepack.backwards.impl;
 
 
 import com.agentdid127.resourcepack.library.Converter;
@@ -27,7 +27,7 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "optifine");
+        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "mcpatcher");
         if (models.toFile().exists()) findFiles(models);
         //remapModelJson(models.resolve("item"));
         //remapModelJson(models.resolve("block"));
@@ -112,10 +112,10 @@ public class MCPatcherConverter extends Converter {
         NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
         String properties = prop.getProperty("texture");
 
-        if (properties.startsWith("textures/blocks/")) {
-            properties = "textures/block/" + nameConverter.getBlockMapping();
-        } else if (properties.startsWith("textures/items/")) {
-            properties = "textures/item/" + nameConverter.getItemMapping();
+        if (properties.startsWith("textures/block/")) {
+            properties = "textures/blocks/" + nameConverter.getBlockMapping();
+        } else if (properties.startsWith("textures/item/")) {
+            properties = "textures/items/" + nameConverter.getItemMapping();
         }
         else{
             return properties;
@@ -130,12 +130,12 @@ public class MCPatcherConverter extends Converter {
      * @return
      */
     protected String updateID(String type, PropertiesEx prop, String selection) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection).getAsJsonObject();
+        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/backwards/ids.json").get(selection).getAsJsonObject();
         String[] split = prop.getProperty(type).split(" ");
         String properties2 = " ";
         for (int i=0; i < split.length; i++) {
             if (id.get(split[i]) != null) {
-                split[i] = "minecraft:" + id.get(split[i]).getAsString();
+                split[i] = id.get(split[i]).getAsString();
             }
         }
 

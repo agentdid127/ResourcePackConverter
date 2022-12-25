@@ -35,6 +35,11 @@
             <artifactId>Forwards</artifactId>
             <version>2.1.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.agentdid127.resourcepack</groupId>
+            <artifactId>Backwards</artifactId>
+            <version>2.1.2</version>
+        </dependency>
     </dependencies>
 
 </project>

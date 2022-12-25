@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl;
+package com.agentdid127.resourcepack.backwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -56,10 +56,10 @@ public class BlockStateConverter extends Converter {
                         JsonObject variantsObject = json.getAsJsonObject("variants");
                         if (variantsObject != null) {
                             // change "normal" key to ""
-                            JsonElement normal = variantsObject.get("normal");
+                            JsonElement normal = variantsObject.get("");
                             if (normal instanceof JsonObject || normal instanceof JsonArray) {
-                                variantsObject.add("", normal);
-                                variantsObject.remove("normal");
+                                variantsObject.add("normal", normal);
+                                variantsObject.remove("");
                                 anyChanges = true;
                             }
 
@@ -89,7 +89,7 @@ public class BlockStateConverter extends Converter {
         if (entry.getValue() instanceof JsonObject) {
             JsonObject value = (JsonObject) entry.getValue();
             if (value.has("model")) {
-                value.addProperty("model", "block/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
+                value.addProperty("model", "blocks/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
                 anyChanges = true;
             }
 
@@ -98,7 +98,7 @@ public class BlockStateConverter extends Converter {
                 if (jsonElement instanceof JsonObject) {
                     JsonObject value = (JsonObject) jsonElement;
                     if (value.has("model")) {
-                        value.addProperty("model", "block/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
+                        value.addProperty("model", "blocks/" + nameConverter.getBlockMapping().remap(value.get("model").getAsString()));
                         anyChanges = true;
                     }
                 }

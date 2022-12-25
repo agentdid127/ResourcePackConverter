@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack;
 
+import com.agentdid127.resourcepack.backwards.BackwardsPackConverter;
 import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.google.gson.Gson;
@@ -37,24 +38,7 @@ public class GUI {
             initialVersionBox.addItem(item);
             finalVersionBox.addItem(item);
         }
-        // To only allow for newer versions as backwards is not available
-        initialVersionBox.addItemListener(e -> {
-            int j = 0;
-            for (int i = 0; i < versions.length; i++) {
 
-                if (versions[i].equals(e.getItem())) {
-                    j = i;
-                }
-            }
-            String[] items2 = new String[versions.length - j - 1];
-            for (int i = 0; i < items2.length; i++) {
-                items2[i] = versions[j + i + 1];
-            }
-            finalVersionBox.removeAllItems();
-            for (String item : items2) {
-                finalVersionBox.addItem(item);
-            }
-        });
         convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
 
@@ -67,7 +51,7 @@ public class GUI {
                 convertButton.setVisible(false);
                 try {
                     if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
-                        out.println("Sorry! You can't currently convert backwards, This is a feature that is planned for the future! Feel free to help out on Github!");
+                        new BackwardsPackConverter(from, to, light, minify, Paths.get("./"), true, out).runDir();
                     } else {
                         new ForwardsPackConverter(from, to, light, minify, Paths.get("./"), true, out).runDir();
 

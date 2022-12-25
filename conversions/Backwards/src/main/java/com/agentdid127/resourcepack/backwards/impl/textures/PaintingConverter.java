@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.backwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -14,8 +14,8 @@ public class PaintingConverter extends Converter {
     public PaintingConverter(PackConverter packConverter) {
         super(packConverter);
     }
-
-
+    private Path paintingPath;
+    private ImageConverter normal;
     /**
      * Remaps painting image to multiple images.
      * @param pack
@@ -23,7 +23,9 @@ public class PaintingConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
+        paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
+        normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
+        normal.newImage(256, 256);
         if (!paintingPath.toFile().exists()) return;
 
 
@@ -64,20 +66,17 @@ public class PaintingConverter extends Converter {
         painting(paintingPath, "burning_skull.png", 128, 192, 4, 4);
         if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists())
             paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().delete();
+
+        normal.store();
     }
 
     private void painting (Path paintingPath, String name, int x, int y, int scaleX, int scaleY) throws IOException
     {
-        int defaultW = 16, defaultH = 16;
-
-        if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists()) {
-            ImageConverter normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
-            if (!normal.fileIsPowerOfTwo()) return;
-            normal.newImage(defaultW * scaleX, defaultH* scaleY);
-
-            normal.subImage(x, y, x + defaultW * scaleX, y + defaultH * scaleY, 0, 0);
-            normal.store(paintingPath.resolve(name));
+        if (paintingPath.resolve(name).toFile().exists()) {
+            normal.addImage(paintingPath.resolve(name), x, y);
+            paintingPath.resolve(name).toFile().delete();
         }
+
     }
 
     }
