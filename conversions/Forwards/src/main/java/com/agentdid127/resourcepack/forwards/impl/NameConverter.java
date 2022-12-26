@@ -121,10 +121,10 @@ public class NameConverter extends Converter {
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
                     renameAll(newItemMapping, ".png", textures.resolve("item"));
                     renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
-                    Files.copy(models.resolve("item" + File.separator + "black_dye.png"), models.resolve("item" + File.separator + "ink_sac.png"));
-                    Files.copy(models.resolve("item" + File.separator + "brown_dye.png"), models.resolve("item" + File.separator + "cocoa_beans.png"));
-                    Files.copy(models.resolve("item" + File.separator + "white_dye.png"), models.resolve("item" + File.separator + "bone_meal.png"));
-                    Files.copy(models.resolve("item" + File.separator + "blue_dye.png"), models.resolve("item" + File.separator + "lapis_lazuli.png"));
+                    if (!models.resolve("item" + File.separator + "ink_sac.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "black_dye.png"), models.resolve("item" + File.separator + "ink_sac.png"));
+                    if (!models.resolve("item" + File.separator + "cocoa_beans.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "brown_dye.png"), models.resolve("item" + File.separator + "cocoa_beans.png"));
+                    if (!models.resolve("item" + File.separator + "bone_meal.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "white_dye.png"), models.resolve("item" + File.separator + "bone_meal.png"));
+                    if (!models.resolve("item" + File.separator + "lapis_lazuli.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "blue_dye.png"), models.resolve("item" + File.separator + "lapis_lazuli.png"));
                 }
                 //1.16 Iron golems
                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
