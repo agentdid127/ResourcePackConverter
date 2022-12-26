@@ -24,7 +24,7 @@ public class PaintingConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
-        normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
+        normal = new ImageConverter(16, 16, paintingPath.resolve("kebab.png"));
         normal.newImage(256, 256);
         if (!paintingPath.toFile().exists()) return;
 
@@ -64,10 +64,8 @@ public class PaintingConverter extends Converter {
         painting(paintingPath, "pointer.png", 0, 192, 4, 4);
         painting(paintingPath, "pigscene.png", 64, 192, 4, 4);
         painting(paintingPath, "burning_skull.png", 128, 192, 4, 4);
-        if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists())
-            paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().delete();
 
-        normal.store();
+        normal.store(paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
     }
 
     private void painting (Path paintingPath, String name, int x, int y, int scaleX, int scaleY) throws IOException

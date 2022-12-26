@@ -114,13 +114,13 @@ public class NameConverter extends Converter {
                     renameAll(itemMapping17, ".png", models.resolve("item"));
                     if (textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png").toFile().exists())
                         Files.move(textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"), textures.resolve("entity" + File.separator + "squid.png"));
-                        Files.deleteIfExists(textures.resolve("entity" + File.separator + "squid" + File.separator));
+                        // Files.deleteIfExists(textures.resolve("entity" + File.separator + "squid" + File.separator));
                 }
                 //1.16 Iron golems
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.16") && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
                     if (textures.resolve("entity" + File.separator + "iron_golem.png").toFile().exists())
                         Files.move(textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem.png"));
-                        Files.delete(textures.resolve("entity" + File.separator + "iron_golem" + File.separator));
+                        // Files.deleteIfExists(textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
                 }
                 if (to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                     renameAll(newBlockMapping, ".png", textures.resolve("block"));
