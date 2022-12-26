@@ -84,10 +84,10 @@ public class NameConverter extends Converter {
                 //Update 1.14 items
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                     renameAll(newItemMapping, ".json", models.resolve("item"));
-                    if (!models.resolve("item" + File.separator + "ink_sac.json").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "black_dye.json"), models.resolve("item" + File.separator + "ink_sac.json"));
-                    if (!models.resolve("item" + File.separator + "cocoa_beans.json").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "brown_dye.json"), models.resolve("item" + File.separator + "cocoa_beans.json"));
-                    if (!models.resolve("item" + File.separator + "bone_meal.json").toFile().exists())Files.copy(models.resolve("item" + File.separator + "white_dye.json"), models.resolve("item" + File.separator + "bone_meal.json"));
-                    if (!models.resolve("item" + File.separator + "lapis_lazuli.json").toFile().exists())Files.copy(models.resolve("item" + File.separator + "blue_dye.json"), models.resolve("item" + File.separator + "lapis_lazuli.json"));
+                    if (!models.resolve("item" + File.separator + "ink_sac.json").toFile().exists() && models.resolve("item" + File.separator + "black_dye.json").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "black_dye.json"), models.resolve("item" + File.separator + "ink_sac.json"));
+                    if (!models.resolve("item" + File.separator + "cocoa_beans.json").toFile().exists() && models.resolve("item" + File.separator + "brown_dye.json").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "brown_dye.json"), models.resolve("item" + File.separator + "cocoa_beans.json"));
+                    if (!models.resolve("item" + File.separator + "bone_meal.json").toFile().exists() && models.resolve("item" + File.separator + "white_dye.json").toFile().exists())Files.copy(models.resolve("item" + File.separator + "white_dye.json"), models.resolve("item" + File.separator + "bone_meal.json"));
+                    if (!models.resolve("item" + File.separator + "lapis_lazuli.json").toFile().exists() && models.resolve("item" + File.separator + "blue_dye.json").toFile().exists())Files.copy(models.resolve("item" + File.separator + "blue_dye.json"), models.resolve("item" + File.separator + "lapis_lazuli.json"));
                 }
 
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
@@ -121,10 +121,10 @@ public class NameConverter extends Converter {
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")) {
                     renameAll(newItemMapping, ".png", textures.resolve("item"));
                     renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
-                    if (!models.resolve("item" + File.separator + "ink_sac.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "black_dye.png"), models.resolve("item" + File.separator + "ink_sac.png"));
-                    if (!models.resolve("item" + File.separator + "cocoa_beans.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "brown_dye.png"), models.resolve("item" + File.separator + "cocoa_beans.png"));
-                    if (!models.resolve("item" + File.separator + "bone_meal.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "white_dye.png"), models.resolve("item" + File.separator + "bone_meal.png"));
-                    if (!models.resolve("item" + File.separator + "lapis_lazuli.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "blue_dye.png"), models.resolve("item" + File.separator + "lapis_lazuli.png"));
+                    if (!models.resolve("item" + File.separator + "ink_sac.png").toFile().exists() && models.resolve("item" + File.separator + "black_dye.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "black_dye.png"), models.resolve("item" + File.separator + "ink_sac.png"));
+                    if (!models.resolve("item" + File.separator + "cocoa_beans.png").toFile().exists() && models.resolve("item" + File.separator + "brown_dye.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "brown_dye.png"), models.resolve("item" + File.separator + "cocoa_beans.png"));
+                    if (!models.resolve("item" + File.separator + "bone_meal.png").toFile().exists() && models.resolve("item" + File.separator + "white_dye.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "white_dye.png"), models.resolve("item" + File.separator + "bone_meal.png"));
+                    if (!models.resolve("item" + File.separator + "lapis_lazuli.png").toFile().exists() && models.resolve("item" + File.separator + "blue_dye.png").toFile().exists()) Files.copy(models.resolve("item" + File.separator + "blue_dye.png"), models.resolve("item" + File.separator + "lapis_lazuli.png"));
                 }
                 //1.16 Iron golems
                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
