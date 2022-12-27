@@ -113,5 +113,23 @@
     "skeleton/stray",
     "skeleton/stray_overlay",
     "zombie/husk"
+  ],
+  "1.9": [
+    "elytra",
+    "enderdragon/dragon_fireball",
+    "end_gateway_beam",
+    "shield_base",
+    "shield_base_nopattern"
+  ],
+  "1.8": [
+    "alex",
+    "armorstand",
+    "banner",
+    "banner_base",
+    "endermite",
+    "guardian",
+    "guardian_beam",
+    "guardian_elder",
+    "rabbit"
   ]
 }
