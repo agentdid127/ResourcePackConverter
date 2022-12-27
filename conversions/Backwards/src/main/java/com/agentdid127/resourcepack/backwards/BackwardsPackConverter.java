@@ -35,6 +35,7 @@ public class BackwardsPackConverter extends PackConverter {
     
     protected void converterRunner(String from, String to, String light) {
         // this needs to be run first, other converters might reference new directory names
+        this.registerConverter(new DeleteFileConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         this.registerConverter(new NameConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
 
