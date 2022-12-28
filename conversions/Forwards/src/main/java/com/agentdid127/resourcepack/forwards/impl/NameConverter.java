@@ -150,7 +150,7 @@ public class NameConverter extends Converter {
                 }
 
                 //1.13 End Crystals
-                if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists())
+                if (textures.resolve("entity" + File.separator + "endercrystal").toFile().exists() && !textures.resolve("entity" + File.separator + "end_crystal").toFile().exists())
                     Files.move(textures.resolve("entity" + File.separator + "endercrystal"), textures.resolve("entity" + File.separator + "end_crystal"));
                 findEntityFiles(textures.resolve("entity"));
             }
