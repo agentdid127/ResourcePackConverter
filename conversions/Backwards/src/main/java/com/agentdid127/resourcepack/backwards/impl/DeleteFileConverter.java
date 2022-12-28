@@ -42,7 +42,7 @@ public class DeleteFileConverter extends Converter {
 
     }
 
-    protected void findFiles(Path path) {
+    protected void findFiles(Path path) throws IOException {
         File directory = new File(path.toString());
         File[] fList = directory.listFiles();
         for (File file : fList) {
@@ -52,7 +52,7 @@ public class DeleteFileConverter extends Converter {
             }
         fList = directory.listFiles();
         if (fList.length == 0) {
-            directory.delete();
+            Files.deleteIfExists(directory.toPath());
         };
     }
 

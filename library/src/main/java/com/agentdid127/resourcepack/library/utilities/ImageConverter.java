@@ -82,8 +82,10 @@ public class ImageConverter {
     }
 
     public void addImage(Path imagePath, int x, int y) throws IOException {
-        BufferedImage image = ImageIO.read(imagePath.toFile());
-        g2d.drawImage(image, x*wMultiplier, y*hMultiplier, null);
+        if (imagePath.toFile().exists()) {
+            BufferedImage image = ImageIO.read(imagePath.toFile());
+            g2d.drawImage(image, x * wMultiplier, y * hMultiplier, null);
+        }
     }
     //Takes part of an image and stores it in the new image
     public void subImage (int x, int y, int x2, int y2, int storex, int storey)

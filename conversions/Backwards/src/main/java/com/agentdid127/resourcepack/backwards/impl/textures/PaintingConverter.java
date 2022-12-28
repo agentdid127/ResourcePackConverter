@@ -7,7 +7,9 @@ import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class PaintingConverter extends Converter {
 
@@ -16,6 +18,7 @@ public class PaintingConverter extends Converter {
     }
     private Path paintingPath;
     private ImageConverter normal;
+    ArrayList<String> paintings = new ArrayList<>();
     /**
      * Remaps painting image to multiple images.
      * @param pack
@@ -24,10 +27,17 @@ public class PaintingConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
-        normal = new ImageConverter(16, 16, paintingPath.resolve("kebab.png"));
-        normal.newImage(256, 256);
         if (!paintingPath.toFile().exists()) return;
-
+        File[] paintingFiles = paintingPath.toFile().listFiles();
+        String filename = "";
+        for (File file : paintingFiles) {
+            if (file.getName().endsWith(".png")) {
+                filename = file.getName();
+                break;
+            }
+        }
+        normal = new ImageConverter(16, 16, paintingPath.resolve(filename));
+        normal.newImage(256, 256);
 
         //16x16
         painting(paintingPath, "kebab.png", 0, 0, 1, 1);
@@ -66,13 +76,16 @@ public class PaintingConverter extends Converter {
         painting(paintingPath, "burning_skull.png", 128, 192, 4, 4);
 
         normal.store(paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
+        for (String item : paintings) {
+            Files.deleteIfExists(paintingPath.resolve(item));
+        }
     }
 
     private void painting (Path paintingPath, String name, int x, int y, int scaleX, int scaleY) throws IOException
     {
         if (paintingPath.resolve(name).toFile().exists()) {
             normal.addImage(paintingPath.resolve(name), x, y);
-            paintingPath.resolve(name).toFile().delete();
+            paintings.add(name);
         }
 
     }
