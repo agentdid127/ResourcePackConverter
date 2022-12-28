@@ -24,8 +24,9 @@ public class ParticleConverter extends Converter {
         //The directory to convert
         particles = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
 
-        Files.copy(particles.resolve("block_marker.json"), particles.resolve("block_marker.json"));
-        Files.move(particles.resolve("block_marker.json"), particles.resolve("light.json"));
-
+        if (particles.resolve("block_marker.json").toFile().exists()) {
+            Files.copy(particles.resolve("block_marker.json"), particles.resolve("block_marker.json"));
+            Files.move(particles.resolve("block_marker.json"), particles.resolve("light.json"));
+        }
     }
 }
