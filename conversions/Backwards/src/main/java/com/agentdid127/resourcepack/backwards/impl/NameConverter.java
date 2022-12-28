@@ -118,7 +118,7 @@ public class NameConverter extends Converter {
                 }
                 //1.16 Iron golems
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.16") && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
-                    if (textures.resolve("entity" + File.separator + "iron_golem.png").toFile().exists())
+                    if (textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png").toFile().exists())
                         Files.move(textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"), textures.resolve("entity" + File.separator + "iron_golem.png"));
                         // Files.deleteIfExists(textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"));
                 }

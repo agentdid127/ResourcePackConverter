@@ -32,25 +32,20 @@ public class ParticleTextureConverter extends Converter {
         if (!imagePath.resolve("particles.png").toFile().exists()) return;
 
         int defaultW = 128, defaultH = 128;
-        ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
-        if (!iconvert.fileIsPowerOfTwo()) return;
         //Particles
         boolean isLegacy = false;
-        if (from > Util.getVersionProtocol(packConverter.getGson(), "1.12.2") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-
-            iconvert.newImage(128, 128);
-            iconvert.subImage(0, 0, 128, 128, 0, 0);
-            isLegacy = iconvert.store();
-        }
-        if (from > Util.getVersionProtocol(packConverter.getGson(), "1.13.2") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
             defaultW = 256;
             defaultH = 256;
-            if (!isLegacy) {
-                iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
+            File[] imageFiles = imagePath.toFile().listFiles();
+            String fileName = "";
+            for (File file : imageFiles) {
+                if (file.getName().endsWith(".png")) {
+                    fileName = file.getName();
+                    break;
+                }
             }
-            else {
-                iconvert.setImage(defaultW, defaultH);
-            }
+            ImageConverter iconvert = new ImageConverter(8, 8, imagePath.resolve(fileName));
             iconvert.newImage(256, 256);
             iconvert.addImage(imagePath.resolve("angry.png"), 8, 40);
 
@@ -177,7 +172,14 @@ public class ParticleTextureConverter extends Converter {
 
             iconvert.addImage(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"), 8, 16);
 
-            iconvert.store();
+            iconvert.store(imagePath.resolve("particles.png"));
+        }
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+            defaultW = 128; defaultH = 128;
+            ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
+            if (!iconvert.fileIsPowerOfTwo()) return;
+            iconvert.newImage(128, 128);
+            iconvert.subImage(0, 0, 128, 128, 0, 0);
         }
     }
     }
