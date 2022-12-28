@@ -51,6 +51,7 @@ public class ImageConverter {
             g.dispose();
             defaultW = defaultWIn;
             width = image.getWidth();
+            height = image.getHeight();
             location = locationIn;
             wMultiplier = width / defaultW;
             hMultiplier = height / defaultH;
