@@ -16,6 +16,8 @@ import java.nio.file.Path;
 
 public class AtlasConverter extends Converter {
 
+    JsonObject out = new JsonObject();
+    JsonArray sources = new JsonArray();
     public AtlasConverter(PackConverter packConverter) {
         super(packConverter);
     }
@@ -28,16 +30,15 @@ public class AtlasConverter extends Converter {
         if (!atlases.toFile().exists()) atlases.toFile().mkdirs();
 
         if (textures.toFile().exists()) {
-            JsonObject out = new JsonObject();
-            JsonArray sources = new JsonArray();
             File[] files = textures.toFile().listFiles();
             for (File file : files) {
                 JsonObject source = new JsonObject();
-                if (file.isDirectory() && !(file.getName().equals("block") || file.getName().equals("item"))) {
+                if (file.isDirectory()) {
                     source.addProperty("type", "directory");
                     source.addProperty("source", file.getName());
-                    source.addProperty("prefix", "");
+                    source.addProperty("prefix", file.getName() + "/");
                     sources.add(source);
+                    findFiles(textures.resolve(file.getName()), file.getName());
                 }
                 else if (file.getName().endsWith(".png")) {
                     source.addProperty("type", "single");
@@ -46,11 +47,26 @@ public class AtlasConverter extends Converter {
                 }
             }
             out.add("sources", sources);
-            File output = atlases.resolve("pack_atlases.json").toFile();
+            File output = atlases.resolve("blocks.json").toFile();
             if (!output.exists()) {
                 OutputStream os = new FileOutputStream(output);
                 os.write(packConverter.getGson().toJson(out).getBytes(StandardCharsets.UTF_8));
                 os.close();
+            }
+        }
+    }
+
+    public void findFiles(Path directory, String prefix) {
+        if (directory.toFile().isDirectory())
+        for (File file : directory.toFile().listFiles()) {
+            JsonObject source = new JsonObject();
+            if (file.isDirectory()) {
+                source.addProperty("type", "directory");
+                source.addProperty("source", prefix + "/" + file.getName());
+                source.addProperty("prefix", prefix + "/" + file.getName() + "/");
+                sources.add(source);
+                String nextPrefix = prefix + "/" + file.getName();
+                findFiles(directory.resolve(file.getName()), nextPrefix);
             }
         }
     }

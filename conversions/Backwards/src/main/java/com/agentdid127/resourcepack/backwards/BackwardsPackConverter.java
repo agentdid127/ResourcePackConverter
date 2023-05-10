@@ -54,10 +54,10 @@ public class BackwardsPackConverter extends PackConverter {
         if (Util.getVersionProtocol(gson, to) <= Util.getVersionProtocol(gson, "1.13"))
             this.registerConverter(new LangConverter(this, from, to));
         if (Util.getVersionProtocol(gson, from) >= Util.getVersionProtocol(gson, "1.12.2") && Util.getVersionProtocol(gson, to) <= Util.getVersionProtocol(gson, "1.13")) {
-            this.registerConverter(new BlockStateConverter(this));
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
         }
+        this.registerConverter(new BlockStateConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         this.registerConverter(new ModelConverter(this, light, Util.getVersionProtocol(gson, to), Util.getVersionProtocol(gson, from)));
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, "1.9") && Util.getVersionProtocol(gson, to) <= Util.getVersionProtocol(gson, "1.9"))
             this.registerConverter(new CompassConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
