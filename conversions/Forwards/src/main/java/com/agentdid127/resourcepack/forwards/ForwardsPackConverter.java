@@ -44,12 +44,12 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new ModelConverter(this, light, Util.getVersionProtocol(gson, to), Util.getVersionProtocol(gson, from)));
         if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.12.2") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.13")) {
             this.registerConverter(new SoundsConverter(this));
-            this.registerConverter(new BlockStateConverter(this));
+
             this.registerConverter(new AnimationConverter(this));
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
         }
-
+        this.registerConverter(new BlockStateConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
         if (Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.13"))
             this.registerConverter(new LangConverter(this, from, to));
         this.registerConverter(new ParticleTextureConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
@@ -62,6 +62,9 @@ public class ForwardsPackConverter extends PackConverter {
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.18") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.18"))
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new InventoryConverter(this));
+
+            if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.19.3") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.19.3"))
+            this.registerConverter(new AtlasConverter(this));
     }
 
     public void runPack(Pack pack) {

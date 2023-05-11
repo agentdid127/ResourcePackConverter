@@ -154,6 +154,14 @@ public class ModelConverter extends Converter {
                             }
                             if (!textureObject.has(entry.getKey())) textureObject.addProperty(entry.getKey(), value);
                         }
+
+                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+                            for (String s : textureObject.keySet()) {
+                                String val = textureObject.get(s).getAsString();
+                                textureObject.remove(s);
+                                textureObject.addProperty(s, val.replaceAll("minecraft:", ""));
+                            }
+                        }
                         jsonObject.remove("textures");
                         jsonObject.add("textures", textureObject);
                     }
@@ -236,6 +244,9 @@ public class ModelConverter extends Converter {
                                     if (parent.startsWith("item/")) {
                                        parent = setParent("items/", "/backwards/items.json", parent, "1_13");
                                     }
+                                }
+                                if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+                                    parent = parent.replaceAll("minecraft:", "");
                                 }
                                 jsonObject.addProperty(entry.getKey(), parent);
                             }

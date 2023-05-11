@@ -39,6 +39,11 @@ public class DeleteFileConverter extends Converter {
         findFiles(models);
         findFiles(textures);
 
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+            Path atlases = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
+            if (atlases.toFile().exists()) Util.deleteDirectoryAndContents(atlases);
+        }
+
 
     }
 
