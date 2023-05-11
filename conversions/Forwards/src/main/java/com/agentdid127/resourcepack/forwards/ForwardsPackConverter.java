@@ -65,6 +65,8 @@ public class ForwardsPackConverter extends PackConverter {
 
             if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.19.3") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.19.3"))
             this.registerConverter(new AtlasConverter(this));
+        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.19.4") && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.19.4"))
+            this.registerConverter(new EnchantPathConverter(this));
     }
 
     public void runPack(Pack pack) {

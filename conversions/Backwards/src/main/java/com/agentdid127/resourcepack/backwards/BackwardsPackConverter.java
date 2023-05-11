@@ -39,6 +39,9 @@ public class BackwardsPackConverter extends PackConverter {
         this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
         this.registerConverter(new DeleteFileConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
 
+        if (Util.getVersionProtocol(gson, from) >= Util.getVersionProtocol(gson, "1.19.4") && Util.getVersionProtocol(gson, to) < Util.getVersionProtocol(gson, "1.19.4")) {
+            this.registerConverter(new EnchantPathConverter(this));
+        }
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, "1.18") && Util.getVersionProtocol(gson, to) <= Util.getVersionProtocol(gson, "1.18")) {
             this.registerConverter(new ParticleConverter(this));
             this.registerConverter(new InventoryConverter(this));

@@ -221,21 +221,22 @@ public class NameConverter extends Converter {
             // remap grass blocks in order due to the cyclical way their names have changed,
             // i.e grass -> grass_block, tall_grass -> grass, double_grass -> tall_grass
             List<String> grasses = Arrays.asList("grass", "tall_grass", "double_grass");
-            if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")  && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
-                grasses.stream().forEach(name -> {
-                    String newName = mapping.remap(name);
-                    Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension), newName + extension);
-                    if (ret == null) return;
-                    if (ret && packConverter.DEBUG) {
-                        packConverter.log("      Renamed: " + name + extension + "->" + newName + extension);
-                    } else if (!ret) {
-                        System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
-                    }
-                });
+            if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")) {
+                if ((path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
+                    grasses.stream().forEach(name -> {
+                        String newName = mapping.remap(name);
+                        Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension), newName + extension);
+                        if (ret == null) return;
+                        if (ret && packConverter.DEBUG) {
+                            packConverter.log("      Renamed: " + name + extension + "->" + newName + extension);
+                        } else if (!ret) {
+                            System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
+                        }
+                    });
+                }
             }
             //remap snow jsons, but not images.
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                if (path.resolve("snow.json").toFile().exists()) Util.renameFile(path.resolve("snow" + extension), "snow_block" + extension);
                 if (path.resolve("snow_layer.json").toFile().exists()) Util.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
             }
             Files.list(path).forEach(path1 -> {
@@ -244,6 +245,7 @@ public class NameConverter extends Converter {
                 String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
                 // skip the already renamed grass blocks
                 if (grasses.contains(baseName) && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
+
                     return;
                 }
                 String newName = mapping.remap(baseName);
