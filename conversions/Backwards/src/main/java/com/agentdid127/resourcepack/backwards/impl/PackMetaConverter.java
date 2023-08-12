@@ -31,7 +31,8 @@ public class PackMetaConverter extends Converter {
     public void convert(Pack pack) throws IOException {
         Path file = pack.getWorkingPath().resolve("pack.mcmeta");
         if (!file.toFile().exists()) return;
-        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4")) versionInt = 13;
+        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20")) versionInt = 15;
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4") && version < Util.getVersionProtocol(packConverter.getGson(), "1.20")) versionInt = 13;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.4")) versionInt = 12;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) versionInt = 9;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.18") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19")) versionInt = 8;
