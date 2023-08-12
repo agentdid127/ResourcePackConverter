@@ -39,7 +39,7 @@ public class ZipPack extends Pack {
 
         /**
          * Removes Existing Conversions and starts new one
-         * @throws IOException
+         * @throws IOException Any issue with loading the pack, or deleting previous packs
          */
         @Override
         public void setup() throws IOException {
@@ -70,7 +70,7 @@ public class ZipPack extends Pack {
 
         /**
          * Runs after program is finished. Zips directory.
-         * @throws IOException
+         * @throws IOException Any IO exception
          */
         @Override
         public void finish() throws IOException {

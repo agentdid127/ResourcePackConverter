@@ -158,9 +158,6 @@ public class GUI {
         panel1.add(convertButton);
     }
 
-    /**
-     * @noinspection ALL
-     */
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }

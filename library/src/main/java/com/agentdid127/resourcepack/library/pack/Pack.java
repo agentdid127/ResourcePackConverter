@@ -25,8 +25,8 @@ public class Pack {
 
     /**
      * Checks the type of pack it is.
-     * @param path
-     * @return
+     * @param path Pack Path
+     * @return The Pack information
      */
     public static Pack parse(Path path) {
         if (!path.toString().contains(CONVERTED_SUFFIX)) {
@@ -73,7 +73,7 @@ public class Pack {
 
         /**
          * Deletes existing conversions and sets up pack for conversion
-         * @throws IOException
+         * @throws IOException Issues with conversion
          */
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
