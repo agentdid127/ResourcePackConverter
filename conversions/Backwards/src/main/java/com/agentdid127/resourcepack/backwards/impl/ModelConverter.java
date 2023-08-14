@@ -85,21 +85,17 @@ public class ModelConverter extends Converter {
                     return;
                 }
 
+
+
                 // GUI light system for 1.15.2
                 if (!light.equals("none") && (light.equals("front") || light.equals("side")))
                     jsonObject.addProperty("gui_light", light);
                 // minify the json so we can replace spaces in paths easily
                 // TODO Improvement: handle this in a cleaner way?
 
-                String content = jsonObject.toString();
-                if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                    content = content.replaceAll("item/", "items/");
-                    content = content.replaceAll("block/", "blocks/");
-                    content = content.replaceAll(" ", "_");
-                }
+
 
                 // handle the remapping of textures, for models that use default texture names
-                jsonObject = packConverter.getGson().fromJson(content, JsonObject.class);
                 if (jsonObject.has("textures") && jsonObject.get("textures").isJsonObject()) {
                     NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
                     JsonObject initialTextureObject = jsonObject.getAsJsonObject("textures");
@@ -108,6 +104,39 @@ public class ModelConverter extends Converter {
                         String value = entry.getValue().getAsString();
                         PackConverter.log(entry.getKey() + ": " + entry.getValue());
                         textureObject.remove(entry.getKey());
+
+                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+                            for (String s : textureObject.keySet()) {
+                                String val = textureObject.get(s).getAsString();
+                                textureObject.remove(s);
+                                textureObject.addProperty(s, val.replaceAll("minecraft:", ""));
+                            }
+                        }
+                        // 1.19 Mappings
+                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+                            if (value.startsWith("block/"))
+                                value = "block/" + nameConverter.getBlockMapping19().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                        value = value.toLowerCase().replaceAll("[()]", "");
+
+                        // 1.17 Mappings
+                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
+                            if (value.startsWith("block/"))
+                                value = "block/" + nameConverter.getBlockMapping17().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                            else if (value.startsWith("item/"))
+                                value = "item/" + nameConverter.getItemMapping17().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
+                            value = value.toLowerCase().replaceAll("[()]", "");
+                        }
+
+                        // 1.14 Mappings
+                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.14"))
+                            if (value.startsWith("block/"))
+                                value = "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length()));
+
+                        // Dyes
+                        if (value.startsWith("item/") && value.contains("dye"))
+                            if (version < Util.getVersionProtocol(packConverter.getGson(), "1.14"))
+                                value = "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length()));
+
                         // 1.13 Mappings
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                             if (value.startsWith("block/")) {
@@ -120,41 +149,10 @@ public class ModelConverter extends Converter {
                                 value = value.toLowerCase().replaceAll("[()]", "");
                         }
 
-                        // 1.14 Mappings
-                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.14"))
-                            if (value.startsWith("block/"))
-                                value = "block/" + nameConverter.getNewBlockMapping().remap(value.substring("block/".length()));
 
-                        // 1.17 Mappings
-                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
-                            if (value.startsWith("block/")) 
-                                value = "block/" + nameConverter.getBlockMapping17().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
-                                else if (value.startsWith("item/")) 
-                                value = "item/" + nameConverter.getItemMapping17().remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
-                            value = value.toLowerCase().replaceAll("[()]", "");
-                        }
-
-                        // 1.17 Mappings
-                        if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19")) 
-                            if (value.startsWith("block/")) 
-                                value = "block/" + nameConverter.getBlockMapping19().remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
-                            value = value.toLowerCase().replaceAll("[()]", "");
-
-                        // Dyes
-                        if (value.startsWith("item/") && value.contains("dye")) 
-                            if (version < Util.getVersionProtocol(packConverter.getGson(), "1.14")) 
-                                value = "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length()));
                         
                         if (!textureObject.has(entry.getKey()))
                             textureObject.addProperty(entry.getKey(), value);
-                    }
-
-                    if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                        for (String s : textureObject.keySet()) {
-                            String val = textureObject.get(s).getAsString();
-                            textureObject.remove(s);
-                            textureObject.addProperty(s, val.replaceAll("minecraft:", ""));
-                        }
                     }
 
                     jsonObject.remove("textures");
@@ -248,6 +246,14 @@ public class ModelConverter extends Converter {
                         }
                     }
                 }
+
+                String content = jsonObject.toString();
+                if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                    content = content.replaceAll("item/", "items/");
+                    content = content.replaceAll("block/", "blocks/");
+                    content = content.replaceAll(" ", "_");
+                }
+                jsonObject = packConverter.getGson().fromJson(content, JsonObject.class);
 
                 if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                     if (packConverter.DEBUG)
