@@ -11,28 +11,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SpacesConverter extends Converter {
-
     public SpacesConverter(PackConverter packConverter) {
         super(packConverter);
     }
 
     /**
      * Runs findFiles
+     * 
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
         Path assets = pack.getWorkingPath().resolve("assets");
-        if (!assets.toFile().exists()) return;
-
-
+        if (!assets.toFile().exists())
+            return;
         findFiles(assets);
     }
 
-
     /**
      * Recursively finds files to fix Spaces
+     * 
      * @param path
      * @throws IOException
      */
@@ -44,27 +43,28 @@ public class SpacesConverter extends Converter {
                 String dir = fixSpaces(file.toPath());
                 if (file.isDirectory()) {
                     findFiles(Paths.get(dir));
-
                 }
-
             }
         }
     }
 
     /**
      * Replaces spaces in files with underscores
+     * 
      * @param path
      * @return
      * @throws IOException
      */
-    protected String fixSpaces(Path path) throws IOException
-    {
-        if (!path.getFileName().toString().contains(" ")) return path.toString();
+    protected String fixSpaces(Path path) throws IOException {
+        if (!path.getFileName().toString().contains(" "))
+            return path.toString();
 
         String noSpaces = path.getFileName().toString().replaceAll(" ", "_");
 
         Boolean ret = Util.renameFile(path, noSpaces);
-        if (ret == null) return "null";
+        if (ret == null)
+            return "null";
+
         if (ret && packConverter.DEBUG) {
             packConverter.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
@@ -72,6 +72,7 @@ public class SpacesConverter extends Converter {
             System.err.println("      Failed to rename: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         }
-        else return null;
+
+        return null;
     }
 }

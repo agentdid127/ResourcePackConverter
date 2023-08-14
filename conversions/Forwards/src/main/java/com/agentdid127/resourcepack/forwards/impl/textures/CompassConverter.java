@@ -14,6 +14,7 @@ import java.nio.file.Path;
 public class CompassConverter extends Converter {
     private int from, to;
     private Path items;
+
     public CompassConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
@@ -23,21 +24,26 @@ public class CompassConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         String itemsT = "items";
-        if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) itemsT = "item";
-        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + itemsT + File.separator + "compass.png");
+        if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
+            itemsT = "item";
+        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                + "textures" + File.separator + itemsT + File.separator + "compass.png");
         items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
-            if (!imageConverter.fileIsPowerOfTwo()) return;
+            if (!imageConverter.fileIsPowerOfTwo())
+                return;
 
             for (int i = 0; i < 32; i++) {
                 int h = i * 16;
                 String it = String.valueOf(i);
-                if (i < 10) it = "0" + it;
+                if (i < 10)
+                    it = "0" + it;
                 compass(0, h, 16, h + 16, "compass_" + it, imageConverter);
             }
 
-            if (items.resolve("compass.png.mcmeta").toFile().exists()) Files.delete(items.resolve("compass.png.mcmeta"));
+            if (items.resolve("compass.png.mcmeta").toFile().exists())
+                Files.delete(items.resolve("compass.png.mcmeta"));
         }
     }
 

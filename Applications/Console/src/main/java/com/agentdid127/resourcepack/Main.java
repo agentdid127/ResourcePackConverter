@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 public class Main {
-
     /**
      * Main class. Runs program
      * @param args
@@ -36,17 +35,8 @@ public class Main {
 
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
             new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
-        }
-        else {
+        } else {
             new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
         }
-
-
-
-
-
     }
-
-
-
 }

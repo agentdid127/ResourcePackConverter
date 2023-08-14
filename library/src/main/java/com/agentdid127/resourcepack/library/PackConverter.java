@@ -9,11 +9,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class PackConverter {
-
     protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
     protected Gson gson;
     public boolean DEBUG = true;
     protected static PrintStream out;
+
     /**
      * Registers Converter.
      * @param converter
@@ -23,7 +23,6 @@ public abstract class PackConverter {
     }
 
     /**
-     *
      * @param clazz
      * @param <T>
      * @return
@@ -43,5 +42,4 @@ public abstract class PackConverter {
     public Gson getGson() {
         return gson;
     }
-
 }

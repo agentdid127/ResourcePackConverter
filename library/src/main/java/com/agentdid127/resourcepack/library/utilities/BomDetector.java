@@ -72,7 +72,7 @@ public final class BomDetector {
      */
     public List<String> removeBOMs() throws IOException{
         List<String> result = new ArrayList<String>();
-        for(String bomFile : findBOMs()){
+        for (String bomFile : findBOMs()){
             stripBomFrom(bomFile);
             result.add(bomFile);
         }
@@ -94,12 +94,11 @@ public final class BomDetector {
         List<File> result = new ArrayList<File>();
         File[] filesAndDirs = startingDir.listFiles();
         List<File> filesDirs = Arrays.asList(filesAndDirs);
-        for(File file : filesDirs){
-            if (isTextFile(file)){
+        for (File file : filesDirs){
+            if (isTextFile(file))
                 result.add(file);
-            }
-            if( file.isDirectory() ) {
-                //recursive call!!
+            if(file.isDirectory()) {
+                // recursive call!!
                 List<File> deeperList = findTextFilesBeneath(file);
                 result.addAll(deeperList);
             }

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class Pack {
-
     protected static final String CONVERTED_SUFFIX = "_converted";
 
     protected Path path;
@@ -29,16 +28,13 @@ public class Pack {
      * @return The Pack information
      */
     public static Pack parse(Path path) {
-        if (!path.toString().contains(CONVERTED_SUFFIX)) {
-            if (path.toFile().isDirectory() && path.resolve("pack.mcmeta").toFile().exists()) {
+        if (!path.toString().contains(CONVERTED_SUFFIX)) 
+            if (path.toFile().isDirectory() && path.resolve("pack.mcmeta").toFile().exists()) 
                 return new Pack(path);
-            } else if (path.toString().endsWith(".zip")) {
+            else if (path.toString().endsWith(".zip")) 
                 return new ZipPack(path);
-            }
-        }
         return null;
     }
-
 
     public Path getOriginalPath() {
         return path;
@@ -64,7 +60,6 @@ public class Pack {
     }
 
     public static class Handler {
-
         protected Pack pack;
 
         public Handler(Pack pack) {
@@ -85,7 +80,6 @@ public class Pack {
             Util.copyDir(pack.getOriginalPath(), pack.getWorkingPath());
 
             bomRemover(pack.getWorkingPath());
-
         }
 
         static void bomRemover(Path workingPath) throws IOException {
@@ -93,14 +87,9 @@ public class Pack {
                     workingPath.toString(),
                     ".txt", ".json", ".mcmeta", ".properties", ".lang"
             );
-
-            int count = 0;
-            for(String file : bom.findBOMs()){
-                count++;
-            }
-            if (count > 0){
+            int count = bom.findBOMs().size();
+            if (count > 0)
                 PackConverter.log("Removing BOMs from " + count + " files.");
-            }
             bom.removeBOMs();
         }
 
