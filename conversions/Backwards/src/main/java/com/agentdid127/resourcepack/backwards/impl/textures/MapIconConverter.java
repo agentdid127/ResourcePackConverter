@@ -1,6 +1,5 @@
 package com.agentdid127.resourcepack.backwards.impl.textures;
 
-
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
@@ -16,12 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MapIconConverter extends Converter {
-
     protected Map<Long, Long> mapping = new HashMap<>();
 
     public MapIconConverter(PackConverter packConverter) {
         super(packConverter);
-
         mapping.put(pack(0, 0), pack(0, 0));
         mapping.put(pack(8, 0), pack(8, 0));
         mapping.put(pack(16, 0), pack(16, 0));
@@ -36,6 +33,7 @@ public class MapIconConverter extends Converter {
 
     /**
      * Converts maps
+     * 
      * @param pack
      * @throws IOException
      */
@@ -58,9 +56,10 @@ public class MapIconConverter extends Converter {
 
                 int newX = (int) (mapped >> 32);
                 int newY = (int) (long) mapped;
-                packConverter.log("      Mapping " + x + "," + y + " to " + newX + "," + newY);
+                PackConverter.log("      Mapping " + x + "," + y + " to " + newX + "," + newY);
 
-                g2d.drawImage(image.getSubimage(x * scale, y * scale, 8 * scale, 8 * scale), newX * scale, newY * scale, null);
+                g2d.drawImage(image.getSubimage(x * scale, y * scale, 8 * scale, 8 * scale), newX * scale, newY * scale,
+                        null);
             }
         }
 
@@ -70,5 +69,4 @@ public class MapIconConverter extends Converter {
     protected long pack(int x, int y) {
         return (((long) x) << 32) | (y & 0xffffffffL);
     }
-
 }

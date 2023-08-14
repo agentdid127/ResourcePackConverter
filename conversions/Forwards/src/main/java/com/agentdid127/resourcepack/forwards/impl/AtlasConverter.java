@@ -2,7 +2,6 @@ package com.agentdid127.resourcepack.forwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -15,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
 public class AtlasConverter extends Converter {
-
     JsonObject out = new JsonObject();
     JsonArray sources = new JsonArray();
     public AtlasConverter(PackConverter packConverter) {
@@ -39,8 +37,7 @@ public class AtlasConverter extends Converter {
                     source.addProperty("prefix", file.getName() + "/");
                     sources.add(source);
                     findFiles(textures.resolve(file.getName()), file.getName());
-                }
-                else if (file.getName().endsWith(".png")) {
+                } else if (file.getName().endsWith(".png")) {
                     source.addProperty("type", "single");
                     source.addProperty("resource", file.getName().replaceAll("\\.png", ""));
                     sources.add(source);

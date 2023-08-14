@@ -13,3 +13,7 @@ dependency-reduced-pom.xml
 
 # macOS
 .DS_Store
+
+# Windows
+testing/
+run.bat

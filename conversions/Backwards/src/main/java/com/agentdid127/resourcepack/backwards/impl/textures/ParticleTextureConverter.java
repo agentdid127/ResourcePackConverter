@@ -1,6 +1,5 @@
 package com.agentdid127.resourcepack.backwards.impl.textures;
 
-
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
@@ -12,8 +11,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ParticleTextureConverter extends Converter {
-
     int from, to;
+
     public ParticleTextureConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
@@ -22,6 +21,7 @@ public class ParticleTextureConverter extends Converter {
 
     /**
      * Updates Particles
+     * 
      * @param pack
      * @throws IOException
      */
@@ -32,7 +32,9 @@ public class ParticleTextureConverter extends Converter {
         if (!imagePath.resolve("particles.png").toFile().exists()) return;
 
         int defaultW = 128, defaultH = 128;
-        //Particles
+
+        // Particles
+        // TODO: unused variable? - sammwi
         boolean isLegacy = false;
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
             defaultW = 256;
@@ -45,6 +47,7 @@ public class ParticleTextureConverter extends Converter {
                     break;
                 }
             }
+
             ImageConverter iconvert = new ImageConverter(8, 8, imagePath.resolve(fileName));
             iconvert.newImage(256, 256);
             iconvert.addImage(imagePath.resolve("angry.png"), 8, 40);
@@ -65,7 +68,7 @@ public class ParticleTextureConverter extends Converter {
 
             iconvert.addImage(imagePath.resolve("damage.png"), 24, 32);
 
-            iconvert.addImage(imagePath.resolve("drip_fall.png"), 8 ,56);
+            iconvert.addImage(imagePath.resolve("drip_fall.png"), 8, 56);
 
             iconvert.addImage(imagePath.resolve("drip_hang.png"), 0, 56);
 
@@ -114,7 +117,7 @@ public class ParticleTextureConverter extends Converter {
 
             iconvert.addImage(imagePath.resolve("heart.png"), 0, 40);
 
-            iconvert.addImage(imagePath.resolve("lava.png"), 8,24);
+            iconvert.addImage(imagePath.resolve("lava.png"), 8, 24);
             iconvert.addImage(imagePath.resolve("nautilus.png"), 0, 104);
 
             iconvert.addImage(imagePath.resolve("note.png"), 0, 32);
@@ -174,13 +177,15 @@ public class ParticleTextureConverter extends Converter {
 
             iconvert.store(imagePath.resolve("particles.png"));
         }
+        
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-            defaultW = 128; defaultH = 128;
+            defaultW = 128;
+            defaultH = 128;
             ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
-            if (!iconvert.fileIsPowerOfTwo()) return;
+            if (!iconvert.fileIsPowerOfTwo())
+                return;
             iconvert.newImage(128, 128);
             iconvert.subImage(0, 0, 128, 128, 0, 0);
         }
     }
-    }
-
+}

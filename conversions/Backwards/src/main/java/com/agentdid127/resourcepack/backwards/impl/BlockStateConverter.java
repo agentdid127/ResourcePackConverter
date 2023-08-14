@@ -17,26 +17,26 @@ import java.util.Collections;
 import java.util.Map;
 
 public class BlockStateConverter extends Converter {
-
-    private boolean anyChanges;
-
     private int from, to;
+    private boolean anyChanges;
 
     public BlockStateConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
     }
+
     /**
      * Updates blockstates in blockstates folder
+     * 
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
         Path states = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-        if (!states.toFile().exists()) return;
-
+        if (!states.toFile().exists())
+            return;
         Files.list(states)
                 .filter(file -> file.toString().endsWith(".json"))
                 .forEach(file -> {
@@ -47,12 +47,11 @@ public class BlockStateConverter extends Converter {
                         // process multipart
                         JsonArray multipartArray = json.getAsJsonArray("multipart");
                         if (multipartArray != null) {
-                        	for (int i = 0; i < multipartArray.size(); i++) {
-                        		JsonObject multipartObject = multipartArray.get(i).getAsJsonObject();
-                        		for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet()) {
-                        		    updateModelPath(entry);
-                        		}
-                        	}
+                            for (int i = 0; i < multipartArray.size(); i++) {
+                                JsonObject multipartObject = multipartArray.get(i).getAsJsonObject();
+                                for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
+                                    updateModelPath(entry);
+                            }
                         }
 
                         // process variants
@@ -69,14 +68,13 @@ public class BlockStateConverter extends Converter {
                             }
 
                             // update model paths to prepend block
-                            for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet()) {
+                            for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet())
                                 updateModelPath(entry);
-                            }
                         }
                         if (anyChanges) {
                             Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)), Charset.forName("UTF-8"));
-
-                            if (packConverter.DEBUG) packConverter.log("      Converted " + file.getFileName());
+                            if (packConverter.DEBUG)
+                                PackConverter.log("      Converted " + file.getFileName());
                         }
                     } catch (IOException e) {
                         Util.propagate(e);
@@ -86,71 +84,84 @@ public class BlockStateConverter extends Converter {
 
     /**
      * Updates Model paths
+     * 
      * @param entry
      */
     private void updateModelPath(Map.Entry<String, JsonElement> entry) {
         NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
-
         if (entry.getValue() instanceof JsonObject) {
             JsonObject value = (JsonObject) entry.getValue();
             if (value.has("model")) {
                 String[] split = value.get("model").getAsString().split("/");
-                String val = split[split.length-1];
-                String prefix = value.get("model").getAsString().substring(0, value.get("model").getAsString().length()-val.length());
+                String val = split[split.length - 1];
+                String prefix = value.get("model").getAsString().substring(0, value.get("model").getAsString().length() - val.length());
+                
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                    prefix = prefix.replaceAll("minecraft:","");
+                    prefix = prefix.replaceAll("minecraft:", "");
                     anyChanges = true;
                 }
+
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                     val = nameConverter.getBlockMapping19().remap(val);
                     anyChanges = true;
                 }
+
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && to < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                     val = nameConverter.getBlockMapping17().remap(val);
                     anyChanges = true;
                 }
+
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                     val = nameConverter.getNewBlockMapping().remap(val);
                     anyChanges = true;
                 }
+
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                     val = nameConverter.getBlockMapping().remap(val);
                     prefix = prefix.replaceAll("block", "blocks");
                     anyChanges = true;
                 }
-                if (anyChanges) value.addProperty("model", prefix + val);
-            }
 
+                if (anyChanges)
+                    value.addProperty("model", prefix + val);
+            }
         } else if (entry.getValue() instanceof JsonArray) { // some states have arrays
             for (JsonElement jsonElement : ((JsonArray) entry.getValue())) {
                 if (jsonElement instanceof JsonObject) {
                     JsonObject value = (JsonObject) jsonElement;
                     if (value.has("model")) {
                         String[] split = value.get("model").getAsString().split("/");
-                        String val = split[split.length-1];
-                        String prefix = value.get("model").getAsString().substring(0, value.get("model").getAsString().length()-val.length());
+                        String val = split[split.length - 1];
+                        String prefix = value.get("model").getAsString().substring(0, value.get("model").getAsString().length() - val.length());
+                        
                         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                            prefix = prefix.replaceAll("minecraft:","");
+                            prefix = prefix.replaceAll("minecraft:", "");
                             anyChanges = true;
                         }
+
                         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                             val = nameConverter.getBlockMapping19().remap(val);
                             anyChanges = true;
                         }
+
                         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && to < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                             val = nameConverter.getBlockMapping17().remap(val);
                             anyChanges = true;
                         }
+
                         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                             val = nameConverter.getNewBlockMapping().remap(val);
                             anyChanges = true;
                         }
+
                         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                             val = nameConverter.getBlockMapping().remap(val);
                             prefix = prefix.replaceAll("block", "blocks");
                             anyChanges = true;
                         }
-                        if (anyChanges) value.addProperty("model", prefix + val);
+                        
+                        if (anyChanges)
+                            value.addProperty("model", prefix + val);
                     }
                 }
             }

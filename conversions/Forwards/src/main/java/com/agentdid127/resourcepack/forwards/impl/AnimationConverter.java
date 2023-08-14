@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.util.Collections;
 
 public class AnimationConverter extends Converter {
-
     public AnimationConverter(PackConverter packConverter) {
         super(packConverter);
     }
@@ -28,12 +27,12 @@ public class AnimationConverter extends Converter {
 
     /**
      * Updats animated images to newer versions
+     * 
      * @param animations
      * @throws IOException
      */
     protected void fixAnimations(Path animations) throws IOException {
         if (!animations.toFile().exists()) return;
-
         Files.list(animations)
                 .filter(file -> file.toString().endsWith(".png.mcmeta"))
                 .forEach(file -> {
@@ -53,14 +52,14 @@ public class AnimationConverter extends Converter {
                         }
 
                         if (anyChanges) {
-                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)), Charset.forName("UTF-8"));
-
-                            if (packConverter.DEBUG) packConverter.log("      Converted " + file.getFileName());
+                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
+                                    Charset.forName("UTF-8"));
+                            if (packConverter.DEBUG)
+                                PackConverter.log("      Converted " + file.getFileName());
                         }
                     } catch (IOException e) {
                         Util.propagate(e);
                     }
                 });
-
     }
 }

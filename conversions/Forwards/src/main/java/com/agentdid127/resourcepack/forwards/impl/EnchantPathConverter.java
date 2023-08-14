@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class EnchantPathConverter extends Converter {
-
     public EnchantPathConverter(PackConverter packConverter) {
         super(packConverter);
     }
@@ -24,12 +23,11 @@ public class EnchantPathConverter extends Converter {
             Files.copy(misc.resolve("enchanted_item_glint.png"), misc.resolve("enchanted_glint_item.png"));
             Files.delete(misc.resolve("enchanted_item_glint.png"));
         }
+
         if (misc.resolve("enchanted_item_glint.png.mcmeta").toFile().exists()) {
             Files.copy(misc.resolve("enchanted_item_glint.png.mcmeta"), misc.resolve("enchanted_glint_entity.png.mcmeta"));
             Files.copy(misc.resolve("enchanted_item_glint.png.mcmeta"), misc.resolve("enchanted_glint_item.png.mcmeta"));
             Files.delete(misc.resolve("enchanted_item_glint.png.mcmeta"));
         }
-
-
     }
 }
