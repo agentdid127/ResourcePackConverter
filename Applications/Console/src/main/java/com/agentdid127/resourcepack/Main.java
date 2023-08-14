@@ -33,10 +33,8 @@ public class Main {
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
         
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to))
-            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out)
-                    .runDir();
+            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
         else
-            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out)
-                    .runDir();
+            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
     }
 }

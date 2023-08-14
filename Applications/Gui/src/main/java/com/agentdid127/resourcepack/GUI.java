@@ -49,12 +49,10 @@ public class GUI {
             new Thread(() -> {
                 convertButton.setVisible(false);
                 try {
-                    if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
+                    if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) 
                         new BackwardsPackConverter(from, to, light, minify, Paths.get("./"), true, out).runDir();
-                    } else {
+                    else 
                         new ForwardsPackConverter(from, to, light, minify, Paths.get("./"), true, out).runDir();
-
-                    }
                 } catch (IOException ioException) {
                     out.println(Arrays.toString(ioException.getStackTrace()));
                 }
