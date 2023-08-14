@@ -50,14 +50,10 @@ public final class Util {
             return;
 
         // noinspection ResultOfMethodCallIgnored
-        Files.walk(dirPath)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(file -> {
-                    file.delete();
-                    System.out.println(file.getName());
-                });
-
+        Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
+            file.delete();
+            System.out.println(file.getName());
+        });
     }
 
     /**
@@ -130,10 +126,7 @@ public final class Util {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        List<String> keys = protocols.entrySet()
-                .stream()
-                .map(i -> i.getKey())
-                .collect(Collectors.toCollection(ArrayList::new));
+        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey()).collect(Collectors.toCollection(ArrayList::new));
         keys.forEach(key -> {
             if (Integer.parseInt(protocols.get(key).getAsString()) == protocol)
                 version.set(key);
@@ -151,10 +144,7 @@ public final class Util {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        List<String> keys = protocols.entrySet()
-                .stream()
-                .map(i -> i.getKey())
-                .collect(Collectors.toCollection(ArrayList::new));
+        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey()).collect(Collectors.toCollection(ArrayList::new));
         String[] keys2 = new String[keys.size()];
         for (int i = 0; i < keys.size(); i++)
             keys2[i] = keys.get(i);
@@ -178,9 +168,8 @@ public final class Util {
         BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
         StringBuilder resultStringBuilder = new StringBuilder();
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null) 
             resultStringBuilder.append(line).append("\n");
-        }
         br.close();
         return resultStringBuilder.toString();
     }
@@ -211,6 +200,8 @@ public final class Util {
     public static Boolean mergeDirectories(File dir1, File dir2) throws IOException {
         if (!dir1.exists() && !dir2.exists())
             return null;
+            
+        // TODO: another unused variable?
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
         for (File file : files) {
@@ -225,8 +216,10 @@ public final class Util {
                 file.renameTo(new File(dir1.getAbsolutePath() + File.separator + file.getName()));
             }
         }
+
         if ((dir2.list().length == 0))
             Files.delete(dir2.toPath());
+
         return true;
     }
 

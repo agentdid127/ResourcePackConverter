@@ -27,19 +27,16 @@ public class ParticleTextureConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "particle" + File.separator);
-        if (!imagePath.toFile().exists())
-            return;
-        if (!imagePath.resolve("particles.png").toFile().exists())
-            return;
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "particle" + File.separator);
+        if (!imagePath.toFile().exists()) return;
+        if (!imagePath.resolve("particles.png").toFile().exists()) return;
 
         int defaultW = 128, defaultH = 128;
 
         // Particles
+        // TODO: unused variable? - sammwi
         boolean isLegacy = false;
-        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14") && to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
             defaultW = 256;
             defaultH = 256;
             File[] imageFiles = imagePath.toFile().listFiles();
@@ -176,14 +173,12 @@ public class ParticleTextureConverter extends Converter {
             iconvert.addImage(imagePath.resolve("splash_2.png"), 40, 8);
             iconvert.addImage(imagePath.resolve("splash_3.png"), 48, 8);
 
-            iconvert.addImage(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                    + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"), 8, 16);
+            iconvert.addImage(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"), 8, 16);
 
             iconvert.store(imagePath.resolve("particles.png"));
         }
         
-        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2") && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             defaultW = 128;
             defaultH = 128;
             ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));

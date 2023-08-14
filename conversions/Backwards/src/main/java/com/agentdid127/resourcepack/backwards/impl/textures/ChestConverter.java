@@ -22,10 +22,8 @@ public class ChestConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "entity" + File.separator + "chest" + File.separator);
-        if (!imagePath.toFile().exists())
-            return;
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "entity" + File.separator + "chest" + File.separator);
+        if (!imagePath.toFile().exists()) return;
 
         // Double chest
         doubleChest(imagePath, "normal");
@@ -48,12 +46,10 @@ public class ChestConverter extends Converter {
      */
     private void chest(Path imagePath, String name) throws IOException {
         int defaultW = 64, defaultH = 64;
-        if (!imagePath.resolve(name + ".png").toFile().exists())
-            return;
+        if (!imagePath.resolve(name + ".png").toFile().exists()) return;
 
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
-        if (!normal.fileIsPowerOfTwo())
-            return;
+        if (!normal.fileIsPowerOfTwo()) return;
 
         // Create a new Image
         normal.newImage(defaultW, defaultH);
@@ -96,8 +92,7 @@ public class ChestConverter extends Converter {
     private void doubleChest(Path imagePath, String name) throws IOException {
         int defaultW = 128, defaultH = 64;
 
-        if (imagePath.resolve(name + "_left.png").toFile().exists()
-                && imagePath.resolve(name + "_right.png").toFile().exists()) {
+        if (imagePath.resolve(name + "_left.png").toFile().exists() && imagePath.resolve(name + "_right.png").toFile().exists()) {
             ImageConverter setup = new ImageConverter(64, 64, imagePath.resolve(name + "_left.png"));
             setup.newImage(defaultW, defaultH);
             setup.subImage(0, 0, 64, 64, 0, 0);
@@ -107,8 +102,7 @@ public class ChestConverter extends Converter {
 
         if (imagePath.resolve(name + "_double.png").toFile().exists()) {
             ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
-            if (!normal.fileIsPowerOfTwo())
-                return;
+            if (!normal.fileIsPowerOfTwo()) return;
 
             // Left Side
             // Body

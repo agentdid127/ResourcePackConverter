@@ -20,8 +20,7 @@ public class ParticleConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         // The directory to convert
-        particles = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
+        particles = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
 
         // Check if the two merged files exist.
         boolean barrier = false;

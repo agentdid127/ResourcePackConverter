@@ -94,8 +94,7 @@ public class ChestConverter extends Converter {
         int defaultW = 128, defaultH = 64;
         if (imagePath.resolve(name + "_double.png").toFile().exists()) {
             ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
-            if (!normal.fileIsPowerOfTwo())
-                return;
+            if (!normal.fileIsPowerOfTwo()) return;
 
             // Left Side
             // Body

@@ -26,13 +26,11 @@ public class CompassConverter extends Converter {
         String itemsT = "items";
         if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
             itemsT = "item";
-        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + itemsT + File.separator + "compass.png");
+        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + itemsT + File.separator + "compass.png");
         items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
-            if (!imageConverter.fileIsPowerOfTwo())
-                return;
+            if (!imageConverter.fileIsPowerOfTwo()) return;
 
             for (int i = 0; i < 32; i++) {
                 int h = i * 16;

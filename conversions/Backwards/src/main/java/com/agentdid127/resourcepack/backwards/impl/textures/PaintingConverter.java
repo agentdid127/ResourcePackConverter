@@ -28,10 +28,8 @@ public class PaintingConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "painting" + File.separator);
-        if (!paintingPath.toFile().exists())
-            return;
+        paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
+        if (!paintingPath.toFile().exists()) return;
 
         File[] paintingFiles = paintingPath.toFile().listFiles();
         String filename = "";

@@ -63,7 +63,6 @@ public class ZipPack extends Pack {
 
             bomRemover(pack.getWorkingPath());
             return;
-
         }
 
         /**

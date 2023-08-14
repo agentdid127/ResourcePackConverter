@@ -34,38 +34,27 @@ public class PackMetaConverter extends Converter {
             return;
         if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20"))
             versionInt = 15;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.20"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4") && version < Util.getVersionProtocol(packConverter.getGson(), "1.20"))
             versionInt = 13;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.4"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.4"))
             versionInt = 12;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3"))
             versionInt = 9;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.18")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.18") && version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
             versionInt = 8;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.18"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17") && version < Util.getVersionProtocol(packConverter.getGson(), "1.18"))
             versionInt = 7;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.16.2")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.17"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.16.2") && version < Util.getVersionProtocol(packConverter.getGson(), "1.17"))
             versionInt = 6;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.15")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.16.2"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.15") && version < Util.getVersionProtocol(packConverter.getGson(), "1.16.2"))
             versionInt = 5;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.15"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13") && version < Util.getVersionProtocol(packConverter.getGson(), "1.15"))
             versionInt = 4;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.11")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.13"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.11") && version < Util.getVersionProtocol(packConverter.getGson(), "1.13"))
             versionInt = 3;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.9")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.11"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.9") && version < Util.getVersionProtocol(packConverter.getGson(), "1.11"))
             versionInt = 2;
-        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.7.2")
-                && version < Util.getVersionProtocol(packConverter.getGson(), "1.9"))
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.7.2") && version < Util.getVersionProtocol(packConverter.getGson(), "1.9"))
             versionInt = 1;
         else
             versionInt = 0;
@@ -78,6 +67,7 @@ public class PackMetaConverter extends Converter {
             meta.addProperty("game_version", Util.getVersionFromProtocol(packConverter.getGson(), version));
             json.add("meta", meta);
         }
+        
         {
             JsonObject packObject = json.getAsJsonObject("pack");
             if (packObject == null)

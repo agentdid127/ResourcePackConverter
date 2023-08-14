@@ -16,8 +16,7 @@ public class EnchantPathConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path misc = pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "misc");
+        Path misc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "misc");
 
         if (misc.resolve("enchanted_glint_item.png").toFile().exists())
             Files.move(misc.resolve("enchanted_glint_item.png"), misc.resolve("enchanted_item_glint.png"));

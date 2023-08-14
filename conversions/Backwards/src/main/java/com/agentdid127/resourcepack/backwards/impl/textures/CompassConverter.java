@@ -29,14 +29,12 @@ public class CompassConverter extends Converter {
         String itemsT = "items";
         if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
             itemsT = "item";
-        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + itemsT + File.separator + "compass_00.png");
+        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + itemsT + File.separator + "compass_00.png");
         items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
             imageConverter.newImage(16, 16 * 32);
-            if (!imageConverter.fileIsPowerOfTwo())
-                return;
+            if (!imageConverter.fileIsPowerOfTwo()) return;
 
             for (int i = 0; i < 32; i++) {
                 int h = i * 16;
@@ -52,8 +50,7 @@ public class CompassConverter extends Converter {
 
             JsonObject meta = new JsonObject();
             meta.add("animation", new JsonObject());
-            Files.write(items.resolve("compass.png.mcmeta"),
-                    Collections.singleton(packConverter.getGson().toJson(meta)), Charset.forName("UTF-8"));
+            Files.write(items.resolve("compass.png.mcmeta"), Collections.singleton(packConverter.getGson().toJson(meta)), Charset.forName("UTF-8"));
         }
     }
 

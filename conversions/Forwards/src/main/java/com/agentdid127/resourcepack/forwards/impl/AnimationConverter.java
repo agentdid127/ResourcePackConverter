@@ -21,10 +21,8 @@ public class AnimationConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
-        fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
+        fixAnimations(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
+        fixAnimations(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
     }
 
     /**
@@ -34,9 +32,7 @@ public class AnimationConverter extends Converter {
      * @throws IOException
      */
     protected void fixAnimations(Path animations) throws IOException {
-        if (!animations.toFile().exists())
-            return;
-
+        if (!animations.toFile().exists()) return;
         Files.list(animations)
                 .filter(file -> file.toString().endsWith(".png.mcmeta"))
                 .forEach(file -> {
@@ -58,7 +54,6 @@ public class AnimationConverter extends Converter {
                         if (anyChanges) {
                             Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
                                     Charset.forName("UTF-8"));
-
                             if (packConverter.DEBUG)
                                 PackConverter.log("      Converted " + file.getFileName());
                         }
@@ -66,6 +61,5 @@ public class AnimationConverter extends Converter {
                         Util.propagate(e);
                     }
                 });
-
     }
 }

@@ -22,16 +22,12 @@ public class TitleConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "gui" + File.separator + "title" + File.separator + "minecraft.png");
-        if (!imagePath.toFile().exists())
-            return;
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "gui" + File.separator + "title" + File.separator + "minecraft.png");
+        if (!imagePath.toFile().exists()) return;
 
         int oldWidth = 256, oldHeight = 256;
-
         ImageConverter image = new ImageConverter(oldWidth, oldHeight, imagePath);
-        if (!image.isSquare())
-            return;
+        if (!image.isSquare()) return;
 
         // Normal Minecraft Title
         image.newImage(274, 64);

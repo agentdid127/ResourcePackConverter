@@ -1,7 +1,5 @@
 package com.agentdid127.resourcepack.library;
 
-
-
 import com.google.gson.Gson;
 
 import java.io.PrintStream;
@@ -16,6 +14,7 @@ public abstract class PackConverter {
 
     /**
      * Registers Converter.
+     * 
      * @param converter
      */
     public void registerConverter(Converter converter) {
@@ -37,6 +36,7 @@ public abstract class PackConverter {
 
     /**
      * Gson
+     * 
      * @return Gson Object of PackConverter Class
      */
     public Gson getGson() {

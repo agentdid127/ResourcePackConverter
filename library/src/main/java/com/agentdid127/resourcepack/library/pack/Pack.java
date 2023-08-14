@@ -24,14 +24,15 @@ public class Pack {
 
     /**
      * Checks the type of pack it is.
+     * 
      * @param path Pack Path
      * @return The Pack information
      */
     public static Pack parse(Path path) {
-        if (!path.toString().contains(CONVERTED_SUFFIX)) 
-            if (path.toFile().isDirectory() && path.resolve("pack.mcmeta").toFile().exists()) 
+        if (!path.toString().contains(CONVERTED_SUFFIX))
+            if (path.toFile().isDirectory() && path.resolve("pack.mcmeta").toFile().exists())
                 return new Pack(path);
-            else if (path.toString().endsWith(".zip")) 
+            else if (path.toString().endsWith(".zip"))
                 return new ZipPack(path);
         return null;
     }
@@ -68,6 +69,7 @@ public class Pack {
 
         /**
          * Deletes existing conversions and sets up pack for conversion
+         * 
          * @throws IOException Issues with conversion
          */
         public void setup() throws IOException {
@@ -85,8 +87,7 @@ public class Pack {
         static void bomRemover(Path workingPath) throws IOException {
             BomDetector bom = new BomDetector(
                     workingPath.toString(),
-                    ".txt", ".json", ".mcmeta", ".properties", ".lang"
-            );
+                    ".txt", ".json", ".mcmeta", ".properties", ".lang");
             int count = bom.findBOMs().size();
             if (count > 0)
                 PackConverter.log("Removing BOMs from " + count + " files.");

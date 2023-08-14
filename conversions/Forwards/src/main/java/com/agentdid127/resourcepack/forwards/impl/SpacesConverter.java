@@ -41,9 +41,8 @@ public class SpacesConverter extends Converter {
             File[] fList = directory.listFiles();
             for (File file : fList) {
                 String dir = fixSpaces(file.toPath());
-                if (file.isDirectory()) {
-                    findFiles(Paths.get(dir));
-                }
+                if (file.isDirectory()) 
+                    findFiles(Paths.get(dir));   
             }
         }
     }
@@ -66,7 +65,7 @@ public class SpacesConverter extends Converter {
             return "null";
 
         if (ret && packConverter.DEBUG) {
-            packConverter.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
+            PackConverter.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         } else if (!ret) {
             System.err.println("      Failed to rename: " + path.getFileName().toString() + "->" + noSpaces);

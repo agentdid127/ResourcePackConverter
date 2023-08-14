@@ -18,8 +18,7 @@ public class ParticleConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         // The directory to convert
-        Path particles = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
+        Path particles = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
         if (particles.resolve("block_marker.json").toFile().exists()) {
             Files.copy(particles.resolve("block_marker.json"), particles.resolve("block_marker.json"));
             Files.move(particles.resolve("block_marker.json"), particles.resolve("light.json"));

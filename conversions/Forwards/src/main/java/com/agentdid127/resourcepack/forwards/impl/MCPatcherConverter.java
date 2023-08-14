@@ -26,8 +26,7 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
+        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
         if (models.toFile().exists())
             findFiles(models);
         // remapModelJson(models.resolve("item"));
@@ -61,43 +60,39 @@ public class MCPatcherConverter extends Converter {
         if (!path.toFile().exists())
             return;
 
-        Files.list(path)
-                .filter(path1 -> path1.toString().endsWith(".properties"))
-                .forEach(model -> {
-                    try (InputStream input = new FileInputStream(model.toString())) {
-                        if (packConverter.DEBUG)
-                            PackConverter.log("Updating:" + model.getFileName());
+        Files.list(path).filter(path1 -> path1.toString().endsWith(".properties")).forEach(model -> {
+            try (InputStream input = new FileInputStream(model.toString())) {
+                if (packConverter.DEBUG)
+                    PackConverter.log("Updating:" + model.getFileName());
 
-                        PropertiesEx prop = new PropertiesEx();
-                        prop.load(input);
+                PropertiesEx prop = new PropertiesEx();
+                prop.load(input);
 
-                        try (OutputStream output = new FileOutputStream(model.toString())) {
-                            // updates textures
-                            if (prop.containsKey("texture"))
-                                prop.setProperty("texture", replaceTextures(prop));
+                try (OutputStream output = new FileOutputStream(model.toString())) {
+                    // updates textures
+                    if (prop.containsKey("texture"))
+                        prop.setProperty("texture", replaceTextures(prop));
 
-                            // Updates Item IDs
-                            if (prop.containsKey("matchItems"))
-                                prop.setProperty("matchItems",
-                                        updateID("matchItems", prop, "regular").replaceAll("\"", ""));
+                    // Updates Item IDs
+                    if (prop.containsKey("matchItems"))
+                        prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
 
-                            if (prop.containsKey("items"))
-                                prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
+                    if (prop.containsKey("items"))
+                        prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
 
-                            if (prop.containsKey("matchBlocks"))
-                                prop.setProperty("matchBlocks",
-                                        updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
+                    if (prop.containsKey("matchBlocks"))
+                        prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
 
-                            // Saves File
-                            prop.store(output, "");
-                            output.close();
-                        } catch (IOException io) {
-                            io.printStackTrace();
-                        }
-                    } catch (IOException e) {
-                        throw Util.propagate(e);
-                    }
-                });
+                    // Saves File
+                    prop.store(output, "");
+                    output.close();
+                } catch (IOException io) {
+                    io.printStackTrace();
+                }
+            } catch (IOException e) {
+                throw Util.propagate(e);
+            }
+        });
     }
 
     /**
@@ -124,8 +119,7 @@ public class MCPatcherConverter extends Converter {
      * @return
      */
     protected String updateID(String type, PropertiesEx prop, String selection) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection)
-                .getAsJsonObject();
+        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection).getAsJsonObject();
         String[] split = prop.getProperty(type).split(" ");
         String properties2 = " ";
         for (int i = 0; i < split.length; i++)

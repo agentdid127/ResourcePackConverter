@@ -26,8 +26,7 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "mcpatcher");
+        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "mcpatcher");
         if (models.toFile().exists())
             findFiles(models);
         // remapModelJson(models.resolve("item"));
@@ -76,15 +75,13 @@ public class MCPatcherConverter extends Converter {
 
                             // Updates Item IDs
                             if (prop.containsKey("matchItems"))
-                                prop.setProperty("matchItems",
-                                        updateID("matchItems", prop, "regular").replaceAll("\"", ""));
+                                prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
 
                             if (prop.containsKey("items"))
                                 prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
 
                             if (prop.containsKey("matchBlocks"))
-                                prop.setProperty("matchBlocks",
-                                        updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
+                                prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
 
                             // Saves File
                             prop.store(output, "");

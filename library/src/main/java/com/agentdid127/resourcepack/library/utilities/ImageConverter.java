@@ -39,8 +39,7 @@ public class ImageConverter {
             hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         } else {
             PackConverter.log("File is not a power of 2. Converting image to be so.");
-            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
-                    (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
+            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             defaultW = defaultWIn;
             defaultH = defaultHIn;
@@ -171,11 +170,8 @@ public class ImageConverter {
     }
 
     // Transforms the BufferedImage
-    private static BufferedImage createTransformed(
-            BufferedImage image, AffineTransform at) {
-        BufferedImage newImage = new BufferedImage(
-                image.getWidth(), image.getHeight(),
-                BufferedImage.TYPE_INT_ARGB);
+    private static BufferedImage createTransformed(BufferedImage image, AffineTransform at) {
+        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(),BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = newImage.createGraphics();
         g.transform(at);
         g.drawImage(image, 0, 0, null);
@@ -208,7 +204,7 @@ public class ImageConverter {
         return height;
     }
 
-    // Returns the Width Multiplier and Height Multiplier  variables
+    // Returns the Width Multiplier and Height Multiplier variables
     public int getWidthMultiplier() {
         return wMultiplier;
     }
