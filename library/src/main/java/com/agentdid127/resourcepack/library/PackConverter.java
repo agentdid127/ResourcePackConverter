@@ -1,7 +1,5 @@
 package com.agentdid127.resourcepack.library;
 
-
-
 import com.google.gson.Gson;
 
 import java.io.PrintStream;
@@ -9,13 +7,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class PackConverter {
-
     protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
     protected Gson gson;
     public boolean DEBUG = true;
     protected static PrintStream out;
+
     /**
      * Registers Converter.
+     * 
      * @param converter
      */
     public void registerConverter(Converter converter) {
@@ -23,7 +22,6 @@ public abstract class PackConverter {
     }
 
     /**
-     *
      * @param clazz
      * @param <T>
      * @return
@@ -38,10 +36,10 @@ public abstract class PackConverter {
 
     /**
      * Gson
+     * 
      * @return Gson Object of PackConverter Class
      */
     public Gson getGson() {
         return gson;
     }
-
 }

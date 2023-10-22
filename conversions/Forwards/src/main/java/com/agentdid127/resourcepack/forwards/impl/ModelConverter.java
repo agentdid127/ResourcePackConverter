@@ -11,7 +11,6 @@ import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +19,6 @@ import java.util.Map;
 
 
 public class ModelConverter extends Converter {
-
     private int version;
     private int from;
     protected String light = "none";
@@ -104,7 +102,6 @@ public class ModelConverter extends Converter {
                         JsonObject textureObject = initialTextureObject.deepCopy();
                         for (Map.Entry<String, JsonElement> entry : initialTextureObject.entrySet()) {
                             String value = entry.getValue().getAsString();
-                            packConverter.log(entry.getKey() + ": " + entry.getValue());
                             textureObject.remove(entry.getKey());
                             //1.13 Mappings
                             if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
@@ -149,6 +146,10 @@ public class ModelConverter extends Converter {
                                 if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                    value = "item/" + nameConverter.getNewItemMapping().remap(value.substring("item/".length()));
                                 }
+                            }
+
+                            if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+                                if (!value.startsWith("minecraft:") && !value.startsWith("#")) value = "minecraft:" + value;
                             }
                             if (!textureObject.has(entry.getKey())) textureObject.addProperty(entry.getKey(), value);
                         }
@@ -232,6 +233,9 @@ public class ModelConverter extends Converter {
                                     if (parent.startsWith("block/")) {
                                         parent = setParent("block/", "/forwards/blocks.json", parent, "1_19");
                                     }
+                                }
+                                if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+                                    if (!parent.startsWith("minecraft:")) parent = "minecraft:" + parent;
                                 }
                                 jsonObject.addProperty(entry.getKey(), parent);
                             }

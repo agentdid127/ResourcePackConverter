@@ -10,17 +10,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ZipPack extends Pack {
-
     public ZipPack(Path path) {
         super(path);
     }
-
 
     @Override
     public ZipPack.Handler createHandler() {
         return new ZipPack.Handler(this);
     }
-
 
     @Override
     public String getFileName() {
@@ -28,7 +25,6 @@ public class ZipPack extends Pack {
     }
 
     public static class Handler extends Pack.Handler {
-
         public Handler(Pack pack) {
             super(pack);
         }
@@ -39,7 +35,9 @@ public class ZipPack extends Pack {
 
         /**
          * Removes Existing Conversions and starts new one
-         * @throws IOException
+         * 
+         * @throws IOException Any issue with loading the pack, or deleting previous
+         *                     packs
          */
         @Override
         public void setup() throws IOException {
@@ -65,12 +63,12 @@ public class ZipPack extends Pack {
 
             bomRemover(pack.getWorkingPath());
             return;
-
         }
 
         /**
          * Runs after program is finished. Zips directory.
-         * @throws IOException
+         * 
+         * @throws IOException Any IO exception
          */
         @Override
         public void finish() throws IOException {

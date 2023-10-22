@@ -15,20 +15,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DeleteFileConverter extends Converter {
+    int from, to;
     Path models, textures;
 
-    int from, to;
     public DeleteFileConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
     }
 
-
     @Override
     public void convert(Pack pack) throws IOException {
-        models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "models");
-        textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" +File.separator + "textures");
+        models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
+        textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
 
         for (int i = from; i > to; i--) {
             deleteBlocks(i);
@@ -39,23 +38,23 @@ public class DeleteFileConverter extends Converter {
         findFiles(models);
         findFiles(textures);
 
-
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+            Path atlases = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
+            if (atlases.toFile().exists())
+                Util.deleteDirectoryAndContents(atlases);
+        }
     }
 
     protected void findFiles(Path path) throws IOException {
         File directory = new File(path.toString());
         File[] fList = directory.listFiles();
-        for (File file : fList) {
-            if (file.isDirectory()) {
-                    findFiles(Paths.get(file.getPath()));
-                }
-            }
+        for (File file : fList)
+            if (file.isDirectory())
+                findFiles(Paths.get(file.getPath()));
         fList = directory.listFiles();
-        if (fList.length == 0) {
+        if (fList.length == 0)
             Files.deleteIfExists(directory.toPath());
-        };
     }
-
 
     public void deleteBlocks(int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
@@ -66,14 +65,12 @@ public class DeleteFileConverter extends Converter {
             if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                 blockMPath = models.resolve("block");
                 blockTPath = textures.resolve("blocks");
-            }
-            else {
+            } else {
                 blockMPath = models.resolve("block");
                 blockTPath = textures.resolve("block");
             }
 
             JsonArray versionBlock = blocks.get(protocol).getAsJsonArray();
-
             for (JsonElement item : versionBlock) {
                 String pathName = item.getAsString();
                 Files.deleteIfExists(blockMPath.resolve(pathName + ".json"));
@@ -98,7 +95,6 @@ public class DeleteFileConverter extends Converter {
             }
 
             JsonArray versionItem = items.get(protocol).getAsJsonArray();
-
             for (JsonElement item : versionItem) {
                 String pathName = item.getAsString();
                 Files.deleteIfExists(itemMPath.resolve(pathName + ".json"));
@@ -111,20 +107,15 @@ public class DeleteFileConverter extends Converter {
     public void deleteEntities(int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/entities.json");
-
         if (entities.has(protocol)) {
             Path entityTPath = textures.resolve("entity");
-
             JsonArray versionEntity = entities.get(protocol).getAsJsonArray();
-
             for (JsonElement item : versionEntity) {
                 String pathName = item.getAsString();
-
                 Files.deleteIfExists(entityTPath.resolve(pathName + ".png"));
                 Files.deleteIfExists(entityTPath.resolve(pathName + ".png.mcmeta"));
             }
         }
     }
-
 
 }
