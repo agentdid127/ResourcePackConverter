@@ -106,11 +106,7 @@ public class ModelConverter extends Converter {
                         textureObject.remove(entry.getKey());
 
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-                            for (String s : textureObject.keySet()) {
-                                String val = textureObject.get(s).getAsString();
-                                textureObject.remove(s);
-                                textureObject.addProperty(s, val.replaceAll("minecraft:", ""));
-                            }
+                                value = value.replaceAll("minecraft:", "");
                         }
                         // 1.19 Mappings
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
