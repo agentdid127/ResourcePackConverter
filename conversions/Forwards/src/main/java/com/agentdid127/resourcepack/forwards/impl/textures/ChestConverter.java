@@ -92,55 +92,56 @@ public class ChestConverter extends Converter {
      */
     private void doubleChest(Path imagePath, String name) throws IOException {
         int defaultW = 128, defaultH = 64;
-        if (imagePath.resolve(name + "_double.png").toFile().exists()) {
-            ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
-            if (!normal.fileIsPowerOfTwo()) return;
+        if (!imagePath.resolve(name + "_double.png").toFile().exists())
+            return;
+        ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
+        if (!normal.fileIsPowerOfTwo())
+            return;
 
-            // Left Side
-            // Body
-            normal.newImage(64, 64);
-            normal.subImage(59, 19, 74, 33, 14, 19, true);
-            normal.subImage(59, 0, 74, 14, 14, 0, true);
-            normal.subImage(29, 19, 44, 33, 29, 19, true);
-            normal.subImage(29, 14, 44, 19, 43, 14, 1);
-            normal.subImage(29, 0, 44, 14, 29, 0, true);
-            normal.subImage(44, 33, 58, 43, 29, 33, 1);
-            normal.subImage(29, 33, 44, 43, 43, 33, 1);
-            normal.subImage(58, 33, 73, 43, 14, 33, 1);
-            normal.subImage(44, 14, 58, 19, 29, 14, 1);
-            normal.subImage(58, 14, 73, 19, 14, 14, 1);
+        // Left Side
+        // Body
+        normal.newImage(64, 64);
+        normal.subImage(59, 19, 74, 33, 14, 19, true);
+        normal.subImage(59, 0, 74, 14, 14, 0, true);
+        normal.subImage(29, 19, 44, 33, 29, 19, true);
+        normal.subImage(29, 14, 44, 19, 43, 14, 1);
+        normal.subImage(29, 0, 44, 14, 29, 0, true);
+        normal.subImage(44, 33, 58, 43, 29, 33, 1);
+        normal.subImage(29, 33, 44, 43, 43, 33, 1);
+        normal.subImage(58, 33, 73, 43, 14, 33, 1);
+        normal.subImage(44, 14, 58, 19, 29, 14, 1);
+        normal.subImage(58, 14, 73, 19, 14, 14, 1);
 
-            // Latch
-            normal.subImage(4, 0, 5, 1, 1, 0);
-            normal.subImage(2, 0, 3, 1, 2, 0);
-            normal.subImage(2, 1, 5, 5, 1, 1, 1);
+        // Latch
+        normal.subImage(4, 0, 5, 1, 1, 0);
+        normal.subImage(2, 0, 3, 1, 2, 0);
+        normal.subImage(2, 1, 5, 5, 1, 1, 1);
 
-            // Stores Image
-            normal.store(imagePath.resolve(name + "_left.png"));
+        // Stores Image
+        normal.store(imagePath.resolve(name + "_left.png"));
 
-            // Right Side
-            // Body
-            normal.newImage(64, 64);
-            normal.subImage(44, 0, 59, 14, 14, 0, true);
-            normal.subImage(14, 0, 29, 14, 29, 0, true);
-            normal.subImage(14, 19, 29, 33, 29, 19, true);
-            normal.subImage(0, 14, 14, 19, 0, 14, 1);
-            normal.subImage(73, 14, 88, 19, 14, 14, 1);
-            normal.subImage(14, 14, 29, 19, 43, 14, 1);
-            normal.subImage(44, 19, 59, 33, 14, 19, true);
-            normal.subImage(14, 33, 29, 43, 43, 33, 1);
-            normal.subImage(0, 33, 14, 43, 0, 33, 1);
-            normal.subImage(73, 33, 88, 43, 14, 33, 1);
+        // Right Side
+        // Body
+        normal.newImage(64, 64);
+        normal.subImage(44, 0, 59, 14, 14, 0, true);
+        normal.subImage(14, 0, 29, 14, 29, 0, true);
+        normal.subImage(14, 19, 29, 33, 29, 19, true);
+        normal.subImage(0, 14, 14, 19, 0, 14, 1);
+        normal.subImage(73, 14, 88, 19, 14, 14, 1);
+        normal.subImage(14, 14, 29, 19, 43, 14, 1);
+        normal.subImage(44, 19, 59, 33, 14, 19, true);
+        normal.subImage(14, 33, 29, 43, 43, 33, 1);
+        normal.subImage(0, 33, 14, 43, 0, 33, 1);
+        normal.subImage(73, 33, 88, 43, 14, 33, 1);
 
-            // Latch
-            normal.subImage(3, 0, 4, 1, 1, 0);
-            normal.subImage(1, 0, 2, 1, 2, 0);
-            normal.subImage(0, 1, 1, 5, 0, 1, true);
-            normal.subImage(5, 1, 6, 5, 1, 1, true);
-            normal.subImage(1, 1, 2, 5, 3, 1, true);
-            normal.store(imagePath.resolve(name + "_right.png"));
+        // Latch
+        normal.subImage(3, 0, 4, 1, 1, 0);
+        normal.subImage(1, 0, 2, 1, 2, 0);
+        normal.subImage(0, 1, 1, 5, 0, 1, true);
+        normal.subImage(5, 1, 6, 5, 1, 1, true);
+        normal.subImage(1, 1, 2, 5, 3, 1, true);
+        normal.store(imagePath.resolve(name + "_right.png"));
 
-            imagePath.resolve(name + "_double.png").toFile().delete();
-        }
+        imagePath.resolve(name + "_double.png").toFile().delete();
     }
 }

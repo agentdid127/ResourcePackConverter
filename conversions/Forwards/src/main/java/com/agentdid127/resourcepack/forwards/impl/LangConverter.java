@@ -61,9 +61,9 @@ public class LangConverter extends Converter {
                                 String key = enums.nextElement();
                                 String value = prop.getProperty(key);
                                 for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-                                    if (key.equals(id2.getKey())) {
+                                    if (key.equals(id2.getKey()))
                                         out.addProperty(id2.getValue().getAsString(), value);
-                                    } else
+                                    else
                                         out.addProperty(key, value);
                                 }
                             }
@@ -79,9 +79,9 @@ public class LangConverter extends Converter {
                                 String key = enums.nextElement();
                                 String value = prop.getProperty(key);
                                 for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-                                    if (key.equals(id2.getKey())) {
+                                    if (key.equals(id2.getKey()))
                                         out.addProperty(id2.getValue().getAsString(), value);
-                                    } else
+                                    else
                                         out.addProperty(key, value);
                                 }
                             }
@@ -93,6 +93,7 @@ public class LangConverter extends Converter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     try {
                         int modelNoLang = model.getFileName().toString().indexOf(".lang");
                         String file2 = model.getFileName().toString().substring(0, modelNoLang);
@@ -106,8 +107,10 @@ public class LangConverter extends Converter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     models.add(model.getFileName().toString());
                 });
+
         for (int i = 0; i < models.size(); i++) {
             System.out.println("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
                     + File.separator + "lang" + File.separator + models.get(i)));
