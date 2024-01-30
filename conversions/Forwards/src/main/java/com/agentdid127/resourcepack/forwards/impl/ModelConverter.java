@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -83,11 +84,11 @@ public class ModelConverter extends Converter {
                             jsonObject = Util.readJson(packConverter.getGson(), model);
                         else {
                             if (packConverter.DEBUG) {
-                                System.out.println("Could not convert model: " + model.getFileName());
+                                Logger.log("Could not convert model: " + model.getFileName());
                                 if (Util.readJson(packConverter.getGson(), model) == null)
-                                    System.out.println("Check for Syntax Errors in file.");
+                                    Logger.log("Check for Syntax Errors in file.");
                                 else
-                                    System.out.println("File is not JSON Object.");
+                                    Logger.log("File is not JSON Object.");
                             }
                             return;
                         }
@@ -118,9 +119,9 @@ public class ModelConverter extends Converter {
                                         value = "block/" + nameConverter.getBlockMapping()
                                                 .remap(value.substring("block/".length())).toLowerCase()
                                                 .replaceAll("[()]", "");
-                                        System.out.println(value.substring("block/".length()).toLowerCase()
+                                        Logger.log(value.substring("block/".length()).toLowerCase()
                                                 .replaceAll("[()]", ""));
-                                        System.out.println(nameConverter.getBlockMapping()
+                                        Logger.log(nameConverter.getBlockMapping()
                                                 .remap(value.substring("block/".length())).toLowerCase()
                                                 .replaceAll("[()]", ""));
                                     } else if (value.startsWith("item/")) {
@@ -276,7 +277,7 @@ public class ModelConverter extends Converter {
                         }
                         if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                             if (packConverter.DEBUG)
-                                System.out.println("Updating Model: " + model.getFileName());
+                                Logger.log("Updating Model: " + model.getFileName());
                             Files.write(model, Collections.singleton(packConverter.getGson().toJson(jsonObject)),
                                     Charset.forName("UTF-8"));
                         }
@@ -303,7 +304,7 @@ public class ModelConverter extends Converter {
             else
                 return parent;
         } else {
-            System.out.println("Prefix Failed on: " + parent);
+            Logger.log("Prefix Failed on: " + parent);
             return "";
         }
     }

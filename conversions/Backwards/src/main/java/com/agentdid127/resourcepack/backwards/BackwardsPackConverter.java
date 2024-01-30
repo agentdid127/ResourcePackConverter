@@ -6,6 +6,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
@@ -24,10 +25,10 @@ public class BackwardsPackConverter extends PackConverter {
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
         DEBUG = debug;
-        PackConverter.out = out;
+        Logger.out = out;
+        Logger.log(from);
+        Logger.log(to);
         this.INPUT_DIR = input;
-        System.out.println(from);
-        System.out.println(to);
         converterRunner(from, to, light);
     }
 
@@ -90,17 +91,17 @@ public class BackwardsPackConverter extends PackConverter {
 
     public void runPack(Pack pack) {
         try {
-            System.out.println("Converting " + pack);
+            Logger.log("Converting " + pack);
             pack.getHandler().setup();
-            System.out.println("  Running Converters");
+            Logger.log("  Running Converters");
             for (Converter converter : converters.values()) {
                 if (DEBUG)
-                    System.out.println("    Running " + converter.getClass().getSimpleName());
+                    Logger.log("    Running " + converter.getClass().getSimpleName());
                 converter.convert(pack);
             }
             pack.getHandler().finish();
         } catch (Throwable t) {
-            System.out.println("Failed to convert!");
+            Logger.log("Failed to convert!");
             Util.propagate(t);
         }
     }

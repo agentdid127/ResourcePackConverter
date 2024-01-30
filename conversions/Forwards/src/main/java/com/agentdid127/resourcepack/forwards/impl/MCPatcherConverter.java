@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.google.gson.JsonObject;
 
@@ -63,8 +64,8 @@ public class MCPatcherConverter extends Converter {
 
         Files.list(path).filter(path1 -> path1.toString().endsWith(".properties")).forEach(model -> {
             try (InputStream input = new FileInputStream(model.toString())) {
-                if (packConverter.DEBUG)
-                    System.out.println("Updating:" + model.getFileName());
+                if (PackConverter.DEBUG)
+                    Logger.log("Updating:" + model.getFileName());
 
                 PropertiesEx prop = new PropertiesEx();
                 prop.load(input);

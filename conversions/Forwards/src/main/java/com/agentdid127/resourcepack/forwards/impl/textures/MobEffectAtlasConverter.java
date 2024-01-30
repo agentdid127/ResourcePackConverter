@@ -9,6 +9,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 
 // todo: register mob_effect-atlas from inventory.png
 public class MobEffectAtlasConverter extends Converter {
@@ -105,7 +106,7 @@ public class MobEffectAtlasConverter extends Converter {
         int DWIDTH = 256, DHEIGHT = 256;
         ImageConverter inventoryImage = new ImageConverter(DWIDTH, DHEIGHT, inventoryPath);
         if (!inventoryImage.fileIsPowerOfTwo() || !inventoryImage.isSquare()) {
-            System.out.println("Failed to generate mob_effect-atlas, inventory image is not power of 2/is not square!");
+            Logger.log("Failed to generate mob_effect-atlas, inventory image is not power of 2/is not square!");
             return;
         }
 
@@ -127,13 +128,13 @@ public class MobEffectAtlasConverter extends Converter {
                 int id = y * 256 + x; // 256 is a hack, idk what else to do
                 if (!MOB_EFFECTS.containsKey(id)) {
                     if (PackConverter.DEBUG)
-                        System.out.println("Could not find effect with RPID=" + id);
+                        Logger.log("Could not find effect with RPID=" + id);
                     continue;
                 }
 
                 String effect_file_name = MOB_EFFECTS.get(id);
                 if (PackConverter.DEBUG)
-                    System.out.println("Effect: " + effect_file_name);
+                    Logger.log("Effect: " + effect_file_name);
 
                 int sx = x * iw;
                 int sy = START_HEIGHT + (y * ih);
@@ -145,7 +146,7 @@ public class MobEffectAtlasConverter extends Converter {
                     inventoryImage.store(imagePath);
                 }
 
-                // System.out.println("x: " + x + ", y: " + y + ", id: " + id);
+                // Logger.log("x: " + x + ", y: " + y + ", id: " + id);
             }
         }
 

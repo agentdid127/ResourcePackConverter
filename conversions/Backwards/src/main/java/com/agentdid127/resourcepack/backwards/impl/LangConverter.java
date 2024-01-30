@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -83,7 +84,7 @@ public class LangConverter extends Converter {
                     try {
                         int modelNoJson = model.getFileName().toString().indexOf(".json");
                         String file2 = model.getFileName().toString().substring(0, modelNoJson);
-                        System.out.println("Saving: " + file2 + ".lang");
+                        Logger.log("Saving: " + file2 + ".lang");
                         out.store(
                                 new FileOutputStream(
                                         pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
@@ -96,7 +97,7 @@ public class LangConverter extends Converter {
                     models.add(model.getFileName().toString());
                 });
         for (int i = 0; i < models.size(); i++) {
-            System.out.println("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
+            Logger.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
                     + File.separator + "lang" + File.separator + models.get(i)));
             Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
                     + File.separator + models.get(i)));

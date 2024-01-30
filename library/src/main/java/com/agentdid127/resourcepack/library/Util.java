@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.library;
 
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
@@ -53,7 +54,7 @@ public final class Util {
         // noinspection ResultOfMethodCallIgnored
         Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
             file.delete();
-            System.out.println(file.getName());
+            Logger.log(file.getName());
         });
     }
 
@@ -207,18 +208,18 @@ public final class Util {
         File[] files = dir2.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                System.out.println(dir1.getAbsolutePath() + File.separator + file.getName());
+                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
                 File file3 = new File(dir1.getAbsolutePath() + File.separator + file.getName());
                 file3.mkdirs();
-                System.out.println("Created" + file3.getName());
+                Logger.log("Created" + file3.getName());
                 mergeDirectories(file3, file);
             } else {
-                System.out.println(dir1.getAbsolutePath() + File.separator + file.getName());
+                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
                 file.renameTo(new File(dir1.getAbsolutePath() + File.separator + file.getName()));
             }
         }
 
-        if ((dir2.list().length == 0))
+        if (dir2.list().length == 0)
             Files.delete(dir2.toPath());
 
         return true;

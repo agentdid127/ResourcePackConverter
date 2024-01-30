@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -64,7 +65,7 @@ public class SoundsConverter extends Converter {
                                     baseSoundsPath.toString().length() + 1,
                                     path.toFile().getCanonicalPath().length() - 4);
                             if (packConverter.DEBUG)
-                                System.out.println("      Rewriting Sound: '" + sound + "' -> '" + rewrite + "'");
+                                Logger.log("      Rewriting Sound: '" + sound + "' -> '" + rewrite + "'");
                             sound = rewrite;
                         } else {
                             sound = jsonElement.getAsString();

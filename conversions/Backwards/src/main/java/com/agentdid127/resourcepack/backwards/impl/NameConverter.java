@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -52,11 +53,11 @@ public class NameConverter extends Converter {
                 && from > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             // OptiFine conversion
             if (mc.resolve("mcpatcher").toFile().exists()) {
-                if (packConverter.DEBUG)
-                    System.out.println("MCPatcher exists, switching to optifine");
+                if (PackConverter.DEBUG)
+                    Logger.log("MCPatcher exists, switching to optifine");
                 if (mc.resolve("optifine").toFile().exists()) {
                     if (packConverter.DEBUG)
-                        System.out.println("OptiFine exists, merging directories");
+                        Logger.log("OptiFine exists, merging directories");
                     Util.mergeDirectories(mc.resolve("optifine").toFile(), mc.resolve("mcpatcher").toFile());
                 } else
                     Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
@@ -170,7 +171,7 @@ public class NameConverter extends Converter {
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
                 && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             if (packConverter.DEBUG)
-                System.out.println("Finding files that are greater than 1.12");
+                Logger.log("Finding files that are greater than 1.12");
             findFiles(mc);
         }
     }
@@ -209,13 +210,13 @@ public class NameConverter extends Converter {
                 if (file.isDirectory()) {
                     if (file.getName().equals("item")) {
                         if (packConverter.DEBUG)
-                            System.out.println("Found Items folder, renaming");
+                            Logger.log("Found Items folder, renaming");
                         Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
                     }
 
                     if (file.getName().equals("block")) {
                         if (packConverter.DEBUG)
-                            System.out.println("Found blocks folder, renaming");
+                            Logger.log("Found blocks folder, renaming");
                         Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
                     }
 
@@ -227,7 +228,7 @@ public class NameConverter extends Converter {
 
                 if (!file.getName().equals(file.getName().toLowerCase()))
                     if (packConverter.DEBUG)
-                        System.out.println("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
+                        Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
 
                 Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
@@ -256,7 +257,7 @@ public class NameConverter extends Converter {
                     if (ret == null)
                         return;
                     if (ret && packConverter.DEBUG)
-                        System.out.println("      Renamed: " + name + extension + "->" + newName + extension);
+                        Logger.log("      Renamed: " + name + extension + "->" + newName + extension);
                     else if (!ret)
                         System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
                 });
@@ -288,7 +289,7 @@ public class NameConverter extends Converter {
                     if (ret == null)
                         return;
                     if (ret && packConverter.DEBUG)
-                        System.out.println(
+                        Logger.log(
                                 "      Renamed: " + path1.getFileName().toString() + "->" + newName + extension);
                     else if (!ret)
                         System.err.println("      Failed to rename: " + path1.getFileName().toString() + "->" + newName

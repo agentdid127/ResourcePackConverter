@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -76,8 +77,8 @@ public class BlockStateConverter extends Converter {
                         if (anyChanges) {
                             Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
                                     Charset.forName("UTF-8"));
-                            if (packConverter.DEBUG)
-                                System.out.println("      Converted " + file.getFileName());
+                            if (PackConverter.DEBUG)
+                                Logger.log("      Converted " + file.getFileName());
                         }
                     } catch (IOException e) {
                         Util.propagate(e);

@@ -39,7 +39,7 @@ public class ImageConverter {
             wMultiplier = wMultiplier == 0 ? 1 : wMultiplier;
             hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         } else {
-            System.out.println("File is not a power of 2. Converting image to be so.");
+            Logger.log("File is not a power of 2. Converting image to be so.");
             newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
                     (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
@@ -76,7 +76,7 @@ public class ImageConverter {
             wMultiplier = image.getWidth() / defaultW;
             hMultiplier = image.getHeight() / defaultH;
         } else
-            System.out.println("File is not a power of 2");
+            Logger.log("File is not a power of 2");
     }
 
     // Creates a new Image to store
