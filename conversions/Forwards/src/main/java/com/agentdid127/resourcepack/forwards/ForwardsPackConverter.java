@@ -68,15 +68,19 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new ParticleTextureConverter(this, Util.getVersionProtocol(gson, from),
                 Util.getVersionProtocol(gson, to)));
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.15")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.15"))
-            this.registerConverter(new EnchantConverter(this));
-
         this.registerConverter(new ChestConverter(this));
 
         if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.13")
                 && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.14.4"))
             this.registerConverter(new PaintingConverter(this));
+
+        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.13.2")
+                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.14"))
+            this.registerConverter(new MobEffectAtlasConverter(this));
+
+        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.15")
+                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.15"))
+            this.registerConverter(new EnchantConverter(this));
 
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.18")
                 && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.18"))
@@ -95,6 +99,11 @@ public class ForwardsPackConverter extends PackConverter {
         if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.19.4")
                 && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20"))
             this.registerConverter(new TitleConverter(this));
+
+        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.20.1")
+                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20.2")) {
+            // register gui slicer
+        }
     }
 
     public void runPack(Pack pack) {

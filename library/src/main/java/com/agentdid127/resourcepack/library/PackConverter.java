@@ -9,7 +9,7 @@ import java.util.Map;
 public abstract class PackConverter {
     protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
     protected Gson gson;
-    public boolean DEBUG = true;
+    public static boolean DEBUG = true;
     protected static PrintStream out;
 
     /**
