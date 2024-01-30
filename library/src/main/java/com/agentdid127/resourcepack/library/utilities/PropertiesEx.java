@@ -15,9 +15,8 @@ public class PropertiesEx extends Properties {
     private String saveConvert(String theString, boolean escapeSpace, boolean escapeUnicode) {
         int len = theString.length();
         int bufLen = len * 2;
-        if (bufLen < 0) {
+        if (bufLen < 0) 
             bufLen = 2147483647;
-        }
 
         StringBuilder outBuffer = new StringBuilder(bufLen);
 
@@ -27,9 +26,8 @@ public class PropertiesEx extends Properties {
                 if (aChar == '\\') {
                     outBuffer.append('\\');
                     outBuffer.append('\\');
-                } else {
+                } else 
                     outBuffer.append(aChar);
-                }
             } else {
                 switch (aChar) {
                     case '\t':
@@ -49,10 +47,8 @@ public class PropertiesEx extends Properties {
                         outBuffer.append('r');
                         continue;
                     case ' ':
-                        if (x == 0 || escapeSpace) {
+                        if (x == 0 || escapeSpace) 
                             outBuffer.append('\\');
-                        }
-
                         outBuffer.append(' ');
                         continue;
                     case '!':
@@ -70,26 +66,25 @@ public class PropertiesEx extends Properties {
                     outBuffer.append(toHex(aChar >> 8 & 15));
                     outBuffer.append(toHex(aChar >> 4 & 15));
                     outBuffer.append(toHex(aChar & 15));
-                } else {
+                } else 
                     outBuffer.append(aChar);
-                }
             }
         }
 
         return outBuffer.toString();
     }
+
     private static void writeComments(BufferedWriter bw, String comments) throws IOException {
         bw.write("#");
         int len = comments.length();
         int current = 0;
         int last = 0;
 
-        for(char[] uu = new char[]{'\\', 'u', '\u0000', '\u0000', '\u0000', '\u0000'}; current < len; ++current) {
+        for (char[] uu = new char[]{'\\', 'u', '\u0000', '\u0000', '\u0000', '\u0000'}; current < len; ++current) {
             char c = comments.charAt(current);
             if (c > 255 || c == '\n' || c == '\r') {
-                if (last != current) {
+                if (last != current) 
                     bw.write(comments.substring(last, current));
-                }
 
                 if (c > 255) {
                     uu[2] = toHex(c >> 12 & 15);
@@ -99,33 +94,29 @@ public class PropertiesEx extends Properties {
                     bw.write(new String(uu));
                 } else {
                     bw.newLine();
-                    if (c == '\r' && current != len - 1 && comments.charAt(current + 1) == '\n') {
+                    if (c == '\r' && current != len - 1 && comments.charAt(current + 1) == '\n') 
                         ++current;
-                    }
-
-                    if (current == len - 1 || comments.charAt(current + 1) != '#' && comments.charAt(current + 1) != '!') {
-                        bw.write("#");
-                    }
+                    if (current == len - 1 || comments.charAt(current + 1) != '#' && comments.charAt(current + 1) != '!') 
+                        bw.write("#"); 
                 }
 
                 last = current + 1;
             }
         }
 
-        if (last != current) {
+        if (last != current) 
             bw.write(comments.substring(last, current));
-        }
 
         bw.newLine();
     }
+
     public void store(OutputStream out, String comments) throws IOException {
         this.store1(new BufferedWriter(new OutputStreamWriter(out, "8859_1")), comments, true);
     }
 
     private void store1(BufferedWriter bw, String comments, boolean escUnicode) throws IOException {
-        if (comments != null) {
+        if (comments != null) 
             writeComments(bw, comments);
-        }
 
         bw.write("#" + (new Date()).toString());
         bw.newLine();
@@ -133,9 +124,8 @@ public class PropertiesEx extends Properties {
             Iterator var5 = this.entrySet().iterator();
 
             while (true) {
-                if (!var5.hasNext()) {
+                if (!var5.hasNext()) 
                     break;
-                }
 
                 Map.Entry<Object, Object> e = (Map.Entry) var5.next();
                 String key = (String) e.getKey();
@@ -148,6 +138,7 @@ public class PropertiesEx extends Properties {
         }
 
         bw.flush();
+		bw.close();
     }
 
     private static char toHex(int nibble) {

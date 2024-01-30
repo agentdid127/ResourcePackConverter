@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,25 +16,27 @@ import java.nio.file.Path;
 import java.util.Collections;
 
 public class AnimationConverter extends Converter {
-
     public AnimationConverter(PackConverter packConverter) {
         super(packConverter);
     }
 
     @Override
     public void convert(Pack pack) throws IOException {
-        fixAnimations(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
-        fixAnimations(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
+        fixAnimations(pack.getWorkingPath().resolve(
+                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
+        fixAnimations(pack.getWorkingPath().resolve(
+                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
     }
 
     /**
      * Updats animated images to newer versions
+     * 
      * @param animations
      * @throws IOException
      */
     protected void fixAnimations(Path animations) throws IOException {
-        if (!animations.toFile().exists()) return;
-
+        if (!animations.toFile().exists())
+            return;
         Files.list(animations)
                 .filter(file -> file.toString().endsWith(".png.mcmeta"))
                 .forEach(file -> {
@@ -53,14 +56,14 @@ public class AnimationConverter extends Converter {
                         }
 
                         if (anyChanges) {
-                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)), Charset.forName("UTF-8"));
-
-                            if (packConverter.DEBUG) packConverter.log("      Converted " + file.getFileName());
+                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
+                                    Charset.forName("UTF-8"));
+                            if (PackConverter.DEBUG)
+                                Logger.log("      Converted " + file.getFileName());
                         }
                     } catch (IOException e) {
                         Util.propagate(e);
                     }
                 });
-
     }
 }
