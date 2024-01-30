@@ -102,49 +102,55 @@ public class MobEffectAtlasConverter extends Converter {
         if (!inventoryPath.toFile().exists())
             return;
 
-        int iw = 18;
-        int ih = 18;
+        int DWIDTH = 256, DHEIGHT = 256;
+        ImageConverter inventoryImage = new ImageConverter(DWIDTH, DHEIGHT, inventoryPath);
+        if (!inventoryImage.fileIsPowerOfTwo() || !inventoryImage.isSquare()) {
+            System.out.println("Failed to generate mob_effect-atlas, inventory image is not power of 2/is not square!");
+            return;
+        }
 
         Path mobEffectPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "mob_effect");
         if (!mobEffectPath.toFile().exists())
             mobEffectPath.toFile().mkdirs();
 
-        int DWIDTH = 256, DHEIGHT = 256;
-        int START_HEIGHT = DHEIGHT - 58;
-        ImageConverter nimage = new ImageConverter(DWIDTH, DHEIGHT, inventoryPath);
-        if (!nimage.fileIsPowerOfTwo()) {
-            System.out.println("Failed to generate mob_effect-atlas, inventory image is not power of 2!");
-            return;
-        }
+        int iw = 18; // effect width
+        int ih = 18; // effect height
 
-        int rows = 3;
-        int cols = 12;
+        int rows = 3; // Default rows
+        int cols = 12; // Default cols
+
+        int START_HEIGHT = DHEIGHT - 58; // Start heigh
+
         for (int y = 0; y < rows; ++y) {
             for (int x = 0; x < cols; ++x) {
                 int id = y * 256 + x; // 256 is a hack, idk what else to do
-
-                int rx = x * iw;
-                int ry = (START_HEIGHT * nimage.getHeightMultiplier()) + (y * ih);
                 if (!MOB_EFFECTS.containsKey(id)) {
                     if (PackConverter.DEBUG)
                         System.out.println("Could not find effect with RPID=" + id);
                     continue;
                 }
 
-                String effect_path = MOB_EFFECTS.get(id);
+                String effect_file_name = MOB_EFFECTS.get(id);
                 if (PackConverter.DEBUG)
-                    System.out.println("Effect: " + effect_path);
+                    System.out.println("Effect: " + effect_file_name);
 
-                Path imagePath = mobEffectPath.resolve(effect_path);
+                int sx = x * iw;
+                int sy = START_HEIGHT + (y * ih);
+
+                Path imagePath = mobEffectPath.resolve(effect_file_name);
                 if (!imagePath.toFile().exists()) {
-                    nimage.newImage(iw, ih);
-                    nimage.subImage(rx, ry, rx + iw, ry + ih, 0, 0);
-                    nimage.store(imagePath);
+                    inventoryImage.newImage(iw, ih);
+                    inventoryImage.subImage(sx, sy, sx + iw, sy + ih);
+                    inventoryImage.store(imagePath);
                 }
 
                 // System.out.println("x: " + x + ", y: " + y + ", id: " + id);
             }
         }
+
+        inventoryImage.newImage(DWIDTH, DHEIGHT);
+        inventoryImage.subImage(0, 0, DWIDTH, START_HEIGHT);
+        inventoryImage.store(inventoryPath);
     }
 }
