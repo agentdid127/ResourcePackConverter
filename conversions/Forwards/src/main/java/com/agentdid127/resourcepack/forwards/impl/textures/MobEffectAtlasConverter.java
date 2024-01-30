@@ -11,7 +11,6 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 
-// todo: register mob_effect-atlas from inventory.png
 public class MobEffectAtlasConverter extends Converter {
     public static HashMap<Integer, String> MOB_EFFECTS = new HashMap<Integer, String>();
     static {
