@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
@@ -126,7 +127,8 @@ public final class Util {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey()).collect(Collectors.toCollection(ArrayList::new));
+        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey())
+                .collect(Collectors.toCollection(ArrayList::new));
         keys.forEach(key -> {
             if (Integer.parseInt(protocols.get(key).getAsString()) == protocol)
                 version.set(key);
@@ -144,11 +146,10 @@ public final class Util {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey()).collect(Collectors.toCollection(ArrayList::new));
-        String[] keys2 = new String[keys.size()];
-        for (int i = 0; i < keys.size(); i++)
-            keys2[i] = keys.get(i);
-        return keys2;
+        return protocols.entrySet()
+                .stream()
+                .map(Map.Entry::getKey)
+                .toArray(String[]::new);
     }
 
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
@@ -168,7 +169,7 @@ public final class Util {
         BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
         StringBuilder resultStringBuilder = new StringBuilder();
         String line;
-        while ((line = br.readLine()) != null) 
+        while ((line = br.readLine()) != null)
             resultStringBuilder.append(line).append("\n");
         br.close();
         return resultStringBuilder.toString();
@@ -200,7 +201,7 @@ public final class Util {
     public static Boolean mergeDirectories(File dir1, File dir2) throws IOException {
         if (!dir1.exists() && !dir2.exists())
             return null;
-            
+
         // TODO: another unused variable?
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
