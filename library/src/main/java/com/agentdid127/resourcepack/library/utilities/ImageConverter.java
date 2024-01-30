@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.PackConverter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.desktop.SystemEventListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -38,8 +39,9 @@ public class ImageConverter {
             wMultiplier = wMultiplier == 0 ? 1 : wMultiplier;
             hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         } else {
-            PackConverter.log("File is not a power of 2. Converting image to be so.");
-            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
+            Logger.log("File is not a power of 2. Converting image to be so.");
+            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
+                    (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             defaultW = defaultWIn;
             defaultH = defaultHIn;
@@ -74,7 +76,7 @@ public class ImageConverter {
             wMultiplier = image.getWidth() / defaultW;
             hMultiplier = image.getHeight() / defaultH;
         } else
-            PackConverter.log("File is not a power of 2");
+            Logger.log("File is not a power of 2");
     }
 
     // Creates a new Image to store
@@ -100,6 +102,10 @@ public class ImageConverter {
         y3 = y == 0 ? 0 : y * hMultiplier;
         BufferedImage part = subImage2(x3, y3, width2, height2);
         g2d.drawImage(part, storex * wMultiplier, storey * hMultiplier, null);
+    }
+
+    public void subImage(int x, int y, int x2, int y2) {
+        subImage(x, y, x2, y2, 0, 0);
     }
 
     // Takes a part of an image and flips it either horizontally or vertically
@@ -171,7 +177,7 @@ public class ImageConverter {
 
     // Transforms the BufferedImage
     private static BufferedImage createTransformed(BufferedImage image, AffineTransform at) {
-        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(),BufferedImage.TYPE_INT_ARGB);
+        BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = newImage.createGraphics();
         g.transform(at);
         g.drawImage(image, 0, 0, null);

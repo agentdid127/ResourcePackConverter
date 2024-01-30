@@ -22,8 +22,10 @@ public class PaintingConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "painting" + File.separator);
-        if (!paintingPath.toFile().exists()) return;
+        Path paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                + "textures" + File.separator + "painting" + File.separator);
+        if (!paintingPath.toFile().exists())
+            return;
 
         // 16x16
         painting(paintingPath, "kebab.png", 0, 0, 1, 1);
@@ -73,8 +75,10 @@ public class PaintingConverter extends Converter {
     private void painting(Path paintingPath, String name, int x, int y, int scaleX, int scaleY) throws IOException {
         int defaultW = 16, defaultH = 16;
         if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists()) {
-            ImageConverter normal = new ImageConverter(256, 256, paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
-            if (!normal.fileIsPowerOfTwo()) return;
+            ImageConverter normal = new ImageConverter(256, 256,
+                    paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
+            if (!normal.fileIsPowerOfTwo())
+                return;
             normal.newImage(defaultW * scaleX, defaultH * scaleY);
             normal.subImage(x, y, x + defaultW * scaleX, y + defaultH * scaleY, 0, 0);
             normal.store(paintingPath.resolve(name));

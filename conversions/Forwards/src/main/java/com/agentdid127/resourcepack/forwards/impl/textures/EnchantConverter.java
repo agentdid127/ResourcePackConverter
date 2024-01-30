@@ -17,11 +17,14 @@ public class EnchantConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "misc" + File.separator + "enchanted_item_glint.png");
-        if (!paintingPath.toFile().exists()) return;
+        Path paintingPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                + "textures" + File.separator + "misc" + File.separator + "enchanted_item_glint.png");
+        if (!paintingPath.toFile().exists())
+            return;
 
         ImageConverter imageConverter = new ImageConverter(64, 64, paintingPath);
-        if (!imageConverter.fileIsPowerOfTwo()) return;
+        if (!imageConverter.fileIsPowerOfTwo())
+            return;
 
         imageConverter.newImage(64, 64);
         imageConverter.colorize(new Color(94, 9, 178, 120));

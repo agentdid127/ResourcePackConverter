@@ -16,16 +16,20 @@ import java.nio.file.Path;
 public class AtlasConverter extends Converter {
     JsonObject out = new JsonObject();
     JsonArray sources = new JsonArray();
+
     public AtlasConverter(PackConverter packConverter) {
         super(packConverter);
     }
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path atlases = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
-        Path textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
+        Path atlases = pack.getWorkingPath()
+                .resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
+        Path textures = pack.getWorkingPath()
+                .resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
 
-        if (!atlases.toFile().exists()) atlases.toFile().mkdirs();
+        if (!atlases.toFile().exists())
+            atlases.toFile().mkdirs();
 
         if (textures.toFile().exists()) {
             File[] files = textures.toFile().listFiles();
@@ -55,16 +59,16 @@ public class AtlasConverter extends Converter {
 
     public void findFiles(Path directory, String prefix) {
         if (directory.toFile().isDirectory())
-        for (File file : directory.toFile().listFiles()) {
-            JsonObject source = new JsonObject();
-            if (file.isDirectory()) {
-                source.addProperty("type", "directory");
-                source.addProperty("source", prefix + "/" + file.getName());
-                source.addProperty("prefix", prefix + "/" + file.getName() + "/");
-                sources.add(source);
-                String nextPrefix = prefix + "/" + file.getName();
-                findFiles(directory.resolve(file.getName()), nextPrefix);
+            for (File file : directory.toFile().listFiles()) {
+                JsonObject source = new JsonObject();
+                if (file.isDirectory()) {
+                    source.addProperty("type", "directory");
+                    source.addProperty("source", prefix + "/" + file.getName());
+                    source.addProperty("prefix", prefix + "/" + file.getName() + "/");
+                    sources.add(source);
+                    String nextPrefix = prefix + "/" + file.getName();
+                    findFiles(directory.resolve(file.getName()), nextPrefix);
+                }
             }
-        }
     }
 }

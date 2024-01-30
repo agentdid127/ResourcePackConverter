@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -61,9 +62,9 @@ public class LangConverter extends Converter {
                                 String key = enums.nextElement();
                                 String value = prop.getProperty(key);
                                 for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-                                    if (key.equals(id2.getKey())) {
+                                    if (key.equals(id2.getKey()))
                                         out.addProperty(id2.getValue().getAsString(), value);
-                                    } else
+                                    else
                                         out.addProperty(key, value);
                                 }
                             }
@@ -79,9 +80,9 @@ public class LangConverter extends Converter {
                                 String key = enums.nextElement();
                                 String value = prop.getProperty(key);
                                 for (Map.Entry<String, JsonElement> id2 : id.entrySet()) {
-                                    if (key.equals(id2.getKey())) {
+                                    if (key.equals(id2.getKey()))
                                         out.addProperty(id2.getValue().getAsString(), value);
-                                    } else
+                                    else
                                         out.addProperty(key, value);
                                 }
                             }
@@ -93,10 +94,11 @@ public class LangConverter extends Converter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     try {
                         int modelNoLang = model.getFileName().toString().indexOf(".lang");
                         String file2 = model.getFileName().toString().substring(0, modelNoLang);
-                        packConverter.log("Saving: " + file2 + ".json");
+                        Logger.log("Saving: " + file2 + ".json");
                         Files.write(
                                 pack.getWorkingPath()
                                         .resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
@@ -106,10 +108,12 @@ public class LangConverter extends Converter {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                     models.add(model.getFileName().toString());
                 });
+
         for (int i = 0; i < models.size(); i++) {
-            packConverter.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
+            Logger.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
                     + File.separator + "lang" + File.separator + models.get(i)));
             Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
                     + File.separator + models.get(i)));

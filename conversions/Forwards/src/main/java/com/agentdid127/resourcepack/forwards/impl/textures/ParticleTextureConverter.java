@@ -27,13 +27,15 @@ public class ParticleTextureConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "particle" + File.separator);
-        if (!imagePath.toFile().exists()) return;
-        if (!imagePath.resolve("particles.png").toFile().exists()) return;
+        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                + "textures" + File.separator + "particle" + File.separator);
+        if (!imagePath.toFile().exists() || !imagePath.resolve("particles.png").toFile().exists())
+            return;
 
         int defaultW = 128, defaultH = 128;
         ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
-        if (!iconvert.fileIsPowerOfTwo()) return;
+        if (!iconvert.fileIsPowerOfTwo())
+            return;
 
         // Particles
         boolean isLegacy = false;
@@ -43,7 +45,8 @@ public class ParticleTextureConverter extends Converter {
             isLegacy = iconvert.store();
         }
 
-        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.13.2") && to >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.13.2")
+                && to >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
             defaultW = 256;
             defaultH = 256;
             if (!isLegacy)
@@ -413,7 +416,8 @@ public class ParticleTextureConverter extends Converter {
 
             iconvert.newImage(8, 8);
             iconvert.subImage(8, 16, 16, 24, 0, 0);
-            iconvert.store(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"));
+            iconvert.store(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                    + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"));
         }
     }
 }

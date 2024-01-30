@@ -51,7 +51,7 @@ public final class BomDetector {
     public BomDetector(String rootDirectory, String... fileExtensions) {
         this.rootDir = new File(rootDirectory);
         this.extensions = Arrays.asList(fileExtensions);
-        if (!rootDir.exists() || rootDir.isFile()) 
+        if (!rootDir.exists() || rootDir.isFile())
             throw new RuntimeException("Root directory not valid.");
     }
 
@@ -84,10 +84,6 @@ public final class BomDetector {
 
     /** Different encodings will have different BOMs. This is for UTF-8. */
     private final int[] BYTE_ORDER_MARK = { 239, 187, 191 };
-
-    private static void log(Object thing) {
-        System.out.println(String.valueOf(thing));
-    }
 
     private List<File> findTextFilesBeneath(File startingDir) throws IOException {
         List<File> result = new ArrayList<File>();
@@ -125,7 +121,7 @@ public final class BomDetector {
         InputStream input = null;
         try {
             input = new FileInputStream(textFile);
-            for (int index = 0; index < BYTE_ORDER_MARK.length; ++index) 
+            for (int index = 0; index < BYTE_ORDER_MARK.length; ++index)
                 firstFewBytes[index] = input.read(); // read a single byte
             result = Arrays.equals(firstFewBytes, BYTE_ORDER_MARK);
         } finally {
@@ -147,7 +143,7 @@ public final class BomDetector {
             while (totalBytesReadIntoMemory < truncatedSize) {
                 int bytesRemaining = (int) truncatedSize - totalBytesReadIntoMemory;
                 int bytesRead = input.read(memory, totalBytesReadIntoMemory, bytesRemaining);
-                if (bytesRead > 0) 
+                if (bytesRead > 0)
                     totalBytesReadIntoMemory = totalBytesReadIntoMemory + bytesRead;
             }
             overwriteWithoutBOM(memory, bomFile);
@@ -158,7 +154,8 @@ public final class BomDetector {
         long finalSize = after.length();
         long changeInSize = initialSize - finalSize;
         if (changeInSize != BYTE_ORDER_MARK.length) {
-            throw new RuntimeException("Change in file size: " + changeInSize + " Expected change: " + BYTE_ORDER_MARK.length);
+            throw new RuntimeException(
+                    "Change in file size: " + changeInSize + " Expected change: " + BYTE_ORDER_MARK.length);
         }
     }
 
