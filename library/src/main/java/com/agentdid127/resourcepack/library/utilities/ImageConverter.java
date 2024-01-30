@@ -1,10 +1,7 @@
 package com.agentdid127.resourcepack.library.utilities;
 
-import com.agentdid127.resourcepack.library.PackConverter;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.desktop.SystemEventListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
