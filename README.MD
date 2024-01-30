@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.17
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.20.x
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 
@@ -15,7 +15,7 @@ While this program will copy your resource packs before converting them, we stil
 ## Usage
 [Download the compiled jar file](https://github.com/agentdid127/ResourcePackConverter/releases/latest), or compile the source yourself.  
 The program will look for any valid resource packs in the current directory and is easily run by doing this.
-(Converts from 1.12.x to 1.13.x)
+(Converts from 1.8.x to 1.20.x)
 
     java -jar ResourcePackConverter.jar
 
@@ -24,7 +24,7 @@ You can set the input directory using one of the following parameters.
 
     java -jar ResourcePackConverter.jar --input input/
 
-To update to any other version than 1.12-1.13, you can use these parameters.
+To update to any other version than 1.8-1.20, you can use these parameters.
 `--from <version>` and `--to <version>`
 
 	java -jar ResourcePackConverter.jar --from 1.12 --to 1.16.2
