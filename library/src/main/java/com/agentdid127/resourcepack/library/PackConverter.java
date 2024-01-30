@@ -30,10 +30,6 @@ public abstract class PackConverter {
         return (T) converters.get(clazz);
     }
 
-    public static void log(String output) {
-        out.println(output);
-    }
-
     /**
      * Gson
      * 

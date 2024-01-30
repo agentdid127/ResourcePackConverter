@@ -1,6 +1,5 @@
 package com.agentdid127.resourcepack.library.pack;
 
-import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.utilities.BomDetector;
 
@@ -74,11 +73,11 @@ public class Pack {
          */
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                PackConverter.log("  Deleting existing conversion");
+                System.out.println("  Deleting existing conversion");
                 Util.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
-            PackConverter.log("  Copying existing pack");
+            System.out.println("  Copying existing pack");
             Util.copyDir(pack.getOriginalPath(), pack.getWorkingPath());
 
             bomRemover(pack.getWorkingPath());
@@ -90,7 +89,7 @@ public class Pack {
                     ".txt", ".json", ".mcmeta", ".properties", ".lang");
             int count = bom.findBOMs().size();
             if (count > 0)
-                PackConverter.log("Removing BOMs from " + count + " files.");
+                System.out.println("Removing BOMs from " + count + " files.");
             bom.removeBOMs();
         }
 

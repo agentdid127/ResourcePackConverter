@@ -96,7 +96,7 @@ public class LangConverter extends Converter {
                     try {
                         int modelNoLang = model.getFileName().toString().indexOf(".lang");
                         String file2 = model.getFileName().toString().substring(0, modelNoLang);
-                        packConverter.log("Saving: " + file2 + ".json");
+                        System.out.println("Saving: " + file2 + ".json");
                         Files.write(
                                 pack.getWorkingPath()
                                         .resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
@@ -109,7 +109,7 @@ public class LangConverter extends Converter {
                     models.add(model.getFileName().toString());
                 });
         for (int i = 0; i < models.size(); i++) {
-            packConverter.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
+            System.out.println("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
                     + File.separator + "lang" + File.separator + models.get(i)));
             Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
                     + File.separator + models.get(i)));

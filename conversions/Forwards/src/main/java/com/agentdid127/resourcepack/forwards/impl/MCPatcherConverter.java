@@ -26,7 +26,8 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
+        Path models = pack.getWorkingPath()
+                .resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
         if (models.toFile().exists())
             findFiles(models);
         // remapModelJson(models.resolve("item"));
@@ -63,7 +64,7 @@ public class MCPatcherConverter extends Converter {
         Files.list(path).filter(path1 -> path1.toString().endsWith(".properties")).forEach(model -> {
             try (InputStream input = new FileInputStream(model.toString())) {
                 if (packConverter.DEBUG)
-                    PackConverter.log("Updating:" + model.getFileName());
+                    System.out.println("Updating:" + model.getFileName());
 
                 PropertiesEx prop = new PropertiesEx();
                 prop.load(input);
@@ -119,7 +120,8 @@ public class MCPatcherConverter extends Converter {
      * @return
      */
     protected String updateID(String type, PropertiesEx prop, String selection) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection).getAsJsonObject();
+        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/ids.json").get(selection)
+                .getAsJsonObject();
         String[] split = prop.getProperty(type).split(" ");
         String properties2 = " ";
         for (int i = 0; i < split.length; i++)
