@@ -25,7 +25,7 @@ public class BackwardsPackConverter extends PackConverter {
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
         DEBUG = debug;
-        Logger.out = out;
+        Logger.setStream(out);
         Logger.log(from);
         Logger.log(to);
         this.INPUT_DIR = input;

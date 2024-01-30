@@ -3,13 +3,17 @@ package com.agentdid127.resourcepack.library.utilities;
 import java.io.PrintStream;
 
 public class Logger {
-    public static PrintStream out;
+    private static PrintStream stream;
+
+    public static void setStream(PrintStream stream) {
+        Logger.stream = stream;
+    }
 
     public static void log(String message) {
-        out.println(message);
+        stream.println(message);
     }
 
     public static void log(Object thing) {
-        System.out.println(String.valueOf(thing));
+        stream.println(String.valueOf(thing));
     }
 }
