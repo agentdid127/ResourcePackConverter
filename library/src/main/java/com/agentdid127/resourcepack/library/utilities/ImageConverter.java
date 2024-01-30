@@ -104,6 +104,10 @@ public class ImageConverter {
         g2d.drawImage(part, storex * wMultiplier, storey * hMultiplier, null);
     }
 
+    public void subImage(int x, int y, int x2, int y2) {
+        subImage(x, y, x2, y2, 0, 0);
+    }
+
     // Takes a part of an image and flips it either horizontally or vertically
     public void subImage(int x, int y, int x2, int y2, int storex, int storey, boolean flip) {
         int x3;
