@@ -63,6 +63,18 @@ public class ImageConverter {
         return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
+    public void slice_and_save(int sx, int sy, int width, int height, Path path) throws IOException {
+        BufferedImage oimg = this.newImage;
+        Graphics2D oGraphics2d = this.g2d;
+
+        newImage(width, height);
+        subImage(sx, sy, sx + width, sy + height);
+        store(path);
+
+        this.newImage = oimg;
+        this.g2d = oGraphics2d;
+    }
+
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
         image = newImage;
         if (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight())) {
