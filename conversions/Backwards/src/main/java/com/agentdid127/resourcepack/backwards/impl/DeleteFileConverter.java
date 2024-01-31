@@ -46,14 +46,16 @@ public class DeleteFileConverter extends Converter {
     }
 
     protected void findFiles(Path path) throws IOException {
-        File directory = new File(path.toString());
-        File[] fList = directory.listFiles();
-        for (File file : fList)
-            if (file.isDirectory())
-                findFiles(Paths.get(file.getPath()));
-        fList = directory.listFiles();
-        if (fList.length == 0)
-            Files.deleteIfExists(directory.toPath());
+	if (path.toFile().exists()) {
+	    File directory = new File(path.toString());
+	    File[] fList = directory.listFiles();
+	    for (File file : fList)
+		if (file.isDirectory())
+		    findFiles(Paths.get(file.getPath()));
+	    fList = directory.listFiles();
+	    if (fList.length == 0)
+		Files.deleteIfExists(directory.toPath());
+	}
     }
 
     public void deleteBlocks(int version) throws IOException {
