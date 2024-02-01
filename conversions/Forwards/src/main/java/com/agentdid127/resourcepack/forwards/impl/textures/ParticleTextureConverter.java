@@ -414,10 +414,14 @@ public class ParticleTextureConverter extends Converter {
             iconvert.subImage(48, 8, 56, 16, 0, 0);
             iconvert.store(imagePath.resolve("splash_3.png"));
 
+            Path entityPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
+                    + "textures" + File.separator + "entity");
+            if (!entityPath.toFile().exists())
+                entityPath.toFile().mkdirs();
+
             iconvert.newImage(8, 8);
             iconvert.subImage(8, 16, 16, 24, 0, 0);
-            iconvert.store(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                    + "textures" + File.separator + "entity" + File.separator + "fishing_hook.png"));
+            iconvert.store(entityPath.resolve("fishing_hook.png"));
         }
     }
 }
