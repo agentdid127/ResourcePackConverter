@@ -33,7 +33,7 @@ public class CommonTool implements Application {
 
 
     public static void run(OptionSet optionSet, PrintStream out, PrintStream error) throws IOException {
-
+        new CommonTool();
         if (optionSet.has(Options.HELP)) {
             Options.PARSER.printHelpOn(System.out);
             return;
