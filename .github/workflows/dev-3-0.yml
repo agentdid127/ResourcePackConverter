@@ -35,14 +35,14 @@ jobs:
         with:
           name: Build
           path: Applications/Console/target/ResourcePackConverter-Console-${{ env.VERSIONID }}.jar
-          retention-days: 40
+          retention-days: 15
 
       - name: Upload MCPatcher plugin
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Build
-          path: plugins/MCPatcher/target/ResourcePackConverter-Console-${{ env.VERSIONID }}.jar
-          retention-days: 40
+          path: plugins/MCPatcher/target/MCPatcherPlugin-${{ env.VERSIONID }}.jar
+          retention-days: 15
 
      # - name: Upload GUI Software
      #   uses: actions/upload-artifact@v2.2.4
