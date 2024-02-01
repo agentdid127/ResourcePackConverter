@@ -1,4 +1,4 @@
 [submodule "convert"]
 	path = convert
-	url = git@github.com:agentdid127/ConverterTools
+	url = https://github.com/agentdid127/ConverterTools
 	branch = main
