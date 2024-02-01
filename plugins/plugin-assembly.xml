@@ -1,0 +1,25 @@
+<assembly
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
+  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
+
+  <dependencySets>
+    <dependencySet>
+      <excludes>
+        <exclude>*:sources</exclude>
+      </excludes>
+      <fileMode>0644</fileMode>
+      <includes>
+        <include>*:jar:*</include>
+      </includes>
+      <outputDirectory>./</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+  </fileSets>
+  <formats>
+    <format>dir</format>
+  </formats>
+  <id>dist</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+</assembly>

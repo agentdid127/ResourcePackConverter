@@ -2,13 +2,11 @@ package com.agentdid127.resourcepack.library;
 
 public class RPPluginVersionSetter {
 
-  public static void setVersion(RPPlugin plugin, String from, String to) {
-    plugin.from = from;
-    plugin.to = to;
+  public static void setData(RPPlugin plugin, String from, String to, PackConverter pc) {
+    plugin.setFrom(from);
+    plugin.setTo(to);
+    plugin.setPackConverter(pc);
   }
 
-  public static void setPackConverter(RPPlugin plugin, PackConverter packConverter) {
-    plugin.packConverter = packConverter;
-  }
 
 }

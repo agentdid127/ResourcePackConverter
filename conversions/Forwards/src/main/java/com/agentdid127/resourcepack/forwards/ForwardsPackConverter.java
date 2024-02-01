@@ -2,19 +2,14 @@ package com.agentdid127.resourcepack.forwards;
 
 import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
-import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.forwards.impl.*;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Objects;
 
 public class ForwardsPackConverter extends PackConverter {
     Path INPUT_DIR;
@@ -26,7 +21,6 @@ public class ForwardsPackConverter extends PackConverter {
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
         DEBUG = debug;
-        Logger.setStream(out);
         Logger.log(from);
         Logger.log(to);
         this.INPUT_DIR = input;

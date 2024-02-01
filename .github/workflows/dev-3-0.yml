@@ -33,7 +33,7 @@ jobs:
       - name: Upload Console Software
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: Console.jar
+          name: Build
           path: Applications/Console/target/ResourcePackConverter-Console-${{ env.VERSIONID }}.jar
           retention-days: 15
 

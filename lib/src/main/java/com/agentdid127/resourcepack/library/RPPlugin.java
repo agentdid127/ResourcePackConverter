@@ -1,18 +1,16 @@
 package com.agentdid127.resourcepack.library;
 
 import com.agentdid127.converter.Plugin;
-import com.google.gson.Gson;
 
-public abstract class RPPlugin extends Plugin {
+public abstract class RPPlugin extends Plugin<RPConverter> {
 
-  String from;
-  String to;
-  Gson gson;
+  private String from;
+  private String to;
 
-  PackConverter packConverter;
+  private PackConverter packConverter;
 
   public RPPlugin(String name) {
-    super(name);
+    super(name, "RPPlugin");
   }
 
   public String getFrom() {
@@ -25,5 +23,17 @@ public abstract class RPPlugin extends Plugin {
 
   public PackConverter getPackConverter() {
     return packConverter;
+  }
+
+  void setFrom(String from) {
+    this.from = from;
+  }
+
+  void setTo(String to) {
+    this.to = to;
+  }
+
+  void setPackConverter(PackConverter pc) {
+    this.packConverter = pc;
   }
 }

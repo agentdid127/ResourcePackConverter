@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack;
+package com.agentdid127.resourcepack.MCPatcher;
 
 import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.forwards.impl.NameConverter;

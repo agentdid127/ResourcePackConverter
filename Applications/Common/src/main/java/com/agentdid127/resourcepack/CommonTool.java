@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import joptsimple.OptionSet;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ import java.io.PrintStream;
 
 public class CommonTool implements Application {
 
-    IPluginLoader pluginLoader;
+    IPluginLoader<RPPlugin> pluginLoader;
 
     public static CommonTool instance;
 
@@ -47,13 +48,16 @@ public class CommonTool implements Application {
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
 
         Logger.setErrorStream(error);
+        Logger.setStream(out);
 
         Path pluginsPath = Paths.get("./plugins/");
         if (!pluginsPath.toFile().exists()) {
             pluginsPath.toFile().mkdirs();
         }
 
-        PluginLoader pluginLoader = new PluginLoader(pluginsPath.toFile());
+        PluginLoader<RPPlugin> pluginLoader = new PluginLoader(pluginsPath.toFile(), RPPlugin.class,
+            Arrays.asList("com.agentdid127.resourcepack.library", "com.agentdid127.converter",
+                "com.agentdid127.resourcepack.forwards", "com.agentdid127.resourcepack.backwards"));
         instance.pluginLoader = pluginLoader;
         pluginLoader.loadPlugins();
 
@@ -67,23 +71,23 @@ public class CommonTool implements Application {
                 true, out);
         }
 
-        for (Plugin value : pluginLoader.getPlugins().values()) {
+        for (RPPlugin value : pluginLoader.getPlugins().values()) {
             value.setApplication(instance);
-            if (value instanceof RPPlugin) {
-                RPPluginVersionSetter.setVersion((RPPlugin) value, from, to);
-                RPPluginVersionSetter.setPackConverter((RPPlugin) value, packConverter);
-            }
+            RPPluginVersionSetter.setData(value, from, to, packConverter);
+            Logger.error(value.getFrom() + " " + value.getTo());
+            Logger.error(value.getPackConverter());
             value.onInit();
-            for (Converter converter : value.getConverters()) {
-                if (converter instanceof RPConverter) {
-                    packConverter.registerConverter((RPConverter) converter);
-                }
+
+            Logger.error(value.getConverters().size());
+
+            for (RPConverter converter : value.getConverters()) {
+                packConverter.registerConverter(converter);
             }
         }
 
         packConverter.runDir(optionSet.valueOf(Options.INPUT_DIR));
 
-        for (Plugin value : pluginLoader.getPlugins().values()) {
+        for (RPPlugin value : pluginLoader.getPlugins().values()) {
             value.onUnload();
         }
     }

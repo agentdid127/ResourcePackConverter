@@ -1,7 +1,6 @@
-package com.agentdid127.convert.plugin;
+package com.agentdid127.resourcepack.MCPatcher;
 
 import com.agentdid127.converter.util.Logger;
-import com.agentdid127.resourcepack.MCPatcherConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.RPPlugin;
 import com.agentdid127.resourcepack.library.Util;
@@ -23,9 +22,8 @@ public class MCPatcherPlugin extends RPPlugin {
     if (Util.getVersionProtocol(pc.getGson(), getFrom()) <= Util.getVersionProtocol(pc.getGson(), getTo())) {
       if (Util.getVersionProtocol(pc.getGson(), getFrom()) <= Util.getVersionProtocol(pc.getGson(),
           "1.12.2")
-          && Util.getVersionProtocol(pc.getGson(), getFrom()) >= Util.getVersionProtocol(
+          && Util.getVersionProtocol(pc.getGson(), getTo()) >= Util.getVersionProtocol(
           pc.getGson(), "1.13")) {
-
         getConverters().add(new MCPatcherConverter(pc));
       }
     }

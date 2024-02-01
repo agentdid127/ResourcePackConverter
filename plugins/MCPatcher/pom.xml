@@ -67,7 +67,26 @@
                     </archive>
                 </configuration>
             </plugin>
-        </plugins>
+
+                        <plugin>
+                            <artifactId>maven-assembly-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <configuration>
+                                        <descriptors>
+                                            <descriptor>../plugin-assembly.xml</descriptor>
+                                        </descriptors>
+                                    </configuration>
+                                    <goals>
+                                        <goal>attached</goal>
+                                    </goals>
+                                    <id>user_distribution</id>
+                                    <phase>package</phase>
+                                </execution>
+                            </executions>
+                            <version>2.6</version>
+                        </plugin>
+                    </plugins>
     </build>
 
     <dependencies>
