@@ -131,12 +131,10 @@ public class ImageConverter {
 
     // Only allows for the number 1 and flips it both horizontally and vertically
     public void subImage(int x, int y, int x2, int y2, int storex, int storey, int flip) {
-        int x3;
-        int y3;
         int width2 = x2 * wMultiplier - x * wMultiplier;
         int height2 = y2 * hMultiplier - y * hMultiplier;
-        x3 = x == 0 ? 0 : x * wMultiplier;
-        y3 = y == 0 ? 0 : y * hMultiplier;
+        int x3 = x == 0 ? 0 : x * wMultiplier;
+        int y3 = y == 0 ? 0 : y * hMultiplier;
         BufferedImage part = subImage2(x3, y3, width2, height2);
         g2d.drawImage(createFlipped(part, flip), storex * wMultiplier, storey * hMultiplier, null);
     }
