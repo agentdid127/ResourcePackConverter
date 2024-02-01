@@ -45,34 +45,36 @@ public class SlicerConverter extends Converter {
             hudPath.toFile().mkdirs();
 
         if (widgetsPath.toFile().exists()) {
-            int dw = 256;
-            int dh = 256;
-            ImageConverter widgets = new ImageConverter(dw, dh, widgetsPath);
+            int default_dimensions = 256;
+            ImageConverter widgets = new ImageConverter(default_dimensions, default_dimensions, widgetsPath);
             if (widgets.isSquare()) {
                 // Hotbar
-                int hbw = 182;
-                int hbh = 22;
+                int hotbar_width = 182;
+                int hotbar_height = 22;
                 Path hotbarPath = hudPath.resolve("hotbar.png");
-                widgets.slice_and_save(0, 0, hbw, hbh, hotbarPath);
+                widgets.slice_and_save(0, 0, hotbar_width, hotbar_height, hotbarPath);
 
                 // Hotbar Selector
-                int hbsw = 24;
-                int hbsh = 24;
+                int hotbar_selector_width = 24;
+                int hotbar_selector_height = 24;
                 Path hotbarSelectionPath = hudPath.resolve("hotbar_selection.png");
-                widgets.slice_and_save(0, hbh, hbsw, hbsh, hotbarSelectionPath);
+                widgets.slice_and_save(0, hotbar_height, hotbar_selector_width, hotbar_selector_height,
+                        hotbarSelectionPath);
 
                 if (from >= Util.getVersionProtocol(gson, "1.9")) {
                     // Offhands
-                    int ofw = 29;
-                    int ofh = 24;
+                    int offhand_width = 29;
+                    int offhand_height = 24;
 
                     // Offhand // Left
                     Path offhandLeft = hudPath.resolve("hotbar_offhand_left.png");
-                    widgets.slice_and_save(hbsw + ofw, hbh, ofw, ofh, offhandLeft);
+                    widgets.slice_and_save(hotbar_selector_width + offhand_width, hotbar_height, offhand_width,
+                            offhand_height, offhandLeft);
 
                     // Offhand Right
                     Path offhandRight = hudPath.resolve("hotbar_offhand_right.png");
-                    widgets.slice_and_save(hbsw + (ofw * 2), hbh, ofw, ofh, offhandRight);
+                    widgets.slice_and_save(hotbar_selector_width + (offhand_width * 2), hotbar_height, offhand_width,
+                            offhand_height, offhandRight);
                 }
 
                 // TODO: slice widgets.png
