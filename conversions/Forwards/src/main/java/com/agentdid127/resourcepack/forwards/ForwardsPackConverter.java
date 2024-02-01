@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.forwards;
 
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;

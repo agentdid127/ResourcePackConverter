@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class PackConverter {
-    protected final Map<Class<? extends Converter>, Converter> converters = new LinkedHashMap<>();
+    protected final Map<Class<? extends RPConverter>, RPConverter> converters = new LinkedHashMap<>();
     protected Gson gson;
     public static boolean DEBUG = true;
 
@@ -15,7 +15,7 @@ public abstract class PackConverter {
      * 
      * @param converter
      */
-    public void registerConverter(Converter converter) {
+    public void registerConverter(RPConverter converter) {
         converters.put(converter.getClass(), converter);
     }
 
@@ -24,7 +24,7 @@ public abstract class PackConverter {
      * @param <T>
      * @return
      */
-    public <T extends Converter> T getConverter(Class<T> clazz) {
+    public <T extends RPConverter> T getConverter(Class<T> clazz) {
         return (T) converters.get(clazz);
     }
 
