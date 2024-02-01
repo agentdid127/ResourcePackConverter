@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 
 import java.io.File;
@@ -9,16 +9,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class ParticleConverter extends Converter {
+public class ParticleConverter extends RPConverter {
     private Path particles;
 
     // Set it up.
     public ParticleConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "ParticleConverter", 1);
     }
 
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         // The directory to convert
         particles = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "particles");

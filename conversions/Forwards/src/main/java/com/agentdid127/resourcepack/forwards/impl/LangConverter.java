@@ -1,10 +1,9 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,24 +17,23 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 
-public class LangConverter extends Converter {
+public class LangConverter extends RPConverter {
     private String version;
     private String from;
 
     public LangConverter(PackConverter packConverter, String fromIn, String versionIn) {
-        super(packConverter);
+        super(packConverter, "LangConverter", 1);
         version = versionIn;
         from = fromIn;
     }
 
     /**
      * Moves Lang (properties) to JSON
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path path = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang");
         if (!path.toFile().exists())
             return;

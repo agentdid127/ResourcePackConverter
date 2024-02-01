@@ -1,10 +1,9 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,13 +17,13 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
-public class ModelConverter extends Converter {
+public class ModelConverter extends RPConverter {
     private int version;
     private int from;
     protected String light = "none";
 
     public ModelConverter(PackConverter packConverter, String lightIn, int versionIn, int fromIn) {
-        super(packConverter);
+        super(packConverter, "ModelConverter", 1);
         light = lightIn;
         version = versionIn;
         from = fromIn;
@@ -32,12 +31,11 @@ public class ModelConverter extends Converter {
 
     /**
      * Runs findfiles with the directory Models
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path models = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "models");
         if (!models.toFile().exists())

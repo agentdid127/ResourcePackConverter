@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.library.pack;
 
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.converter.util.Logger;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;

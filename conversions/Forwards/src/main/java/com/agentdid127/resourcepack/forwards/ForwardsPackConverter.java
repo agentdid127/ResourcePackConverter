@@ -1,11 +1,11 @@
 package com.agentdid127.resourcepack.forwards;
 
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
 import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.forwards.impl.*;
 import com.google.gson.GsonBuilder;
 
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 public class ForwardsPackConverter extends PackConverter {
@@ -57,7 +58,6 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new AnimationConverter(this));
             this.registerConverter(new MapIconConverter(this));
-            this.registerConverter(new MCPatcherConverter(this));
         }
 
         this.registerConverter(
@@ -101,33 +101,9 @@ public class ForwardsPackConverter extends PackConverter {
                 && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20"))
             this.registerConverter(new TitleConverter(this));
 
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.20.1")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20.2")) {
-            // register gui slicer
-        }
-    }
-
-    public void runPack(Pack pack) {
-        try {
-            Logger.log("Converting " + pack);
-            pack.getHandler().setup();
-            Logger.log("  Running Converters");
-            for (Converter converter : converters.values()) {
-                if (DEBUG)
-                    Logger.log("    Running " + converter.getClass().getSimpleName());
-                converter.convert(pack);
-            }
-            pack.getHandler().finish();
-        } catch (Throwable t) {
-            Logger.log("Failed to convert!");
-            Util.propagate(t);
-        }
     }
 
     public void runDir() throws IOException {
-        Files.list(INPUT_DIR)
-                .map(Pack::parse)
-                .filter(Objects::nonNull)
-                .forEach(pack -> runPack(pack));
+        runDir(INPUT_DIR);
     }
 }

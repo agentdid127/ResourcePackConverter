@@ -1,10 +1,9 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -15,13 +14,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 
-public class AnimationConverter extends Converter {
+public class AnimationConverter extends RPConverter {
     public AnimationConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "AnimationConverter", 1);
     }
 
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         fixAnimations(pack.getWorkingPath().resolve(
                 "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
         fixAnimations(pack.getWorkingPath().resolve(

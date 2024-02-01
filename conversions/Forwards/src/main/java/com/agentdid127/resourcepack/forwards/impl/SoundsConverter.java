@@ -1,10 +1,10 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -18,19 +18,18 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Map;
 
-public class SoundsConverter extends Converter {
+public class SoundsConverter extends RPConverter {
     public SoundsConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "SoundsConverter", 1);
     }
 
     /**
      * Updates Sounds
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path soundsJsonPath = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "sounds.json");
         if (!soundsJsonPath.toFile().exists())

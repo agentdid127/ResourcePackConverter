@@ -12,10 +12,12 @@
 
     <modules>
         <!--<module>lib2-0</module>
-        <module>conversions</module>
-        <module>Applications</module>-->
-	<module>convert</module>
-	<module>lib</module>
+        <module>conversions</module-->
+        <module>Applications</module>
+	      <module>conversions</module>
+        <module>convert</module>
+	      <module>lib</module>
+        <module>plugins</module>
     </modules>
 
     <properties>

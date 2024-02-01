@@ -1,10 +1,9 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -17,24 +16,23 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.Map;
 
-public class BlockStateConverter extends Converter {
+public class BlockStateConverter extends RPConverter {
     private boolean anyChanges;
     private int from, to;
 
     public BlockStateConverter(PackConverter packConverter, int from, int to) {
-        super(packConverter);
+        super(packConverter, "BlockStateConverter", 1);
         this.from = from;
         this.to = to;
     }
 
     /**
      * Updates blockstates in blockstates folder
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path states = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
         if (!states.toFile().exists())

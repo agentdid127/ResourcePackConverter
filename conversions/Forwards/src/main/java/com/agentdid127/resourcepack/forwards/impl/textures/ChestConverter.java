@@ -1,27 +1,25 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ChestConverter extends Converter {
+public class ChestConverter extends RPConverter {
     public ChestConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "ChestConverter", 1);
     }
 
     /**
      * Fixes Chest Textures in 1.15 Remaps textures, and updates images
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "entity" + File.separator + "chest" + File.separator);
         if (!imagePath.toFile().exists())

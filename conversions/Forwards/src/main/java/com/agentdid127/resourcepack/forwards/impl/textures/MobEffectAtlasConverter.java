@@ -1,17 +1,17 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
+import com.agentdid127.converter.util.Logger;
+import com.agentdid127.resourcepack.library.RPConverter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 
-public class MobEffectAtlasConverter extends Converter {
+public class MobEffectAtlasConverter extends RPConverter {
     public static HashMap<Integer, String> MOB_EFFECTS = new HashMap<Integer, String>();
     static {
         // Col #1
@@ -85,17 +85,16 @@ public class MobEffectAtlasConverter extends Converter {
     }
 
     public MobEffectAtlasConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "MobEffectAtlasConverter", 1);
     }
 
     /**
      * Converts inventory.png mob atlas into its own files
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path inventoryPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "gui" + File.separator + "container" + File.separator
                 + "inventory.png");

@@ -12,11 +12,11 @@ public abstract class RPConverter extends Converter {
     public RPConverter(PackConverter packConverter, String name, int priority) {
 	super(name, priority);
         this.packConverter = packConverter;
-	this.pack = null;
+	      this.pack = null;
     }
 
     public void convert(Pack pack) throws IOException {
-	this.pack = pack;
-	convert();
+	    this.pack = pack;
+	    convert();
     }
 }

@@ -1,8 +1,7 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -13,16 +12,16 @@ import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 
-public class AtlasConverter extends Converter {
+public class AtlasConverter extends RPConverter {
     JsonObject out = new JsonObject();
     JsonArray sources = new JsonArray();
 
     public AtlasConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "AtlasConverter", 1);
     }
 
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path atlases = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
         Path textures = pack.getWorkingPath()

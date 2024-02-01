@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
@@ -10,23 +10,22 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ParticleTextureConverter extends Converter {
+public class ParticleTextureConverter extends RPConverter {
     int from, to;
 
     public ParticleTextureConverter(PackConverter packConverter, int from, int to) {
-        super(packConverter);
+        super(packConverter, "ParticleTextureConverter", 1);
         this.from = from;
         this.to = to;
     }
 
     /**
      * Updates Particles
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "particle" + File.separator);
         if (!imagePath.toFile().exists() || !imagePath.resolve("particles.png").toFile().exists())

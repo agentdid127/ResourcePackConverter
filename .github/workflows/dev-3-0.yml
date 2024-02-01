@@ -1,0 +1,55 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Dev Build
+
+on:
+  push:
+    branches: [ "dev/3.0.0" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 8
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: "Get Information"
+        run: |
+          echo 'VERSION='$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}')'-pre' >> $GITHUB_ENV
+          echo 'VERSIONID='$(cat pom.xml | grep "^    <version>.*</version>$" | awk -F'[><]' '{print $3}')'' >> $GITHUB_ENV
+      - name: Build with Maven
+        run: |
+          git submodule update --init --recursive
+          mvn -B
+
+      - name: Upload Console Software
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: Build
+          path: Applications/Console/target/ResourcePackConverter-Console-${{ env.VERSIONID }}.jar
+          retention-days: 40
+
+      - name: Upload MCPatcher plugin
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: Build
+          path: plugins/MCPatcher/target/ResourcePackConverter-Console-${{ env.VERSIONID }}.jar
+          retention-days: 40
+
+     # - name: Upload GUI Software
+     #   uses: actions/upload-artifact@v2.2.4
+     #   with:
+     #     name: Build
+     #     path: Applications/Gui/target/ResourcePackConverter-Gui-${{ env.VERSIONID }}.jar
+     #     retention-days: 40
+
+
+

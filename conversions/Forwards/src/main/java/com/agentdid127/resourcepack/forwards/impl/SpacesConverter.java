@@ -1,29 +1,27 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class SpacesConverter extends Converter {
+public class SpacesConverter extends RPConverter {
     public SpacesConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "SpacesConverter", 1);
     }
 
     /**
      * Runs findFiles
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path assets = pack.getWorkingPath().resolve("assets");
         if (!assets.toFile().exists())
             return;

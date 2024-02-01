@@ -1,9 +1,8 @@
 package com.agentdid127.resourcepack.forwards.impl;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -12,23 +11,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 
-public class PackMetaConverter extends Converter {
+public class PackMetaConverter extends RPConverter {
     private int version;
     private int versionInt = 4;
 
     public PackMetaConverter(PackConverter packConverter, int versionIn) {
-        super(packConverter);
+        super(packConverter, "PackMetaConverter", 1);
         version = versionIn;
     }
 
     /**
      * Converts MCMeta to newer version
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path file = pack.getWorkingPath().resolve("pack.mcmeta");
         if (!file.toFile().exists())
             return;

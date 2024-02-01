@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.library.utilities;
 
+import com.agentdid127.converter.util.Logger;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;

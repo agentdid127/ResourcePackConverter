@@ -1,27 +1,25 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
+import com.agentdid127.resourcepack.library.RPConverter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 
-public class TitleConverter extends Converter {
+public class TitleConverter extends RPConverter {
     public TitleConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "TitleConverter", 1);
     }
 
     /**
      * Updates Minecraft Title & Minecraft Realms Title
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "gui" + File.separator + "title" + File.separator + "minecraft.png");
         if (!imagePath.toFile().exists())

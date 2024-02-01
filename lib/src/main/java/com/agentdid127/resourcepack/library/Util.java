@@ -1,6 +1,6 @@
 package com.agentdid127.resourcepack.library;
 
-import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.converter.util.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;

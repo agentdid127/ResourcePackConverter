@@ -1,10 +1,9 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -15,11 +14,11 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapIconConverter extends Converter {
+public class MapIconConverter extends RPConverter {
     protected Map<Long, Long> mapping = new HashMap<>();
 
     public MapIconConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "MapIconConverter", 1);
         mapping.put(pack(0, 0), pack(0, 0));
         mapping.put(pack(8, 0), pack(8, 0));
         mapping.put(pack(16, 0), pack(16, 0));
@@ -34,12 +33,11 @@ public class MapIconConverter extends Converter {
 
     /**
      * Converts maps
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
                 + "textures" + File.separator + "map" + File.separator + "forwards/map_icons.png");
         if (!imagePath.toFile().exists())

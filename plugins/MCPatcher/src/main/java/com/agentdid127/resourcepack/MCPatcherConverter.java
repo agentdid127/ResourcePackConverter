@@ -1,32 +1,34 @@
-package com.agentdid127.resourcepack.forwards.impl;
+package com.agentdid127.resourcepack;
 
-import com.agentdid127.resourcepack.library.Converter;
+import com.agentdid127.converter.util.Logger;
+import com.agentdid127.resourcepack.forwards.impl.NameConverter;
 import com.agentdid127.resourcepack.library.PackConverter;
+import com.agentdid127.resourcepack.library.RPConverter;
 import com.agentdid127.resourcepack.library.Util;
-import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.google.gson.JsonObject;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-@Deprecated // will be removed when extensions are made
-public class MCPatcherConverter extends Converter {
+public class MCPatcherConverter extends RPConverter {
     public MCPatcherConverter(PackConverter packConverter) {
-        super(packConverter);
+        super(packConverter, "MCPatcherConverter", 1);
     }
 
     /**
      * Parent conversion for MCPatcher
-     * 
-     * @param pack
+     *
      * @throws IOException
      */
     @Override
-    public void convert(Pack pack) throws IOException {
+    public void convert() throws IOException {
         Path models = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
         if (models.toFile().exists())
