@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.forwards.impl.textures;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.HashMap;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
@@ -16,10 +17,167 @@ public class SlicerConverter extends Converter {
     private int from;
     private int to;
 
+    public static HashMap<Integer, String[]> ICONS = new HashMap<Integer, String[]>();
+
     public SlicerConverter(PackConverter converter, int from, int to) {
         super(converter);
         this.from = from;
         this.to = to;
+
+        registerIcons();
+    }
+
+    private void registerIcons() {
+        // Col #1
+        // x: 0, y: 0, id: 0 - container
+        ICONS.put(0, new String[] { "heart" + File.separator + "container.png" });
+        // x: 1, y: 0, id: 1 - container_blinking
+        ICONS.put(1, new String[] { "heart" + File.separator + "container_blinking.png" });
+        
+        // x: 2, y: 0, id: 2 - container_hardcore
+        ICONS.put(2, new String[] { "heart" + File.separator + "container_hardcore.png" });
+        // x: 3, y: 0, id: 3 - container_hardcore_blinking
+        ICONS.put(3, new String[] { "heart" + File.separator + "container_hardcore_blinking.png" });
+
+        // x: 4, y: 0, id: 4 - full
+        ICONS.put(4, new String[] { "heart" + File.separator + "full.png" });
+        // x: 5, y: 0, id: 5 - half
+        ICONS.put(5, new String[] { "heart" + File.separator + "half.png" });
+
+        // x: 6, y: 0, id: 6 - full_blinking
+        ICONS.put(6, new String[] { "heart" + File.separator + "full_blinking.png" });
+        // x: 7, y: 0, id: 7 - half
+        ICONS.put(7, new String[] { "heart" + File.separator + "half_blinking.png" });
+
+        // x: 8, y: 0, id: 8 - _
+        ICONS.put(8, new String[] { "heart" + File.separator + "_.png" });
+        // x: 9, y: 0, id: 9 - __
+        ICONS.put(9, new String[] { "heart" + File.separator + "__.png" });
+
+        // x: 10, y: 0, id: 10 - ___
+        ICONS.put(10, new String[] { "heart" + File.separator + "___.png" });
+        // x: 11, y: 0, id: 11 - ____
+        ICONS.put(11, new String[] { "heart" + File.separator + "____.png" });
+
+        // x: 12, y: 0, id: 12 - withered_full
+        ICONS.put(12, new String[] { "heart" + File.separator + "withered_full.png" });
+        // x: 13, y: 0, id: 13 - withered_half
+        ICONS.put(13, new String[] { "heart" + File.separator + "withered_half.png" });
+        
+        // x: 14, y: 0, id: 14 - withered_half
+        ICONS.put(14, new String[] { "heart" + File.separator + "withered_full_blinking.png" });
+        // x: 15, y: 0, id: 15 - withered_half_blinking
+        ICONS.put(15, new String[] { "heart" + File.separator + "withered_half_blinking.png" });
+
+        // x: 16, y: 0, id: 16 - absorbing_full
+        ICONS.put(16, new String[] { "heart" + File.separator + "absorbing_full.png" });
+        // x: 17, y: 0, id: 17 - absorbing_half
+        ICONS.put(17, new String[] { "heart" + File.separator + "absorbing_half.png" });
+
+        Gson gson = packConverter.getGson();
+        if (from >= Util.getVersionProtocol(gson, "1.17")) {
+            // x: 18, y: 0, id: 18 - frozen_full
+            ICONS.put(18, new String[] { 
+                "heart" + File.separator + "frozen_full.png", 
+                "heart" + File.separator + "frozen_full_blinking.png"  });
+            // x: 19, y: 0, id: 19 - frozen_half
+            ICONS.put(19, new String[] { 
+                "heart" + File.separator + "frozen_half.png",
+                "heart" + File.separator + "frozen_half_blinking.png" });
+        }
+
+        // Col #2
+        // (x=0, y=1) Could not find icon with RPID=256
+        // (x=1, y=1) Could not find icon with RPID=257
+        // (x=2, y=1) Could not find icon with RPID=258
+        // (x=3, y=1) Could not find icon with RPID=259
+        // (x=4, y=1) Could not find icon with RPID=260
+        // (x=5, y=1) Could not find icon with RPID=261
+        // (x=6, y=1) Could not find icon with RPID=262
+        // (x=7, y=1) Could not find icon with RPID=263
+        // (x=8, y=1) Could not find icon with RPID=264
+        // (x=9, y=1) Could not find icon with RPID=265
+        // (x=10, y=1) Could not find icon with RPID=266
+
+        // (x=0, y=2) Could not find icon with RPID=512
+        // (x=0, y=3) Could not find icon with RPID=768
+        // (x=0, y=4) Could not find icon with RPID=1024
+        // (x=0, y=5) Could not find icon with RPID=1280
+        // (x=1, y=2) Could not find icon with RPID=513
+        // (x=1, y=3) Could not find icon with RPID=769
+        // (x=1, y=4) Could not find icon with RPID=1025
+        // (x=1, y=5) Could not find icon with RPID=1281
+        // (x=2, y=2) Could not find icon with RPID=514
+        // (x=2, y=3) Could not find icon with RPID=770
+        // (x=2, y=4) Could not find icon with RPID=1026
+        // (x=2, y=5) Could not find icon with RPID=1282
+        // (x=3, y=2) Could not find icon with RPID=515
+        // (x=3, y=3) Could not find icon with RPID=771
+        // (x=3, y=4) Could not find icon with RPID=1027
+        // (x=3, y=5) Could not find icon with RPID=1283
+        // (x=4, y=2) Could not find icon with RPID=516
+        // (x=4, y=3) Could not find icon with RPID=772
+        // (x=4, y=4) Could not find icon with RPID=1028
+        // (x=4, y=5) Could not find icon with RPID=1284
+        // (x=5, y=2) Could not find icon with RPID=517
+        // (x=5, y=3) Could not find icon with RPID=773
+        // (x=5, y=4) Could not find icon with RPID=1029
+        // (x=5, y=5) Could not find icon with RPID=1285
+        // (x=6, y=2) Could not find icon with RPID=518
+        // (x=6, y=3) Could not find icon with RPID=774
+        // (x=6, y=4) Could not find icon with RPID=1030
+        // (x=6, y=5) Could not find icon with RPID=1286
+        // (x=7, y=2) Could not find icon with RPID=519
+        // (x=7, y=3) Could not find icon with RPID=775
+        // (x=7, y=4) Could not find icon with RPID=1031
+        // (x=7, y=5) Could not find icon with RPID=1287
+        // (x=8, y=2) Could not find icon with RPID=520
+        // (x=8, y=3) Could not find icon with RPID=776
+        // (x=8, y=4) Could not find icon with RPID=1032
+        // (x=8, y=5) Could not find icon with RPID=1288
+        // (x=9, y=2) Could not find icon with RPID=521
+        // (x=9, y=3) Could not find icon with RPID=777
+        // (x=9, y=4) Could not find icon with RPID=1033
+        // (x=9, y=5) Could not find icon with RPID=1289
+        // (x=10, y=2) Could not find icon with RPID=522
+        // (x=10, y=3) Could not find icon with RPID=778
+        // (x=10, y=4) Could not find icon with RPID=1034
+        // (x=10, y=5) Could not find icon with RPID=1290
+        // (x=11, y=1) Could not find icon with RPID=267
+        // (x=11, y=2) Could not find icon with RPID=523
+        // (x=11, y=3) Could not find icon with RPID=779
+        // (x=11, y=4) Could not find icon with RPID=1035
+        // (x=11, y=5) Could not find icon with RPID=1291
+        // (x=12, y=1) Could not find icon with RPID=268
+        // (x=12, y=2) Could not find icon with RPID=524
+        // (x=12, y=3) Could not find icon with RPID=780
+        // (x=12, y=4) Could not find icon with RPID=1036
+        // (x=12, y=5) Could not find icon with RPID=1292
+        // (x=13, y=1) Could not find icon with RPID=269
+        // (x=13, y=2) Could not find icon with RPID=525
+        // (x=13, y=3) Could not find icon with RPID=781
+        // (x=13, y=4) Could not find icon with RPID=1037
+        // (x=13, y=5) Could not find icon with RPID=1293
+        // (x=14, y=1) Could not find icon with RPID=270
+        // (x=14, y=2) Could not find icon with RPID=526
+        // (x=14, y=3) Could not find icon with RPID=782
+        // (x=14, y=4) Could not find icon with RPID=1038
+        // (x=14, y=5) Could not find icon with RPID=1294
+        // (x=15, y=1) Could not find icon with RPID=271
+        // (x=15, y=2) Could not find icon with RPID=527
+        // (x=15, y=3) Could not find icon with RPID=783
+        // (x=15, y=4) Could not find icon with RPID=1039
+        // (x=15, y=5) Could not find icon with RPID=1295
+        // (x=16, y=1) Could not find icon with RPID=272
+        // (x=16, y=2) Could not find icon with RPID=528
+        // (x=16, y=3) Could not find icon with RPID=784
+        // (x=16, y=4) Could not find icon with RPID=1040
+        // (x=16, y=5) Could not find icon with RPID=1296
+        // (x=17, y=1) Could not find icon with RPID=273
+        // (x=17, y=2) Could not find icon with RPID=529
+        // (x=17, y=3) Could not find icon with RPID=785
+        // (x=17, y=4) Could not find icon with RPID=1041
+        // (x=17, y=5) Could not find icon with RPID=1297
     }
 
     @Override
@@ -107,16 +265,18 @@ public class SlicerConverter extends Converter {
                             buttonPath);
 
                     // Smaller Square Buttons
+                    int smaller_button_width = 20;
+                    int smaller_button_height = 20;
+
+                    int smaller_button_y_start = hotbar_height + hotbar_selector_height + (button_height * 3);
+
+                    // // Language Button
                     // README: Determind if I should slice these or not because
                     // they now use the default button as the background and
                     // the icon is seperated into its own image
                     // I'll have to look into Mojangs Slicer & see what and if they do
                     // anything...
 
-                    // int smaller_button_width = 20;
-                    // int smaller_button_height = 20;
-
-                    // // Language Button
                     // Path iconFolder = spritesPath.resolve("icon");
                     // if (!iconFolder.toFile().exists())
                     // iconFolder.toFile().mkdir();
@@ -126,6 +286,34 @@ public class SlicerConverter extends Converter {
 
                     // // Language Button Highlighted/Pressed
                     // Path languageButtonHighlightedPath = iconFolder.resolve("button.png");
+
+                    if (from >= Util.getVersionProtocol(gson, "1.9")) {
+                        // Locked (Background)
+                        Path lockedButtonPath = widgetFolder.resolve("locked_button.png");
+                        widgets.slice_and_save(0,
+                                smaller_button_y_start + (smaller_button_height * 2),
+                                smaller_button_width,
+                                smaller_button_height, lockedButtonPath);
+
+                        // Unlocked (Background)
+                        Path unlockedButtonPath = widgetFolder.resolve("unlocked_button.png");
+                        widgets.slice_and_save(smaller_button_width,
+                                smaller_button_y_start + (smaller_button_height * 2),
+                                smaller_button_width,
+                                smaller_button_height, unlockedButtonPath);
+
+                        // Locked (Highlighted)
+                        Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
+
+                        // Unlocked (Highlighted)
+                        Path unlockedButtonHighlightedPath = widgetFolder.resolve("unlocked_button_highlighted.png");
+
+                        // Locked (Disabled)
+                        Path lockedButtonDisabledPath = widgetFolder.resolve("locked_button_disabled.png");
+
+                        // Unlocked (Disabled)
+                        Path unlockedButtonDisabledPath = widgetFolder.resolve("unlocked_button_disabled.png");
+                    }
 
                     widgetsPath.toFile().delete();
                 } else
@@ -172,8 +360,38 @@ public class SlicerConverter extends Converter {
                     icons.slice_and_save(0, 64 + (xp_bar_height * 5), xp_bar_width, xp_bar_height, jumpBarProgressPath);
 
                     // Mapped Icons
-                    // int rows = 20;
-                    // int cols = 6;
+                    int icon_rows = 20;
+                    int icon_cols = 6;
+                    int icon_width = 9;
+                    int icon_height = 9;
+
+                    for (int x = 0; x < icon_rows; ++x) {
+                        for (int y = 0; y < icon_cols; ++y) {
+                            int id = y * 256 + x; // 256 is a hack, idk what else to do
+                            if (!ICONS.containsKey(id)) {
+                                if (PackConverter.DEBUG)
+                                    Logger.log("(x=" + x + ", y=" + y + ") Could not find icon with RPID=" + id);
+                                continue;
+                            }
+
+                            String[] paths = ICONS.get(id);
+                            for (String path : paths) {
+                                Path iconPath = hudPath.resolve(path);
+                                if (PackConverter.DEBUG)
+                                    Logger.log("Icon: " + iconPath.getFileName());
+    
+                                if (!iconPath.getParent().toFile().exists()) 
+                                    iconPath.getParent().toFile().mkdirs();
+                    
+                                int sx = crosshair_width + (x * icon_width);
+                                int sy = y * icon_height;
+                                
+                                icons.newImage(icon_width, icon_height);
+                                icons.subImage(sx, sy, sx + icon_width, sy + icon_height);
+                                icons.store(iconPath);
+                            }
+                        }
+                    }
 
                     if (from >= Util.getVersionProtocol(gson, "1.9")) {
                         // Cooldown Indicator (Hotbar)
@@ -182,12 +400,12 @@ public class SlicerConverter extends Converter {
 
                         // Cooldown Indicator Background
                         Path hotbarCooldownIndicatorPath = hudPath.resolve("hotbar_attack_indicator_background.png");
-                        icons.slice_and_save(0, 64 + (xp_bar_height * 5), cooldown_indicator_hotbar_width,
+                        icons.slice_and_save(0, 64 + (xp_bar_height * 6), cooldown_indicator_hotbar_width,
                                 cooldown_indicator_hotbar_height, hotbarCooldownIndicatorPath);
 
                         Path hotbarCooldownIndicatorProgressPath = hudPath
                                 .resolve("hotbar_attack_indicator_progress.png");
-                        icons.slice_and_save(cooldown_indicator_hotbar_width, 64 + (xp_bar_height * 5),
+                        icons.slice_and_save(cooldown_indicator_hotbar_width, 64 + (xp_bar_height * 6),
                                 cooldown_indicator_hotbar_width, cooldown_indicator_hotbar_height,
                                 hotbarCooldownIndicatorProgressPath);
 
