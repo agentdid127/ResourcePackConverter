@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.HashMap;
 
+
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
@@ -49,22 +50,22 @@ public class SlicerConverter extends Converter {
         // x: 7, y: 0, id: 7 - half
         ICONS.put(7, new String[] { "heart" + File.separator + "half_blinking.png" });
 
-        // x: 8, y: 0, id: 8 - _
-        ICONS.put(8, new String[] { "heart" + File.separator + "_.png" });
-        // x: 9, y: 0, id: 9 - __
-        ICONS.put(9, new String[] { "heart" + File.separator + "__.png" });
+        // x: 8, y: 0, id: 8 - poisoned_full
+        ICONS.put(8, new String[] { "heart" + File.separator + "poisoned_full.png" });
+        // x: 9, y: 0, id: 9 - poisoned_half
+        ICONS.put(9, new String[] { "heart" + File.separator + "poisoned_half.png" });
 
-        // x: 10, y: 0, id: 10 - ___
-        ICONS.put(10, new String[] { "heart" + File.separator + "___.png" });
-        // x: 11, y: 0, id: 11 - ____
-        ICONS.put(11, new String[] { "heart" + File.separator + "____.png" });
+        // x: 10, y: 0, id: 10 - poisoned_full_blinking
+        ICONS.put(10, new String[] { "heart" + File.separator + "poisoned_full_blinking.png" });
+        // x: 11, y: 0, id: 11 - poisoned_half_blinking
+        ICONS.put(11, new String[] { "heart" + File.separator + "poisoned_half_blinking.png" });
 
         // x: 12, y: 0, id: 12 - withered_full
         ICONS.put(12, new String[] { "heart" + File.separator + "withered_full.png" });
         // x: 13, y: 0, id: 13 - withered_half
         ICONS.put(13, new String[] { "heart" + File.separator + "withered_half.png" });
         
-        // x: 14, y: 0, id: 14 - withered_half
+        // x: 14, y: 0, id: 14 - withered_full_blinking
         ICONS.put(14, new String[] { "heart" + File.separator + "withered_full_blinking.png" });
         // x: 15, y: 0, id: 15 - withered_half_blinking
         ICONS.put(15, new String[] { "heart" + File.separator + "withered_half_blinking.png" });
@@ -76,39 +77,76 @@ public class SlicerConverter extends Converter {
 
         Gson gson = packConverter.getGson();
         if (from >= Util.getVersionProtocol(gson, "1.17")) {
-            // x: 18, y: 0, id: 18 - frozen_full
+            // x: 18, y: 0, id: 18 - frozen_full/frozen_full_blinking
             ICONS.put(18, new String[] { 
                 "heart" + File.separator + "frozen_full.png", 
                 "heart" + File.separator + "frozen_full_blinking.png"  });
-            // x: 19, y: 0, id: 19 - frozen_half
+            // x: 19, y: 0, id: 19 - frozen_half/frozen_half_blinking
             ICONS.put(19, new String[] { 
                 "heart" + File.separator + "frozen_half.png",
                 "heart" + File.separator + "frozen_half_blinking.png" });
         }
 
         // Col #2
-        // (x=0, y=1) Could not find icon with RPID=256
-        // (x=1, y=1) Could not find icon with RPID=257
-        // (x=2, y=1) Could not find icon with RPID=258
-        // (x=3, y=1) Could not find icon with RPID=259
-        // (x=4, y=1) Could not find icon with RPID=260
-        // (x=5, y=1) Could not find icon with RPID=261
-        // (x=6, y=1) Could not find icon with RPID=262
-        // (x=7, y=1) Could not find icon with RPID=263
-        // (x=8, y=1) Could not find icon with RPID=264
-        // (x=9, y=1) Could not find icon with RPID=265
-        // (x=10, y=1) Could not find icon with RPID=266
+        // x: 0, y: 1, id: 256 - armor_empty
+        ICONS.put(256, new String[] { "armor_empty.png" });
 
-        // (x=0, y=2) Could not find icon with RPID=512
-        // (x=0, y=3) Could not find icon with RPID=768
+        // x: 1, y: 1, id: 257 - armor_half
+        ICONS.put(257, new String[] { "armor_half.png" });
+
+        // x: 2, y: 1, id: 258 - armor_full
+        ICONS.put(258, new String[] { "armor_full.png" });
+
+        // UNUSED: x: 3, y: 1 - duplicate of armor_full
+
+        // x: 4, y: 1, id: 260 - vehicle_container
+        ICONS.put(260, new String[] { "heart" + File.separator + "vehicle_container.png" });
+        // UNUSED: x: 5, y: 1, id: 261 - _
+        // UNUSED: x: 6, y: 1, id: 262 - _
+        // UNUSED: x: 7, y: 1, id: 263 - _
+
+        // x: 8, y: 1, id: 264 - vehicle_full
+        ICONS.put(264, new String[] { "heart" + File.separator + "vehicle_full.png" });
+        // x: 9, y: 1, id: 265 - vehicle_half
+        ICONS.put(265, new String[] { "heart" + File.separator + "vehicle_half.png" });
+
+        // UNUSED: x: 10, y: 1, id: 266 - vehicle_full_blinking
+        // UNUSED: x: 11, y: 1, id: 267 - vehicle_half_blinking
+
+        // Col #3
+        // x: 0, y: 2, id: 512 - air
+        ICONS.put(512, new String[] { "air.png" });
+        // x: 1, y: 2, id: 513 - air_bursting
+        ICONS.put(513, new String[] { "air_bursting.png" });
+        // UNUSED: x: 2, y: 2, id: 514 - _
+        // UNUSED: x: 3, y: 2, id: 515 - _
+
+        // Col #4
+        // x: 0, y: 3, id: 768 - food_empty
+        ICONS.put(768, new String[] { "food_empty.png" });
+        // UNUSED: x: 1, y: 3, id: 769 - _
+        // UNUSED: x: 2, y: 3, id: 770 - _
+        // UNUSED: x: 3, y: 3, id: 771 - _
+        // x: 4, y: 3, id: 772 - food_full
+        ICONS.put(772, new String[] { "food_full.png" });
+        // x: 5, y: 3, id: 773 - food_half
+        ICONS.put(773, new String[] { "food_half.png" });
+        // UNUSED: x: 6, y: 3, id: 774 - _
+        // UNUSED: x: 7, y: 3, id: 775 - _
+        // x: 8, y: 3, id: 776 - food_full_hunger
+        ICONS.put(776, new String[] { "food_full_hunger.png" });
+        // x: 9, y: 3, id: 777 - food_half_hunger
+        ICONS.put(777, new String[] { "food_half_hunger.png" });
+        // UNUSED: x: 10, y: 3, id: 778 - _
+        // UNUSED: x: 11, y: 3, id: 779 - _
+        // UNUSED: x: 12, y: 3, id: 780 - _
+        // x: 13, y: 3, id: 781 - food_empty_hunger
+        ICONS.put(781, new String[] { "food_empty_hunger.png" });
+
         // (x=0, y=4) Could not find icon with RPID=1024
         // (x=0, y=5) Could not find icon with RPID=1280
-        // (x=1, y=2) Could not find icon with RPID=513
-        // (x=1, y=3) Could not find icon with RPID=769
         // (x=1, y=4) Could not find icon with RPID=1025
         // (x=1, y=5) Could not find icon with RPID=1281
-        // (x=2, y=2) Could not find icon with RPID=514
-        // (x=2, y=3) Could not find icon with RPID=770
         // (x=2, y=4) Could not find icon with RPID=1026
         // (x=2, y=5) Could not find icon with RPID=1282
         // (x=3, y=2) Could not find icon with RPID=515
@@ -143,38 +181,24 @@ public class SlicerConverter extends Converter {
         // (x=10, y=3) Could not find icon with RPID=778
         // (x=10, y=4) Could not find icon with RPID=1034
         // (x=10, y=5) Could not find icon with RPID=1290
-        // (x=11, y=1) Could not find icon with RPID=267
-        // (x=11, y=2) Could not find icon with RPID=523
         // (x=11, y=3) Could not find icon with RPID=779
         // (x=11, y=4) Could not find icon with RPID=1035
         // (x=11, y=5) Could not find icon with RPID=1291
-        // (x=12, y=1) Could not find icon with RPID=268
-        // (x=12, y=2) Could not find icon with RPID=524
         // (x=12, y=3) Could not find icon with RPID=780
         // (x=12, y=4) Could not find icon with RPID=1036
         // (x=12, y=5) Could not find icon with RPID=1292
-        // (x=13, y=1) Could not find icon with RPID=269
-        // (x=13, y=2) Could not find icon with RPID=525
         // (x=13, y=3) Could not find icon with RPID=781
         // (x=13, y=4) Could not find icon with RPID=1037
         // (x=13, y=5) Could not find icon with RPID=1293
-        // (x=14, y=1) Could not find icon with RPID=270
-        // (x=14, y=2) Could not find icon with RPID=526
         // (x=14, y=3) Could not find icon with RPID=782
         // (x=14, y=4) Could not find icon with RPID=1038
         // (x=14, y=5) Could not find icon with RPID=1294
-        // (x=15, y=1) Could not find icon with RPID=271
-        // (x=15, y=2) Could not find icon with RPID=527
         // (x=15, y=3) Could not find icon with RPID=783
         // (x=15, y=4) Could not find icon with RPID=1039
         // (x=15, y=5) Could not find icon with RPID=1295
-        // (x=16, y=1) Could not find icon with RPID=272
-        // (x=16, y=2) Could not find icon with RPID=528
         // (x=16, y=3) Could not find icon with RPID=784
         // (x=16, y=4) Could not find icon with RPID=1040
         // (x=16, y=5) Could not find icon with RPID=1296
-        // (x=17, y=1) Could not find icon with RPID=273
-        // (x=17, y=2) Could not find icon with RPID=529
         // (x=17, y=3) Could not find icon with RPID=785
         // (x=17, y=4) Could not find icon with RPID=1041
         // (x=17, y=5) Could not find icon with RPID=1297
@@ -302,17 +326,17 @@ public class SlicerConverter extends Converter {
                                 smaller_button_width,
                                 smaller_button_height, unlockedButtonPath);
 
-                        // Locked (Highlighted)
-                        Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
+                        // // Locked (Highlighted)
+                        // Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
 
-                        // Unlocked (Highlighted)
-                        Path unlockedButtonHighlightedPath = widgetFolder.resolve("unlocked_button_highlighted.png");
+                        // // Unlocked (Highlighted)
+                        // Path unlockedButtonHighlightedPath = widgetFolder.resolve("unlocked_button_highlighted.png");
 
-                        // Locked (Disabled)
-                        Path lockedButtonDisabledPath = widgetFolder.resolve("locked_button_disabled.png");
+                        // // Locked (Disabled)
+                        // Path lockedButtonDisabledPath = widgetFolder.resolve("locked_button_disabled.png");
 
-                        // Unlocked (Disabled)
-                        Path unlockedButtonDisabledPath = widgetFolder.resolve("unlocked_button_disabled.png");
+                        // // Unlocked (Disabled)
+                        // Path unlockedButtonDisabledPath = widgetFolder.resolve("unlocked_button_disabled.png");
                     }
 
                     widgetsPath.toFile().delete();
