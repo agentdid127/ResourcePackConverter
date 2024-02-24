@@ -238,187 +238,200 @@ public class SlicerConverter extends Converter {
         if (!widgetsPath.toFile().exists()) 
             return;
 
-        Gson gson = packConverter.getGson();
-
         int default_dimensions = 256;
         ImageConverter widgets = new ImageConverter(default_dimensions, default_dimensions, widgetsPath);
-        if (widgets.isSquare()) {
-            // Hotbar
-            int hotbar_width = 182;
-            int hotbar_height = 22;
-            Path hotbar = hudPath.resolve("hotbar.png");
-            widgets.slice_and_save(
-                0, 
-                0, 
-                hotbar_width, 
-                hotbar_height, 
-                hotbar);
-
-            // Hotbar Selector
-            int hotbar_selector_width = 24;
-            int hotbar_selector_height = 24;
-            Path hotbar_selection = hudPath.resolve("hotbar_selection.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height, 
-                hotbar_selector_width, 
-                hotbar_selector_height,
-                hotbar_selection);
-
-            if (from >= Util.getVersionProtocol(gson, "1.9")) {
-                // Offhands
-                int offhand_width = 29;
-                int offhand_height = 24;
-
-                // Offhand // Left
-                Path offhand_left = hudPath.resolve("hotbar_offhand_left.png");
-                widgets.slice_and_save(
-                    hotbar_selector_width + offhand_width, 
-                    hotbar_height, 
-                    offhand_width,
-                    offhand_height, 
-                    offhand_left);
-
-                // Offhand Right
-                Path offhand_right = hudPath.resolve("hotbar_offhand_right.png");
-                widgets.slice_and_save(
-                    hotbar_selector_width + (offhand_width * 2), 
-                    hotbar_height,
-                    offhand_width,
-                    offhand_height, 
-                    offhand_right);
-            }
-
-            Path widgetFolder = spritesPath.resolve("widget");
-            if (!widgetFolder.toFile().exists())
-                widgetFolder.toFile().mkdirs();
-
-            // Buttons
-            int button_width = 200;
-            int button_height = 20;
-
-            // Button Disabled
-            Path button_disabled = widgetFolder.resolve("button_disabled.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height + hotbar_selector_height, 
-                button_width, 
-                button_height,
-                button_disabled);
-
-            // Button Highlighted/Pressed
-            Path button_highlighted = widgetFolder.resolve("button_highlighted.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height + hotbar_selector_height + button_height, 
-                button_width,
-                button_height,
-                button_highlighted);
-
-            // Button Default
-            Path button = widgetFolder.resolve("button.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height + hotbar_selector_height + (button_height * 2),
-                button_width,
-                button_height,
-                button);
-
-            // Sliders
-            JsonObject metadata = as_json(gson, "{\"gui\":{\"scaling\":{\"type\":\"nine_slice\",\"width\":200,\"height\":20,\"border\":3}}}");
-
-            // Slider Default
-            Path slider = widgetFolder.resolve("slider.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height + hotbar_selector_height, 
-                button_width, 
-                button_height, 
-                slider);
-
-            Path sliderMetaPath = widgetFolder.resolve("slider.png.mcmeta");
-            write_json(sliderMetaPath, metadata);
-
-            // Slider Handle
-            Path slider_handle = widgetFolder.resolve("slider_handle.png");
-            widgets.slice_and_save(
-                0, 
-                hotbar_height + hotbar_selector_height + button_height, 
-                button_width,
-                button_height,
-                slider_handle);
-
-            Path sliderHandleMetaPath = widgetFolder.resolve("slider_handle.png.mcmeta");
-            write_json(sliderHandleMetaPath, metadata);
-
-            // Slider Handle Highlighted
-            Path slider_handle_highlighted = widgetFolder.resolve("slider_handle_highlighted.png");
-            widgets.slice_and_save(
-                0, hotbar_height + hotbar_selector_height + (button_height * 2),
-                button_width,
-                button_height,
-                slider_handle_highlighted);
-
-            Path sliderHandleHighlightedMetaPath = widgetFolder.resolve("slider_handle_highlighted.png.mcmeta");
-            write_json(sliderHandleHighlightedMetaPath, metadata);
-            
-            // Smaller Square Buttons
-            int smaller_button_width = 20;
-            int smaller_button_height = 20;
-
-            int smaller_button_y_start = hotbar_height + hotbar_selector_height + (button_height * 3);
-
-            // // Language Button
-            // README: Determind if I should slice these or not because
-            // they now use the default button as the background and
-            // the icon is seperated into its own image
-            // I'll have to look into Mojangs Slicer & see what and if they do
-            // anything...
-
-            // Path iconFolder = spritesPath.resolve("icon");
-            // if (!iconFolder.toFile().exists())
-            // iconFolder.toFile().mkdir();
-
-            // // Language Button Default
-            // Path languageButtonPath = iconFolder.resolve("language.png");
-
-            // // Language Button Highlighted/Pressed
-            // Path languageButtonHighlightedPath = iconFolder.resolve("button.png");
-
-            if (from >= Util.getVersionProtocol(gson, "1.9")) {
-                // Locked (Background)
-                Path locked_button = widgetFolder.resolve("locked_button.png");
-                widgets.slice_and_save(
-                    0,
-                    smaller_button_y_start + (smaller_button_height * 2),
-                    smaller_button_width,
-                    smaller_button_height, locked_button);
-
-                // Unlocked (Background)
-                Path unlocked_button = widgetFolder.resolve("unlocked_button.png");
-                widgets.slice_and_save(
-                    smaller_button_width,
-                    smaller_button_y_start + (smaller_button_height * 2),
-                    smaller_button_width,
-                    smaller_button_height, 
-                    unlocked_button);
-
-                // // Locked (Highlighted)
-                // Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
-
-                // // Unlocked (Highlighted)
-                // Path unlockedButtonHighlightedPath = widgetFolder.resolve("unlocked_button_highlighted.png");
-
-                // // Locked (Disabled)
-                // Path lockedButtonDisabledPath = widgetFolder.resolve("locked_button_disabled.png");
-
-                // // Unlocked (Disabled)
-                // Path unlockedButtonDisabledPath = widgetFolder.resolve("unlocked_button_disabled.png");
-            }
-
-            widgetsPath.toFile().delete();
-        } else
+        if (!widgets.isSquare()) {
             Logger.log("Failed to slice widgets.png, image is not square.");
+            return;
+        }
+
+        Gson gson = packConverter.getGson();
+
+        // Hotbar
+        int hotbar_width = 182;
+        int hotbar_height = 22;
+        Path hotbar = hudPath.resolve("hotbar.png");
+        widgets.slice_and_save(
+            0, 
+            0, 
+            hotbar_width, 
+            hotbar_height, 
+            hotbar);
+
+        // Hotbar Selector
+        int hotbar_selector_width = 24;
+        int hotbar_selector_height = 24;
+        Path hotbar_selection = hudPath.resolve("hotbar_selection.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height, 
+            hotbar_selector_width, 
+            hotbar_selector_height,
+            hotbar_selection);
+
+        boolean pvp_update = from >= Util.getVersionProtocol(gson, "1.9");
+        if (pvp_update) {
+            // Off Hands
+            int offhand_width = 29;
+            int offhand_height = 24;
+
+            // Off Hand Left
+            Path offhand_left = hudPath.resolve("hotbar_offhand_left.png");
+            widgets.slice_and_save(
+                hotbar_selector_width + offhand_width, 
+                hotbar_height, 
+                offhand_width,
+                offhand_height, 
+                offhand_left);
+
+            // Off Hand Right
+            Path offhand_right = hudPath.resolve("hotbar_offhand_right.png");
+            widgets.slice_and_save(
+                hotbar_selector_width + (offhand_width * 2), 
+                hotbar_height,
+                offhand_width,
+                offhand_height, 
+                offhand_right);
+        }
+
+        Path widgetFolder = spritesPath.resolve("widget");
+        if (!widgetFolder.toFile().exists())
+            widgetFolder.toFile().mkdirs();
+
+        // Buttons
+        JsonObject metadata = as_json(gson, "{\"gui\":{\"scaling\":{\"type\":\"nine_slice\",\"width\":200,\"height\":20,\"border\":3}}}");
+
+        int button_width = 200;
+        int button_height = 20;
+
+        // Button Disabled
+        Path button_disabled = widgetFolder.resolve("button_disabled.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height + hotbar_selector_height, 
+            button_width, 
+            button_height,
+            button_disabled);
+
+        Path button_disabled_mcmeta = widgetFolder.resolve("button_disabled.png.mcmeta");
+        write_json(button_disabled_mcmeta, metadata);
+
+        // Button Highlighted/Pressed
+        Path button_highlighted = widgetFolder.resolve("button_highlighted.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height + hotbar_selector_height + button_height, 
+            button_width,
+            button_height,
+            button_highlighted);
+
+        Path button_highlighted_mcmeta = widgetFolder.resolve("button_highlighted.png.mcmeta");
+        write_json(button_highlighted_mcmeta, metadata);
+
+        // Button Default
+        Path button = widgetFolder.resolve("button.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height + hotbar_selector_height + (button_height * 2),
+            button_width,
+            button_height,
+            button);
+
+        Path button_mcmeta = widgetFolder.resolve("button.png.mcmeta");
+        write_json(button_mcmeta, metadata);
+
+        // Sliders
+
+        // Slider Default
+        Path slider = widgetFolder.resolve("slider.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height + hotbar_selector_height, 
+            button_width, 
+            button_height, 
+            slider);
+
+        Path slider_mcmeta = widgetFolder.resolve("slider.png.mcmeta");
+        write_json(slider_mcmeta, metadata);
+
+        // Slider Handle
+        Path slider_handle = widgetFolder.resolve("slider_handle.png");
+        widgets.slice_and_save(
+            0, 
+            hotbar_height + hotbar_selector_height + button_height, 
+            button_width,
+            button_height,
+            slider_handle);
+
+        Path slider_handle_mcmeta = widgetFolder.resolve("slider_handle.png.mcmeta");
+        write_json(slider_handle_mcmeta, metadata);
+
+        // Slider Handle Highlighted
+        Path slider_handle_highlighted = widgetFolder.resolve("slider_handle_highlighted.png");
+        widgets.slice_and_save(
+            0, hotbar_height + hotbar_selector_height + (button_height * 2),
+            button_width,
+            button_height,
+            slider_handle_highlighted);
+
+        Path slider_handle_highlighted_mcmeta = widgetFolder.resolve("slider_handle_highlighted.png.mcmeta");
+        write_json(slider_handle_highlighted_mcmeta, metadata);
+        
+        // Smaller Square Buttons
+        int smaller_button_width = 20;
+        int smaller_button_height = 20;
+
+        int smaller_button_y_start = hotbar_height + hotbar_selector_height + (button_height * 3);
+
+        // // Language Button
+        // README: Determind if I should slice these or not because
+        // they now use the default button as the background and
+        // the icon is seperated into its own image
+        // I'll have to look into Mojangs Slicer & see what and if they do
+        // anything...
+
+        // Path iconFolder = spritesPath.resolve("icon");
+        // if (!iconFolder.toFile().exists())
+        // iconFolder.toFile().mkdir();
+
+        // // Language Button Default
+        // Path languageButtonPath = iconFolder.resolve("language.png");
+
+        // // Language Button Highlighted/Pressed
+        // Path languageButtonHighlightedPath = iconFolder.resolve("button.png");
+
+        if (pvp_update) {
+            // Locked (Background)
+            Path locked_button = widgetFolder.resolve("locked_button.png");
+            widgets.slice_and_save(
+                0,
+                smaller_button_y_start + (smaller_button_height * 2),
+                smaller_button_width,
+                smaller_button_height, locked_button);
+
+            // Unlocked (Background)
+            Path unlocked_button = widgetFolder.resolve("unlocked_button.png");
+            widgets.slice_and_save(
+                smaller_button_width,
+                smaller_button_y_start + (smaller_button_height * 2),
+                smaller_button_width,
+                smaller_button_height, 
+                unlocked_button);
+
+            // // Locked (Highlighted)
+            // Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
+
+            // // Unlocked (Highlighted)
+            // Path unlockedButtonHighlightedPath = widgetFolder.resolve("unlocked_button_highlighted.png");
+
+            // // Locked (Disabled)
+            // Path lockedButtonDisabledPath = widgetFolder.resolve("locked_button_disabled.png");
+
+            // // Unlocked (Disabled)
+            // Path unlockedButtonDisabledPath = widgetFolder.resolve("unlocked_button_disabled.png");
+        }
+
+        widgetsPath.toFile().delete();
     }
 
     // Icons
@@ -427,44 +440,46 @@ public class SlicerConverter extends Converter {
         if (!iconsPath.toFile().exists()) 
             return;
 
-        Gson gson = packConverter.getGson();
-
         int dw = 256;
         int dh = 256;
         ImageConverter icons = new ImageConverter(dw, dh, iconsPath);
-        if (icons.isSquare()) {
-            // Crosshair
-            int crosshair_width = 15;
-            int crosshair_height = 15;
-            Path crosshair = hudPath.resolve("crosshair.png");
-            icons.slice_and_save(
-                0, 
-                0, 
-                crosshair_width, 
-                crosshair_height, 
-                crosshair);
-
-            // The Ping bars in the top left are unused
-
-            // XP Bars               
-            int xp_bar_width = 182;
-            int xp_bar_height = 5;
-            icons_slice_xp_bars(icons, hudPath, xp_bar_width, xp_bar_height);
-
-            // Mapped Icons
-            int icons_offset_x = crosshair_width + 1;
-            icons_slice_mapped_icons(icons, hudPath, icons_offset_x);
-
-            if (from >= Util.getVersionProtocol(gson, "1.9")) {
-                int cooldown_start_y = (xp_bar_height * 6);
-                icons_slice_cooldown_indicators(icons, hudPath, cooldown_start_y);
-            }
-
-            // Ping bars (Bottom)
-
-            iconsPath.toFile().delete();
-        } else
+        if (!icons.isSquare()) {
             Logger.log("Failed to slice icons.png, image is not square.");
+            return;
+        }
+
+        Gson gson = packConverter.getGson();
+
+        // Crosshair
+        int crosshair_width = 15;
+        int crosshair_height = 15;
+        Path crosshair = hudPath.resolve("crosshair.png");
+        icons.slice_and_save(
+            0, 
+            0, 
+            crosshair_width, 
+            crosshair_height, 
+            crosshair);
+
+        // The Ping bars in the top left are unused
+
+        // XP Bars               
+        int xp_bar_width = 182;
+        int xp_bar_height = 5;
+        icons_slice_xp_bars(icons, hudPath, xp_bar_width, xp_bar_height);
+
+        // Mapped Icons
+        int icons_offset_x = crosshair_width + 1;
+        icons_slice_mapped_icons(icons, hudPath, icons_offset_x);
+
+        if (from >= Util.getVersionProtocol(gson, "1.9")) {
+            int cooldown_start_y = (xp_bar_height * 6);
+            icons_slice_cooldown_indicators(icons, hudPath, cooldown_start_y);
+        }
+
+        // Ping bars (Bottom)
+
+        iconsPath.toFile().delete();
     }
 
     private void icons_slice_xp_bars(ImageConverter icons, Path hudPath, int xp_bar_width, int xp_bar_height) throws IOException {     
