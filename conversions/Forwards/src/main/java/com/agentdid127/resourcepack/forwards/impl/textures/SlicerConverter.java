@@ -276,22 +276,22 @@ public class SlicerConverter extends Converter {
             int offhand_height = 24;
 
             // Off Hand Left
-            Path offhand_left = hudPath.resolve("hotbar_offhand_left.png");
+            Path hotbar_offhand_left = hudPath.resolve("hotbar_offhand_left.png");
             widgets.slice_and_save(
-                hotbar_selector_width + offhand_width, 
+                hotbar_selector_width, 
                 hotbar_height, 
                 offhand_width,
                 offhand_height, 
-                offhand_left);
+                hotbar_offhand_left);
 
             // Off Hand Right
-            Path offhand_right = hudPath.resolve("hotbar_offhand_right.png");
+            Path hotbar_offhand_right = hudPath.resolve("hotbar_offhand_right.png");
             widgets.slice_and_save(
-                hotbar_selector_width + (offhand_width * 2), 
+                hotbar_selector_width + offhand_width, 
                 hotbar_height,
                 offhand_width,
                 offhand_height, 
-                offhand_right);
+                hotbar_offhand_right);
         }
 
         Path widgetFolder = spritesPath.resolve("widget");
@@ -594,8 +594,8 @@ public class SlicerConverter extends Converter {
             for (int y = 0; y < icon_cols; ++y) {
                 int id = y * 256 + x; // 256 is a hack, idk what else to do
                 if (!ICONS.containsKey(id)) {
-                    if (PackConverter.DEBUG)
-                        Logger.log("(x=" + x + ", y=" + y + ") Could not find icon with RPID=" + id);
+                    // if (PackConverter.DEBUG)
+                    //     Logger.log("(x=" + x + ", y=" + y + ") Could not find icon with RPID=" + id);
                     continue;
                 }
 
