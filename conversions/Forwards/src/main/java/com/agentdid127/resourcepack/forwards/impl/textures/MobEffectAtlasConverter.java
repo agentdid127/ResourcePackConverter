@@ -126,8 +126,8 @@ public class MobEffectAtlasConverter extends Converter {
             for (int x = 0; x < cols; ++x) {
                 int id = y * 256 + x; // 256 is a hack, idk what else to do
                 if (!MOB_EFFECTS.containsKey(id)) {
-                    if (PackConverter.DEBUG)
-                        Logger.log("Could not find effect with RPID=" + id);
+                    // if (PackConverter.DEBUG)
+                    //     Logger.log("Could not find effect with RPID=" + id);
                     continue;
                 }
 
