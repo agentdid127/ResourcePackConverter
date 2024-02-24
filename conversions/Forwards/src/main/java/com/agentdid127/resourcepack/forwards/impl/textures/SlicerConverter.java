@@ -561,7 +561,7 @@ public class SlicerConverter extends Converter {
         // Background
         Path crosshair_attack_indicator_background = hudPath.resolve("crosshair_attack_indicator_background.png");
         icons.slice_and_save(
-            (cooldown_indicator_hotbar_width * 2), 
+            cooldown_indicator_hotbar_width * 2, 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             cooldown_indicator_crosshair_height, 
@@ -570,7 +570,7 @@ public class SlicerConverter extends Converter {
         // Progress
         Path crosshair_attack_indicator_progress = hudPath.resolve("crosshair_attack_indicator_progress.png");
         icons.slice_and_save(
-            (cooldown_indicator_hotbar_width * 3), 
+            (cooldown_indicator_hotbar_width * 2) + cooldown_indicator_crosshair_width, 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             cooldown_indicator_crosshair_height, 
@@ -579,7 +579,7 @@ public class SlicerConverter extends Converter {
         // Full
         Path crosshair_attack_indicator_full = hudPath.resolve("crosshair_attack_indicator_full.png");
         icons.slice_and_save(
-            (cooldown_indicator_hotbar_width * 4), 
+            (cooldown_indicator_hotbar_width * 2) + (cooldown_indicator_crosshair_width * 2), 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             16, 
