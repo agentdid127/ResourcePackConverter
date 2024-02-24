@@ -104,7 +104,7 @@ public class ForwardsPackConverter extends PackConverter {
 
         if (protocol_from <= Util.getVersionProtocol(gson, "1.20.1")
                 && protocol_to >= Util.getVersionProtocol(gson, "1.20.2"))
-            this.registerConverter(new SlicerConverter(this, protocol_from, protocol_to));
+            this.registerConverter(new SlicerConverter(this, protocol_from));
     }
 
     public void runPack(Pack pack) {
