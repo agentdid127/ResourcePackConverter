@@ -125,8 +125,8 @@ public class SlicerConverter extends Converter {
         
         // UNUSED: x: 1, y: 3, id: 769 - unknown
         // UNUSED: x: 2, y: 3, id: 770 - unknown
-        
         // UNUSED: x: 3, y: 3, id: 771 - unknown
+
         // x: 4, y: 3, id: 772 - food_full
         ICONS.put(772, new String[] { "food_full.png" });
         // x: 5, y: 3, id: 773 - food_half
@@ -387,21 +387,21 @@ public class SlicerConverter extends Converter {
 
             if (from >= Util.getVersionProtocol(gson, "1.9")) {
                 // Locked (Background)
-                Path lockedButtonPath = widgetFolder.resolve("locked_button.png");
+                Path locked_button = widgetFolder.resolve("locked_button.png");
                 widgets.slice_and_save(
                     0,
                     smaller_button_y_start + (smaller_button_height * 2),
                     smaller_button_width,
-                    smaller_button_height, lockedButtonPath);
+                    smaller_button_height, locked_button);
 
                 // Unlocked (Background)
-                Path unlockedButtonPath = widgetFolder.resolve("unlocked_button.png");
+                Path unlocked_button = widgetFolder.resolve("unlocked_button.png");
                 widgets.slice_and_save(
                     smaller_button_width,
                     smaller_button_y_start + (smaller_button_height * 2),
                     smaller_button_width,
                     smaller_button_height, 
-                    unlockedButtonPath);
+                    unlocked_button);
 
                 // // Locked (Highlighted)
                 // Path lockedButtonHighlightedPath = widgetFolder.resolve("locked_button_highlighted.png");
@@ -436,8 +436,13 @@ public class SlicerConverter extends Converter {
             // Crosshair
             int crosshair_width = 15;
             int crosshair_height = 15;
-            Path crosshairPath = hudPath.resolve("crosshair.png");
-            icons.slice_and_save(0, 0, crosshair_width, crosshair_height, crosshairPath);
+            Path crosshair = hudPath.resolve("crosshair.png");
+            icons.slice_and_save(
+                0, 
+                0, 
+                crosshair_width, 
+                crosshair_height, 
+                crosshair);
 
             // The Ping bars in the top left are unused
 
@@ -464,51 +469,51 @@ public class SlicerConverter extends Converter {
 
     private void icons_slice_xp_bars(ImageConverter icons, Path hudPath, int xp_bar_width, int xp_bar_height) throws IOException {     
         // XP Bar Background
-        Path experienceBackgroundPath = hudPath.resolve("experience_bar_background.png");
+        Path experience_bar_background = hudPath.resolve("experience_bar_background.png");
         icons.slice_and_save(
             0, 
             64, 
             xp_bar_width, 
             xp_bar_height, 
-            experienceBackgroundPath);
+            experience_bar_background);
 
         // XP Bar Progress
-        Path experienceProgressPath = hudPath.resolve("experience_bar_progress.png");
+        Path experience_bar_progress = hudPath.resolve("experience_bar_progress.png");
         icons.slice_and_save(
             0, 
             64 + xp_bar_height, 
             xp_bar_width, 
             xp_bar_height, 
-            experienceProgressPath);
+            experience_bar_progress);
 
         // Jump Bar Cooldown
-        Path jumpBarCooldownPath = hudPath.resolve("jump_bar_cooldown.png");
+        Path jump_bar_cooldown = hudPath.resolve("jump_bar_cooldown.png");
         icons.slice_and_save(
             0, 
             64 + (xp_bar_height * 2), 
             xp_bar_width, 
             xp_bar_height, 
-            jumpBarCooldownPath);
+            jump_bar_cooldown);
 
         // UNUSED: XP Bar Purple Background 
 
         // Jump Bar Background
-        Path jumpBarBackgroundPath = hudPath.resolve("jump_bar_background.png");
+        Path jump_bar_background = hudPath.resolve("jump_bar_background.png");
         icons.slice_and_save(
             0, 
             64 + (xp_bar_height * 4), 
             xp_bar_width, 
             xp_bar_height,
-            jumpBarBackgroundPath);
+            jump_bar_background);
 
         // Jump Bar Progress
-        Path jumpBarProgressPath = hudPath.resolve("jump_bar_progress.png");
+        Path jump_bar_progress = hudPath.resolve("jump_bar_progress.png");
         icons.slice_and_save(
             0, 
             64 + (xp_bar_height * 5), 
             xp_bar_width, 
             xp_bar_height, 
-            jumpBarProgressPath);
+            jump_bar_progress);
     }
 
     private void icons_slice_cooldown_indicators(ImageConverter icons, Path hudPath, int cooldown_start_y) throws IOException {
@@ -517,53 +522,53 @@ public class SlicerConverter extends Converter {
         int cooldown_indicator_hotbar_height = 18;
         
         // Background 
-        Path hotbarCooldownIndicatorPath = hudPath.resolve("hotbar_attack_indicator_background.png");
+        Path hotbar_attack_indicator_background = hudPath.resolve("hotbar_attack_indicator_background.png");
         icons.slice_and_save(
             0, 
             64 + cooldown_start_y, 
             cooldown_indicator_hotbar_width,
             cooldown_indicator_hotbar_height, 
-            hotbarCooldownIndicatorPath);
+            hotbar_attack_indicator_background);
 
         // Progress
-        Path hotbarCooldownIndicatorProgressPath = hudPath.resolve("hotbar_attack_indicator_progress.png");
+        Path hotbar_attack_indicator_progress = hudPath.resolve("hotbar_attack_indicator_progress.png");
         icons.slice_and_save(
             cooldown_indicator_hotbar_width, 
             64 + cooldown_start_y,
             cooldown_indicator_hotbar_width, 
             cooldown_indicator_hotbar_height,
-            hotbarCooldownIndicatorProgressPath);
+            hotbar_attack_indicator_progress);
 
         // Cooldown Indicator (Crosshair)
         int cooldown_indicator_crosshair_width = 16;
         int cooldown_indicator_crosshair_height = 4;
 
         // Background
-        Path crosshairCooldownIndicatorPath = hudPath.resolve("crosshair_attack_indicator_background.png");
+        Path crosshair_attack_indicator_background = hudPath.resolve("crosshair_attack_indicator_background.png");
         icons.slice_and_save(
             (cooldown_indicator_hotbar_width * 2), 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             cooldown_indicator_crosshair_height, 
-            crosshairCooldownIndicatorPath);
+            crosshair_attack_indicator_background);
 
         // Progress
-        Path crosshairCooldownIndicatorProgressPath = hudPath.resolve("crosshair_attack_indicator_progress.png");
+        Path crosshair_attack_indicator_progress = hudPath.resolve("crosshair_attack_indicator_progress.png");
         icons.slice_and_save(
             (cooldown_indicator_hotbar_width * 3), 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             cooldown_indicator_crosshair_height, 
-            crosshairCooldownIndicatorProgressPath);
+            crosshair_attack_indicator_progress);
 
         // Full
-        Path crosshairCooldownIndicatorFullPath = hudPath.resolve("crosshair_attack_indicator_full.png");
+        Path crosshair_attack_indicator_full = hudPath.resolve("crosshair_attack_indicator_full.png");
         icons.slice_and_save(
             (cooldown_indicator_hotbar_width * 4), 
             64 + cooldown_start_y, 
             cooldown_indicator_crosshair_width, 
             16, 
-            crosshairCooldownIndicatorFullPath);
+            crosshair_attack_indicator_full);
     }
 
     private void icons_slice_mapped_icons(ImageConverter icons, Path hudPath, int icons_offset_x) throws IOException {
@@ -581,11 +586,11 @@ public class SlicerConverter extends Converter {
 
                 String[] paths = ICONS.get(id);
                 for (String path : paths) {
-                    Path iconPath = hudPath.resolve(path);
-                    if (!iconPath.getParent().toFile().exists()) 
-                        iconPath.getParent().toFile().mkdirs();
+                    Path icon = hudPath.resolve(path);
+                    if (!icon.getParent().toFile().exists()) 
+                        icon.getParent().toFile().mkdirs();
                     if (PackConverter.DEBUG)
-                        Logger.log("Icon: " + iconPath.getFileName());
+                        Logger.log("Icon: " + icon.getFileName());
                     int sx = icons_offset_x + (x * icon_size);
                     int sy = y * icon_size;
                     icons.slice_and_save(
@@ -593,7 +598,7 @@ public class SlicerConverter extends Converter {
                         sy, 
                         icon_size, 
                         icon_size, 
-                        iconPath);
+                        icon);
                 }
             }
         }
