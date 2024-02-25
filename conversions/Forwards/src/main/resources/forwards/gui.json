@@ -1,0 +1,988 @@
+[
+    {
+        "path": "widgets.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/hud/hotbar.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 182,
+                "height": 22
+            },
+            {
+                "path": "sprites/hud/hotbar_selection.png",
+                "position": { "x": 0, "y": 22 },
+                "width": 24,
+                "height": 24
+            },
+            {
+                "path": "sprites/hud/hotbar_offhand_left.png",
+                "position": { "x": 24, "y": 22 },
+                "width": 29,
+                "height": 24,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_offhand_right.png",
+                "position": { "x": 53, "y": 22 },
+                "width": 29,
+                "height": 24,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/icon/draft_report.png",
+                "position": { "x": 182, "y": 24 },
+                "width": 15,
+                "height": 15,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/button_disabled.png",
+                "position": { "x": 0, "y": 46 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/button.png",
+                "position": { "x": 0, "y": 66 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/button_highlighted.png",
+                "position": { "x": 0, "y": 86 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/locked_button.png",
+                "position": { "x": 0, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/locked_button_highlighted.png",
+                "position": { "x": 0, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/locked_button_disabled.png",
+                "position": { "x": 0, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button.png",
+                "position": { "x": 20, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button_highlighted.png",
+                "position": { "x": 20, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button_disabled.png",
+                "position": { "x": 20, "y": 146 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "icons.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/hud/crosshair.png",
+                "position": { "x": 0, "y": 0 }, 
+                "width": 15, 
+                "height": 15
+            },
+            {
+                "path": "sprites/hud/heart/container.png", 
+                "position": { "x": 16, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/container_blinking.png", 
+                "position": { "x": 25, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/full.png", 
+                "position": { "x": 52, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/half.png", 
+                "position": { "x": 61, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/full_blinking.png", 
+                "position": { "x": 70, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/half_blinking.png", 
+                "position": { "x": 79, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_full.png", 
+                "position": { "x": 88, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_half.png", 
+                "position": { "x": 97, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_full_blinking.png", 
+                "position": { "x": 106, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_half_blinking.png", 
+                "position": { "x": 115, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_full.png", 
+                "position": { "x": 124, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_half.png", 
+                "position": { "x": 133, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_full_blinking.png", 
+                "position": { "x": 142, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_half_blinking.png", 
+                "position": { "x": 151, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_full_blinking.png", 
+                "position": { "x": 160, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_half_blinking.png", 
+                "position": { "x": 169, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/frozen_full.png", 
+                "position": { "x": 178, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/frozen_half.png", 
+                "position": { "x": 187, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/frozen_full_blinking.png", 
+                "position": { "x": 178, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/frozen_half_blinking.png", 
+                "position": { "x": 187, "y": 0 }, 
+                "width": 9, 
+                "height": 9
+            }, // todo: armor, bubbles, food, other hearts, xp bars, attack indicators, ping bars/server
+            {
+                "path": "sprites/icon/ping_5.png", 
+                "position": { "x": 0, "y": 176 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/icon/ping_4.png", 
+                "position": { "x": 0, "y": 184 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/icon/ping_3.png", 
+                "position": { "x": 0, "y": 192 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/icon/ping_2.png", 
+                "position": { "x": 0, "y": 200 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/icon/ping_1.png", 
+                "position": { "x": 0, "y": 208 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/icon/ping_unknown.png", 
+                "position": { "x": 0, "y": 216 }, 
+                "width": 10, 
+                "height": 8
+            }
+        ]
+    },
+    {
+        "path": "checkbox.png",
+        "width": 64,
+        "height": 64,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/widget/checkbox.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/widget/checkbox_selected.png",
+                "position": { "x": 0, "y": 20 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/widget/checkbox_highlighted.png",
+                "position": { "x": 20, "y": 0 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 754,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/widget/checkbox_selected_highlighted.png",
+                "position": { "x": 20, "y": 20 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 754,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "toasts.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/toast/advancement.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 160,
+                "height": 32
+            },
+            {
+                "path": "sprites/toast/recipe.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 160,
+                "height": 32
+            },
+            {
+                "path": "sprites/toast/system.png",
+                "position": { "x": 0, "y": 64 },
+                "width": 160,
+                "height": 32
+            },
+            {
+                "path": "sprites/toast/tutorial.png",
+                "position": { "x": 0, "y": 96 },
+                "width": 160,
+                "height": 32
+            },
+            {
+                "path": "sprites/toast/movement_keys.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/toast/mouse.png",
+                "position": { "x": 196, "y": 0 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/toast/tree.png",
+                "position": { "x": 216, "y": 0 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/toast/recipe_book.png",
+                "position": { "x": 176, "y": 20 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/toast/wooden_planks.png",
+                "position": { "x": 196, "y": 20 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/toast/social_interactions.png",
+                "position": { "x": 216, "y": 20 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/toast/right_click.png",
+                "position": { "x": 236, "y": 20 },
+                "width": 20,
+                "height": 20,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "spectator_widgets.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/spectator/teleport_to_player.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 16,
+                "height": 16
+            },
+            {
+                "path": "sprites/spectator/teleport_to_team.png",
+                "position": { "x": 16, "y": 0 },
+                "width": 16,
+                "height": 16
+            },
+            {
+                "path": "sprites/spectator/close.png",
+                "position": { "x": 128, "y": 0 },
+                "width": 16,
+                "height": 16
+            },
+            {
+                "path": "sprites/spectator/scroll_left.png",
+                "position": { "x": 144, "y": 0 },
+                "width": 16,
+                "height": 16
+            },
+            {
+                "path": "sprites/spectator/scroll_right.png",
+                "position": { "x": 160, "y": 0 },
+                "width": 16,
+                "height": 16
+            }
+        ]
+    },
+    {
+        "path": "resource_packs.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/transferable_list/select.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/select_highlighted.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/unselect.png",
+                "position": { "x": 32, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/unselect_highlighted.png",
+                "position": { "x": 32, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/move_down.png",
+                "position": { "x": 64, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/move_down_highlighted.png",
+                "position": { "x": 64, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/move_up.png",
+                "position": { "x": 96, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/transferable_list/move_up_highlighted.png",
+                "position": { "x": 96, "y": 32 },
+                "width": 32,
+                "height": 32
+            }
+        ]
+    },
+    {
+        "path": "server_selection.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/server_list/join.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/server_list/join_highlighted.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/server_list/move_down.png",
+                "position": { "x": 64, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/server_list/move_down_highlighted.png",
+                "position": { "x": 64, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/server_list/move_up.png",
+                "position": { "x": 96, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/server_list/move_up_highlighted.png",
+                "position": { "x": 96, "y": 32 },
+                "width": 32,
+                "height": 32
+            }
+        ]
+    },
+    {
+        "path": "world_selection.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 107,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/world_list/join.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/join_highlighted.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/marked_join.png",
+                "position": { "x": 32, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/marked_join_highlighted.png",
+                "position": { "x": 32, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/warning.png",
+                "position": { "x": 64, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/warning_highlighted.png",
+                "position": { "x": 64, "y": 32 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/error.png",
+                "position": { "x": 96, "y": 0 },
+                "width": 32,
+                "height": 32
+            },
+            {
+                "path": "sprites/world_list/error_highlighted.png",
+                "position": { "x": 96, "y": 32 },
+                "width": 32,
+                "height": 32
+            }
+        ]
+    },
+    {
+        "path": "chat_tags.png",
+        "width": 32,
+        "height": 32,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 760,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/chat_modified.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 9,
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 761,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "checkmark.png",
+        "width": 9,
+        "height": 8,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 761,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/checkmark.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 9,
+                "height": 8
+            }
+        ]
+    },
+    {
+        "path": "info_icon.png",
+        "width": 20,
+        "height": 20,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/info.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 20,
+                "height": 20
+            }
+        ]
+    },
+    {
+        "path": "unseen_notification.png",
+        "width": 10,
+        "height": 10,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/unseen_notification.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 10,
+                "height": 10
+            }
+        ]
+    },
+    {
+        "path": "stream_indicator.png",
+        "width": 16,
+        "height": 64,
+        "textures": []
+    },
+    {
+        "path": "bars.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 110,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/boss_bar/pink_background.png", 
+                "position": { "x": 0, "y": 0 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/blue_background.png", 
+                "position": { "x": 0, "y": 10 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/red_background.png", 
+                "position": { "x": 0, "y": 20 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/green_background.png", 
+                "position": { "x": 0, "y": 30 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/yellow_background.png", 
+                "position": { "x": 0, "y": 40 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/purple_background.png", 
+                "position": { "x": 0, "y": 50 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/white_background.png", 
+                "position": { "x": 0, "y": 60 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/pink_progress.png", 
+                "position": { "x": 0, "y": 5 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/blue_progress.png", 
+                "position": { "x": 0, "y": 15 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/red_progress.png", 
+                "position": { "x": 0, "y": 25 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/green_progress.png", 
+                "position": { "x": 0, "y": 35 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/yellow_progress.png", 
+                "position": { "x": 0, "y": 45 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/purple_progress.png", 
+                "position": { "x": 0, "y": 55 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/white_progress.png", 
+                "position": { "x": 0, "y": 65 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_6_background.png", 
+                "position": { "x": 0, "y": 80 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_10_background.png", 
+                "position": { "x": 0, "y": 90 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_12_background.png", 
+                "position": { "x": 0, "y": 100 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_20_background.png", 
+                "position": { "x": 0, "y": 110 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_6_progress.png", 
+                "position": { "x": 0, "y": 85 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_10_progress.png", 
+                "position": { "x": 0, "y": 95 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_12_progress.png", 
+                "position": { "x": 0, "y": 105 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/notched_20_progress.png", 
+                "position": { "x": 0, "y": 115 }, 
+                "width": 182, 
+                "height": 5
+            }
+        ]
+    },
+    {
+        "path": "slider.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/widget/slider.png", 
+                "position": { "x": 0, "y": 20 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/slider_highlighted.png", 
+                "position": { "x": 0, "y": 20 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/slider_handle.png", 
+                "position": { "x": 0, "y": 20 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            },
+            {
+                "path": "sprites/widget/slider_handle_highlighted.png", 
+                "position": { "x": 0, "y": 20 },
+                "width": 200,
+                "height": 20,
+                "metadata": "button_widget"
+            }
+        ]
+    },
+    {
+        "path": "social_interactions.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 754,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/social_interactions/background.png",
+                "position": { "x": 0, "y": 1 },
+                "width": 236,
+                "height": 34,
+                "metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 236,
+                            "height": 34,
+                            "border": 8
+                        }
+                    }
+                }
+            },
+            {
+                "path": "sprites/icon/search.png",
+                "position": { "x": 243, "y": 1 },
+                "width": 12,
+                "height": 12
+            },
+            {
+                "path": "sprites/social_interactions/mute_button.png",
+                "position": { "x": 0, "y": 38 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/social_interactions/mute_button_highlighted.png",
+                "position": { "x": 0, "y": 58 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/social_interactions/unmute_button.png",
+                "position": { "x": 20, "y": 38 },
+                "width": 20,
+                "height": 20
+            },
+            {
+                "path": "sprites/social_interactions/unmute_button_highlighted.png",
+                "position": { "x": 20, "y": 58 },
+                "width": 20,
+                "height": 20
+            }
+        ]
+    }
+]

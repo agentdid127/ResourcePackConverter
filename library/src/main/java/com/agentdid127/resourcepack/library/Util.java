@@ -89,6 +89,25 @@ public final class Util {
     }
 
     /**
+     * Reads Json
+     * 
+     * @param gson Gson Object to use
+     * @param path Json File Path.
+     * @return
+     */
+    public static <T> T readJsonResource(Gson gson, String path, Class<T> clazz) {
+        try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
+            if (stream == null)
+                return null;
+            try (InputStreamReader streamReader = new InputStreamReader(stream)) {
+                return gson.fromJson(streamReader, clazz);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Reads Image as BufferedImage
      * 
      * @param path Path to file
@@ -114,6 +133,10 @@ public final class Util {
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         return protocols == null ? 0 : Integer.parseInt(protocols.get(version).getAsString());
+    }
+
+    public static int getLatestProtocol(Gson gson) {
+        return getVersionProtocol(gson, "1.20.4");    
     }
 
     /**
