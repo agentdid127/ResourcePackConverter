@@ -258,25 +258,49 @@
                 "path": "sprites/hud/heart/frozen_full.png", 
                 "position": { "x": 178, "y": 0 }, 
                 "width": 9, 
-                "height": 9
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
             },
             {
                 "path": "sprites/hud/heart/frozen_half.png", 
                 "position": { "x": 187, "y": 0 }, 
                 "width": 9, 
-                "height": 9
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
             },
             {
                 "path": "sprites/hud/heart/frozen_full_blinking.png", 
                 "position": { "x": 178, "y": 0 }, 
                 "width": 9, 
-                "height": 9
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
             },
             {
                 "path": "sprites/hud/heart/frozen_half_blinking.png", 
                 "position": { "x": 187, "y": 0 }, 
                 "width": 9, 
-                "height": 9
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
             }, // todo: armor, bubbles, food, other hearts, xp bars, attack indicators, ping bars/server
             {
                 "path": "sprites/icon/ping_5.png", 
