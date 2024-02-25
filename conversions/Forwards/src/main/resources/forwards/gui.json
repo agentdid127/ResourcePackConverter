@@ -14,7 +14,7 @@
                 "path": "sprites/hud/hotbar_selection.png",
                 "position": { "x": 0, "y": 22 },
                 "width": 24,
-                "height": 24
+                "height": 23
             },
             {
                 "path": "sprites/hud/hotbar_offhand_left.png",
@@ -87,7 +87,7 @@
             },
             {
                 "path": "sprites/widget/locked_button_highlighted.png",
-                "position": { "x": 0, "y": 146 },
+                "position": { "x": 0, "y": 166 },
                 "width": 20,
                 "height": 20,
                 "predicate": {
@@ -99,7 +99,7 @@
             },
             {
                 "path": "sprites/widget/locked_button_disabled.png",
-                "position": { "x": 0, "y": 146 },
+                "position": { "x": 0, "y": 186 },
                 "width": 20,
                 "height": 20,
                 "predicate": {
@@ -123,7 +123,7 @@
             },
             {
                 "path": "sprites/widget/unlocked_button_highlighted.png",
-                "position": { "x": 20, "y": 146 },
+                "position": { "x": 20, "y": 166 },
                 "width": 20,
                 "height": 20,
                 "predicate": {
@@ -135,7 +135,7 @@
             },
             {
                 "path": "sprites/widget/unlocked_button_disabled.png",
-                "position": { "x": 20, "y": 146 },
+                "position": { "x": 20, "y": 186 },
                 "width": 20,
                 "height": 20,
                 "predicate": {
@@ -1008,5 +1008,5 @@
                 "height": 20
             }
         ]
-    }
+    } // containers
 ]

@@ -1,0 +1,73 @@
+package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import com.agentdid127.resourcepack.forwards.impl.textures.SlicerConverter;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+public class Texture {
+    public String path;
+    public Position position;
+    public int width;
+    public int height;
+    public JsonObject predicate;
+    public JsonObject metadata;
+
+    public Texture(String path, Position position, int width, int height, JsonObject predicate, JsonObject metadata) {
+        this.path = path;
+        this.position = position;
+        this.width = width;
+        this.height = height;
+        this.predicate = predicate;
+        this.metadata = metadata;
+    }
+
+    public Texture(String path, Position position, int width, int height, JsonObject predicate) {
+        this.path = path;
+        this.position = position;
+        this.width = width;
+        this.height = height;
+        this.predicate = predicate;
+        this.metadata = new JsonObject();
+    }
+
+    public Texture(String path, Position position, int width, int height) {
+        this.path = path;
+        this.position = position;
+        this.width = width;
+        this.height = height;
+        this.predicate = new JsonObject();
+        this.metadata = new JsonObject();
+    }
+
+    public static Texture[] parse(JsonArray array) {
+        List<Texture> textures = new LinkedList<>();
+
+        for (JsonElement element : array) {            
+            JsonObject textureObject = element.getAsJsonObject();
+            String path = textureObject.get("path").getAsString();
+            Position position = Position.parse(textureObject.get("position").getAsJsonObject());
+            int width = textureObject.get("width").getAsInt();
+            int height = textureObject.get("height").getAsInt();    
+
+            JsonObject predicate;
+            if (textureObject.has("predicate")) 
+                predicate = textureObject.get("predicate").getAsJsonObject();
+            else
+                predicate = new JsonObject();
+            
+            JsonObject metadata;
+            if (textureObject.has("metadata")) {
+                JsonElement metadataElement = textureObject.get("metadata");
+                metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : SlicerConverter.metatdataCache.getOrDefault(metadataElement.getAsString(), new JsonObject());
+            } else metadata = new JsonObject();
+
+            textures.add(new Texture(path, position, width, height, predicate, metadata));
+        }
+        
+        return textures.toArray(new Texture[] {});
+    }
+}

@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
+import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Texture;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
@@ -19,91 +21,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
-class Position {
-    public int x;
-    public int y;
-
-    public static Position parse(JsonObject object) {
-        Position position = new Position();
-        position.x = object.get("x").getAsInt();
-        position.y = object.get("y").getAsInt();
-        return position;
-    }
-}
-
-class Texture {
-    public String path;
-    public Position position;
-    public int width;
-    public int height;
-    public JsonObject predicate;
-    public JsonObject metadata;
-
-    public static Texture[] parse(JsonArray array) {
-        List<Texture> textures = new LinkedList<>();
-
-        for (JsonElement element : array) {
-            Texture texture = new Texture();
-            
-            JsonObject textureObject = element.getAsJsonObject();
-            texture.path = textureObject.get("path").getAsString();
-            texture.position = Position.parse(textureObject.get("position").getAsJsonObject());
-            texture.width = textureObject.get("width").getAsInt();
-            texture.height = textureObject.get("height").getAsInt();    
-
-            if (textureObject.has("predicate")) 
-                texture.predicate = textureObject.get("predicate").getAsJsonObject();
-            else
-                texture.predicate = new JsonObject();
-            
-            if (textureObject.has("metadata")) {
-                JsonElement metadata = textureObject.get("metadata");
-                texture.metadata = metadata.isJsonObject() ? metadata.getAsJsonObject() : SlicerConverter.metatdataCache.getOrDefault(metadata.getAsString(), new JsonObject());
-            } else texture.metadata = new JsonObject();
-
-            textures.add(texture);
-        }
-        
-        return textures.toArray(new Texture[] {});
-    }
-}
-
-class Slice {
-    public String path;
-    public int width;
-    public int height;
-    public JsonObject predicate;
-    public Texture[] textures;
-    public boolean delete;
-
-    public static Slice[] parse(JsonArray array) {
-        List<Slice> slices = new LinkedList<>();
-
-        for (JsonElement element : array) {
-            Slice slice = new Slice();
-
-            JsonObject guiObject = element.getAsJsonObject();
-            slice.path = guiObject.get("path").getAsString();
-            slice.width = guiObject.get("width").getAsInt();
-            slice.height = guiObject.get("height").getAsInt();
-            slice.textures = Texture.parse(guiObject.get("textures").getAsJsonArray());
-            
-            if (guiObject.has("delete"))
-                slice.delete = guiObject.get("delete").getAsBoolean();
-            else slice.delete = true;
-
-            if (guiObject.has("predicate")) 
-                slice.predicate = guiObject.get("predicate").getAsJsonObject();
-            else
-                slice.predicate = new JsonObject();
-
-            slices.add(slice);
-        }
-
-        return slices.toArray(new Slice[] {});
-    }
-}
 
 public class SlicerConverter extends Converter {
     private int from;
