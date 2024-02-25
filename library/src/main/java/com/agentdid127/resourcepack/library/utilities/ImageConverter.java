@@ -52,15 +52,15 @@ public class ImageConverter {
     }
 
     public void slice_and_save(int sx, int sy, int width, int height, Path path) throws IOException {
-        BufferedImage oimg = this.newImage;
-        Graphics2D oGraphics2d = this.g2d;
+        BufferedImage original = this.newImage;
+        Graphics2D graphics = this.g2d;
 
         newImage(width, height);
         subImage(sx, sy, sx + width, sy + height);
         store(path);
 
-        this.newImage = oimg;
-        this.g2d = oGraphics2d;
+        this.newImage = original;
+        this.g2d = graphics;
     }
 
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
@@ -71,7 +71,7 @@ public class ImageConverter {
             defaultH = defaultHIn;
             imageHeight = image.getHeight();
         } else
-            Logger.log("File is not a power of 2");
+            Logger.log("Image '" + location.getFileName() + "' is not a power of 2");
     }
 
     // Creates a new Image to store
