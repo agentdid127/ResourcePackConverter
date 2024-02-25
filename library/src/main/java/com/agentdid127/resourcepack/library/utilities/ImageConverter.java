@@ -29,7 +29,7 @@ public class ImageConverter {
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         } else {
-            Logger.log("Image '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
+            Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
             newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             defaultW = defaultWIn;
             defaultH = defaultHIn;
