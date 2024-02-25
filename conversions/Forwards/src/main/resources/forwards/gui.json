@@ -158,6 +158,8 @@
                 "width": 15, 
                 "height": 15
             },
+
+            // Hearts
             {
                 "path": "sprites/hud/heart/container.png", 
                 "position": { "x": 16, "y": 0 }, 
@@ -301,7 +303,71 @@
                         "max_inclusive": null
                     }
                 }
-            }, // todo: armor, bubbles, food, other hearts, boss bar (1.8), attack indicators, ping bars/server
+            }, 
+
+            // TODO: Armor
+            
+            // TODO: Vehicle Hearts
+
+            // Bubbles
+            {
+                "path": "sprites/hud/air.png",
+                "position": { "x": 16, "y": 18 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/air_bursting.png",
+                "position": { "x": 25, "y": 18 },
+                "width": 9,
+                "height": 9
+            },
+
+            // Food
+            {
+                "path": "sprites/hud/food_empty.png",
+                "position": { "x": 16, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/food_full.png",
+                "position": { "x": 52, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/food_half.png",
+                "position": { "x": 61, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/food_full_hunger.png",
+                "position": { "x": 88, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/food_half_hunger.png",
+                "position": { "x": 97, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/food_empty_hunger.png",
+                "position": { "x": 133, "y": 27 },
+                "width": 9,
+                "height": 9
+            },
+
+            // TODO: Hardcore Hearts
+            // TODO: oss bar (1.8) maybe
+
+            // TODO: Attack Indicators
+            // TODO: Ping/Server Bars
+
+            // XP Bars
             {
                 "path": "sprites/hud/experience_bar_background.png", 
                 "position": { "x": 0, "y": 64 }, 
