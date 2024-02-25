@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Texture;
@@ -98,7 +96,7 @@ public class SlicerConverter extends Converter {
                         texturePath);
 
                     JsonObject metadata = texture.metadata;
-                    if (metadata.keySet().isEmpty())
+                    if (metadata.keySet().isEmpty() || metadata.entrySet().isEmpty())
                         continue;
 
                     Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
