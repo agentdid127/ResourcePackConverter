@@ -21,7 +21,7 @@ public class ImageConverter {
     // Default Constructor
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
         image = ImageIO.read(locationIn.toFile());
-        if (fileIsPowerOfTwo()) {
+        if (imageIsPowerOfTwo()) {
             newImage = image;
             location = locationIn;
             defaultW = defaultWIn;
@@ -58,11 +58,11 @@ public class ImageConverter {
     }
 
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
-        image = newImage;
-        if (!fileIsPowerOfTwo()) {
+        if (!imageIsPowerOfTwo(newImage)) {
             Logger.log("Image '" + location.getFileName() + "' is not a power of 2");
             return;
         }
+        image = newImage;
         defaultW = defaultWIn;
         defaultH = defaultHIn;
         imageWidth = image.getWidth();
@@ -205,7 +205,11 @@ public class ImageConverter {
         return hMultiplier;
     }
 
-    public boolean fileIsPowerOfTwo() {
+    public boolean imageIsPowerOfTwo() {
+        return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
+    }
+
+    public boolean imageIsPowerOfTwo(BufferedImage image) {
         return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
