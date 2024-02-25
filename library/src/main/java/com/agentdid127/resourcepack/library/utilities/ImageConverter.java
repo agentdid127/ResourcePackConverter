@@ -21,18 +21,17 @@ public class ImageConverter {
     // Default Constructor
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
         image = ImageIO.read(locationIn.toFile());
+        location = locationIn;
+        defaultW = defaultWIn;
+        defaultH = defaultHIn;
         if (imageIsPowerOfTwo()) {
             newImage = image;
             location = locationIn;
-            defaultW = defaultWIn;
-            defaultH = defaultHIn;
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         } else {
             Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
             newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
-            defaultW = defaultWIn;
-            defaultH = defaultHIn;
             imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             imageHeight = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
             Graphics2D g = newImage.createGraphics();
@@ -41,7 +40,6 @@ public class ImageConverter {
             g.dispose();
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
-            location = locationIn;
         }
     }
 
