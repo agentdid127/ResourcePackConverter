@@ -26,11 +26,11 @@ public class ImageConverter {
         defaultH = defaultHIn;
         if (imageIsPowerOfTwo()) {
             newImage = image;
-            location = locationIn;
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         } else {
             Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
+            
             newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             imageHeight = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
@@ -38,6 +38,7 @@ public class ImageConverter {
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, image.getWidth(), image.getHeight(), null);
             g.dispose();
+            
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         }
