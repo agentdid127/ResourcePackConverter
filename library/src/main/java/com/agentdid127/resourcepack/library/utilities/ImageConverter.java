@@ -128,20 +128,8 @@ public class ImageConverter {
         gray.createGraphics().drawImage(image, 0, 0, null);
         newImage = gray;
     }
-    
-    // Allows for the flip to happen
-    private static BufferedImage createFlipped(BufferedImage image2, int flip) {
-        AffineTransform at = new AffineTransform();
-        if (flip != 1)
-            return image2;
-        at.concatenate(AffineTransform.getScaleInstance(1, -1));
-        at.concatenate(AffineTransform.getTranslateInstance(0, -image2.getHeight()));
-        at.concatenate(AffineTransform.getScaleInstance(-1, 1));
-        at.concatenate(AffineTransform.getTranslateInstance(-image2.getWidth(), 0));
-        return createTransformed(image2, at);
-    }
 
-    // Does the flip for the image (boolean version)
+    // Flip the Image
     private static BufferedImage createFlipped(BufferedImage image2, boolean flip) {
         AffineTransform at = new AffineTransform();
         if (flip) {
