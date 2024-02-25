@@ -21,7 +21,7 @@ public class ImageConverter {
     // Default Constructor
     public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
         image = ImageIO.read(locationIn.toFile());
-        if (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight())) {
+        if (fileIsPowerOfTwo()) {
             newImage = image;
             location = locationIn;
             defaultW = defaultWIn;
@@ -30,25 +30,19 @@ public class ImageConverter {
             imageHeight = image.getHeight();
         } else {
             Logger.log("Image '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
-            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
-                    (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
-            imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
+            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             defaultW = defaultWIn;
             defaultH = defaultHIn;
+            imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             imageHeight = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
             Graphics2D g = newImage.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, image.getWidth(), image.getHeight(), null);
             g.dispose();
-            defaultW = defaultWIn;
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
             location = locationIn;
         }
-    }
-
-    public boolean fileIsPowerOfTwo() {
-        return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
     public void slice_and_save(int sx, int sy, int width, int height, Path path) throws IOException {
@@ -65,13 +59,14 @@ public class ImageConverter {
 
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
         image = newImage;
-        if (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight())) {
-            defaultW = defaultWIn;
-            imageWidth = image.getWidth();
-            defaultH = defaultHIn;
-            imageHeight = image.getHeight();
-        } else
+        if (!fileIsPowerOfTwo()) {
             Logger.log("Image '" + location.getFileName() + "' is not a power of 2");
+            return;
+        }
+        defaultW = defaultWIn;
+        defaultH = defaultHIn;
+        imageWidth = image.getWidth();
+        imageHeight = image.getHeight();
     }
 
     // Creates a new Image to store
@@ -98,6 +93,7 @@ public class ImageConverter {
         int height2 = y2 * hMultiplier - y * hMultiplier;
         x3 = x == 0 ? 0 : x * wMultiplier;
         y3 = y == 0 ? 0 : y * hMultiplier;
+
         BufferedImage part = getSubImage(x3, y3, width2, height2);
         g2d.drawImage(part, storex * wMultiplier, storey * hMultiplier, null);
     }
@@ -124,16 +120,7 @@ public class ImageConverter {
 
     // Only allows for the number 1 and flips it both horizontally and vertically
     public void subImage(int x, int y, int x2, int y2, int storex, int storey, int flip) {
-        int wMultiplier = getWidthMultiplier();
-        int hMultiplier = getHeightMultiplier();
-        
-        int width2 = x2 * wMultiplier - x * wMultiplier;
-        int height2 = y2 * hMultiplier - y * hMultiplier;
-        int x3 = x == 0 ? 0 : x * wMultiplier;
-        int y3 = y == 0 ? 0 : y * hMultiplier;
-
-        BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(createFlipped(part, flip), storex * wMultiplier, storey * hMultiplier, null);
+        subImage(x, y, x2, y2, storex, storey, flip == 0 ? false : true);
     }
 
     public void colorize(Color rgb) {
@@ -220,6 +207,10 @@ public class ImageConverter {
         // Make sure to not have 0 multiplier or cause issues!
         hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         return hMultiplier;
+    }
+
+    public boolean fileIsPowerOfTwo() {
+        return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
     // Detects if file is a power of two.
