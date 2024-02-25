@@ -49,7 +49,7 @@ public class ChestConverter extends Converter {
         if (!imagePath.resolve(name + ".png").toFile().exists()) return;
 
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
-        if (!normal.fileIsPowerOfTwo()) return;
+        if (!normal.imageIsPowerOfTwo()) return;
 
         // Create a new Image
         normal.newImage(defaultW, defaultH);
@@ -102,7 +102,7 @@ public class ChestConverter extends Converter {
 
         if (imagePath.resolve(name + "_double.png").toFile().exists()) {
             ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
-            if (!normal.fileIsPowerOfTwo()) return;
+            if (!normal.imageIsPowerOfTwo()) return;
 
             // Left Side
             // Body

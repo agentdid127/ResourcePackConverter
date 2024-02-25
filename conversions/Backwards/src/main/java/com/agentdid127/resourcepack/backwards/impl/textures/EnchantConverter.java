@@ -20,7 +20,7 @@ public class EnchantConverter extends Converter {
         if (!paintingPath.toFile().exists()) return;
 
         ImageConverter imageConverter = new ImageConverter(64, 64, paintingPath);
-        if (!imageConverter.fileIsPowerOfTwo()) return;
+        if (!imageConverter.imageIsPowerOfTwo()) return;
             
         imageConverter.newImage(64, 64);
         imageConverter.grayscale();

@@ -34,7 +34,7 @@ public class CompassConverter extends Converter {
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
             imageConverter.newImage(16, 16 * 32);
-            if (!imageConverter.fileIsPowerOfTwo()) return;
+            if (!imageConverter.imageIsPowerOfTwo()) return;
 
             for (int i = 0; i < 32; i++) {
                 int h = i * 16;

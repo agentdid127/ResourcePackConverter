@@ -34,7 +34,7 @@ public class ParticleTextureConverter extends Converter {
 
         int defaultW = 128, defaultH = 128;
         ImageConverter iconvert = new ImageConverter(defaultW, defaultH, imagePath.resolve("particles.png"));
-        if (!iconvert.fileIsPowerOfTwo())
+        if (!iconvert.imageIsPowerOfTwo())
             return;
 
         // Particles

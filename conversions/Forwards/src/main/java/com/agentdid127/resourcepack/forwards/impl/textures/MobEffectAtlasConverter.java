@@ -104,7 +104,7 @@ public class MobEffectAtlasConverter extends Converter {
 
         int DWIDTH = 256, DHEIGHT = 256;
         ImageConverter inventoryImage = new ImageConverter(DWIDTH, DHEIGHT, inventoryPath);
-        if (!inventoryImage.fileIsPowerOfTwo() || !inventoryImage.isSquare()) {
+        if (!inventoryImage.imageIsPowerOfTwo() || !inventoryImage.isSquare()) {
             Logger.log("Failed to generate mob_effect-atlas, inventory image is not power of 2/is not square!");
             return;
         }

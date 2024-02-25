@@ -77,7 +77,7 @@ public class PaintingConverter extends Converter {
         if (paintingPath.resolve("paintings_kristoffer_zetterstrand.png").toFile().exists()) {
             ImageConverter normal = new ImageConverter(256, 256,
                     paintingPath.resolve("paintings_kristoffer_zetterstrand.png"));
-            if (!normal.fileIsPowerOfTwo())
+            if (!normal.imageIsPowerOfTwo())
                 return;
             normal.newImage(defaultW * scaleX, defaultH * scaleY);
             normal.subImage(x, y, x + defaultW * scaleX, y + defaultH * scaleY, 0, 0);
