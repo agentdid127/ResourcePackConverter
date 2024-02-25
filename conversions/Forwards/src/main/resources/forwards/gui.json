@@ -301,7 +301,37 @@
                         "max_inclusive": null
                     }
                 }
-            }, // todo: armor, bubbles, food, other hearts, xp bars, attack indicators, ping bars/server
+            }, // todo: armor, bubbles, food, other hearts, boss bar (1.8), attack indicators, ping bars/server
+            {
+                "path": "sprites/hud/experience_bar_background.png", 
+                "position": { "x": 0, "y": 64 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/hud/experience_bar_progress.png", 
+                "position": { "x": 0, "y": 69 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/hud/jump_bar_cooldown.png", 
+                "position": { "x": 0, "y": 74 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/hud/jump_bar_background.png", 
+                "position": { "x": 0, "y": 84 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/hud/jump_bar_progress.png",
+                "position": { "x": 0, "y": 89 }, 
+                "width": 182, 
+                "height": 5
+            },
             {
                 "path": "sprites/icon/ping_5.png", 
                 "position": { "x": 0, "y": 176 }, 
