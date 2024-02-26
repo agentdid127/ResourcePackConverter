@@ -44,7 +44,7 @@ public class ImageConverter {
         }
     }
 
-    public void slice_and_save(int sx, int sy, int width, int height, Path path) throws IOException {
+    public void saveSlice(int sx, int sy, int width, int height, Path path) throws IOException {
         BufferedImage original = this.newImage;
         Graphics2D graphics = this.g2d;
 
@@ -131,16 +131,16 @@ public class ImageConverter {
     }
 
     // Flip the Image
-    private static BufferedImage createFlipped(BufferedImage image2, boolean flip) {
+    private static BufferedImage createFlipped(BufferedImage image, boolean flip) {
         AffineTransform at = new AffineTransform();
         if (flip) {
             at.concatenate(AffineTransform.getScaleInstance(1, -1));
-            at.concatenate(AffineTransform.getTranslateInstance(0, -image2.getHeight()));
+            at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
         } else {
             at.concatenate(AffineTransform.getScaleInstance(-1, 1));
-            at.concatenate(AffineTransform.getTranslateInstance(-image2.getWidth(), 0));
+            at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
         }
-        return createTransformed(image2, at);
+        return createTransformed(image, at);
     }
 
     // Transforms the BufferedImage

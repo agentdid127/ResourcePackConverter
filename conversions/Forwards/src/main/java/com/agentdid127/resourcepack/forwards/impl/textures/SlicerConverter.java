@@ -88,7 +88,7 @@ public class SlicerConverter extends Converter {
                 if (!testPredicate(gson, texture.predicate))
                     continue;
                 try {
-                    converter.slice_and_save(
+                    converter.saveSlice(
                         texture.position.x, 
                         texture.position.y, 
                         texture.width, 
