@@ -15,7 +15,7 @@ public class ForwardsPackConverter extends PackConverter {
     Path INPUT_DIR;
 
     public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
-            PrintStream out) {
+            PrintStream out, boolean unstable) {
         GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
         if (!minify)
             gsonBuilder.setPrettyPrinting();
@@ -25,6 +25,7 @@ public class ForwardsPackConverter extends PackConverter {
         Logger.log(to);
         this.INPUT_DIR = input;
         converterRunner(from, to, light);
+        UNSTABLE = unstable;
     }
 
     protected void converterRunner(String from, String to, String light) {

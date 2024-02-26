@@ -15,6 +15,7 @@ public abstract class PackConverter {
     protected final Map<Class<? extends RPConverter>, RPConverter> converters = new LinkedHashMap<>();
     protected Gson gson;
     public static boolean DEBUG = true;
+    public static boolean UNSTABLE = false;
 
     /**
      * Registers Converter.
@@ -22,7 +23,9 @@ public abstract class PackConverter {
      * @param converter
      */
     public void registerConverter(RPConverter converter) {
-        converters.put(converter.getClass(), converter);
+        if ((UNSTABLE || !converter.isUnstable())) {
+            converters.put(converter.getClass(), converter);
+        }
     }
 
     /**

@@ -15,7 +15,6 @@
         <module>conversions</module-->
         <module>Applications</module>
 	      <module>conversions</module>
-        <module>convert</module>
 	      <module>lib</module>
         <module>plugins</module>
     </modules>
@@ -32,6 +31,11 @@
             <id>central</id>
             <url>https://repo1.maven.org/maven2/</url>
         </repository>
+        <repository>
+            <id>convertertools</id>
+            <url>https://jenkins.dc1.agentdid127.com/plugin/repository/project/ConverterTools/LastSuccessful/repository/</url>
+        </repository>
+
     </repositories>
 
     <dependencies>

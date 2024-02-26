@@ -44,6 +44,7 @@ public class CommonTool implements Application {
         String to = optionSet.valueOf(Options.TO);
         String light = optionSet.valueOf(Options.LIGHT);
         boolean minify = optionSet.has(Options.MINIFY);
+        boolean unstable = optionSet.has(Options.UNSTABLE);
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
 
@@ -68,7 +69,7 @@ public class CommonTool implements Application {
             // new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
         } else {
             packConverter = new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR),
-                true, out);
+                true, out, unstable);
         }
 
         for (RPPlugin value : pluginLoader.getPlugins().values()) {
@@ -78,9 +79,9 @@ public class CommonTool implements Application {
             Logger.error(value.getPackConverter());
             value.onInit();
 
-            Logger.error(value.getConverters().size());
+            Logger.error(value.getRunners().size());
 
-            for (RPConverter converter : value.getConverters()) {
+            for (RPConverter converter : value.getRunners()) {
                 packConverter.registerConverter(converter);
             }
         }
@@ -94,6 +95,6 @@ public class CommonTool implements Application {
 
     @Override
     public IPluginLoader getPluginLoader() {
-        return null;
+        return pluginLoader;
     }
 }
