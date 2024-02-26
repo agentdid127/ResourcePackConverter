@@ -411,7 +411,7 @@
                 }
             },
             {
-                "path": "sprites/hud/hotbar_attack_indicator_background.png",
+                "path": "sprites/hud/hotbar_attack_indicator_progress.png",
                 "position": { "x": 18, "y": 94 },
                 "width": 18, 
                 "height": 18,
