@@ -23,35 +23,9 @@ import com.google.gson.JsonObject;
 public class SlicerConverter extends Converter {
     private int from;
 
-    public static HashMap<String, JsonObject> metatdataCache = new HashMap<>();
-
     public SlicerConverter(PackConverter converter, int from) {
         super(converter);
         this.from = from;
-    }
-
-    static {    
-        {
-            // Button Widget
-            JsonObject buttonWidget = new JsonObject();
-            JsonObject gui = new JsonObject();
-            JsonObject scaling = new JsonObject();
-
-            scaling.addProperty("type", "nine_slice");
-            scaling.addProperty("width", 200);
-            scaling.addProperty("height", 20);
-
-            JsonObject border = new JsonObject();
-            border.addProperty("left", 20);
-            border.addProperty("top", 4);
-            border.addProperty("right", 20);
-            border.addProperty("bottom", 4);
-            scaling.add("border", border);
-
-            gui.add("scaling", scaling);
-            buttonWidget.add("gui", gui);
-            metatdataCache.put("button_widget", buttonWidget);
-        }
     }
 
     @Override
