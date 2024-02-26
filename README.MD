@@ -2,7 +2,7 @@
 [![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
 
-This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.17
+This is my fork of Hypixel's Resource Pack Converter. It updates to any newer version from 1.8.x - 1.20.x
 
 We know that many use resource packs in nonstandard and quirky ways - but giving this a shot *may* reduce quite a bit of your pain and workload for the 1.13 conversion.
 

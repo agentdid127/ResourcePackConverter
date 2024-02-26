@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,8 +42,8 @@ public class SpacesConverter extends Converter {
             File[] fList = directory.listFiles();
             for (File file : fList) {
                 String dir = fixSpaces(file.toPath());
-                if (file.isDirectory()) 
-                    findFiles(Paths.get(dir));   
+                if (file.isDirectory())
+                    findFiles(Paths.get(dir));
             }
         }
     }
@@ -65,7 +66,7 @@ public class SpacesConverter extends Converter {
             return "null";
 
         if (ret && packConverter.DEBUG) {
-            PackConverter.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
+            Logger.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         } else if (!ret) {
             System.err.println("      Failed to rename: " + path.getFileName().toString() + "->" + noSpaces);
