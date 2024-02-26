@@ -47,11 +47,9 @@ public class ImageConverter {
     public void saveSlice(int sx, int sy, int width, int height, Path path) throws IOException {
         BufferedImage original = this.newImage;
         Graphics2D graphics = this.g2d;
-
         newImage(width, height);
         subImage(sx, sy, sx + width, sy + height);
         store(path);
-
         this.newImage = original;
         this.g2d = graphics;
     }
@@ -154,9 +152,13 @@ public class ImageConverter {
     }
 
     // Stores the image
-    public boolean store(Path locationIn) throws IOException {
-        ImageIO.write(newImage, "png", locationIn.toFile());
+    public boolean store(Path locationIn, String type) throws IOException {
+        ImageIO.write(newImage, type, locationIn.toFile());
         return true;
+    }
+
+    public boolean store(Path locationIn) throws IOException {
+        return store(locationIn, "png");
     }
 
     public boolean store() throws IOException {
@@ -177,27 +179,28 @@ public class ImageConverter {
         return imageHeight;
     }
 
-    // Returns the Width Multiplier and Height Multiplier variables
+    // Returns the Width Multiplier 
     public double getWidthMultiplier() { 
         double wMultiplier = (double)imageWidth / (double)defaultW;
         // Make sure to not have 0 multiplier or cause issues!
-        wMultiplier = wMultiplier == 0 ? 1 : wMultiplier;
+        wMultiplier = wMultiplier <= 0 ? 1 : wMultiplier;
         return wMultiplier;
     }
 
+    // Returns the Height Multiplier
     public double getHeightMultiplier() {
         double hMultiplier = (double)imageHeight / (double)defaultH;
         // Make sure to not have 0 multiplier or cause issues!
-        hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
+        hMultiplier = hMultiplier <= 0 ? 1 : hMultiplier;
         return hMultiplier;
-    }
-
-    public boolean imageIsPowerOfTwo() {
-        return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
     }
 
     public boolean imageIsPowerOfTwo(BufferedImage image) {
         return (isPowerOfTwo(image.getWidth()) && isPowerOfTwo(image.getHeight()));
+    }
+
+    public boolean imageIsPowerOfTwo() {
+        return imageIsPowerOfTwo(image);
     }
 
     // Detects if file is a power of two.
