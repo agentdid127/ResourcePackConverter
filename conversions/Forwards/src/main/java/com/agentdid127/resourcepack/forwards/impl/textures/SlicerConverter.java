@@ -74,20 +74,20 @@ public class SlicerConverter extends Converter {
         for (Slice slice : slices) {
             if (!testPredicate(gson, slice.predicate))
                 continue;
-            try {
-                Path path = guiPath.resolve(slice.path);
-                if (!path.toFile().exists()) {
-                    Logger.log("GUI Texture '" + slice.path + "' does not exist! Skipping...");
+
+            Path path = guiPath.resolve(slice.path);
+            if (!path.toFile().exists()) {
+                Logger.log("GUI Texture '" + slice.path + "' does not exist! Skipping...");
+                continue;
+            }
+
+            ImageConverter converter = new ImageConverter(slice.width, slice.height, path);
+            for (Texture texture : slice.textures) {
+                Path texturePath = guiPath.resolve(texture.path);
+                ensureParentExists(texturePath);
+                if (!testPredicate(gson, texture.predicate))
                     continue;
-                }
-
-                ImageConverter converter = new ImageConverter(slice.width, slice.height, path);
-                for (Texture texture : slice.textures) {
-                    Path texturePath = guiPath.resolve(texture.path);
-                    ensureParentExists(texturePath);
-                    if (!testPredicate(gson, texture.predicate))
-                        continue;
-
+                try {
                     converter.slice_and_save(
                         texture.position.x, 
                         texture.position.y, 
@@ -101,16 +101,19 @@ public class SlicerConverter extends Converter {
 
                     Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
                     write_json(metadataPath, metadata);
+                } catch (Exception exception) {
+                    Logger.log("Failed to slice texture '" + texture.path + "'");
+                    Logger.log("  - position: (x=" + texture.position.x + ", y=" + texture.position.y + ")");
+                    Logger.log("  - width: " + texture.width);
+                    Logger.log("  - height: " + texture.height);
                 }
-
-                if (!slice.delete)
-                    continue;
-                
-                if (!path.toFile().delete())
-                    Logger.log("Failed to remove " + pack.getFileName() + " after slicing.");
-            } catch (Exception exception) {
-                Logger.log("Failed to slice '" + slice.path + "'. Reason: '" + exception.getLocalizedMessage() + "'");
             }
+
+            if (!slice.delete)
+                continue;
+            
+            if (!path.toFile().delete())
+                Logger.log("Failed to remove " + pack.getFileName() + " after slicing.");
         }
     }
 
