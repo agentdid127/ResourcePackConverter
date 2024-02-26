@@ -104,10 +104,10 @@ public class ImageConverter {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
 
-        int width2 = Math.round((float) (x2 * scaleW - x * scaleW));
-        int height2 = Math.round((float) (y2 * scaleH - y * scaleH));
-        int x3 = Math.round((float) (x * scaleW));
-        int y3 = Math.round((float) (y * scaleH));
+        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int height2 = (int) (y2 * scaleH - y * scaleH);
+        int x3 = (int) (x * scaleW);
+        int y3 = (int) (y * scaleH);
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
         g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
