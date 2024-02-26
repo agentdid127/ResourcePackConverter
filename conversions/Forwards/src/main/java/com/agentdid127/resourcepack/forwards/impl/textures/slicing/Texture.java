@@ -14,6 +14,7 @@ public class Texture {
     public Position position;
     public int width;
     public int height;
+    public boolean remove;
     public JsonObject predicate;
     public JsonObject metadata;
 
@@ -42,21 +43,33 @@ public class Texture {
         }
     }
 
-    public Texture(String path, Position position, int width, int height, JsonObject predicate, JsonObject metadata) {
+    public Texture(String path, Position position, int width, int height, boolean remove, JsonObject predicate, JsonObject metadata) {
         this.path = path;
         this.position = position;
         this.width = width;
         this.height = height;
+        this.remove = remove;
         this.predicate = predicate;
         this.metadata = metadata;
     }
 
-    public Texture(String path, Position position, int width, int height, JsonObject predicate) {
+    public Texture(String path, Position position, int width, int height, boolean remove, JsonObject predicate) {
         this.path = path;
         this.position = position;
         this.width = width;
         this.height = height;
+        this.remove = remove;
         this.predicate = predicate;
+        this.metadata = new JsonObject();
+    }
+
+    public Texture(String path, Position position, int width, int height, boolean remove) {
+        this.path = path;
+        this.position = position;
+        this.width = width;
+        this.height = height;
+        this.remove = remove;
+        this.predicate = new JsonObject();
         this.metadata = new JsonObject();
     }
 
@@ -65,6 +78,7 @@ public class Texture {
         this.position = position;
         this.width = width;
         this.height = height;
+        this.remove = false;
         this.predicate = new JsonObject();
         this.metadata = new JsonObject();
     }
@@ -77,7 +91,11 @@ public class Texture {
             String path = textureObject.get("path").getAsString();
             Position position = Position.parse(textureObject.get("position").getAsJsonObject());
             int width = textureObject.get("width").getAsInt();
-            int height = textureObject.get("height").getAsInt();    
+            int height = textureObject.get("height").getAsInt();  
+            
+            boolean remove = false;
+            if (textureObject.has("remove")) 
+                remove = textureObject.get("remove").getAsBoolean();    
 
             JsonObject predicate;
             if (textureObject.has("predicate")) 
@@ -91,7 +109,7 @@ public class Texture {
                 metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : metatdataCache.getOrDefault(metadataElement.getAsString(), new JsonObject());
             } else metadata = new JsonObject();
 
-            textures.add(new Texture(path, position, width, height, predicate, metadata));
+            textures.add(new Texture(path, position, width, height, remove, predicate, metadata));
         }
         
         return textures.toArray(new Texture[] {});

@@ -1216,5 +1216,298 @@
                 "height": 20
             }
         ]
-    } // containers
+    },
+    {
+        "path": "book.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/widget/page_forward.png",
+                "position": { "x": 0, "y": 192 },
+                "width": 23,
+                "height": 13,
+                "remove": true
+            },
+            {
+                "path": "sprites/widget/page_forward_highlighted.png",
+                "position": { "x": 23, "y": 192 },
+                "width": 23,
+                "height": 13,
+                "remove": true
+            },
+            {
+                "path": "sprites/widget/page_backward.png",
+                "position": { "x": 0, "y": 205 },
+                "width": 23,
+                "height": 13,
+                "remove": true
+            },
+            {
+                "path": "sprites/widget/page_backward_highlighted.png",
+                "position": { "x": 23, "y": 205 },
+                "width": 23,
+                "height": 13,
+                "remove": true
+            }
+        ]
+    },
+    
+    // Containers
+    {
+        "path": "container/creative_inventory/tabs.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_1.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_2.png",
+                "position": { "x": 26, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_3.png",
+                "position": { "x": 52, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_4.png",
+                "position": { "x": 78, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_5.png",
+                "position": { "x": 104, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_6.png",
+                "position": { "x": 130, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_7.png",
+                "position": { "x": 156, "y": 0 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_1.png",
+                "position": { "x": 0, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_2.png",
+                "position": { "x": 26, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_3.png",
+                "position": { "x": 52, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_4.png",
+                "position": { "x": 78, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_5.png",
+                "position": { "x": 104, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_6.png",
+                "position": { "x": 130, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_7.png",
+                "position": { "x": 156, "y": 32 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_1.png",
+                "position": { "x": 0, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_2.png",
+                "position": { "x": 26, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_3.png",
+                "position": { "x": 52, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_4.png",
+                "position": { "x": 78, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_5.png",
+                "position": { "x": 104, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_6.png",
+                "position": { "x": 130, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_7.png",
+                "position": { "x": 156, "y": 64 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_1.png",
+                "position": { "x": 0, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_2.png",
+                "position": { "x": 26, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_3.png",
+                "position": { "x": 52, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_4.png",
+                "position": { "x": 78, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_5.png",
+                "position": { "x": 104, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_6.png",
+                "position": { "x": 130, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_7.png",
+                "position": { "x": 156, "y": 96 },
+                "width": 26,
+                "height": 32
+            },
+            {
+                "path": "sprites/container/creative_inventory/scroller.png",
+                "position": { "x": 232, "y": 0 },
+                "width": 12,
+                "height": 15
+            },
+            {
+                "path": "sprites/container/creative_inventory/scroller_disabled.png",
+                "position": { "x": 244, "y": 0 },
+                "width": 12,
+                "height": 15
+            }
+        ]
+    },
+
+    {
+        "path": "container/stats_icons.png",
+        "width": 128,
+        "height": 128,
+        "textures": [
+            {
+                "path": "sprites/container/slot.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/sort_down.png", 
+                "position": { "x": 18, "y": 0 }, 
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/sort_up.png", 
+                "position": { "x": 36, "y": 0 }, 
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/header.png",
+                "position": { "x": 0, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/item_crafted.png",
+                "position": { "x": 18, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/item_used.png", 
+                "position": { "x": 36, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/block_mined.png", 
+                "position": { "x": 54, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/item_broken.png", 
+                "position": { "x": 72, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/item_picked_up.png", 
+                "position": { "x": 90, "y": 18 },
+                "width": 18,
+                "height": 18
+            },
+            {
+                "path": "sprites/statistics/item_dropped.png", 
+                "position": { "x": 108, "y": 18 },
+                "width": 18,
+                "height": 18
+            }
+        ]
+    }
 ]
