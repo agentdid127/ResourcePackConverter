@@ -26,6 +26,8 @@ public class Options {
 
     public static final OptionSpec<Void> MINIFY = PARSER.accepts("minify", "Minify the json files.");
 
+    public static final OptionSpec<Void> UNSTABLE = PARSER.accepts("unstable", "Use Unstable Features.");
+
     public static class PathConverter implements ValueConverter<Path> {
         @Override
         public Path convert(String s) {

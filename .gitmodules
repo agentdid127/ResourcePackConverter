@@ -1,4 +1,0 @@
-[submodule "convert"]
-	path = convert
-	url = https://github.com/agentdid127/ConverterTools
-	branch = main

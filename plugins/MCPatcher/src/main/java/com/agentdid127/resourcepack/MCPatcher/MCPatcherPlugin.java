@@ -24,14 +24,14 @@ public class MCPatcherPlugin extends RPPlugin {
           "1.12.2")
           && Util.getVersionProtocol(pc.getGson(), getTo()) >= Util.getVersionProtocol(
           pc.getGson(), "1.13")) {
-        getConverters().add(new MCPatcherConverter(pc));
+        getRunners().add(new MCPatcherConverter(pc));
       }
     }
   }
 
   @Override
   public void onUnload() {
-    getConverters().clear();
+    getRunners().clear();
     Logger.log("MCPatcher Plugin Unloaded.");
   }
 }
