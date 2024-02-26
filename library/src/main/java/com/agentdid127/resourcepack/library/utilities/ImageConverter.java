@@ -86,10 +86,10 @@ public class ImageConverter {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
 
-        int width2 = Math.round((float) (x2 * scaleW - x * scaleW));
-        int height2 = Math.round((float) (y2 * scaleH - y * scaleH));
-        int x3 = Math.round((float) (x * scaleW));
-        int y3 = Math.round((float) (y * scaleH));
+        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int height2 = (int) (y2 * scaleH - y * scaleH);
+        int x3 = (int) (x * scaleW);
+        int y3 = (int) (y * scaleH);
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
         g2d.drawImage(part, Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
@@ -179,14 +179,14 @@ public class ImageConverter {
 
     // Returns the Width Multiplier and Height Multiplier variables
     public double getWidthMultiplier() { 
-        double wMultiplier = imageWidth / defaultW;
+        double wMultiplier = (double)imageWidth / (double)defaultW;
         // Make sure to not have 0 multiplier or cause issues!
         wMultiplier = wMultiplier == 0 ? 1 : wMultiplier;
         return wMultiplier;
     }
 
     public double getHeightMultiplier() {
-        double hMultiplier = imageHeight / defaultH;
+        double hMultiplier = (double)imageHeight / (double)defaultH;
         // Make sure to not have 0 multiplier or cause issues!
         hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         return hMultiplier;
