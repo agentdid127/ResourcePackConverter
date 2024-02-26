@@ -362,10 +362,8 @@
             },
 
             // TODO: Hardcore Hearts
-            // TODO: oss bar (1.8) maybe
 
-            // TODO: Attack Indicators
-            // TODO: Ping/Server Bars
+            // TODO: Boss bar (1.8) maybe
 
             // XP Bars
             {
@@ -398,6 +396,120 @@
                 "width": 182, 
                 "height": 5
             },
+
+            // Attack Indicators
+            {
+                "path": "sprites/hud/hotbar_attack_indicator_background.png",
+                "position": { "x": 0, "y": 94 },
+                "width": 18, 
+                "height": 18,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_attack_indicator_background.png",
+                "position": { "x": 18, "y": 94 },
+                "width": 18, 
+                "height": 18,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/crosshair_attack_indicator_background.png",
+                "position": { "x": 36, "y": 94 },
+                "width": 16, 
+                "height": 4,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/crosshair_attack_indicator_progress.png",
+                "position": { "x": 52, "y": 94 },
+                "width": 16, 
+                "height": 4,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+
+            // Server List Pinging/Ping Bars
+            {
+                "path": "sprites/server_list/ping_5.png", 
+                "position": { "x": 0, "y": 176 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/ping_4.png", 
+                "position": { "x": 0, "y": 184 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/ping_3.png", 
+                "position": { "x": 0, "y": 192 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/ping_2.png", 
+                "position": { "x": 0, "y": 200 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/ping_1.png", 
+                "position": { "x": 0, "y": 208 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/pinging_1.png", 
+                "position": { "x": 10, "y": 176 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/pinging_2.png", 
+                "position": { "x": 10, "y": 184 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/pinging_3.png", 
+                "position": { "x": 10, "y": 192 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/pinging_4.png", 
+                "position": { "x": 10, "y": 200 }, 
+                "width": 10, 
+                "height": 8
+            },
+            {
+                "path": "sprites/server_list/pinging_5.png", 
+                "position": { "x": 10, "y": 208 }, 
+                "width": 10, 
+                "height": 8
+            },
+            
+            // Ping Icons
             {
                 "path": "sprites/icon/ping_5.png", 
                 "position": { "x": 0, "y": 176 }, 
