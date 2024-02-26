@@ -70,7 +70,7 @@ public class ImageConverter {
 
     // Creates a new Image to store
     public void newImage(int newWidth, int newHeight) {
-        newImage = new BufferedImage(newWidth * getWidthMultiplier(), newHeight * getHeightMultiplier(), BufferedImage.TYPE_INT_ARGB);
+        newImage = new BufferedImage(Math.round((float) (newWidth * getWidthMultiplier())), Math.round((float) (newHeight * getHeightMultiplier())), BufferedImage.TYPE_INT_ARGB);
         g2d = (Graphics2D) newImage.getGraphics();
     }
 
@@ -78,21 +78,21 @@ public class ImageConverter {
         if (!imagePath.toFile().exists())
             return;
         BufferedImage image = ImageIO.read(imagePath.toFile());
-        g2d.drawImage(image, x * getWidthMultiplier(), y * getHeightMultiplier(), null);
+        g2d.drawImage(image, Math.round((float) (x * getWidthMultiplier())), Math.round((float) (y * getHeightMultiplier())), null);
     }
 
     // Takes part of an image and stores it in the new image
-    public void subImage(int x, int y, int x2, int y2, int storex, int storey) {
-        int wMultiplier = getWidthMultiplier();
-        int hMultiplier = getHeightMultiplier();
+    public void subImage(int x, int y, int x2, int y2, int storeX, int storeY) {
+        double scaleW = getWidthMultiplier();
+        double scaleH = getHeightMultiplier();
 
-        int width2 = x2 * wMultiplier - x * wMultiplier;
-        int height2 = y2 * hMultiplier - y * hMultiplier;
-        int x3 = x == 0 ? 0 : x * wMultiplier;
-        int y3 = y == 0 ? 0 : y * hMultiplier;
+        int width2 = Math.round((float) (x2 * scaleW - x * scaleW));
+        int height2 = Math.round((float) (y2 * scaleH - y * scaleH));
+        int x3 = Math.round((float) (x * scaleW));
+        int y3 = Math.round((float) (y * scaleH));
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(part, storex * wMultiplier, storey * hMultiplier, null);
+        g2d.drawImage(part, Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
     public void subImage(int x, int y, int x2, int y2) {
@@ -100,17 +100,17 @@ public class ImageConverter {
     }
 
     // Takes a part of an image and flips it either horizontally or vertically
-    public void subImage(int x, int y, int x2, int y2, int storex, int storey, boolean flip) {
-        int wMultiplier = getWidthMultiplier();
-        int hMultiplier = getHeightMultiplier();
-        
-        int width2 = x2 * wMultiplier - x * wMultiplier;
-        int height2 = y2 * hMultiplier - y * hMultiplier;
-        int x3 = x == 0 ? 0 : x * wMultiplier;
-        int y3 = y == 0 ? 0 : y * hMultiplier;
+    public void subImage(int x, int y, int x2, int y2, int storeX, int storeY, boolean flip) {
+        double scaleW = getWidthMultiplier();
+        double scaleH = getHeightMultiplier();
+
+        int width2 = Math.round((float) (x2 * scaleW - x * scaleW));
+        int height2 = Math.round((float) (y2 * scaleH - y * scaleH));
+        int x3 = Math.round((float) (x * scaleW));
+        int y3 = Math.round((float) (y * scaleH));
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(createFlipped(part, flip), storex * wMultiplier, storey * hMultiplier, null);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
     // Only allows for the number 1 and flips it both horizontally and vertically
@@ -178,15 +178,15 @@ public class ImageConverter {
     }
 
     // Returns the Width Multiplier and Height Multiplier variables
-    public int getWidthMultiplier() { 
-        int wMultiplier = imageWidth / defaultW;
+    public double getWidthMultiplier() { 
+        double wMultiplier = imageWidth / defaultW;
         // Make sure to not have 0 multiplier or cause issues!
         wMultiplier = wMultiplier == 0 ? 1 : wMultiplier;
         return wMultiplier;
     }
 
-    public int getHeightMultiplier() {
-        int hMultiplier = imageHeight / defaultH;
+    public double getHeightMultiplier() {
+        double hMultiplier = imageHeight / defaultH;
         // Make sure to not have 0 multiplier or cause issues!
         hMultiplier = hMultiplier == 0 ? 1 : hMultiplier;
         return hMultiplier;
