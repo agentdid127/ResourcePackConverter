@@ -4,7 +4,9 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -166,28 +168,8 @@ public class ModelConverter extends Converter {
                 // fix display settings for packs for 1.8
                 if (jsonObject.has("display") && from > Util.getVersionProtocol(packConverter.getGson(), "1.8")
                         && version == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
-                    JsonObject display = jsonObject.getAsJsonObject("display");
-
-                    if (display.has("firstperson_righthand")) {
-                        display.add("firstperson", display.get("firstperson_righthand"));
-                        // found a possible bug and fixed it ^ "firstperson_righthan" ->
-                        // "firstperson_righthand"
-                        display.remove("firstperson_righthand");
-                    }
-
-                    if (display.has("firstperson_lefthand"))
-                        display.remove("firstperson_lefthand");
-
-                    if (display.has("thirdperson_righthand")) {
-                        display.add("thirdperson", display.get("thirdperson_righthand"));
-                        display.remove("thirdperson_righthand");
-                    }
-
-                    if (display.has("thirdperson_lefthand"))
-                        display.remove("thirdperson_lefthand");
-
-                    jsonObject.remove("display");
-                    jsonObject.add("display", display);
+                    JsonObject display = jsonObject.remove("display").getAsJsonObject();
+                    jsonObject.add("display", updateDisplay(packConverter.getGson(), display));
                 }
 
                 if (jsonObject.has("overrides")) {
@@ -294,5 +276,142 @@ public class ModelConverter extends Converter {
             return "";
         }
         return file.has(parent2) ? prefix + file.get(parent2).getAsString() : parent;
+    }
+
+    protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
+        JsonObject defaults = Util.readJsonResource(gson, "/backwards/display.json");
+        if (display == null) {
+            return defaults.deepCopy();
+        }
+
+        // First Person
+        boolean found = false;
+        JsonObject firstPerson = defaults.get("firstperson").getAsJsonObject().deepCopy();
+        if (display.has("firstperson_righthand")) {
+            firstPerson = updateDisplayFirstPerson(gson, display.remove("firstperson_righthand").getAsJsonObject());
+            found = true;
+        }
+        if (display.has("firstperson_lefthand")) {
+            JsonObject firstPersonLeft = display.remove("firstperson_lefthand").getAsJsonObject();
+            if (!found) {
+                firstPerson = updateDisplayFirstPerson(gson, getLeftHand(gson, firstPersonLeft));
+            }
+        }
+        display.remove("firstperson");
+        display.add("firstperson", firstPerson);
+
+        // Third Person
+        found = false;
+        JsonObject thirdPerson = defaults.get("thirdperson").getAsJsonObject().deepCopy();
+        if (display.has("thirdperson_righthand")) {
+            thirdPerson = updateDisplayThirdPerson(gson, display.remove("thirdperson_righthand").getAsJsonObject());
+            found = true;
+        }
+        if (display.has("thirdperson_lefthand")) {
+            JsonObject thirdPersonLeft = display.remove("thirdperson_lefthand").getAsJsonObject();
+            if (!found) {
+                thirdPerson = updateDisplayThirdPerson(gson, getLeftHand(gson, thirdPersonLeft));
+            }
+        }
+        display.remove("thirdperson");
+        display.add("thirdperson", thirdPerson);
+
+        if (display.has("ground")) {
+            display.remove("ground");
+        }
+
+        if (display.has("head")) {
+            display.remove("head");
+        }
+
+        return display;
+    }
+
+    private static JsonObject getLeftHand(Gson gson, JsonObject old) {
+        JsonObject newObject = old.deepCopy();
+        if (old.has("rotation")) {
+            JsonArray oldRotation = newObject.remove("rotation").getAsJsonArray();
+            JsonArray rotation = new JsonArray();
+            rotation.add(oldRotation.get(0).getAsNumber());
+            rotation.add(0 - oldRotation.get(1).getAsDouble());
+            rotation.add(0 - oldRotation.get(2).getAsDouble());
+            newObject.add("rotation",
+                rotation);
+        }
+
+        return newObject;
+    }
+
+    private static JsonObject updateDisplayFirstPerson(Gson gson, JsonObject old) {
+        JsonObject newObject = old.deepCopy();
+        if (old.has("rotation")) {
+            JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
+            newObject.add("rotation",
+                JsonUtil.subtract(
+                    rotation,
+                    JsonUtil.asArray(gson, "[0, 45, 0]")));
+        }
+
+        if (old.has("translation")) {
+            JsonArray translation = newObject.remove("translation").getAsJsonArray();
+            newObject.add("translation",
+                JsonUtil.subtract(
+                    JsonUtil.divide(
+                        JsonUtil.add(
+                            translation,
+                            JsonUtil.asArray(gson, "[0, 4, 2]")
+                        ),
+                        JsonUtil.asArray(gson, "[0.4, 0.4, 0.4]")
+                    ),
+                    JsonUtil.asArray(gson, "[1.13, 3.2, 1.13]")));
+        }
+
+        if (old.has("scale")) {
+            JsonArray scale = newObject.remove("scale").getAsJsonArray();
+            newObject.add("scale",
+                JsonUtil.divide(
+                    scale,
+                    JsonUtil.asArray(gson, "[0.4, 0.4, 0.4]"))
+            );
+        }
+
+        return newObject;
+    }
+
+    private static JsonObject updateDisplayThirdPerson(Gson gson, JsonObject old) {
+        JsonObject newObject = old.deepCopy();
+        if (old.has("rotation")) {
+            JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
+            newObject.add("rotation",
+                JsonUtil.subtract(
+                    JsonUtil.divide(
+                        rotation,
+                        JsonUtil.asArray(gson, "[1, -1, -1]")
+                    ),
+                    JsonUtil.asArray(gson, "[0, 0, 20]")
+                )
+            );
+        }
+
+        if (old.has("translation")) {
+            JsonArray translation = newObject.remove("translation").getAsJsonArray();
+            newObject.add("translation",
+                JsonUtil.add(
+                    JsonUtil.multiply(
+                        translation,
+                        JsonUtil.asArray(gson, "[1, 1, -1]")
+                    ),
+                    JsonUtil.asArray(gson, "[0, 2.75, -3]")
+                )
+            );
+        }
+
+        // For keeping order
+        if (old.has("scale")) {
+            JsonArray scale = newObject.remove("scale").getAsJsonArray();
+            newObject.add("scale", scale);
+        }
+
+        return newObject;
     }
 }
