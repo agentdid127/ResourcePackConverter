@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Texture;
@@ -61,6 +60,7 @@ public class SlicerConverter extends Converter {
                 ensureParentExists(texturePath);
                 if (!testPredicate(gson, texture.predicate))
                     continue;
+                    
                 try {
                     converter.saveSlice(
                         texture.position.x, 
@@ -69,6 +69,14 @@ public class SlicerConverter extends Converter {
                         texture.height, 
                         texturePath);
 
+                    if (texture.remove) {
+                        converter.fillEmpty(
+                            texture.position.x, 
+                            texture.position.y, 
+                            texture.width,
+                            texture.height);
+                    }
+
                     JsonObject metadata = texture.metadata;
                     if (metadata.keySet().isEmpty() || metadata.entrySet().isEmpty())
                         continue;
@@ -76,15 +84,17 @@ public class SlicerConverter extends Converter {
                     Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
                     write_json(metadataPath, metadata);
                 } catch (Exception exception) {
-                    Logger.log("Failed to slice texture '" + texture.path + "'");
+                    Logger.log("Failed to slice texture '" + texture.path + "' (error='" + exception.getLocalizedMessage() + "')");
                     Logger.log("  - position: (x=" + texture.position.x + ", y=" + texture.position.y + ")");
                     Logger.log("  - width: " + texture.width);
                     Logger.log("  - height: " + texture.height);
                 }
             }
 
-            if (!slice.delete)
+            if (!slice.delete) {
+                converter.store();
                 continue;
+            }
             
             if (!path.toFile().delete())
                 Logger.log("Failed to remove " + pack.getFileName() + " after slicing.");
@@ -128,4 +138,4 @@ public class SlicerConverter extends Converter {
     private void write_json(Path path, JsonObject object) throws IOException {
         Files.write(path, object.toString().getBytes());
     }
-} 
+}
