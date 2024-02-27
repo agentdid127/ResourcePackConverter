@@ -354,19 +354,13 @@ public class ModelConverter extends Converter {
         }
 
         if (!display.has("ground")) {
-            JsonObject ground = new JsonObject();
-            ground.add("rotation", asArray(gson, "[0, 0, 0]"));
-            ground.add("translation", asArray(gson, "[0, 2, 0]"));
-            ground.add("scale", asArray(gson, "[0.5, 0.5, 0.5]"));
-            display.add("ground", ground);
+            display.add("ground",
+                defaults.get("ground").getAsJsonObject().deepCopy());
         }
 
         if (!display.has("head")) {
-            JsonObject head = new JsonObject();
-            head.add("rotation", asArray(gson, "[0, 180, 0]"));
-            head.add("translation", asArray(gson, "[0, 13, 0]"));
-            head.add("scale", asArray(gson, "[1, 1, 1]"));
-            display.add("head", head);
+            display.add("head",
+                defaults.get("head").getAsJsonObject().deepCopy());
         }
 
         return display;
