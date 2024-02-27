@@ -311,18 +311,62 @@ public class ModelConverter extends Converter {
     }
 
     protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
-        if (display.has("firstperson")) {
-            JsonObject firstPerson = display.remove("firstperson").getAsJsonObject();
-            JsonObject rightHand =  updateDisplayFirstPerson(gson, firstPerson);
-            display.add("firstperson_righthand", rightHand);
-            display.add("firstperson_lefthand", getLeftHand(gson, rightHand));
+        JsonObject defaults = Util.readJsonResource(gson, "/forwards/display.json");
+        if (display == null) {
+            display = defaults.deepCopy();
+            return display;
         }
 
+        // First Person
+        if (display.has("firstperson")) {
+            JsonObject firstPerson = display.remove("firstperson").getAsJsonObject();
+            display.add("firstperson_righthand",
+                updateDisplayFirstPerson(gson, firstPerson));
+        } else if (!display.has("firstperson_righthand")) {
+            JsonObject rightHand = defaults.get("firstperson_righthand")
+                .getAsJsonObject().deepCopy();
+            display.add("firstperson_righthand", rightHand);
+        }
+
+        if (!display.has("firstperson_lefthand")) {
+            display.add("firstperson_lefthand",
+                getLeftHand(gson,
+                    display.get("firstperson_righthand").getAsJsonObject().deepCopy()
+                ));
+        }
+
+        // Third Person
         if (display.has("thirdperson")) {
             JsonObject thirdPerson = display.remove("thirdperson").getAsJsonObject();
-            JsonObject rightHand = updateDisplayThirdPerson(gson, thirdPerson);
+            display.add("thirdperson_righthand",
+                updateDisplayThirdPerson(gson, thirdPerson));
+        } else if (!display.has("thirdperson_righthand")) {
+            JsonObject rightHand = defaults.get("thirdperson_righthand")
+                .getAsJsonObject().deepCopy();
             display.add("thirdperson_righthand", rightHand);
-            display.add("thirdperson_lefthand", getLeftHand(gson, rightHand));
+        }
+
+        if (!display.has("thirdperson_lefthand")) {
+            display.add("thirdperson_lefthand",
+                getLeftHand(gson,
+                    display.get("thirdperson_righthand").getAsJsonObject().deepCopy()
+                ));
+        }
+
+        if (!display.has("ground")) {
+            JsonObject ground = new JsonObject();
+            ground.add("rotation", asArray(gson, "[0, 0, 0]"));
+            ground.add("translation", asArray(gson, "[0, 2, 0]"));
+            ground.add("scale", asArray(gson, "[0.5, 0.5, 0.5]"));
+            display.add("ground", ground);
+        }
+
+        if (!display.has("head")) {
+            JsonObject head = new JsonObject();
+            head.add("rotation", asArray(gson, "[0, 180, 0]"));
+            head.add("translation", asArray(gson, "[0, 13, 0]"));
+            head.add("scale", asArray(gson, "[1, 1, 1]"));
+            display.add("head", head);
         }
 
         return display;
