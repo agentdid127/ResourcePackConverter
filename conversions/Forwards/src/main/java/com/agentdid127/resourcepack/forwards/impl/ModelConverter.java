@@ -5,6 +5,7 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -105,6 +106,12 @@ public class ModelConverter extends Converter {
 
                         // handle the remapping of textures, for models that use default texture names
                         jsonObject = packConverter.getGson().fromJson(content, JsonObject.class);
+
+                        if (jsonObject.keySet().isEmpty() || jsonObject.entrySet().isEmpty()) {
+                            Logger.log("Model '" + model.getFileName() + "' was empty, skipping...");
+                            return;
+                        }
+
                         if (jsonObject.has("textures") && jsonObject.get("textures").isJsonObject()) {
                             NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
 
@@ -113,6 +120,14 @@ public class ModelConverter extends Converter {
                             for (Map.Entry<String, JsonElement> entry : initialTextureObject.entrySet()) {
                                 String value = entry.getValue().getAsString();
                                 textureObject.remove(entry.getKey());
+                                // 1.8 mappings
+                                if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
+                                    if (entry.getKey().equals("layer0")
+                                        && (!value.startsWith(path.getFileName().toString())
+                                        && !value.startsWith("minecraft:" + path.getFileName().toString())))
+                                        value = path.getFileName() + "/" + value;
+                                }
+
                                 // 1.13 Mappings
                                 if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                     if (value.startsWith("block/")) {
@@ -172,33 +187,28 @@ public class ModelConverter extends Converter {
                                     }
                                 }
 
+                                //1.19.3 Mappings
                                 if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
                                         && from < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
                                     if (!value.startsWith("minecraft:") && !value.startsWith("#"))
                                         value = "minecraft:" + value;
                                 }
+
                                 if (!textureObject.has(entry.getKey()))
                                     textureObject.addProperty(entry.getKey(), value);
                             }
+
                             jsonObject.remove("textures");
                             jsonObject.add("textures", textureObject);
                         }
+
                         // fix display settings for packs from 1.8
                         if (jsonObject.has("display")
                                 && from == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
-                            JsonObject display = jsonObject.getAsJsonObject("display");
-                            if (display.has("firstperson")) {
-                                display.add("firstperson_righthand", display.get("firstperson"));
-                                display.remove("firstperson");
-
-                            }
-                            if (display.has("thirdperson")) {
-                                display.add("thirdperson_righthand", display.get("thirdperson"));
-                                display.remove("thirdperson");
-                            }
-                            jsonObject.remove("display");
+                            JsonObject display = updateDisplay(packConverter.getGson(), jsonObject.remove("display").getAsJsonObject());
                             jsonObject.add("display", display);
                         }
+
                         if (jsonObject.has("overrides")) {
                             for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
 
@@ -307,5 +317,125 @@ public class ModelConverter extends Converter {
             Logger.log("Prefix Failed on: " + parent);
             return "";
         }
+    }
+
+    protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
+        if (display.has("firstperson")) {
+            JsonObject firstperson = display.remove("firstperson").getAsJsonObject();
+            display.add("firstperson_righthand", updateDisplayFirstPerson(gson, firstperson));
+        }
+
+        if (display.has("thirdperson")) {
+            JsonObject thirdperson = display.remove("thirdperson").getAsJsonObject();
+            display.add("thirdperson_righthand", updateDisplayThirdPerson(gson, thirdperson));
+        }
+
+        return display;
+    }
+
+    private static JsonObject updateDisplayFirstPerson(Gson gson, JsonObject old) {
+        JsonObject newObject = old.deepCopy();
+        if (old.has("rotation")) {
+            JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
+            newObject.add("rotation",
+                add(
+                    rotation,
+                    asArray(gson, "[0, 45, 0]")));
+        }
+
+        if (old.has("translation")) {
+            JsonArray translation = newObject.remove("translation").getAsJsonArray();
+            newObject.add("translation",
+                add(
+                    multiply(
+                        subtract(
+                            translation,
+                            asArray(gson, "[0, 4, 2]")
+                        ),
+                        asArray(gson, "[0.4, 0.4, 0.4]")
+                    ),
+                    asArray(gson, "[1.13, 3.2, 1.13]")));
+        }
+
+        if (old.has("scale")) {
+            JsonArray scale = newObject.remove("scale").getAsJsonArray();
+            newObject.add("scale",
+                multiply(
+                    scale,
+                    asArray(gson, "[0.4, 0.4, 0.4]"))
+            );
+        }
+
+        return newObject;
+    }
+
+    private static JsonObject updateDisplayThirdPerson(Gson gson, JsonObject old) {
+        JsonObject newObject = old.deepCopy();
+        if (old.has("rotation")) {
+            JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
+            newObject.add("rotation",
+                add(
+                    multiply(
+                        rotation,
+                        asArray(gson, "[0, -1, -1]")
+                    ),
+                    asArray(gson, "[0, 0, 20]")
+                )
+            );
+        }
+
+        if (old.has("translation")) {
+            JsonArray translation = newObject.remove("translation").getAsJsonArray();
+            newObject.add("translation", add(
+                multiply(
+                    translation,
+                    asArray(gson, "[1, 1, -1]")
+                ),
+                asArray(gson, "[0, 2.75, -3]")
+            ));
+        }
+
+        // For keeping order
+        if (old.has("scale")) {
+            JsonArray scale = newObject.remove("scale").getAsJsonArray();
+            newObject.add("scale", scale);
+        }
+
+        return newObject;
+    }
+
+    // Math
+    private static JsonArray add(JsonArray lhs, JsonArray rhs) {
+        return add(lhs, rhs, (byte)1);
+    }
+
+    private static JsonArray add(JsonArray lhs, JsonArray rhs, byte sign) {
+        JsonArray newArray = new JsonArray();
+        for (int i = 0; i < 3; i++)
+            newArray.add(add(lhs, rhs, i, sign));
+        return newArray;
+    }
+
+    private static float add(JsonArray lhs, JsonArray rhs, int i, byte sign) {
+        return lhs.get(i).getAsFloat() + sign * rhs.get(i).getAsFloat();
+    }
+
+    private static float multiply(JsonArray lhs, JsonArray rhs, int i) {
+        return lhs.get(i).getAsFloat() * rhs.get(i).getAsFloat();
+    }
+
+    private static JsonArray subtract(JsonArray lhs, JsonArray rhs) {
+        return add(lhs, rhs, (byte)-1);
+    }
+
+    private static JsonArray multiply(JsonArray lhs, JsonArray rhs) {
+        JsonArray newArray = new JsonArray();
+        for (int i = 0; i < 3; i++)
+            newArray.add(multiply(lhs, rhs, i));
+        return newArray;
+    }
+
+    private static JsonArray asArray(Gson gson, String raw) {
+        return gson.fromJson(raw, JsonArray.class);
     }
 }
