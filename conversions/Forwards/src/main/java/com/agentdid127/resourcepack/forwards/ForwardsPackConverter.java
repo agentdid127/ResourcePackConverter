@@ -89,16 +89,16 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new InventoryConverter(this));
 
         if (protocol_from < Util.getVersionProtocol(gson, "1.19.3")
-                && protocol_to >= Util.getVersionProtocol(gson, "1.19.3"))
+                && protocol_to >= Util.getVersionProtocol(gson, "1.19.3")) {
             this.registerConverter(new AtlasConverter(this));
-
-        if (protocol_from < Util.getVersionProtocol(gson, "1.19.4")
-                && protocol_to >= Util.getVersionProtocol(gson, "1.19.4")) {
-            this.registerConverter(new EnchantPathConverter(this));
             // this.registerConverter(new CreativeTabsUpdateConverter());
         }
 
-        if (protocol_from <= Util.getVersionProtocol(gson, "1.19.4")
+        if (protocol_from < Util.getVersionProtocol(gson, "1.19.4")
+                && protocol_to >= Util.getVersionProtocol(gson, "1.19.4")) 
+            this.registerConverter(new EnchantPathConverter(this));
+
+        if (protocol_from < Util.getVersionProtocol(gson, "1.20")
                 && protocol_to >= Util.getVersionProtocol(gson, "1.20"))
             this.registerConverter(new TitleConverter(this));
 
