@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -385,31 +386,31 @@ public class ModelConverter extends Converter {
         if (old.has("rotation")) {
             JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
             newObject.add("rotation",
-                add(
+                JsonUtil.add(
                     rotation,
-                    asArray(gson, "[0, 45, 0]")));
+                    JsonUtil.asArray(gson, "[0, 45, 0]")));
         }
 
         if (old.has("translation")) {
             JsonArray translation = newObject.remove("translation").getAsJsonArray();
             newObject.add("translation",
-                add(
-                    multiply(
-                        subtract(
+                JsonUtil.add(
+                    JsonUtil.multiply(
+                        JsonUtil.subtract(
                             translation,
-                            asArray(gson, "[0, 4, 2]")
+                            JsonUtil.asArray(gson, "[0, 4, 2]")
                         ),
-                        asArray(gson, "[0.4, 0.4, 0.4]")
+                        JsonUtil.asArray(gson, "[0.4, 0.4, 0.4]")
                     ),
-                    asArray(gson, "[1.13, 3.2, 1.13]")));
+                    JsonUtil.asArray(gson, "[1.13, 3.2, 1.13]")));
         }
 
         if (old.has("scale")) {
             JsonArray scale = newObject.remove("scale").getAsJsonArray();
             newObject.add("scale",
-                multiply(
+                JsonUtil.multiply(
                     scale,
-                    asArray(gson, "[0.4, 0.4, 0.4]"))
+                    JsonUtil.asArray(gson, "[0.4, 0.4, 0.4]"))
             );
         }
 
@@ -421,12 +422,12 @@ public class ModelConverter extends Converter {
         if (old.has("rotation")) {
             JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
             newObject.add("rotation",
-                add(
-                    multiply(
+                JsonUtil.add(
+                    JsonUtil.multiply(
                         rotation,
-                        asArray(gson, "[1, -1, -1]")
+                        JsonUtil.asArray(gson, "[1, -1, -1]")
                     ),
-                    asArray(gson, "[0, 0, 20]")
+                    JsonUtil.asArray(gson, "[0, 0, 20]")
                 )
             );
         }
@@ -434,12 +435,12 @@ public class ModelConverter extends Converter {
         if (old.has("translation")) {
             JsonArray translation = newObject.remove("translation").getAsJsonArray();
             newObject.add("translation",
-                add(
-                    multiply(
+                JsonUtil.add(
+                    JsonUtil.multiply(
                         translation,
-                        asArray(gson, "[1, 1, -1]")
+                        JsonUtil.asArray(gson, "[1, 1, -1]")
                     ),
-                    asArray(gson, "[0, 2.75, -3]")
+                    JsonUtil.asArray(gson, "[0, 2.75, -3]")
                 )
             );
         }
@@ -451,40 +452,5 @@ public class ModelConverter extends Converter {
         }
 
         return newObject;
-    }
-
-    // Math
-    private static JsonArray add(JsonArray lhs, JsonArray rhs) {
-        return add(lhs, rhs, (byte)1);
-    }
-
-    private static JsonArray add(JsonArray lhs, JsonArray rhs, byte sign) {
-        JsonArray newArray = new JsonArray();
-        for (int i = 0; i < 3; i++)
-            newArray.add(add(lhs, rhs, i, sign));
-        return newArray;
-    }
-
-    private static float add(JsonArray lhs, JsonArray rhs, int i, byte sign) {
-        return lhs.get(i).getAsFloat() + sign * rhs.get(i).getAsFloat();
-    }
-
-    private static float multiply(JsonArray lhs, JsonArray rhs, int i) {
-        return lhs.get(i).getAsFloat() * rhs.get(i).getAsFloat();
-    }
-
-    private static JsonArray subtract(JsonArray lhs, JsonArray rhs) {
-        return add(lhs, rhs, (byte)-1);
-    }
-
-    private static JsonArray multiply(JsonArray lhs, JsonArray rhs) {
-        JsonArray newArray = new JsonArray();
-        for (int i = 0; i < 3; i++)
-            newArray.add(multiply(lhs, rhs, i));
-        return newArray;
-    }
-
-    private static JsonArray asArray(Gson gson, String raw) {
-        return gson.fromJson(raw, JsonArray.class);
     }
 }
