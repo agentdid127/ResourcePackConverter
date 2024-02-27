@@ -313,8 +313,7 @@ public class ModelConverter extends Converter {
     protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
         JsonObject defaults = Util.readJsonResource(gson, "/forwards/display.json");
         if (display == null) {
-            display = defaults.deepCopy();
-            return display;
+            return defaults.deepCopy();
         }
 
         // First Person
