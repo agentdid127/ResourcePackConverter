@@ -69,6 +69,30 @@ public class ImageConverter {
     }
 
     /**
+     * Fill a spot with nothing.
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     */
+    public void fillEmpty(int x, int y, int width, int height) {
+        newImage((int) (imageWidth / getWidthMultiplier()), (int) (imageHeight / getHeightMultiplier()));
+
+        int x1 = scaleX(x);
+        int y1 = scaleY(y);
+        int nw = scaleWidth(width);
+        int nh = scaleHeight(height);
+                
+        g2d.drawImage(image, 0, 0, imageWidth, imageHeight, null);
+
+        g2d.setComposite(AlphaComposite.Clear);
+        g2d.fillRect(x1, y1, nw, nh);
+        g2d.setComposite(AlphaComposite.Src);
+
+        image = newImage;
+    }
+
+    /**
      * Set the current image.
      * @param defaultWIn
      * @param defaultHIn
@@ -311,6 +335,22 @@ public class ImageConverter {
         // Make sure to not have 0 multiplier or cause issues!
         hMultiplier = hMultiplier <= 0 ? 1 : hMultiplier;
         return hMultiplier;
+    }
+
+    public int scaleX(int x) {
+        return (int) (x * getWidthMultiplier());
+    }
+
+    public int scaleY(int y) {
+        return (int) (y * getHeightMultiplier());
+    }
+
+    public int scaleWidth(int width) {
+        return (int) (width * getWidthMultiplier());
+    }
+
+    public int scaleHeight(int height) {
+        return (int) (height * getHeightMultiplier());
     }
 
     public boolean imageIsPowerOfTwo(BufferedImage image) {
