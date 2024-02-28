@@ -233,19 +233,18 @@ public final class Util {
         if (!dir1.exists() && !dir2.exists())
             return null;
 
-        // TODO: another unused variable?
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
-                File file3 = new File(dir1.getAbsolutePath() + File.separator + file.getName());
+                Logger.log(targetDirPath + File.separator + file.getName());
+                File file3 = new File(targetDirPath + File.separator + file.getName());
                 file3.mkdirs();
                 Logger.log("Created" + file3.getName());
                 mergeDirectories(file3, file);
             } else {
-                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
-                file.renameTo(new File(dir1.getAbsolutePath() + File.separator + file.getName()));
+                Logger.log(targetDirPath + File.separator + file.getName());
+                file.renameTo(new File(targetDirPath + File.separator + file.getName()));
             }
         }
 
