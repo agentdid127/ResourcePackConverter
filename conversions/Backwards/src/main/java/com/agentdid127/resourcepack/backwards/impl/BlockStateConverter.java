@@ -128,7 +128,7 @@ public class BlockStateConverter extends Converter {
                 if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
                         && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                     val = nameConverter.getBlockMapping().remap(val);
-                    prefix = prefix.replaceAll("block", "blocks");
+//                    prefix = prefix.replaceAll("block", "blocks");
                     anyChanges = true;
                 }
 
