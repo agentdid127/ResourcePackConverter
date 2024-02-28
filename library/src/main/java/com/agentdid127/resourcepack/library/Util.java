@@ -213,7 +213,16 @@ public final class Util {
      *         {@code false} if failed
      */
     public static Boolean renameFile(Path file, String newName) {
-        return file.toFile().exists() && file.toFile().renameTo(new File(file.getParent() + File.separator + newName));
+        if (!file.toFile().exists()) {
+            return null;
+        }
+        try {
+            Files.move(file, file.getParent().resolve(newName));
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+
     }
 
     /**
