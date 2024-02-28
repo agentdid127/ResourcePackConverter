@@ -371,7 +371,7 @@ public class ModelConverter extends Converter {
         if (old.has("rotation")) {
             JsonArray oldRotation = newObject.remove("rotation").getAsJsonArray();
             JsonArray rotation = new JsonArray();
-            rotation.add(oldRotation.get(0).getAsNumber());
+            rotation.add(oldRotation.get(0).getAsDouble());
             rotation.add(0 - oldRotation.get(1).getAsDouble());
             rotation.add(0 - oldRotation.get(2).getAsDouble());
             newObject.add("rotation",
