@@ -143,16 +143,16 @@ public class ModelConverter extends Converter {
                         // 1.13 Mappings
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                             if (value.startsWith("block/")) {
-                                value = "block/" + nameConverter.getBlockMapping()
-                                        .remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                                value = "blocks/" + nameConverter.getBlockMapping()
+                                        .remap(value.substring("blocks/".length())).toLowerCase().replaceAll("[()]", "");
                                 Logger.log(
-                                        value.substring("block/".length()).toLowerCase().replaceAll("[()]", ""));
+                                        value.substring("blocks/".length()).toLowerCase().replaceAll("[()]", ""));
                                 Logger.log(
                                         nameConverter.getBlockMapping().remap(value.substring("block/".length()))
                                                 .toLowerCase().replaceAll("[()]", ""));
                             } else if (value.startsWith("item/"))
-                                value = "item/" + nameConverter.getItemMapping()
-                                        .remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
+                                value = "items/" + nameConverter.getItemMapping()
+                                        .remap(value.substring("items/".length())).toLowerCase().replaceAll("[()]", "");
                             else
                                 value = value.toLowerCase().replaceAll("[()]", "");
                         }
@@ -239,14 +239,6 @@ public class ModelConverter extends Converter {
                         }
                     }
                 }
-
-                String content = jsonObject.toString();
-                if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                    content = content.replaceAll("item/", "items/");
-                    content = content.replaceAll("block/", "blocks/");
-                    content = content.replaceAll(" ", "_");
-                }
-                jsonObject = packConverter.getGson().fromJson(content, JsonObject.class);
 
                 if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                     if (packConverter.DEBUG)

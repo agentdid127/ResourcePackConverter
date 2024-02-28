@@ -30,7 +30,7 @@ public class WaterConverter extends Converter {
     if (!imageConverter.imageIsPowerOfTwo()) return;
 
     imageConverter.newImage(w, h);
-    imageConverter.colorize(new Color(45, 63, 244));
+    imageConverter.colorize(new Color(45, 63, 244, 170));
     imageConverter.store();
   }
 }
