@@ -54,7 +54,6 @@ public final class Util {
         // noinspection ResultOfMethodCallIgnored
         Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
             file.delete();
-            Logger.log(file.getName());
         });
     }
 

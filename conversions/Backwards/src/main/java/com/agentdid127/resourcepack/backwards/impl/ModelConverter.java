@@ -17,13 +17,17 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ModelConverter extends Converter {
     private int version;
     private int from;
     protected String light = "none";
+
+    protected Path models;
 
     public ModelConverter(PackConverter packConverter, String lightIn, int versionIn, int fromIn) {
         super(packConverter);
@@ -40,7 +44,7 @@ public class ModelConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath()
+        models = pack.getWorkingPath()
                 .resolve("assets" + File.separator + "minecraft" + File.separator + "models");
         if (!models.toFile().exists())
             return;
@@ -90,9 +94,27 @@ public class ModelConverter extends Converter {
                     return;
                 }
 
+                // Parent Stuff
+                if (jsonObject.has("parent")) {
+                    // Change parent to lowercase
+                    for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                        if (entry.getKey().equals("parent")) {
+                            String parent = entry.getValue().getAsString().toLowerCase();
+                            jsonObject.addProperty(entry.getKey(), getParent(parent));
+                        }
+                    }
+                    if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.9")
+                        && version < Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
+
+                        jsonObject = mergeParent(jsonObject, jsonObject.get("parent").getAsString());
+                    }
+
+                }
+
                 // GUI light system for 1.15.2
-                if (!light.equals("none") && (light.equals("front") || light.equals("side")))
-                    jsonObject.addProperty("gui_light", light);
+                if (version < Util.getVersionProtocol(packConverter.getGson(), "1.15.2")) {
+                    jsonObject.remove("gui_light");
+                }
                 // minify the json so we can replace spaces in paths easily
                 // TODO Improvement: handle this in a cleaner way?
 
@@ -103,7 +125,6 @@ public class ModelConverter extends Converter {
                     JsonObject textureObject = initialTextureObject.deepCopy();
                     for (Map.Entry<String, JsonElement> entry : initialTextureObject.entrySet()) {
                         String value = entry.getValue().getAsString();
-                        Logger.log(entry.getKey() + ": " + entry.getValue());
                         textureObject.remove(entry.getKey());
 
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
@@ -143,16 +164,18 @@ public class ModelConverter extends Converter {
                         // 1.13 Mappings
                         if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                             if (value.startsWith("block/")) {
-                                value = "blocks/" + nameConverter.getBlockMapping()
-                                        .remap(value.substring("blocks/".length())).toLowerCase().replaceAll("[()]", "");
-                                Logger.log(
-                                        value.substring("blocks/".length()).toLowerCase().replaceAll("[()]", ""));
-                                Logger.log(
-                                        nameConverter.getBlockMapping().remap(value.substring("block/".length()))
-                                                .toLowerCase().replaceAll("[()]", ""));
+                                List<String> same = Arrays.asList("snow");
+                                String remap = nameConverter.getBlockMapping()
+                                    .remap(value.substring("block/".length())).toLowerCase().replaceAll("[()]", "");
+                                for (String s : same) {
+                                    if (s.equals(value.substring("block/".length()))) {
+                                        remap = s;
+                                    }
+                                }
+                                value = "blocks/" + remap;
                             } else if (value.startsWith("item/"))
                                 value = "items/" + nameConverter.getItemMapping()
-                                        .remap(value.substring("items/".length())).toLowerCase().replaceAll("[()]", "");
+                                        .remap(value.substring("item/".length())).toLowerCase().replaceAll("[()]", "");
                             else
                                 value = value.toLowerCase().replaceAll("[()]", "");
                         }
@@ -168,8 +191,11 @@ public class ModelConverter extends Converter {
                 // fix display settings for packs for 1.8
                 if (jsonObject.has("display") && from > Util.getVersionProtocol(packConverter.getGson(), "1.8")
                         && version == Util.getVersionProtocol(packConverter.getGson(), "1.8")) {
-                    JsonObject display = jsonObject.remove("display").getAsJsonObject();
-                    jsonObject.add("display", updateDisplay(packConverter.getGson(), display));
+                    JsonElement display = jsonObject.remove("display");
+
+                    if (display.isJsonObject()) {
+                        jsonObject.add("display", updateDisplay(packConverter.getGson(), display.getAsJsonObject()));
+                    }
                 }
 
                 if (jsonObject.has("overrides")) {
@@ -193,52 +219,6 @@ public class ModelConverter extends Converter {
                     }
                 }
 
-                // Parent Stuff
-                if (jsonObject.has("parent")) {
-                    // Change parent to lowercase
-                    for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                        if (entry.getKey().equals("parent")) {
-                            String parent = entry.getValue().getAsString().toLowerCase();
-                            parent = parent.replace(" ", "_");
-
-                            // Get block/item parents renamed
-                            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
-                                    && version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
-                                if (parent.startsWith("block/"))
-                                    parent = setParent("block/", "/backwards/blocks.json", parent, "1_19");
-
-                            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.17")
-                                    && version < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
-                                if (parent.startsWith("block/"))
-                                    parent = setParent("block/", "/backwards/blocks.json", parent, "1_17");
-                                if (parent.startsWith("item/"))
-                                    parent = setParent("item/", "/backwards/items.json", parent, "1_17");
-                            }
-
-                            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14")
-                                    && version < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
-                                if (parent.startsWith("block/"))
-                                    parent = setParent("block/", "/backwards/blocks.json", parent, "1_14");
-                                if (parent.startsWith("item/"))
-                                    parent = setParent("item/", "/backwards/items.json", parent, "1_14");
-                            }
-
-                            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                                    && version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                                if (parent.startsWith("block/"))
-                                    parent = setParent("block/", "/backwards/blocks.json", parent, "1_13");
-                                if (parent.startsWith("item/"))
-                                    parent = setParent("item/", "/backwards/items.json", parent, "1_13");
-                            }
-
-                            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
-                                    && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3"))
-                                parent = parent.replaceAll("minecraft:", "");
-
-                            jsonObject.addProperty(entry.getKey(), parent);
-                        }
-                    }
-                }
 
                 if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                     if (packConverter.DEBUG)
@@ -250,6 +230,135 @@ public class ModelConverter extends Converter {
                 throw Util.propagate(e);
             }
         });
+    }
+
+    private String getParent(String parent) {
+        parent = parent.replace(" ", "_");
+
+        // Get block/item parents renamed
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
+            && version < Util.getVersionProtocol(packConverter.getGson(), "1.19.3"))
+            parent = parent.replaceAll("minecraft:", "");
+
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
+            && version < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+            if (parent.startsWith("block/"))
+                parent = setParent("block/", "/backwards/blocks.json", parent, "1_19");
+
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.17")
+            && version < Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
+            if (parent.startsWith("block/"))
+                parent = setParent("block/", "/backwards/blocks.json", parent, "1_17");
+            if (parent.startsWith("item/"))
+                parent = setParent("item/", "/backwards/items.json", parent, "1_17");
+        }
+
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14")
+            && version < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+            if (parent.startsWith("block/"))
+                parent = setParent("block/", "/backwards/blocks.json", parent, "1_14");
+            if (parent.startsWith("item/"))
+                parent = setParent("item/", "/backwards/items.json", parent, "1_14");
+        }
+
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
+            && version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+
+            if (parent.startsWith("block/"))
+                parent = setParent("block/", "/backwards/blocks.json", parent, "1_13");
+            if (parent.startsWith("item/"))
+                parent = setParent("item/", "/backwards/items.json", parent, "1_13");
+
+
+        }
+        return parent;
+    }
+
+    protected JsonObject mergeParent(JsonObject current, String parent) {
+        JsonObject jsonObject = current.deepCopy();
+
+        if (parent == null || !models.resolve(parent + ".json").toFile().exists()) {
+            return jsonObject;
+        }
+        if (!current.has("parent")) {
+            return jsonObject;
+        } else {
+            Path parentPath = models.resolve(parent + ".json");
+
+            try {
+
+                JsonObject parentObj = Util.readJson(packConverter.getGson(), parentPath);
+                if (parentObj != null) {
+                    jsonObject.remove("parent");
+                    if (parentObj.has("parent")) {
+                        String parentStr = parentObj.get("parent").getAsString();
+                        String parentVal = parentStr == null ? null : getParent(parentStr);
+                        jsonObject = mergeParent(parentObj, parentVal);
+                    }
+
+                    if (!jsonObject.has("elements") && current.has("elements")) {
+                        jsonObject.add("elements", current.get("elements"));
+                    }
+
+                    if (!jsonObject.has("elements") && parentObj.has("elements")) {
+                        jsonObject.add("elements", parentObj.get("elements"));
+                    }
+
+                    if (!jsonObject.has("display") && parentObj.has("display")) {
+                        jsonObject.add("display", parentObj.get("display"));
+                    }
+
+                    JsonObject textures = new JsonObject();
+                    if (jsonObject.has("textures")) {
+                        textures = jsonObject.remove("textures").getAsJsonObject();
+                    }
+
+                    if (current.has("textures")) {
+                        for (String s : current.get("textures").getAsJsonObject().keySet()) {
+                            if (!textures.has(s)) {
+                                textures.add(s, current.get("textures").getAsJsonObject().get(s));
+                            }
+                        }
+                    }
+
+                    if (parentObj.has("textures")) {
+                        JsonObject parentTextures = parentObj.get("textures").getAsJsonObject();
+
+                        for (String s : parentTextures.keySet()) {
+                            if (!textures.has(s)) {
+                                textures.add(s, parentTextures.get(s));
+
+
+                            }
+                        }
+                    }
+
+
+                    for (int i = 0; i < 5; i++) {
+                        JsonObject textures2 = new JsonObject();
+                        for (String s : textures.keySet()) {
+                            if (textures.get(s).getAsString().startsWith("#") &&
+                                textures.has(textures.get(s).getAsString().substring(1))) {
+                                textures2.add(s,
+                                    textures.get(textures.get(s).getAsString().substring(1)));
+                            } else {
+                                textures2.add(s, textures.get(s));
+                            }
+                        }
+                        textures = textures2;
+                    }
+
+                    if (textures.keySet().size() > 0) {
+                        jsonObject.add("textures", textures);
+                    }
+                }
+            } catch (IOException e) {
+
+            }
+
+        }
+        return jsonObject;
+
     }
 
     /**

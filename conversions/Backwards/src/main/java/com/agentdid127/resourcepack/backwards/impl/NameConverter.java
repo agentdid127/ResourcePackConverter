@@ -40,7 +40,7 @@ public class NameConverter extends Converter {
 
     /**
      * Fixes folder names and file names
-     * 
+     *
      * @param pack Resource Pack
      * @throws IOException Error handler
      */
@@ -100,33 +100,37 @@ public class NameConverter extends Converter {
         if (textures.toFile().exists()) {
             // 1.19
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19")
-                    && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+                && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19"))
                 renameAll(blockMapping19, ".png", textures.resolve("block"));
 
             // 1.17 Squid
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.17")
-                    && from >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
+                && from >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
                 renameAll(blockMapping17, ".png", textures.resolve("block"));
                 renameAll(itemMapping17, ".png", textures.resolve("item"));
                 renameAll(blockMapping17, ".png", models.resolve("block"));
                 renameAll(itemMapping17, ".png", models.resolve("item"));
-                if (textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png").toFile()
-                        .exists())
-                    Files.move(textures.resolve("entity" + File.separator + "squid" + File.separator + "squid.png"),
-                            textures.resolve("entity" + File.separator + "squid.png"));
+                if (textures.resolve(
+                        "entity" + File.separator + "squid" + File.separator + "squid.png").toFile()
+                    .exists())
+                    Files.move(textures.resolve(
+                            "entity" + File.separator + "squid" + File.separator + "squid.png"),
+                        textures.resolve("entity" + File.separator + "squid.png"));
                 // Files.deleteIfExists(textures.resolve("entity" + File.separator + "squid" +
                 // File.separator));
             }
 
             // 1.16 Iron golems
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.16")
-                    && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
-                if (textures.resolve("entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png")
-                        .toFile().exists())
+                && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
+                if (textures.resolve(
+                        "entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png")
+                    .toFile().exists())
                     Files.move(
-                            textures.resolve(
-                                    "entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png"),
-                            textures.resolve("entity" + File.separator + "iron_golem.png"));
+                        textures.resolve(
+                            "entity" + File.separator + "iron_golem" + File.separator
+                                + "iron_golem.png"),
+                        textures.resolve("entity" + File.separator + "iron_golem.png"));
                 // Files.deleteIfExists(textures.resolve("entity" + File.separator +
                 // "iron_golem" + File.separator + "iron_golem.png"));
             }
@@ -138,21 +142,23 @@ public class NameConverter extends Converter {
                 renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
             }
 
-            if (to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(itemMapping, ".png", textures.resolve("items"));
-                renameAll(itemMapping, ".png.mcmeta", textures.resolve("items"));
-            }
-
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                    && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(blockMapping, ".png", textures.resolve("blocks"));
-                renameAll(blockMapping, ".png.mcmeta", textures.resolve("blocks"));
+                && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
+                renameAll(blockMapping, ".png", textures.resolve("block"));
+                renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+
+                renameAll(itemMapping, ".png", textures.resolve("item"));
+                renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
 
                 // 1.13 End Crystals
                 if (textures.resolve("entity" + File.separator + "end_crystal").toFile().exists())
                     Files.move(textures.resolve("entity" + File.separator + "end_crystal"),
-                            textures.resolve("entity" + File.separator + "endercrystal"));
+                        textures.resolve("entity" + File.separator + "endercrystal"));
                 findEntityFiles(textures.resolve("entity"));
+
+
+
+
             }
         }
 
@@ -252,14 +258,25 @@ public class NameConverter extends Converter {
                 });
             }
 
-            // remap snow jsons, but not images.
-            if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                    && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                if (path.resolve("snow.json").toFile().exists())
-                    Util.renameFile(path.resolve("snow" + extension), "snow_layer" + extension);
-                if (path.resolve("snow_block.json").toFile().exists())
-                    Util.renameFile(path.resolve("snow_block" + extension), "snow" + extension);
+            if (from > Util.getVersionProtocol(packConverter.getGson(), "1.12.2") &&
+                to <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")) {
+                List<String> snow = Arrays.asList("snow", "snow_block");
+                snow.stream().forEach(name -> {
+                    String newName = mapping.remap(name);
+                    if (!extension.equals(".png")) {
+                        Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
+                            newName + extension);
+                        if (ret == null)
+                            return;
+                        if (ret && packConverter.DEBUG)
+                            Logger.log("      Renamed: " + name + extension + "->" + newName + extension);
+                        else if (!ret)
+                            System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
+                    }
+                });
             }
+
+
 
             Files.list(path).forEach(path1 -> {
                 if (!path1.toString().endsWith(extension))
