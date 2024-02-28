@@ -355,15 +355,16 @@ public class ModelConverter extends Converter {
         if (old.has("translation")) {
             JsonArray translation = newObject.remove("translation").getAsJsonArray();
             newObject.add("translation",
-                JsonUtil.subtract(
+                JsonUtil.add(
                     JsonUtil.divide(
-                        JsonUtil.add(
+                        JsonUtil.subtract(
                             translation,
-                            JsonUtil.asArray(gson, "[0, 4, 2]")
-                        ),
+                            JsonUtil.asArray(gson, "[1.13, 3.2, 1.13]")),
                         JsonUtil.asArray(gson, "[0.4, 0.4, 0.4]")
                     ),
-                    JsonUtil.asArray(gson, "[1.13, 3.2, 1.13]")));
+                    JsonUtil.asArray(gson, "[0, 4, 2]")
+                ));
+
         }
 
         if (old.has("scale")) {
@@ -383,12 +384,12 @@ public class ModelConverter extends Converter {
         if (old.has("rotation")) {
             JsonArray rotation = newObject.remove("rotation").getAsJsonArray();
             newObject.add("rotation",
+                JsonUtil.divide(
                 JsonUtil.subtract(
-                    JsonUtil.divide(
-                        rotation,
-                        JsonUtil.asArray(gson, "[1, -1, -1]")
-                    ),
+                    rotation,
                     JsonUtil.asArray(gson, "[0, 0, 20]")
+                ),
+                    JsonUtil.asArray(gson, "[1, -1, -1]")
                 )
             );
         }
@@ -396,12 +397,12 @@ public class ModelConverter extends Converter {
         if (old.has("translation")) {
             JsonArray translation = newObject.remove("translation").getAsJsonArray();
             newObject.add("translation",
-                JsonUtil.add(
-                    JsonUtil.multiply(
-                        translation,
-                        JsonUtil.asArray(gson, "[1, 1, -1]")
-                    ),
+                JsonUtil.divide(
+                JsonUtil.subtract(
+                    translation,
                     JsonUtil.asArray(gson, "[0, 2.75, -3]")
+                ),
+                    JsonUtil.asArray(gson, "[1, 1, -1]")
                 )
             );
         }
