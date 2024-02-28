@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class WaterConverter extends Converter {
-
   public WaterConverter(PackConverter packConverter) {
     super(packConverter);
   }
@@ -22,14 +21,13 @@ public class WaterConverter extends Converter {
     colorize(32, 1024, blocks.resolve("water_flow.png"));
     colorize(32,1024, blocks.resolve("water_still.png"));
     colorize(32, 32, blocks.resolve("water_overlay.png"));
-
   }
 
   private void colorize(int w, int h, Path path) throws IOException {
     if (!path.toFile().exists()) return;
 
     ImageConverter imageConverter = new ImageConverter(w, h, path);
-    if (!imageConverter.fileIsPowerOfTwo()) return;
+    if (!imageConverter.imageIsPowerOfTwo()) return;
 
     imageConverter.newImage(w, h);
     imageConverter.colorize(new Color(45, 63, 244, 120));
