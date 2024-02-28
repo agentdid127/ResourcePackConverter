@@ -11,14 +11,13 @@ import java.nio.file.Path;
 
 public class WaterConverter extends Converter {
 
-  private Path blocks;
   public WaterConverter(PackConverter packConverter) {
     super(packConverter);
   }
 
   @Override
   public void convert(Pack pack) throws IOException {
-    blocks = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "blocks");
+    Path blocks = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "blocks");
 
     colorize(32, 1024, blocks.resolve("water_flow.png"));
     colorize(32,1024, blocks.resolve("water_still.png"));
