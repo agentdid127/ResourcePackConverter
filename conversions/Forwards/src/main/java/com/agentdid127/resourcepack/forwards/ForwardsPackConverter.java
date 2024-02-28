@@ -58,6 +58,7 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new AnimationConverter(this));
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
+            this.registerConverter(new WaterConverter(this));
         }
 
         this.registerConverter(

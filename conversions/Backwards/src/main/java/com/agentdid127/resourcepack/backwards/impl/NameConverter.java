@@ -78,22 +78,11 @@ public class NameConverter extends Converter {
 
             // 1.13 Models
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                // Update all blocks for 1.13
-                renameAll(blockMapping, ".json", models.resolve("block"));
-                if (models.resolve("items").toFile().exists()) {
-                    if (models.resolve("item").toFile().exists())
-                        Util.deleteDirectoryAndContents(models.resolve("item"));
-                    Files.move(models.resolve("items"), models.resolve("item"));
-                }
-
-                // Update all items for 1.13
                 renameAll(itemMapping, ".json", models.resolve("item"));
+                renameAll(blockMapping, ".json", models.resolve("block"));
 
-                // 1.13 block/item name change
-                if (models.resolve("block").toFile().exists()) {
-                    if (models.resolve("blocks").toFile().exists())
-                        Util.deleteDirectoryAndContents(models.resolve("blocks"));
-                    Files.move(models.resolve("block"), models.resolve("blocks"));
+                if (models.resolve("item").resolve("banner.json").toFile().exists()) {
+                    models.resolve("item").resolve("banner.json").toFile().delete();
                 }
             }
 
@@ -150,14 +139,14 @@ public class NameConverter extends Converter {
             }
 
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(itemMapping, ".png", textures.resolve("item"));
-                renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+                renameAll(itemMapping, ".png", textures.resolve("items"));
+                renameAll(itemMapping, ".png.mcmeta", textures.resolve("items"));
             }
 
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
                     && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(blockMapping, ".png", textures.resolve("block"));
-                renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+                renameAll(blockMapping, ".png", textures.resolve("blocks"));
+                renameAll(blockMapping, ".png.mcmeta", textures.resolve("blocks"));
 
                 // 1.13 End Crystals
                 if (textures.resolve("entity" + File.separator + "end_crystal").toFile().exists())
@@ -168,11 +157,11 @@ public class NameConverter extends Converter {
         }
 
         // Less than 1.12
-        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
+        if (from > Util.getVersionProtocol(packConverter.getGson(), "1.13")
                 && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             if (packConverter.DEBUG)
                 Logger.log("Finding files that are greater than 1.12");
-            findFiles(mc);
+            findFiles(mc.resolve("textures"));
         }
     }
 

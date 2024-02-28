@@ -73,6 +73,7 @@ public class BackwardsPackConverter extends PackConverter {
 
         if (Util.getVersionProtocol(gson, from) >= Util.getVersionProtocol(gson, "1.12.2")
                 && Util.getVersionProtocol(gson, to) <= Util.getVersionProtocol(gson, "1.13")) {
+            this.registerConverter(new WaterConverter(this));
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
         }
