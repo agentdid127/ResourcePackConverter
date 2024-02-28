@@ -226,9 +226,9 @@ public class ModelConverter extends Converter {
                             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
                                     && version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                                 if (parent.startsWith("block/"))
-                                    parent = setParent("blocks/", "/backwards/blocks.json", parent, "1_13");
+                                    parent = setParent("block/", "/backwards/blocks.json", parent, "1_13");
                                 if (parent.startsWith("item/"))
-                                    parent = setParent("items/", "/backwards/items.json", parent, "1_13");
+                                    parent = setParent("item/", "/backwards/items.json", parent, "1_13");
                             }
 
                             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
