@@ -88,6 +88,25 @@ public final class Util {
     }
 
     /**
+     * Reads Json
+     * 
+     * @param gson Gson Object to use
+     * @param path Json File Path.
+     * @return
+     */
+    public static <T> T readJsonResource(Gson gson, String path, Class<T> clazz) {
+        try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
+            if (stream == null)
+                return null;
+            try (InputStreamReader streamReader = new InputStreamReader(stream)) {
+                return gson.fromJson(streamReader, clazz);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Reads Image as BufferedImage
      * 
      * @param path Path to file
@@ -113,6 +132,10 @@ public final class Util {
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
         return protocols == null ? 0 : Integer.parseInt(protocols.get(version).getAsString());
+    }
+
+    public static int getLatestProtocol(Gson gson) {
+        return getVersionProtocol(gson, "1.20.4");    
     }
 
     /**
@@ -189,16 +212,14 @@ public final class Util {
      *         {@code false} if failed
      */
     public static Boolean renameFile(Path file, String newName) {
-        if (!file.toFile().exists()) {
+        if (!file.toFile().exists()) 
             return null;
-        }
         try {
             Files.move(file, file.getParent().resolve(newName));
             return true;
         } catch (IOException e) {
             return false;
         }
-
     }
 
     /**
@@ -211,19 +232,18 @@ public final class Util {
         if (!dir1.exists() && !dir2.exists())
             return null;
 
-        // TODO: another unused variable?
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
-                File file3 = new File(dir1.getAbsolutePath() + File.separator + file.getName());
+                Logger.log(targetDirPath + File.separator + file.getName());
+                File file3 = new File(targetDirPath + File.separator + file.getName());
                 file3.mkdirs();
                 Logger.log("Created" + file3.getName());
                 mergeDirectories(file3, file);
             } else {
-                Logger.log(dir1.getAbsolutePath() + File.separator + file.getName());
-                file.renameTo(new File(dir1.getAbsolutePath() + File.separator + file.getName()));
+                Logger.log(targetDirPath + File.separator + file.getName());
+                file.renameTo(new File(targetDirPath + File.separator + file.getName()));
             }
         }
 
