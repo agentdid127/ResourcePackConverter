@@ -1253,6 +1253,267 @@
             }
         ]
     },
+    {
+        "path": "recipe_book.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/recipe_book/tab.png",
+                "position": { "x": 153, "y": 2 },
+                "width": 35,
+                "height": 27,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/tab_selected.png",
+                "position": { "x": 188, "y": 2 },
+                "width": 35,
+                "height": 27,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/filter_disabled.png",
+                "position": { "x": 152, "y": 41 },
+                "width": 26,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/filter_enabled.png",
+                "position": { "x": 180, "y": 41 },
+                "width": 26,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/filter_enabled_highlighted.png",
+                "position": { "x": 180, "y": 59 },
+                "width": 26,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/filter_disabled_highlighted.png",
+                "position": { "x": 152, "y": 59 },
+                "width": 26,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay.png",
+                "position": { "x": 152, "y": 78 },
+                "width": 24,
+                "height": 24,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_disabled.png",
+                "position": { "x": 178, "y": 78 },
+                "width": 24,
+                "height": 24,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_highlighted.png",
+                "position": { "x": 152, "y": 104 },
+                "width": 24,
+                "height": 24,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_disabled_highlighted.png",
+                "position": { "x": 178, "y": 104 },
+                "width": 24,
+                "height": 24,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay.png",
+                "position": { "x": 152, "y": 130 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_disabled.png",
+                "position": { "x": 178, "y": 130 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_highlighted.png",
+                "position": { "x": 152, "y": 156 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_disabled_highlighted.png",
+                "position": { "x": 178, "y": 156 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_disabled.png",
+                "position": { "x": 152, "y": 182 },
+                "width": 26,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_enabled.png",
+                "position": { "x": 180, "y": 182 },
+                "width": 26,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_disabled_highlighted.png",
+                "position": { "x": 152, "y": 200 },
+                "width": 26,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_enabled_highlighted.png",
+                "position": { "x": 180, "y": 200 },
+                "width": 26,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/page_forward.png",
+                "position": { "x": 1, "y": 208 },
+                "width": 12,
+                "height": 17,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/page_backward.png",
+                "position": { "x": 14, "y": 208 },
+                "width": 12,
+                "height": 17,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/page_forward_highlighted.png",
+                "position": { "x": 1, "y": 226 },
+                "width": 12,
+                "height": 17,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/page_backward_highlighted.png",
+                "position": { "x": 14, "y": 226 },
+                "width": 12,
+                "height": 17,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/slot_craftable.png",
+                "position": { "x": 29, "y": 206 },
+                "width": 25,
+                "height": 25,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/slot_uncraftable.png",
+                "position": { "x": 54, "y": 206 },
+                "width": 25,
+                "height": 25,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/slot_many_craftable.png",
+                "position": { "x": 29, "y": 231 },
+                "width": 25,
+                "height": 25,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/slot_many_uncraftable.png",
+                "position": { "x": 54, "y": 231 },
+                "width": 25,
+                "height": 25,
+                "remove": true
+            },
+            {
+                "path": "sprites/recipe_book/overlay_recipe.png",
+                "position": { "x": 82, "y": 208 },
+                "width": 32,
+                "height": 32,
+                "remove": true,
+                "metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 32,
+                            "height": 32,
+                            "border": 4
+                        }
+                    }
+                }
+            }
+        ]
+    },
     
     // Containers
     {
