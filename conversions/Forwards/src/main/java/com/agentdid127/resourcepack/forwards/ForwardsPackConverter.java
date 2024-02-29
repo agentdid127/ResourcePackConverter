@@ -41,7 +41,7 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(
                 new NameConverter(this, protocol_from, protocol_to));
 
-        this.registerConverter(new PackMetaConverter(this, protocol_to));
+        this.registerConverter(new PackMetaConverter(this, protocol_from, protocol_to));
 
         if (protocol_from < Util.getVersionProtocol(gson, "1.9")
                 && protocol_to >= Util.getVersionProtocol(gson, "1.9"))
