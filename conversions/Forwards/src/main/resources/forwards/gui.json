@@ -6,143 +6,185 @@
         "textures": [
             {
                 "path": "sprites/hud/hotbar.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 182,
-                "height": 22
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 182,
+                    "height": 22
+                }
             },
             {
                 "path": "sprites/hud/hotbar_selection.png",
-                "position": { "x": 0, "y": 22 },
-                "width": 24,
-                "height": 23
+                "box": {
+                    "x": 0,
+                    "y": 22,
+                    "width": 24,
+                    "height": 23
+                }
             },
             {
                 "path": "sprites/hud/hotbar_offhand_left.png",
-                "position": { "x": 24, "y": 22 },
-                "width": 29,
-                "height": 24,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 24,
+                    "y": 22,
+                    "width": 29,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/hud/hotbar_offhand_right.png",
-                "position": { "x": 53, "y": 22 },
-                "width": 29,
-                "height": 24,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 53,
+                    "y": 22,
+                    "width": 29,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/icon/draft_report.png",
-                "position": { "x": 182, "y": 24 },
-                "width": 15,
-                "height": 15,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 182,
+                    "y": 24,
+                    "width": 15,
+                    "height": 15
                 }
             },
             {
                 "path": "sprites/widget/button_disabled.png",
-                "position": { "x": 0, "y": 46 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 46,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/widget/button.png",
-                "position": { "x": 0, "y": 66 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 66,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/widget/button_highlighted.png",
-                "position": { "x": 0, "y": 86 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 86,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/widget/locked_button.png",
-                "position": { "x": 0, "y": 146 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 146,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/locked_button_highlighted.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/locked_button_disabled.png",
-                "position": { "x": 0, "y": 186 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 186,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/unlocked_button.png",
-                "position": { "x": 20, "y": 146 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 146,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/unlocked_button_highlighted.png",
-                "position": { "x": 20, "y": 166 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 166,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/unlocked_button_disabled.png",
-                "position": { "x": 20, "y": 186 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 186,
+                    "width": 20,
+                    "height": 20
                 }
             }
         ]
@@ -154,567 +196,813 @@
         "textures": [
             {
                 "path": "sprites/hud/crosshair.png",
-                "position": { "x": 0, "y": 0 }, 
-                "width": 15, 
-                "height": 15
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 15,
+                    "height": 15
+                }
             },
             {
-                "path": "sprites/hud/heart/container.png", 
-                "position": { "x": 16, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/container.png",
+                "box": {
+                    "x": 16,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/container_blinking.png", 
-                "position": { "x": 25, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/container_blinking.png",
+                "box": {
+                    "x": 25,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/full.png", 
-                "position": { "x": 52, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/full.png",
+                "box": {
+                    "x": 52,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/half.png", 
-                "position": { "x": 61, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/half.png",
+                "box": {
+                    "x": 61,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/full_blinking.png", 
-                "position": { "x": 70, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/full_blinking.png",
+                "box": {
+                    "x": 70,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/half_blinking.png", 
-                "position": { "x": 79, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/half_blinking.png",
+                "box": {
+                    "x": 79,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/poisoned_full.png", 
-                "position": { "x": 88, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/poisoned_full.png",
+                "box": {
+                    "x": 88,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/poisoned_half.png", 
-                "position": { "x": 97, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/poisoned_half.png",
+                "box": {
+                    "x": 97,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/poisoned_full_blinking.png", 
-                "position": { "x": 106, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/poisoned_full_blinking.png",
+                "box": {
+                    "x": 106,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/poisoned_half_blinking.png", 
-                "position": { "x": 115, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/poisoned_half_blinking.png",
+                "box": {
+                    "x": 115,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/withered_full.png", 
-                "position": { "x": 124, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/withered_full.png",
+                "box": {
+                    "x": 124,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/withered_half.png", 
-                "position": { "x": 133, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/withered_half.png",
+                "box": {
+                    "x": 133,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/withered_full_blinking.png", 
-                "position": { "x": 142, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/withered_full_blinking.png",
+                "box": {
+                    "x": 142,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/withered_half_blinking.png", 
-                "position": { "x": 151, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/withered_half_blinking.png",
+                "box": {
+                    "x": 151,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/absorbing_full_blinking.png", 
-                "position": { "x": 160, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/absorbing_full_blinking.png",
+                "box": {
+                    "x": 160,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/absorbing_half_blinking.png", 
-                "position": { "x": 169, "y": 0 }, 
-                "width": 9, 
-                "height": 9
+                "path": "sprites/hud/heart/absorbing_half_blinking.png",
+                "box": {
+                    "x": 169,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/heart/frozen_full.png", 
-                "position": { "x": 178, "y": 0 }, 
-                "width": 9, 
-                "height": 9,
+                "path": "sprites/hud/heart/frozen_full.png",
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
-                "path": "sprites/hud/heart/frozen_half.png", 
-                "position": { "x": 187, "y": 0 }, 
-                "width": 9, 
-                "height": 9,
+                "path": "sprites/hud/heart/frozen_half.png",
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
-                "path": "sprites/hud/heart/frozen_full_blinking.png", 
-                "position": { "x": 178, "y": 0 }, 
-                "width": 9, 
-                "height": 9,
+                "path": "sprites/hud/heart/frozen_full_blinking.png",
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
-                "path": "sprites/hud/heart/frozen_half_blinking.png", 
-                "position": { "x": 187, "y": 0 }, 
-                "width": 9, 
-                "height": 9,
+                "path": "sprites/hud/heart/frozen_half_blinking.png",
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
                 }
-            }, 
-            {
-                "path": "sprites/hud/armor_empty.png", 
-                "position": { "x": 16, "y": 9 },
-                "width": 9,
-                "height": 9
             },
             {
-                "path": "sprites/hud/armor_half.png", 
-                "position": { "x": 25, "y": 9 },
-                "width": 9,
-                "height": 9
+                "path": "sprites/hud/armor_empty.png",
+                "box": {
+                    "x": 16,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
-                "path": "sprites/hud/armor_full.png", 
-                "position": { "x": 34, "y": 9 },
-                "width": 9,
-                "height": 9
+                "path": "sprites/hud/armor_half.png",
+                "box": {
+                    "x": 25,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/armor_full.png",
+                "box": {
+                    "x": 34,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/vehicle_container.png",
-                "position": { "x": 52, "y": 9 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 52,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/vehicle_full.png",
-                "position": { "x": 88, "y": 9 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 88,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/vehicle_half.png",
-                "position": { "x": 97, "y": 9 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 97,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/air.png",
-                "position": { "x": 16, "y": 18 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 16,
+                    "y": 18,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/air_bursting.png",
-                "position": { "x": 25, "y": 18 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 25,
+                    "y": 18,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_empty.png",
-                "position": { "x": 16, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 16,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_full.png",
-                "position": { "x": 52, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 52,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_half.png",
-                "position": { "x": 61, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 61,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_full_hunger.png",
-                "position": { "x": 88, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 88,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_half_hunger.png",
-                "position": { "x": 97, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 97,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/food_empty_hunger.png",
-                "position": { "x": 133, "y": 27 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 133,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/container_hardcore.png",
-                "position": { "x": 16, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 16,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/container_hardcore_blinking.png",
-                "position": { "x": 25, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 25,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/hardcore_full.png",
-                "position": { "x": 52, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 52,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/hardcore_half.png",
-                "position": { "x": 61, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 61,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/hardcore_full_blinking.png",
-                "position": { "x": 70, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 70,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/hardcore_half_blinking.png",
-                "position": { "x": 79, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 79,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/poisoned_hardcore_full.png",
-                "position": { "x": 88, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 88,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/poisoned_hardcore_half.png",
-                "position": { "x": 97, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 97,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/poisoned_hardcore_full_blinking.png",
-                "position": { "x": 106, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 106,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/poisoned_hardcore_half_blinking.png",
-                "position": { "x": 115, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 115,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/withered_hardcore_full.png",
-                "position": { "x": 124, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 124,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/withered_hardcore_half.png",
-                "position": { "x": 133, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 133,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/withered_hardcore_full_blinking.png",
-                "position": { "x": 142, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 142,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/withered_hardcore_half_blinking.png",
-                "position": { "x": 151, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 151,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/absorbing_hardcore_full.png",
-                "position": { "x": 160, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 160,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/absorbing_hardcore_half.png",
-                "position": { "x": 169, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 169,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/absorbing_hardcore_full_blinking.png",
-                "position": { "x": 160, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 160,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/absorbing_hardcore_half_blinking.png",
-                "position": { "x": 169, "y": 45 },
-                "width": 9,
-                "height": 9
+                "box": {
+                    "x": 169,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/hud/heart/frozen_hardcore_full.png",
-                "position": { "x": 178, "y": 45 },
-                "width": 9,
-                "height": 9,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
                 "path": "sprites/hud/heart/frozen_hardcore_half.png",
-                "position": { "x": 187, "y": 45 },
-                "width": 9,
-                "height": 9,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
                 "path": "sprites/hud/heart/frozen_hardcore_full_blinking.png",
-                "position": { "x": 178, "y": 45 },
-                "width": 9,
-                "height": 9,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
                 "path": "sprites/hud/heart/frozen_hardcore_half_blinking.png",
-                "position": { "x": 187, "y": 45 },
-                "width": 9,
-                "height": 9,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
                 }
             },
             {
-                "path": "sprites/hud/experience_bar_background.png", 
-                "position": { "x": 0, "y": 64 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/hud/experience_bar_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/hud/experience_bar_progress.png", 
-                "position": { "x": 0, "y": 69 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/hud/experience_bar_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 69,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/hud/jump_bar_cooldown.png", 
-                "position": { "x": 0, "y": 74 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/hud/jump_bar_cooldown.png",
+                "box": {
+                    "x": 0,
+                    "y": 74,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/hud/jump_bar_background.png", 
-                "position": { "x": 0, "y": 84 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/hud/jump_bar_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 84,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
                 "path": "sprites/hud/jump_bar_progress.png",
-                "position": { "x": 0, "y": 89 }, 
-                "width": 182, 
-                "height": 5
+                "box": {
+                    "x": 0,
+                    "y": 89,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
                 "path": "sprites/hud/hotbar_attack_indicator_background.png",
-                "position": { "x": 0, "y": 94 },
-                "width": 18, 
-                "height": 18,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 94,
+                    "width": 18,
+                    "height": 18
                 }
             },
             {
                 "path": "sprites/hud/hotbar_attack_indicator_progress.png",
-                "position": { "x": 18, "y": 94 },
-                "width": 18, 
-                "height": 18,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 18,
+                    "y": 94,
+                    "width": 18,
+                    "height": 18
                 }
             },
             {
                 "path": "sprites/hud/crosshair_attack_indicator_background.png",
-                "position": { "x": 36, "y": 94 },
-                "width": 16, 
-                "height": 4,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 36,
+                    "y": 94,
+                    "width": 16,
+                    "height": 4
                 }
             },
             {
                 "path": "sprites/hud/crosshair_attack_indicator_progress.png",
-                "position": { "x": 52, "y": 94 },
-                "width": 16, 
-                "height": 4,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 52,
+                    "y": 94,
+                    "width": 16,
+                    "height": 4
                 }
             },
             {
-                "path": "sprites/server_list/ping_5.png", 
-                "position": { "x": 0, "y": 176 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/ping_5.png",
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/ping_4.png", 
-                "position": { "x": 0, "y": 184 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/ping_4.png",
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/ping_3.png", 
-                "position": { "x": 0, "y": 192 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/ping_3.png",
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/ping_2.png", 
-                "position": { "x": 0, "y": 200 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/ping_2.png",
+                "box": {
+                    "x": 0,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/ping_1.png", 
-                "position": { "x": 0, "y": 208 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/ping_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/pinging_1.png", 
-                "position": { "x": 10, "y": 176 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/pinging_1.png",
+                "box": {
+                    "x": 10,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/pinging_2.png", 
-                "position": { "x": 10, "y": 184 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/pinging_2.png",
+                "box": {
+                    "x": 10,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/pinging_3.png", 
-                "position": { "x": 10, "y": 192 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/pinging_3.png",
+                "box": {
+                    "x": 10,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/pinging_4.png", 
-                "position": { "x": 10, "y": 200 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/pinging_4.png",
+                "box": {
+                    "x": 10,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/server_list/pinging_5.png", 
-                "position": { "x": 10, "y": 208 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/server_list/pinging_5.png",
+                "box": {
+                    "x": 10,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_5.png", 
-                "position": { "x": 0, "y": 176 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_5.png",
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_4.png", 
-                "position": { "x": 0, "y": 184 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_4.png",
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_3.png", 
-                "position": { "x": 0, "y": 192 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_3.png",
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_2.png", 
-                "position": { "x": 0, "y": 200 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_2.png",
+                "box": {
+                    "x": 0,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_1.png", 
-                "position": { "x": 0, "y": 208 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
             },
             {
-                "path": "sprites/icon/ping_unknown.png", 
-                "position": { "x": 0, "y": 216 }, 
-                "width": 10, 
-                "height": 8
+                "path": "sprites/icon/ping_unknown.png",
+                "box": {
+                    "x": 0,
+                    "y": 216,
+                    "width": 10,
+                    "height": 8
+                }
             }
         ]
     },
@@ -731,38 +1019,50 @@
         "textures": [
             {
                 "path": "sprites/widget/checkbox.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/widget/checkbox_selected.png",
-                "position": { "x": 0, "y": 20 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/widget/checkbox_highlighted.png",
-                "position": { "x": 20, "y": 0 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 754,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/widget/checkbox_selected_highlighted.png",
-                "position": { "x": 20, "y": 20 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 754,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
                 }
             }
         ]
@@ -780,80 +1080,113 @@
         "textures": [
             {
                 "path": "sprites/toast/advancement.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 160,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 160,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/toast/recipe.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 160,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 160,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/toast/system.png",
-                "position": { "x": 0, "y": 64 },
-                "width": 160,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 160,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/toast/tutorial.png",
-                "position": { "x": 0, "y": 96 },
-                "width": 160,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 96,
+                    "width": 160,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/toast/movement_keys.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/toast/mouse.png",
-                "position": { "x": 196, "y": 0 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 196,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/toast/tree.png",
-                "position": { "x": 216, "y": 0 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 216,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/toast/recipe_book.png",
-                "position": { "x": 176, "y": 20 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 176,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/toast/wooden_planks.png",
-                "position": { "x": 196, "y": 20 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 196,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/toast/social_interactions.png",
-                "position": { "x": 216, "y": 20 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 216,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
                 }
             },
             {
                 "path": "sprites/toast/right_click.png",
-                "position": { "x": 236, "y": 20 },
-                "width": 20,
-                "height": 20,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 755,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 236,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
                 }
             }
         ]
@@ -865,33 +1198,48 @@
         "textures": [
             {
                 "path": "sprites/spectator/teleport_to_player.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 16,
-                "height": 16
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/spectator/teleport_to_team.png",
-                "position": { "x": 16, "y": 0 },
-                "width": 16,
-                "height": 16
+                "box": {
+                    "x": 16,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/spectator/close.png",
-                "position": { "x": 128, "y": 0 },
-                "width": 16,
-                "height": 16
+                "box": {
+                    "x": 128,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/spectator/scroll_left.png",
-                "position": { "x": 144, "y": 0 },
-                "width": 16,
-                "height": 16
+                "box": {
+                    "x": 144,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/spectator/scroll_right.png",
-                "position": { "x": 160, "y": 0 },
-                "width": 16,
-                "height": 16
+                "box": {
+                    "x": 160,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             }
         ]
     },
@@ -902,51 +1250,75 @@
         "textures": [
             {
                 "path": "sprites/transferable_list/select.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/select_highlighted.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/unselect.png",
-                "position": { "x": 32, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 32,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/unselect_highlighted.png",
-                "position": { "x": 32, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 32,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/move_down.png",
-                "position": { "x": 64, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/move_down_highlighted.png",
-                "position": { "x": 64, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/move_up.png",
-                "position": { "x": 96, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/transferable_list/move_up_highlighted.png",
-                "position": { "x": 96, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             }
         ]
     },
@@ -957,39 +1329,57 @@
         "textures": [
             {
                 "path": "sprites/server_list/join.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/server_list/join_highlighted.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/server_list/move_down.png",
-                "position": { "x": 64, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/server_list/move_down_highlighted.png",
-                "position": { "x": 64, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/server_list/move_up.png",
-                "position": { "x": 96, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/server_list/move_up_highlighted.png",
-                "position": { "x": 96, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             }
         ]
     },
@@ -1006,51 +1396,75 @@
         "textures": [
             {
                 "path": "sprites/world_list/join.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/join_highlighted.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/marked_join.png",
-                "position": { "x": 32, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 32,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/marked_join_highlighted.png",
-                "position": { "x": 32, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 32,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/warning.png",
-                "position": { "x": 64, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/warning_highlighted.png",
-                "position": { "x": 64, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/error.png",
-                "position": { "x": 96, "y": 0 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/world_list/error_highlighted.png",
-                "position": { "x": 96, "y": 32 },
-                "width": 32,
-                "height": 32
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
             }
         ]
     },
@@ -1067,14 +1481,17 @@
         "textures": [
             {
                 "path": "sprites/icon/chat_modified.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 9,
-                "height": 9,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 761,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
                 }
             }
         ]
@@ -1092,9 +1509,12 @@
         "textures": [
             {
                 "path": "sprites/icon/checkmark.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 9,
-                "height": 8
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 9,
+                    "height": 8
+                }
             }
         ]
     },
@@ -1111,9 +1531,12 @@
         "textures": [
             {
                 "path": "sprites/icon/info.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
             }
         ]
     },
@@ -1130,9 +1553,12 @@
         "textures": [
             {
                 "path": "sprites/icon/unseen_notification.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 10,
-                "height": 10
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 10,
+                    "height": 10
+                }
             }
         ]
     },
@@ -1155,136 +1581,202 @@
         },
         "textures": [
             {
-                "path": "sprites/boss_bar/pink_background.png", 
-                "position": { "x": 0, "y": 0 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/pink_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/pink_progress.png", 
-                "position": { "x": 0, "y": 5 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/pink_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 5,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/blue_background.png", 
-                "position": { "x": 0, "y": 10 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/blue_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 10,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/blue_progress.png", 
-                "position": { "x": 0, "y": 15 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/blue_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 15,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/red_background.png", 
-                "position": { "x": 0, "y": 20 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/red_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/red_progress.png", 
-                "position": { "x": 0, "y": 25 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/red_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 25,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/green_background.png", 
-                "position": { "x": 0, "y": 30 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/green_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 30,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/green_progress.png", 
-                "position": { "x": 0, "y": 35 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/green_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 35,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/yellow_background.png", 
-                "position": { "x": 0, "y": 40 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/yellow_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 40,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/yellow_progress.png", 
-                "position": { "x": 0, "y": 45 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/yellow_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 45,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/purple_background.png", 
-                "position": { "x": 0, "y": 50 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/purple_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 50,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/purple_progress.png", 
-                "position": { "x": 0, "y": 55 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/purple_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 55,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/white_background.png", 
-                "position": { "x": 0, "y": 60 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/white_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 60,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/white_progress.png", 
-                "position": { "x": 0, "y": 65 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/white_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 65,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_6_background.png", 
-                "position": { "x": 0, "y": 80 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_6_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 80,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_10_background.png", 
-                "position": { "x": 0, "y": 90 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_10_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 90,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_12_background.png", 
-                "position": { "x": 0, "y": 100 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_12_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 100,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_20_background.png", 
-                "position": { "x": 0, "y": 110 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_20_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 110,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_6_progress.png", 
-                "position": { "x": 0, "y": 85 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_6_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 85,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_10_progress.png", 
-                "position": { "x": 0, "y": 95 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_10_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 95,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_12_progress.png", 
-                "position": { "x": 0, "y": 105 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_12_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 105,
+                    "width": 182,
+                    "height": 5
+                }
             },
             {
-                "path": "sprites/boss_bar/notched_20_progress.png", 
-                "position": { "x": 0, "y": 115 }, 
-                "width": 182, 
-                "height": 5
+                "path": "sprites/boss_bar/notched_20_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 115,
+                    "width": 182,
+                    "height": 5
+                }
             }
         ]
     },
@@ -1300,32 +1792,44 @@
         },
         "textures": [
             {
-                "path": "sprites/widget/slider.png", 
-                "position": { "x": 0, "y": 20 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "path": "sprites/widget/slider.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
-                "path": "sprites/widget/slider_highlighted.png", 
-                "position": { "x": 0, "y": 20 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "path": "sprites/widget/slider_highlighted.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
-                "path": "sprites/widget/slider_handle.png", 
-                "position": { "x": 0, "y": 20 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "path": "sprites/widget/slider_handle.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
             },
             {
-                "path": "sprites/widget/slider_handle_highlighted.png", 
-                "position": { "x": 0, "y": 20 },
-                "width": 200,
-                "height": 20,
-                "metadata": "button_widget"
+                "path": "sprites/widget/slider_handle_highlighted.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
             }
         ]
     },
@@ -1342,10 +1846,13 @@
         "textures": [
             {
                 "path": "sprites/social_interactions/background.png",
-                "position": { "x": 0, "y": 1 },
-                "width": 236,
-                "height": 34,
-                "metadata": {
+                "box": {
+                    "x": 0,
+                    "y": 1,
+                    "width": 236,
+                    "height": 34
+                },
+				"metadata": {
                     "gui": {
                         "scaling": {
                             "type": "nine_slice",
@@ -1358,33 +1865,48 @@
             },
             {
                 "path": "sprites/icon/search.png",
-                "position": { "x": 243, "y": 1 },
-                "width": 12,
-                "height": 12
+                "box": {
+                    "x": 243,
+                    "y": 1,
+                    "width": 12,
+                    "height": 12
+                }
             },
             {
                 "path": "sprites/social_interactions/mute_button.png",
-                "position": { "x": 0, "y": 38 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 0,
+                    "y": 38,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/social_interactions/mute_button_highlighted.png",
-                "position": { "x": 0, "y": 58 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 0,
+                    "y": 58,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/social_interactions/unmute_button.png",
-                "position": { "x": 20, "y": 38 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 20,
+                    "y": 38,
+                    "width": 20,
+                    "height": 20
+                }
             },
             {
                 "path": "sprites/social_interactions/unmute_button_highlighted.png",
-                "position": { "x": 20, "y": 58 },
-                "width": 20,
-                "height": 20
+                "box": {
+                    "x": 20,
+                    "y": 58,
+                    "width": 20,
+                    "height": 20
+                }
             }
         ]
     },
@@ -1396,31 +1918,43 @@
         "textures": [
             {
                 "path": "sprites/widget/page_forward.png",
-                "position": { "x": 0, "y": 192 },
-                "width": 23,
-                "height": 13,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 23,
+                    "height": 13
+                }
             },
             {
                 "path": "sprites/widget/page_forward_highlighted.png",
-                "position": { "x": 23, "y": 192 },
-                "width": 23,
-                "height": 13,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 23,
+                    "y": 192,
+                    "width": 23,
+                    "height": 13
+                }
             },
             {
                 "path": "sprites/widget/page_backward.png",
-                "position": { "x": 0, "y": 205 },
-                "width": 23,
-                "height": 13,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 205,
+                    "width": 23,
+                    "height": 13
+                }
             },
             {
                 "path": "sprites/widget/page_backward_highlighted.png",
-                "position": { "x": 23, "y": 205 },
-                "width": 23,
-                "height": 13,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 23,
+                    "y": 205,
+                    "width": 23,
+                    "height": 13
+                }
             }
         ]
     },
@@ -1438,241 +1972,322 @@
         "textures": [
             {
                 "path": "sprites/recipe_book/tab.png",
-                "position": { "x": 153, "y": 2 },
-                "width": 35,
-                "height": 27,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 153,
+                    "y": 2,
+                    "width": 35,
+                    "height": 27
+                }
             },
             {
                 "path": "sprites/recipe_book/tab_selected.png",
-                "position": { "x": 188, "y": 2 },
-                "width": 35,
-                "height": 27,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 188,
+                    "y": 2,
+                    "width": 35,
+                    "height": 27
+                }
             },
             {
                 "path": "sprites/recipe_book/filter_disabled.png",
-                "position": { "x": 152, "y": 41 },
-                "width": 26,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 41,
+                    "width": 26,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/recipe_book/filter_enabled.png",
-                "position": { "x": 180, "y": 41 },
-                "width": 26,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 180,
+                    "y": 41,
+                    "width": 26,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/recipe_book/filter_enabled_highlighted.png",
-                "position": { "x": 180, "y": 59 },
-                "width": 26,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 180,
+                    "y": 59,
+                    "width": 26,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/recipe_book/filter_disabled_highlighted.png",
-                "position": { "x": 152, "y": 59 },
-                "width": 26,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 59,
+                    "width": 26,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/recipe_book/crafting_overlay.png",
-                "position": { "x": 152, "y": 78 },
-                "width": 24,
-                "height": 24,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 78,
+                    "width": 24,
+                    "height": 24
+                }
             },
             {
                 "path": "sprites/recipe_book/crafting_overlay_disabled.png",
-                "position": { "x": 178, "y": 78 },
-                "width": 24,
-                "height": 24,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 178,
+                    "y": 78,
+                    "width": 24,
+                    "height": 24
+                }
             },
             {
                 "path": "sprites/recipe_book/crafting_overlay_highlighted.png",
-                "position": { "x": 152, "y": 104 },
-                "width": 24,
-                "height": 24,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 104,
+                    "width": 24,
+                    "height": 24
+                }
             },
             {
                 "path": "sprites/recipe_book/crafting_overlay_disabled_highlighted.png",
-                "position": { "x": 178, "y": 104 },
-                "width": 24,
-                "height": 24,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 178,
+                    "y": 104,
+                    "width": 24,
+                    "height": 24
+                }
             },
             {
                 "path": "sprites/recipe_book/furnace_overlay.png",
-                "position": { "x": 152, "y": 130 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 130,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_overlay_disabled.png",
-                "position": { "x": 178, "y": 130 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 130,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_overlay_highlighted.png",
-                "position": { "x": 152, "y": 156 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 156,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_overlay_disabled_highlighted.png",
-                "position": { "x": 178, "y": 156 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 156,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_filter_disabled.png",
-                "position": { "x": 152, "y": 182 },
-                "width": 26,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 182,
+                    "width": 26,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_filter_enabled.png",
-                "position": { "x": 180, "y": 182 },
-                "width": 26,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 180,
+                    "y": 182,
+                    "width": 26,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_filter_disabled_highlighted.png",
-                "position": { "x": 152, "y": 200 },
-                "width": 26,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 200,
+                    "width": 26,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/recipe_book/furnace_filter_enabled_highlighted.png",
-                "position": { "x": 180, "y": 200 },
-                "width": 26,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 393,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 180,
+                    "y": 200,
+                    "width": 26,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/recipe_book/page_forward.png",
-                "position": { "x": 1, "y": 208 },
-                "width": 12,
-                "height": 17,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 1,
+                    "y": 208,
+                    "width": 12,
+                    "height": 17
+                }
             },
             {
                 "path": "sprites/recipe_book/page_backward.png",
-                "position": { "x": 14, "y": 208 },
-                "width": 12,
-                "height": 17,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 14,
+                    "y": 208,
+                    "width": 12,
+                    "height": 17
+                }
             },
             {
                 "path": "sprites/recipe_book/page_forward_highlighted.png",
-                "position": { "x": 1, "y": 226 },
-                "width": 12,
-                "height": 17,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 1,
+                    "y": 226,
+                    "width": 12,
+                    "height": 17
+                }
             },
             {
                 "path": "sprites/recipe_book/page_backward_highlighted.png",
-                "position": { "x": 14, "y": 226 },
-                "width": 12,
-                "height": 17,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 14,
+                    "y": 226,
+                    "width": 12,
+                    "height": 17
+                }
             },
             {
                 "path": "sprites/recipe_book/slot_craftable.png",
-                "position": { "x": 29, "y": 206 },
-                "width": 25,
-                "height": 25,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 29,
+                    "y": 206,
+                    "width": 25,
+                    "height": 25
+                }
             },
             {
                 "path": "sprites/recipe_book/slot_uncraftable.png",
-                "position": { "x": 54, "y": 206 },
-                "width": 25,
-                "height": 25,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 54,
+                    "y": 206,
+                    "width": 25,
+                    "height": 25
+                }
             },
             {
                 "path": "sprites/recipe_book/slot_many_craftable.png",
-                "position": { "x": 29, "y": 231 },
-                "width": 25,
-                "height": 25,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 29,
+                    "y": 231,
+                    "width": 25,
+                    "height": 25
+                }
             },
             {
                 "path": "sprites/recipe_book/slot_many_uncraftable.png",
-                "position": { "x": 54, "y": 231 },
-                "width": 25,
-                "height": 25,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 54,
+                    "y": 231,
+                    "width": 25,
+                    "height": 25
+                }
             },
             {
                 "path": "sprites/recipe_book/overlay_recipe.png",
-                "position": { "x": 82, "y": 208 },
-                "width": 32,
-                "height": 32,
                 "remove": true,
-                "metadata": {
+                "box": {
+                    "x": 82,
+                    "y": 208,
+                    "width": 32,
+                    "height": 32
+                },
+				"metadata": {
                     "gui": {
                         "scaling": {
                             "type": "nine_slice",
@@ -1712,15 +2327,356 @@
         "textures": [
             {
                 "path": "sprites/recipe_book/button.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 20, 
-                "height": 18
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/recipe_book/button_highlighted.png",
-                "position": { "x": 0, "y": 19 },
-                "width": 20, 
-                "height": 18
+                "box": {
+                    "x": 0,
+                    "y": 19,
+                    "width": 20,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "advancements/tabs.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/advancements/tab_above_left.png",
+                "box": {
+                    "x": 0, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_middle.png",
+                "box": {
+                    "x": 28, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_right.png",
+                "box": {
+                    "x": 56, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_left.png",
+                "box": {
+                    "x": 84, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_middle.png",
+                "box": {
+                    "x": 112, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_right.png",
+                "box": {
+                    "x": 140, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_left_selected.png",
+                "box": {
+                    "x": 0, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_middle_selected.png",
+                "box": {
+                    "x": 28, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_right_selected.png",
+                "box": {
+                    "x": 56, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_left_selected.png",
+                "box": {
+                    "x": 84, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_middle_selected.png",
+                "box": {
+                    "x": 112, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_right_selected.png",
+                "box": {
+                    "x": 140, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_top.png",
+                "box": {
+                    "x": 0, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_middle.png",
+                "box": {
+                    "x": 32, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_bottom.png",
+                "box": {
+                    "x": 64, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_top.png",
+                "box": {
+                    "x": 96, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_middle.png",
+                "box": {
+                    "x": 128, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_bottom.png",
+                "box": {
+                    "x": 160, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_top_selected.png",
+                "box": {
+                    "x": 0, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_middle_selected.png",
+                "box": {
+                    "x": 32, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_bottom_selected.png",
+                "box": {
+                    "x": 64, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_top_selected.png",
+                "box": {
+                    "x": 96, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_middle_selected.png",
+                "box": {
+                    "x": 128, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_bottom_selected.png",
+                "box": {
+                    "x": 160, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            }
+        ]
+    },
+    {
+        "path": "advancements/widgets.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/advancements/box_obtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 200,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/box_unobtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 26,
+                    "width": 200,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/title_box.png",
+                "box": {
+                    "x": 0,
+                    "y": 52,
+                    "width": 200,
+                    "height": 26
+                },
+				"metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 200,
+                            "height": 26,
+                            "border": 10
+                        }
+                    }
+                }
+            },
+            {
+                "path": "sprites/advancements/task_frame_obtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/challenge_frame_obtained.png",
+                "box": {
+                    "x": 26,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/goal_frame_obtained.png",
+                "box": {
+                    "x": 52,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/task_frame_unobtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/challenge_frame_unobtained.png",
+                "box": {
+                    "x": 26,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/goal_frame_unobtained.png",
+                "box": {
+                    "x": 52,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
             }
         ]
     },
@@ -1728,186 +2684,277 @@
         "path": "container/creative_inventory/tabs.png",
         "width": 256,
         "height": 256,
+        "delete": true,
         "textures": [
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_1.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_2.png",
-                "position": { "x": 26, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 26,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_3.png",
-                "position": { "x": 52, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 52,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_4.png",
-                "position": { "x": 78, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 78,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_5.png",
-                "position": { "x": 104, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 104,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_6.png",
-                "position": { "x": 130, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 130,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_unselected_7.png",
-                "position": { "x": 156, "y": 0 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 156,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_1.png",
-                "position": { "x": 0, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_2.png",
-                "position": { "x": 26, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 26,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_3.png",
-                "position": { "x": 52, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 52,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_4.png",
-                "position": { "x": 78, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 78,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_5.png",
-                "position": { "x": 104, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 104,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_6.png",
-                "position": { "x": 130, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 130,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_top_selected_7.png",
-                "position": { "x": 156, "y": 32 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 156,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_1.png",
-                "position": { "x": 0, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_2.png",
-                "position": { "x": 26, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 26,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_3.png",
-                "position": { "x": 52, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 52,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_4.png",
-                "position": { "x": 78, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 78,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_5.png",
-                "position": { "x": 104, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 104,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_6.png",
-                "position": { "x": 130, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 130,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_unselected_7.png",
-                "position": { "x": 156, "y": 64 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 156,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_1.png",
-                "position": { "x": 0, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 0,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_2.png",
-                "position": { "x": 26, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 26,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_3.png",
-                "position": { "x": 52, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 52,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_4.png",
-                "position": { "x": 78, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 78,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_5.png",
-                "position": { "x": 104, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 104,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_6.png",
-                "position": { "x": 130, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 130,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/tab_bottom_selected_7.png",
-                "position": { "x": 156, "y": 96 },
-                "width": 26,
-                "height": 32
+                "box": {
+                    "x": 156,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/scroller.png",
-                "position": { "x": 232, "y": 0 },
-                "width": 12,
-                "height": 15
+                "box": {
+                    "x": 232,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             },
             {
                 "path": "sprites/container/creative_inventory/scroller_disabled.png",
-                "position": { "x": 244, "y": 0 },
-                "width": 12,
-                "height": 15
+                "box": {
+                    "x": 244,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             }
         ]
     },
@@ -1919,29 +2966,37 @@
         "textures": [
             {
                 "path": "sprites/container/anvil/error.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 28,
-                "height": 21,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
             },
             {
                 "path": "sprites/container/anvil/text_field.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 110,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 110,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/container/anvil/text_field_disabled.png",
-                "position": { "x": 0, "y": 182 },
-                "width": 110,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 182,
+                    "width": 110,
+                    "height": 16
+                }
             }
         ]
     },
     {
-
         "path": "container/beacon.png",
         "width": 256,
         "height": 256,
@@ -1949,45 +3004,63 @@
         "textures": [
             {
                 "path": "sprites/container/beacon/button.png",
-                "position": { "x": 0, "y": 219 }, 
-                "width": 22,
-                "height": 22,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
             },
             {
                 "path": "sprites/container/beacon/button_selected.png",
-                "position": { "x": 22, "y": 219 }, 
-                "width": 22,
-                "height": 22,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 22,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
             },
             {
                 "path": "sprites/container/beacon/button_disabled.png",
-                "position": { "x": 44, "y": 219 }, 
-                "width": 22,
-                "height": 22,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 44,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
             },
             {
                 "path": "sprites/container/beacon/button_highlighted.png",
-                "position": { "x": 66, "y": 219 }, 
-                "width": 22,
-                "height": 22,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 66,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
             },
             {
                 "path": "sprites/container/beacon/confirm.png",
-                "position": { "x": 90, "y": 220 }, 
-                "width": 18,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 90,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/container/beacon/cancel.png",
-                "position": { "x": 112, "y": 220 }, 
-                "width": 18,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 112,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
             }
         ]
     },
@@ -2005,17 +3078,23 @@
         "textures": [
             {
                 "path": "sprites/container/blast_furnace/lit_progress.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/blast_furnace/burn_progress.png",
-                "position": { "x": 176, "y": 14 },
-                "width": 24,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
             }
         ]
     },
@@ -2027,29 +3106,38 @@
         "textures": [
             {
                 "path": "sprites/container/brewing_stand/brew_progress.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 9,
-                "height": 28,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 9,
+                    "height": 28
+                }
             },
             {
                 "path": "sprites/container/brewing_stand/bubbles.png",
-                "position": { "x": 185, "y": 0 },
-                "width": 12,
-                "height": 29,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 185,
+                    "y": 0,
+                    "width": 12,
+                    "height": 29
+                }
             },
             {
                 "path": "sprites/container/brewing_stand/fuel_length.png",
-                "position": { "x": 176, "y": 29 },
-                "width": 18,
-                "height": 4,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 176,
+                    "y": 29,
+                    "width": 18,
+                    "height": 4
                 }
             }
         ]
@@ -2068,38 +3156,53 @@
         "textures": [
             {
                 "path": "sprites/container/cartography_table/map.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 66,
-                "height": 66,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 66,
+                    "height": 66
+                }
             },
             {
                 "path": "sprites/container/cartography_table/scaled_map.png",
-                "position": { "x": 176, "y": 66 },
-                "width": 66,
-                "height": 66,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 66,
+                    "width": 66,
+                    "height": 66
+                }
             },
             {
                 "path": "sprites/container/cartography_table/duplicated_map.png",
-                "position": { "x": 176, "y": 132 },
-                "width": 50,
-                "height": 66,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 132,
+                    "width": 50,
+                    "height": 66
+                }
             },
             {
                 "path": "sprites/container/cartography_table/error.png",
-                "position": { "x": 226, "y": 132 },
-                "width": 28,
-                "height": 21,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 226,
+                    "y": 132,
+                    "width": 28,
+                    "height": 21
+                }
             },
             {
                 "path": "sprites/container/cartography_table/locked.png",
-                "position": { "x": 52, "y": 214 },
-                "width": 10,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 52,
+                    "y": 214,
+                    "width": 10,
+                    "height": 14
+                }
             }
         ]
     },
@@ -2111,101 +3214,128 @@
         "textures": [
             {
                 "path": "sprites/container/enchanting_table/enchantment_slot.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 108,
-                "height": 19,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 108,
+                    "height": 19
+                }
             },
             {
                 "path": "sprites/container/enchanting_table/enchantment_slot_disabled.png",
-                "position": { "x": 0, "y": 185 },
-                "width": 108,
-                "height": 19,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 185,
+                    "width": 108,
+                    "height": 19
+                }
             },
             {
                 "path": "sprites/container/enchanting_table/enchantment_slot_highlighted.png",
-                "position": { "x": 0, "y": 204 },
-                "width": 108,
-                "height": 19,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 204,
+                    "width": 108,
+                    "height": 19
+                }
             },
             {
                 "path": "sprites/container/enchanting_table/level_1.png",
-                "position": { "x": 0, "y": 223 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/container/enchanting_table/level_2.png",
-                "position": { "x": 16, "y": 223 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 16,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/container/enchanting_table/level_3.png",
-                "position": { "x": 32, "y": 223 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 32,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/container/enchanting_table/level_1_disabled.png",
-                "position": { "x": 0, "y": 239 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/container/enchanting_table/level_2_disabled.png",
-                "position": { "x": 16, "y": 239 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 16,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
                 }
             },
             {
                 "path": "sprites/container/enchanting_table/level_3_disabled.png",
-                "position": { "x": 32, "y": 239 },
-                "width": 16,
-                "height": 16,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 47,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 32,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
                 }
             }
         ]
@@ -2218,17 +3348,23 @@
         "textures": [
             {
                 "path": "sprites/container/furnace/lit_progress.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/furnace/burn_progress.png",
-                "position": { "x": 176, "y": 14 },
-                "width": 24,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
             }
         ]
     },
@@ -2246,17 +3382,23 @@
         "textures": [
             {
                 "path": "sprites/gamemode_switcher/slot.png",
-                "position": { "x": 0, "y": 75 },
-                "width": 26,
-                "height": 26,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 75,
+                    "width": 26,
+                    "height": 26
+                }
             },
             {
                 "path": "sprites/gamemode_switcher/selection.png",
-                "position": { "x": 26, "y": 75 },
-                "width": 26,
-                "height": 26,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 26,
+                    "y": 75,
+                    "width": 26,
+                    "height": 26
+                }
             }
         ]
     },
@@ -2274,10 +3416,13 @@
         "textures": [
             {
                 "path": "sprites/container/grindstone/error.png",
-                "position": { "x": 176, "y": 0 }, 
-                "width": 28, 
-                "height": 21,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
             }
         ]
     },
@@ -2289,31 +3434,43 @@
         "textures": [
             {
                 "path": "sprites/container/horse/chest_slots.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 90,
-                "height": 54,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 90,
+                    "height": 54
+                }
             },
             {
                 "path": "sprites/container/horse/saddle_slot.png",
-                "position": { "x": 18, "y": 220 },
-                "width": 18,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 18,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/container/horse/armor_slot.png",
-                "position": { "x": 0, "y": 220 },
-                "width": 18,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/container/horse/llama_armor_slot.png",
-                "position": { "x": 36, "y": 220 },
-                "width": 18,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 36,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
             }
         ]
     },
@@ -2325,75 +3482,92 @@
         "textures": [
             {
                 "path": "sprites/recipe_book/button.png",
-                "position": { "x": 178, "y": 0 },
-                "width": 20,
-                "height": 18,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 335,
                         "max_inclusive": 340
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 20,
+                    "height": 18
                 }
             },
             {
                 "path": "sprites/recipe_book/button_highlighted.png",
-                "position": { "x": 178, "y": 19 },
-                "width": 20,
-                "height": 18,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 335,
                         "max_inclusive": 340
                     }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 19,
+                    "width": 20,
+                    "height": 18
                 }
             },
-
             {
                 "path": "sprites/container/inventory/effect_background_large.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 120,
-                "height": 32,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 120,
+                    "height": 32
+                }
             },
             {
                 "path": "sprites/hud/effect_background.png",
-                "position": { "x": 141, "y": 166 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 141,
+                    "y": 166,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/hud/effect_background_ambient.png",
-                "position": { "x": 165, "y": 166 },
-                "width": 24,
-                "height": 24,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 165,
+                    "y": 166,
+                    "width": 24,
+                    "height": 24
                 }
             },
             {
                 "path": "sprites/container/inventory/effect_background_small.png",
-                "position": { "x": 0, "y": 198 },
-                "width": 32,
-                "height": 32,
                 "remove": true,
                 "predicate": {
                     "protocol": {
                         "min_inclusive": 107,
                         "max_inclusive": null
                     }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 198,
+                    "width": 32,
+                    "height": 32
                 }
             }
         ]
@@ -2412,66 +3586,93 @@
         "textures": [
             {
                 "path": "sprites/container/loom/banner_slot.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 16,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/container/loom/dye_slot.png",
-                "position": { "x": 192, "y": 0 },
-                "width": 16,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 192,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/container/loom/pattern_slot.png",
-                "position": { "x": 208, "y": 0 },
-                "width": 16,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 208,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
             },
             {
                 "path": "sprites/container/loom/scroller.png",
-                "position": { "x": 232, "y": 0 },
-                "width": 12,
-                "height": 15,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 232,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             },
             {
                 "path": "sprites/container/loom/scroller_disabled.png",
-                "position": { "x": 244, "y": 0 },
-                "width": 12,
-                "height": 15,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 244,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             },
             {
                 "path": "sprites/container/loom/pattern.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/loom/pattern_selected.png",
-                "position": { "x": 0, "y": 180 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 180,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/loom/pattern_highlighted.png",
-                "position": { "x": 0, "y": 194 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 194,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/loom/error.png",
-                "position": { "x": 176, "y": 17 },
-                "width": 17,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 17,
+                    "width": 17,
+                    "height": 16
+                }
             }
         ]
     },
@@ -2489,10 +3690,13 @@
         "textures": [
             {
                 "path": "sprites/container/smithing/error.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 28,
-                "height": 21,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
             }
         ]
     },
@@ -2510,17 +3714,23 @@
         "textures": [
             {
                 "path": "sprites/container/smoker/lit_progress.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 14,
-                "height": 14,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
             },
             {
                 "path": "sprites/container/smoker/burn_progress.png",
-                "position": { "x": 176, "y": 14 },
-                "width": 24,
-                "height": 16,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
             }
         ]
     },
@@ -2531,63 +3741,93 @@
         "textures": [
             {
                 "path": "sprites/container/slot.png",
-                "position": { "x": 0, "y": 0 },
-                "width": 18,
-                "height": 18
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/sort_down.png", 
-                "position": { "x": 18, "y": 0 }, 
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/sort_down.png",
+                "box": {
+                    "x": 18,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/sort_up.png", 
-                "position": { "x": 36, "y": 0 }, 
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/sort_up.png",
+                "box": {
+                    "x": 36,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/statistics/header.png",
-                "position": { "x": 0, "y": 18 },
-                "width": 18,
-                "height": 18
+                "box": {
+                    "x": 0,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/statistics/item_crafted.png",
-                "position": { "x": 18, "y": 18 },
-                "width": 18,
-                "height": 18
+                "box": {
+                    "x": 18,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/item_used.png", 
-                "position": { "x": 36, "y": 18 },
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/item_used.png",
+                "box": {
+                    "x": 36,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/block_mined.png", 
-                "position": { "x": 54, "y": 18 },
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/block_mined.png",
+                "box": {
+                    "x": 54,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/item_broken.png", 
-                "position": { "x": 72, "y": 18 },
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/item_broken.png",
+                "box": {
+                    "x": 72,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/item_picked_up.png", 
-                "position": { "x": 90, "y": 18 },
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/item_picked_up.png",
+                "box": {
+                    "x": 90,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             },
             {
-                "path": "sprites/statistics/item_dropped.png", 
-                "position": { "x": 108, "y": 18 },
-                "width": 18,
-                "height": 18
+                "path": "sprites/statistics/item_dropped.png",
+                "box": {
+                    "x": 108,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
             }
         ]
     },
@@ -2605,38 +3845,53 @@
         "textures": [
             {
                 "path": "sprites/container/stonecutter/scroller.png",
-                "position": { "x": 176, "y": 0 },
-                "width": 12,
-                "height": 15,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             },
             {
                 "path": "sprites/container/stonecutter/scroller_disabled.png",
-                "position": { "x": 188, "y": 0 },
-                "width": 12,
-                "height": 15,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 188,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
             },
             {
                 "path": "sprites/container/stonecutter/recipe.png",
-                "position": { "x": 0, "y": 166 },
-                "width": 16,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 16,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/container/stonecutter/recipe_selected.png",
-                "position": { "x": 0, "y": 184 },
-                "width": 16,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 16,
+                    "height": 18
+                }
             },
             {
                 "path": "sprites/container/stonecutter/recipe_highlighted.png",
-                "position": { "x": 0, "y": 202 },
-                "width": 16,
-                "height": 18,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 202,
+                    "width": 16,
+                    "height": 18
+                }
             }
         ]
     },
@@ -2655,66 +3910,93 @@
         "textures": [
             {
                 "path": "sprites/container/villager/out_of_stock.png",
-                "position": { "x": 311, "y": 0 },
-                "width": 28,
-                "height": 21,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 311,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
             },
             {
                 "path": "sprites/container/villager/discount_strikethrough.png",
-                "position": { "x": 0, "y": 176 },
-                "width": 9,
-                "height": 2,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 9,
+                    "height": 2
+                }
             },
             {
                 "path": "sprites/container/villager/trade_arrow_out_of_stock.png",
-                "position": { "x": 25, "y": 171 },
-                "width": 10,
-                "height": 9,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 25,
+                    "y": 171,
+                    "width": 10,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/container/villager/trade_arrow.png",
-                "position": { "x": 15, "y": 171 },
-                "width": 10,
-                "height": 9,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 15,
+                    "y": 171,
+                    "width": 10,
+                    "height": 9
+                }
             },
             {
                 "path": "sprites/container/villager/experience_bar_result.png",
-                "position": { "x": 0, "y": 181 },
-                "width": 102,
-                "height": 5,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 181,
+                    "width": 102,
+                    "height": 5
+                }
             },
             {
                 "path": "sprites/container/villager/experience_bar_background.png",
-                "position": { "x": 0, "y": 186 },
-                "width": 102,
-                "height": 5,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 186,
+                    "width": 102,
+                    "height": 5
+                }
             },
             {
                 "path": "sprites/container/villager/experience_bar_current.png",
-                "position": { "x": 0, "y": 191 },
-                "width": 102,
-                "height": 5,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 191,
+                    "width": 102,
+                    "height": 5
+                }
             },
             {
                 "path": "sprites/container/villager/scroller.png",
-                "position": { "x": 0, "y": 199 },
-                "width": 6,
-                "height": 27,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 199,
+                    "width": 6,
+                    "height": 27
+                }
             },
             {
                 "path": "sprites/container/villager/scroller_disabled.png",
-                "position": { "x": 6, "y": 199 },
-                "width": 6,
-                "height": 27,
-                "remove": true
+                "remove": true,
+                "box": {
+                    "x": 6,
+                    "y": 199,
+                    "width": 6,
+                    "height": 27
+                }
             }
         ]
     }
