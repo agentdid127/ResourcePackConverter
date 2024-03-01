@@ -158,8 +158,6 @@
                 "width": 15, 
                 "height": 15
             },
-
-            // Hearts
             {
                 "path": "sprites/hud/heart/container.png", 
                 "position": { "x": 16, "y": 0 }, 
@@ -304,12 +302,42 @@
                     }
                 }
             }, 
-
-            // TODO: Armor
-            
-            // TODO: Vehicle Hearts
-
-            // Bubbles
+            {
+                "path": "sprites/hud/armor_empty.png", 
+                "position": { "x": 16, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/armor_half.png", 
+                "position": { "x": 25, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/armor_full.png", 
+                "position": { "x": 34, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_container.png",
+                "position": { "x": 52, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_full.png",
+                "position": { "x": 88, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_half.png",
+                "position": { "x": 97, "y": 9 },
+                "width": 9,
+                "height": 9
+            },
             {
                 "path": "sprites/hud/air.png",
                 "position": { "x": 16, "y": 18 },
@@ -322,8 +350,6 @@
                 "width": 9,
                 "height": 9
             },
-
-            // Food
             {
                 "path": "sprites/hud/food_empty.png",
                 "position": { "x": 16, "y": 27 },
@@ -360,12 +386,162 @@
                 "width": 9,
                 "height": 9
             },
-
-            // TODO: Hardcore Hearts
-
-            // TODO: Boss bar (1.8) maybe
-
-            // XP Bars
+            {
+                "path": "sprites/hud/heart/container_hardcore.png",
+                "position": { "x": 16, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/container_hardcore_blinking.png",
+                "position": { "x": 25, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_full.png",
+                "position": { "x": 52, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_half.png",
+                "position": { "x": 61, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_full_blinking.png",
+                "position": { "x": 70, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_half_blinking.png",
+                "position": { "x": 79, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_full.png",
+                "position": { "x": 88, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_half.png",
+                "position": { "x": 97, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_full_blinking.png",
+                "position": { "x": 106, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_half_blinking.png",
+                "position": { "x": 115, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_full.png",
+                "position": { "x": 124, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_half.png",
+                "position": { "x": 133, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_full_blinking.png",
+                "position": { "x": 142, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_half_blinking.png",
+                "position": { "x": 151, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_full.png",
+                "position": { "x": 160, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_half.png",
+                "position": { "x": 169, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_full_blinking.png",
+                "position": { "x": 160, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_half_blinking.png",
+                "position": { "x": 169, "y": 45 },
+                "width": 9,
+                "height": 9
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_full.png",
+                "position": { "x": 178, "y": 45 },
+                "width": 9,
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_half.png",
+                "position": { "x": 187, "y": 45 },
+                "width": 9,
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_full_blinking.png",
+                "position": { "x": 178, "y": 45 },
+                "width": 9,
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_half_blinking.png",
+                "position": { "x": 187, "y": 45 },
+                "width": 9,
+                "height": 9,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                }
+            },
             {
                 "path": "sprites/hud/experience_bar_background.png", 
                 "position": { "x": 0, "y": 64 }, 
@@ -396,8 +572,6 @@
                 "width": 182, 
                 "height": 5
             },
-
-            // Attack Indicators
             {
                 "path": "sprites/hud/hotbar_attack_indicator_background.png",
                 "position": { "x": 0, "y": 94 },
@@ -446,8 +620,6 @@
                     }
                 }
             },
-
-            // Server List Pinging/Ping Bars
             {
                 "path": "sprites/server_list/ping_5.png", 
                 "position": { "x": 0, "y": 176 }, 
@@ -508,8 +680,6 @@
                 "width": 10, 
                 "height": 8
             },
-            
-            // Ping Icons
             {
                 "path": "sprites/icon/ping_5.png", 
                 "position": { "x": 0, "y": 176 }, 
@@ -970,6 +1140,7 @@
         "path": "stream_indicator.png",
         "width": 16,
         "height": 64,
+        "delete": true,
         "textures": []
     },
     {
@@ -990,44 +1161,14 @@
                 "height": 5
             },
             {
-                "path": "sprites/boss_bar/blue_background.png", 
-                "position": { "x": 0, "y": 10 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
-                "path": "sprites/boss_bar/red_background.png", 
-                "position": { "x": 0, "y": 20 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
-                "path": "sprites/boss_bar/green_background.png", 
-                "position": { "x": 0, "y": 30 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
-                "path": "sprites/boss_bar/yellow_background.png", 
-                "position": { "x": 0, "y": 40 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
-                "path": "sprites/boss_bar/purple_background.png", 
-                "position": { "x": 0, "y": 50 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
-                "path": "sprites/boss_bar/white_background.png", 
-                "position": { "x": 0, "y": 60 }, 
-                "width": 182, 
-                "height": 5
-            },
-            {
                 "path": "sprites/boss_bar/pink_progress.png", 
                 "position": { "x": 0, "y": 5 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/blue_background.png", 
+                "position": { "x": 0, "y": 10 }, 
                 "width": 182, 
                 "height": 5
             },
@@ -1038,8 +1179,20 @@
                 "height": 5
             },
             {
+                "path": "sprites/boss_bar/red_background.png", 
+                "position": { "x": 0, "y": 20 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
                 "path": "sprites/boss_bar/red_progress.png", 
                 "position": { "x": 0, "y": 25 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/green_background.png", 
+                "position": { "x": 0, "y": 30 }, 
                 "width": 182, 
                 "height": 5
             },
@@ -1050,14 +1203,32 @@
                 "height": 5
             },
             {
+                "path": "sprites/boss_bar/yellow_background.png", 
+                "position": { "x": 0, "y": 40 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
                 "path": "sprites/boss_bar/yellow_progress.png", 
                 "position": { "x": 0, "y": 45 }, 
                 "width": 182, 
                 "height": 5
             },
             {
+                "path": "sprites/boss_bar/purple_background.png", 
+                "position": { "x": 0, "y": 50 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
                 "path": "sprites/boss_bar/purple_progress.png", 
                 "position": { "x": 0, "y": 55 }, 
+                "width": 182, 
+                "height": 5
+            },
+            {
+                "path": "sprites/boss_bar/white_background.png", 
+                "position": { "x": 0, "y": 60 }, 
                 "width": 182, 
                 "height": 5
             },
@@ -1514,8 +1685,45 @@
             }
         ]
     },
-    
-    // Containers
+    {
+        "path": "accessibility.png",
+        "width": 32,
+        "height": 64,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": []
+    },
+    {
+        "path": "recipe_button.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 393,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/recipe_book/button.png",
+                "position": { "x": 0, "y": 0 },
+                "width": 20, 
+                "height": 18
+            },
+            {
+                "path": "sprites/recipe_book/button_highlighted.png",
+                "position": { "x": 0, "y": 19 },
+                "width": 20, 
+                "height": 18
+            }
+        ]
+    },
     {
         "path": "container/creative_inventory/tabs.png",
         "width": 256,
@@ -1703,7 +1911,619 @@
             }
         ]
     },
+    {
+        "path": "container/anvil.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/anvil/error.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 28,
+                "height": 21,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/anvil/text_field.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 110,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/anvil/text_field_disabled.png",
+                "position": { "x": 0, "y": 182 },
+                "width": 110,
+                "height": 16,
+                "remove": true
+            }
+        ]
+    },
+    {
 
+        "path": "container/beacon.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/beacon/button.png",
+                "position": { "x": 0, "y": 219 }, 
+                "width": 22,
+                "height": 22,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/beacon/button_selected.png",
+                "position": { "x": 22, "y": 219 }, 
+                "width": 22,
+                "height": 22,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/beacon/button_disabled.png",
+                "position": { "x": 44, "y": 219 }, 
+                "width": 22,
+                "height": 22,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/beacon/button_highlighted.png",
+                "position": { "x": 66, "y": 219 }, 
+                "width": 22,
+                "height": 22,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/beacon/confirm.png",
+                "position": { "x": 90, "y": 220 }, 
+                "width": 18,
+                "height": 18,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/beacon/cancel.png",
+                "position": { "x": 112, "y": 220 }, 
+                "width": 18,
+                "height": 18,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/blast_furnace.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/blast_furnace/lit_progress.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/blast_furnace/burn_progress.png",
+                "position": { "x": 176, "y": 14 },
+                "width": 24,
+                "height": 16,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/brewing_stand.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/brewing_stand/brew_progress.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 9,
+                "height": 28,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/brewing_stand/bubbles.png",
+                "position": { "x": 185, "y": 0 },
+                "width": 12,
+                "height": 29,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/brewing_stand/fuel_length.png",
+                "position": { "x": 176, "y": 29 },
+                "width": 18,
+                "height": 4,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/cartography_table.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/cartography_table/map.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 66,
+                "height": 66,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/cartography_table/scaled_map.png",
+                "position": { "x": 176, "y": 66 },
+                "width": 66,
+                "height": 66,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/cartography_table/duplicated_map.png",
+                "position": { "x": 176, "y": 132 },
+                "width": 50,
+                "height": 66,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/cartography_table/error.png",
+                "position": { "x": 226, "y": 132 },
+                "width": 28,
+                "height": 21,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/cartography_table/locked.png",
+                "position": { "x": 52, "y": 214 },
+                "width": 10,
+                "height": 14,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/enchanting_table.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 108,
+                "height": 19,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot_disabled.png",
+                "position": { "x": 0, "y": 185 },
+                "width": 108,
+                "height": 19,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot_highlighted.png",
+                "position": { "x": 0, "y": 204 },
+                "width": 108,
+                "height": 19,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_1.png",
+                "position": { "x": 0, "y": 223 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_2.png",
+                "position": { "x": 16, "y": 223 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_3.png",
+                "position": { "x": 32, "y": 223 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_1_disabled.png",
+                "position": { "x": 0, "y": 239 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_2_disabled.png",
+                "position": { "x": 16, "y": 239 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_3_disabled.png",
+                "position": { "x": 32, "y": 239 },
+                "width": 16,
+                "height": 16,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/furnace.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/furnace/lit_progress.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/furnace/burn_progress.png",
+                "position": { "x": 176, "y": 14 },
+                "width": 24,
+                "height": 16,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/gamemode_switcher.png",
+        "width": 128,
+        "height": 128,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 735,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/gamemode_switcher/slot.png",
+                "position": { "x": 0, "y": 75 },
+                "width": 26,
+                "height": 26,
+                "remove": true
+            },
+            {
+                "path": "sprites/gamemode_switcher/selection.png",
+                "position": { "x": 26, "y": 75 },
+                "width": 26,
+                "height": 26,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/grindstone.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/grindstone/error.png",
+                "position": { "x": 176, "y": 0 }, 
+                "width": 28, 
+                "height": 21,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/horse.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/horse/chest_slots.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 90,
+                "height": 54,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/horse/saddle_slot.png",
+                "position": { "x": 18, "y": 220 },
+                "width": 18,
+                "height": 18,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/horse/armor_slot.png",
+                "position": { "x": 0, "y": 220 },
+                "width": 18,
+                "height": 18,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/horse/llama_armor_slot.png",
+                "position": { "x": 36, "y": 220 },
+                "width": 18,
+                "height": 18,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/inventory.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/recipe_book/button.png",
+                "position": { "x": 178, "y": 0 },
+                "width": 20,
+                "height": 18,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 335,
+                        "max_inclusive": 340
+                    }
+                }
+            },
+            {
+                "path": "sprites/recipe_book/button_highlighted.png",
+                "position": { "x": 178, "y": 19 },
+                "width": 20,
+                "height": 18,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 335,
+                        "max_inclusive": 340
+                    }
+                }
+            },
+
+            {
+                "path": "sprites/container/inventory/effect_background_large.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 120,
+                "height": 32,
+                "remove": true
+            },
+            {
+                "path": "sprites/hud/effect_background.png",
+                "position": { "x": 141, "y": 166 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/hud/effect_background_ambient.png",
+                "position": { "x": 165, "y": 166 },
+                "width": 24,
+                "height": 24,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            },
+            {
+                "path": "sprites/container/inventory/effect_background_small.png",
+                "position": { "x": 0, "y": 198 },
+                "width": 32,
+                "height": 32,
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/loom.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/loom/banner_slot.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 16,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/dye_slot.png",
+                "position": { "x": 192, "y": 0 },
+                "width": 16,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/pattern_slot.png",
+                "position": { "x": 208, "y": 0 },
+                "width": 16,
+                "height": 16,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/scroller.png",
+                "position": { "x": 232, "y": 0 },
+                "width": 12,
+                "height": 15,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/scroller_disabled.png",
+                "position": { "x": 244, "y": 0 },
+                "width": 12,
+                "height": 15,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/pattern.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/pattern_selected.png",
+                "position": { "x": 0, "y": 180 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/pattern_highlighted.png",
+                "position": { "x": 0, "y": 194 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/loom/error.png",
+                "position": { "x": 176, "y": 17 },
+                "width": 17,
+                "height": 16,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/smithing.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 735,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/smithing/error.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 28,
+                "height": 21,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/smoker.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/smoker/lit_progress.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 14,
+                "height": 14,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/smoker/burn_progress.png",
+                "position": { "x": 176, "y": 14 },
+                "width": 24,
+                "height": 16,
+                "remove": true
+            }
+        ]
+    },
     {
         "path": "container/stats_icons.png",
         "width": 128,
@@ -1768,6 +2588,133 @@
                 "position": { "x": 108, "y": 18 },
                 "width": 18,
                 "height": 18
+            }
+        ]
+    },
+    {
+        "path": "container/stonecutter.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/stonecutter/scroller.png",
+                "position": { "x": 176, "y": 0 },
+                "width": 12,
+                "height": 15,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/stonecutter/scroller_disabled.png",
+                "position": { "x": 188, "y": 0 },
+                "width": 12,
+                "height": 15,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe.png",
+                "position": { "x": 0, "y": 166 },
+                "width": 16,
+                "height": 18,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe_selected.png",
+                "position": { "x": 0, "y": 184 },
+                "width": 16,
+                "height": 18,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe_highlighted.png",
+                "position": { "x": 0, "y": 202 },
+                "width": 16,
+                "height": 18,
+                "remove": true
+            }
+        ]
+    },
+    {
+        "path": "container/villager2.png",
+        "name": "villager.png",
+        "width": 512,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/villager/out_of_stock.png",
+                "position": { "x": 311, "y": 0 },
+                "width": 28,
+                "height": 21,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/discount_strikethrough.png",
+                "position": { "x": 0, "y": 176 },
+                "width": 9,
+                "height": 2,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/trade_arrow_out_of_stock.png",
+                "position": { "x": 25, "y": 171 },
+                "width": 10,
+                "height": 9,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/trade_arrow.png",
+                "position": { "x": 15, "y": 171 },
+                "width": 10,
+                "height": 9,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_result.png",
+                "position": { "x": 0, "y": 181 },
+                "width": 102,
+                "height": 5,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_background.png",
+                "position": { "x": 0, "y": 186 },
+                "width": 102,
+                "height": 5,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_current.png",
+                "position": { "x": 0, "y": 191 },
+                "width": 102,
+                "height": 5,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/scroller.png",
+                "position": { "x": 0, "y": 199 },
+                "width": 6,
+                "height": 27,
+                "remove": true
+            },
+            {
+                "path": "sprites/container/villager/scroller_disabled.png",
+                "position": { "x": 6, "y": 199 },
+                "width": 6,
+                "height": 27,
+                "remove": true
             }
         ]
     }
