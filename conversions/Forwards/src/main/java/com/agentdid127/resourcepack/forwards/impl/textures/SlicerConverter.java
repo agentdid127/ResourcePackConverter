@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Box;
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
 import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Texture;
 import com.agentdid127.resourcepack.library.Converter;
@@ -67,19 +68,21 @@ public class SlicerConverter extends Converter {
                     continue;
                     
                 try {
+                    Box box = texture.getBox();
+
                     converter.saveSlice(
-                        texture.getBox().getX(), 
-                        texture.getBox().getY(), 
-                        texture.getBox().getWidth(), 
-                        texture.getBox().getHeight(), 
+                        box.getX(), 
+                        box.getY(), 
+                        box.getWidth(), 
+                        box.getHeight(), 
                         texturePath);
 
                     if (texture.shouldRemove()) {
                         converter.fillEmpty(
-                            texture.getBox().getX(), 
-                            texture.getBox().getY(), 
-                            texture.getBox().getWidth(),
-                            texture.getBox().getHeight());
+                            box.getX(), 
+                            box.getY(), 
+                            box.getWidth(),
+                            box.getHeight());
                     }
 
                     JsonObject metadata = texture.getMetadata();
