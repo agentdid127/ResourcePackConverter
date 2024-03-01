@@ -45,59 +45,59 @@ public class SlicerConverter extends Converter {
         Slice[] slices = Slice.parseArray(array);
 
         for (Slice slice : slices) {
-            if (!testPredicate(gson, slice.predicate))
+            if (!testPredicate(gson, slice.getPredicate()))
                 continue;
 
-            Path path = guiPath.resolve(slice.path);
+            Path path = guiPath.resolve(slice.getPath());
             if (!path.toFile().exists()) {
-                Logger.log("GUI Texture '" + slice.path + "' does not exist! Skipping...");
+                Logger.log("GUI Texture '" + slice.getPath() + "' does not exist! Skipping...");
                 continue;
             }
 
-            ImageConverter converter = new ImageConverter(slice.width, slice.height, path);
+            ImageConverter converter = new ImageConverter(slice.getWidth(), slice.getHeight(), path);
             
             Path imagePath = path;
-            if (slice.name != null) 
-                imagePath = path.resolveSibling(slice.name);
+            if (slice.getPathName() != null) 
+                imagePath = path.resolveSibling(slice.getPathName());
             
-            for (Texture texture : slice.textures) {
-                Path texturePath = guiPath.resolve(texture.path);
+            for (Texture texture : slice.getTextures()) {
+                Path texturePath = guiPath.resolve(texture.getPath());
                 ensureParentExists(texturePath);
-                if (!testPredicate(gson, texture.predicate))
+                if (!testPredicate(gson, texture.getPredicate()))
                     continue;
                     
                 try {
                     converter.saveSlice(
-                        texture.box.x, 
-                        texture.box.y, 
-                        texture.box.width, 
-                        texture.box.height, 
+                        texture.getBox().getX(), 
+                        texture.getBox().getY(), 
+                        texture.getBox().getWidth(), 
+                        texture.getBox().getHeight(), 
                         texturePath);
 
-                    if (texture.remove) {
+                    if (texture.shouldRemove()) {
                         converter.fillEmpty(
-                            texture.box.x, 
-                            texture.box.y, 
-                            texture.box.width,
-                            texture.box.height);
+                            texture.getBox().getX(), 
+                            texture.getBox().getY(), 
+                            texture.getBox().getWidth(),
+                            texture.getBox().getHeight());
                     }
 
-                    JsonObject metadata = texture.metadata;
+                    JsonObject metadata = texture.getMetadata();
                     if (metadata.keySet().isEmpty() || metadata.entrySet().isEmpty())
                         continue;
 
                     Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
                     write_json(metadataPath, metadata);
                 } catch (Exception exception) {
-                    Logger.log("Failed to slice texture '" + texture.path + "' (error='" + exception.getLocalizedMessage() + "')");
-                    Logger.log("  - box: (x=" + texture.box.x + ", y=" + texture.box.y + ", width=" + texture.box.width + ", height=" + texture.box.height + ")");
+                    Logger.log("Failed to slice texture '" + texture.getPath() + "' (error='" + exception.getLocalizedMessage() + "')");
+                    Logger.log("  - box: (x=" + texture.getBox().getX() + ", y=" + texture.getBox().getY() + ", width=" + texture.getBox().getWidth() + ", height=" + texture.getBox().getHeight() + ")");
                 }
             }
 
             if (!path.toFile().delete())
                 Logger.log("Failed to remove '" + path.getFileName() + "' whilst slicing.");   
 
-            if (!slice.delete)
+            if (!slice.shouldDelete())
                 converter.store(imagePath);
         }
     }

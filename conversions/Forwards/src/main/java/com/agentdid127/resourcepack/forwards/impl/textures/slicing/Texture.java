@@ -9,11 +9,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Texture {
-    public String path;
-    public Box box;
-    public boolean remove;
-    public JsonObject predicate;
-    public JsonObject metadata;
+    private String path;
+    private Box box;
+    private boolean remove;
+    private JsonObject predicate;
+    private JsonObject metadata;
 
     public static HashMap<String, JsonObject> metatdataCache = new HashMap<>();
     static {    
@@ -70,6 +70,26 @@ public class Texture {
         this.remove = false;
         this.predicate = new JsonObject();
         this.metadata = new JsonObject();
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public Box getBox() {
+        return box;
+    }
+
+    public boolean shouldRemove() {
+        return remove;
+    }
+
+    public JsonObject getPredicate() {
+        return predicate;
+    }
+
+    public JsonObject getMetadata() {
+        return metadata;
     }
 
     public static Texture parse(JsonObject object) {

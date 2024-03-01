@@ -3,16 +3,32 @@ package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
 import com.google.gson.JsonObject;
 
 public class Box {
-    public int x;
-    public int y;
-    public int width;
-    public int height;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
 
     public Box(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+    }
+
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
     }
 
     public static Box parse(JsonObject object) {

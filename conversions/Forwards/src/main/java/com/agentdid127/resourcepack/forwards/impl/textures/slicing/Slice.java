@@ -8,13 +8,41 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class Slice {
-    public String path;
-    public String name;
-    public int width;
-    public int height;
-    public JsonObject predicate;
-    public Texture[] textures;
-    public boolean delete;
+    private String path;
+    private String name;
+    private int width;
+    private int height;
+    private JsonObject predicate;
+    private Texture[] textures;
+    private boolean delete;
+
+    public String getPath() {
+        return path;
+    }
+    
+    public String getPathName() {
+        return name;
+    }
+    
+    public int getWidth() {
+        return width;
+    }
+    
+    public int getHeight() {
+        return height;
+    }
+    
+    public JsonObject getPredicate() {
+        return predicate;
+    }
+    
+    public Texture[] getTextures() {
+        return textures;
+    }
+    
+    public boolean shouldDelete() {
+        return delete;
+    }
 
     public static Slice parse(JsonObject object) {
         Slice slice = new Slice();
