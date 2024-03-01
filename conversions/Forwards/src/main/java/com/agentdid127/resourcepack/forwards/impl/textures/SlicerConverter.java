@@ -55,6 +55,11 @@ public class SlicerConverter extends Converter {
             }
 
             ImageConverter converter = new ImageConverter(slice.width, slice.height, path);
+            
+            Path imagePath = path;
+            if (slice.name != null) 
+                imagePath = path.resolveSibling(slice.name);
+            
             for (Texture texture : slice.textures) {
                 Path texturePath = guiPath.resolve(texture.path);
                 ensureParentExists(texturePath);
@@ -91,13 +96,11 @@ public class SlicerConverter extends Converter {
                 }
             }
 
-            if (!slice.delete) {
-                converter.store();
-                continue;
-            }
-            
             if (!path.toFile().delete())
-                Logger.log("Failed to remove " + pack.getFileName() + " after slicing.");
+                Logger.log("Failed to remove '" + path.getFileName() + "' whilst slicing.");   
+
+            if (!slice.delete)
+                converter.store(imagePath);
         }
     }
 

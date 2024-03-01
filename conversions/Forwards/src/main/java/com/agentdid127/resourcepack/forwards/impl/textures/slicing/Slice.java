@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 
 public class Slice {
     public String path;
+    public String name;
     public int width;
     public int height;
     public JsonObject predicate;
@@ -23,6 +24,11 @@ public class Slice {
 
             JsonObject guiObject = element.getAsJsonObject();
             slice.path = guiObject.get("path").getAsString();
+
+            if (guiObject.has("name"))
+                slice.name = guiObject.get("name").getAsString();
+            else slice.name = null;
+
             slice.width = guiObject.get("width").getAsInt();
             slice.height = guiObject.get("height").getAsInt();
             slice.textures = Texture.parse(guiObject.get("textures").getAsJsonArray());
