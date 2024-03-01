@@ -1,0 +1,4003 @@
+[
+    {
+        "path": "widgets.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/hud/hotbar.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 182,
+                    "height": 22
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_selection.png",
+                "box": {
+                    "x": 0,
+                    "y": 22,
+                    "width": 24,
+                    "height": 23
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_offhand_left.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 24,
+                    "y": 22,
+                    "width": 29,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_offhand_right.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 53,
+                    "y": 22,
+                    "width": 29,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/icon/draft_report.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 182,
+                    "y": 24,
+                    "width": 15,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/widget/button_disabled.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 46,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/button.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 66,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/button_highlighted.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 86,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/locked_button.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 146,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/locked_button_highlighted.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/locked_button_disabled.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 186,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 146,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button_highlighted.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 166,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/unlocked_button_disabled.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 186,
+                    "width": 20,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "icons.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/hud/crosshair.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 15,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/hud/heart/container.png",
+                "box": {
+                    "x": 16,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/container_blinking.png",
+                "box": {
+                    "x": 25,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/full.png",
+                "box": {
+                    "x": 52,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/half.png",
+                "box": {
+                    "x": 61,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/full_blinking.png",
+                "box": {
+                    "x": 70,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/half_blinking.png",
+                "box": {
+                    "x": 79,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_full.png",
+                "box": {
+                    "x": 88,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_half.png",
+                "box": {
+                    "x": 97,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_full_blinking.png",
+                "box": {
+                    "x": 106,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_half_blinking.png",
+                "box": {
+                    "x": 115,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_full.png",
+                "box": {
+                    "x": 124,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_half.png",
+                "box": {
+                    "x": 133,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_full_blinking.png",
+                "box": {
+                    "x": 142,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_half_blinking.png",
+                "box": {
+                    "x": 151,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_full_blinking.png",
+                "box": {
+                    "x": 160,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_half_blinking.png",
+                "box": {
+                    "x": 169,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_full.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_half.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_full_blinking.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_half_blinking.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/armor_empty.png",
+                "box": {
+                    "x": 16,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/armor_half.png",
+                "box": {
+                    "x": 25,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/armor_full.png",
+                "box": {
+                    "x": 34,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_container.png",
+                "box": {
+                    "x": 52,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_full.png",
+                "box": {
+                    "x": 88,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/vehicle_half.png",
+                "box": {
+                    "x": 97,
+                    "y": 9,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/air.png",
+                "box": {
+                    "x": 16,
+                    "y": 18,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/air_bursting.png",
+                "box": {
+                    "x": 25,
+                    "y": 18,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_empty.png",
+                "box": {
+                    "x": 16,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_full.png",
+                "box": {
+                    "x": 52,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_half.png",
+                "box": {
+                    "x": 61,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_full_hunger.png",
+                "box": {
+                    "x": 88,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_half_hunger.png",
+                "box": {
+                    "x": 97,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/food_empty_hunger.png",
+                "box": {
+                    "x": 133,
+                    "y": 27,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/container_hardcore.png",
+                "box": {
+                    "x": 16,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/container_hardcore_blinking.png",
+                "box": {
+                    "x": 25,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_full.png",
+                "box": {
+                    "x": 52,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_half.png",
+                "box": {
+                    "x": 61,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_full_blinking.png",
+                "box": {
+                    "x": 70,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/hardcore_half_blinking.png",
+                "box": {
+                    "x": 79,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_full.png",
+                "box": {
+                    "x": 88,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_half.png",
+                "box": {
+                    "x": 97,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_full_blinking.png",
+                "box": {
+                    "x": 106,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/poisoned_hardcore_half_blinking.png",
+                "box": {
+                    "x": 115,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_full.png",
+                "box": {
+                    "x": 124,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_half.png",
+                "box": {
+                    "x": 133,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_full_blinking.png",
+                "box": {
+                    "x": 142,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/withered_hardcore_half_blinking.png",
+                "box": {
+                    "x": 151,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_full.png",
+                "box": {
+                    "x": 160,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_half.png",
+                "box": {
+                    "x": 169,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_full_blinking.png",
+                "box": {
+                    "x": 160,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_hardcore_half_blinking.png",
+                "box": {
+                    "x": 169,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_full.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_half.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_full_blinking.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/frozen_hardcore_half_blinking.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 187,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/experience_bar_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/hud/experience_bar_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 69,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/hud/jump_bar_cooldown.png",
+                "box": {
+                    "x": 0,
+                    "y": 74,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/hud/jump_bar_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 84,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/hud/jump_bar_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 89,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_attack_indicator_background.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 94,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/hud/hotbar_attack_indicator_progress.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 18,
+                    "y": 94,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/hud/crosshair_attack_indicator_background.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 36,
+                    "y": 94,
+                    "width": 16,
+                    "height": 4
+                }
+            },
+            {
+                "path": "sprites/hud/crosshair_attack_indicator_progress.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 52,
+                    "y": 94,
+                    "width": 16,
+                    "height": 4
+                }
+            },
+            {
+                "path": "sprites/server_list/ping_5.png",
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/ping_4.png",
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/ping_3.png",
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/ping_2.png",
+                "box": {
+                    "x": 0,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/ping_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/pinging_1.png",
+                "box": {
+                    "x": 10,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/pinging_2.png",
+                "box": {
+                    "x": 10,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/pinging_3.png",
+                "box": {
+                    "x": 10,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/pinging_4.png",
+                "box": {
+                    "x": 10,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/server_list/pinging_5.png",
+                "box": {
+                    "x": 10,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_5.png",
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_4.png",
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_3.png",
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_2.png",
+                "box": {
+                    "x": 0,
+                    "y": 200,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 208,
+                    "width": 10,
+                    "height": 8
+                }
+            },
+            {
+                "path": "sprites/icon/ping_unknown.png",
+                "box": {
+                    "x": 0,
+                    "y": 216,
+                    "width": 10,
+                    "height": 8
+                }
+            }
+        ]
+    },
+    {
+        "path": "checkbox.png",
+        "width": 64,
+        "height": 64,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/widget/checkbox.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/checkbox_selected.png",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/checkbox_highlighted.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 754,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/checkbox_selected_highlighted.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 754,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 20,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "toasts.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/toast/advancement.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 160,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/toast/recipe.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 160,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/toast/system.png",
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 160,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/toast/tutorial.png",
+                "box": {
+                    "x": 0,
+                    "y": 96,
+                    "width": 160,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/toast/movement_keys.png",
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/mouse.png",
+                "box": {
+                    "x": 196,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/tree.png",
+                "box": {
+                    "x": 216,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/recipe_book.png",
+                "box": {
+                    "x": 176,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/wooden_planks.png",
+                "box": {
+                    "x": 196,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/social_interactions.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 216,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/toast/right_click.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 755,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 236,
+                    "y": 20,
+                    "width": 20,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "spectator_widgets.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/spectator/teleport_to_player.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/spectator/teleport_to_team.png",
+                "box": {
+                    "x": 16,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/spectator/close.png",
+                "box": {
+                    "x": 128,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/spectator/scroll_left.png",
+                "box": {
+                    "x": 144,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/spectator/scroll_right.png",
+                "box": {
+                    "x": 160,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "resource_packs.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/transferable_list/select.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/select_highlighted.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/unselect.png",
+                "box": {
+                    "x": 32,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/unselect_highlighted.png",
+                "box": {
+                    "x": 32,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/move_down.png",
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/move_down_highlighted.png",
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/move_up.png",
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/transferable_list/move_up_highlighted.png",
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            }
+        ]
+    },
+    {
+        "path": "server_selection.png",
+        "width": 256,
+        "height": 256,
+        "textures": [
+            {
+                "path": "sprites/server_list/join.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/server_list/join_highlighted.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/server_list/move_down.png",
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/server_list/move_down_highlighted.png",
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/server_list/move_up.png",
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/server_list/move_up_highlighted.png",
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            }
+        ]
+    },
+    {
+        "path": "world_selection.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 107,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/world_list/join.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/join_highlighted.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/marked_join.png",
+                "box": {
+                    "x": 32,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/marked_join_highlighted.png",
+                "box": {
+                    "x": 32,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/warning.png",
+                "box": {
+                    "x": 64,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/warning_highlighted.png",
+                "box": {
+                    "x": 64,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/error.png",
+                "box": {
+                    "x": 96,
+                    "y": 0,
+                    "width": 32,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/world_list/error_highlighted.png",
+                "box": {
+                    "x": 96,
+                    "y": 32,
+                    "width": 32,
+                    "height": 32
+                }
+            }
+        ]
+    },
+    {
+        "path": "chat_tags.png",
+        "width": 32,
+        "height": 32,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 760,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/chat_modified.png",
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 761,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 9,
+                    "height": 9
+                }
+            }
+        ]
+    },
+    {
+        "path": "checkmark.png",
+        "width": 9,
+        "height": 8,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 761,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/checkmark.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 9,
+                    "height": 8
+                }
+            }
+        ]
+    },
+    {
+        "path": "info_icon.png",
+        "width": 20,
+        "height": 20,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/info.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "unseen_notification.png",
+        "width": 10,
+        "height": 10,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/icon/unseen_notification.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 10,
+                    "height": 10
+                }
+            }
+        ]
+    },
+    {
+        "path": "stream_indicator.png",
+        "width": 16,
+        "height": 64,
+        "delete": true,
+        "textures": []
+    },
+    {
+        "path": "bars.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 110,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/boss_bar/pink_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/pink_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 5,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/blue_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 10,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/blue_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 15,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/red_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/red_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 25,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/green_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 30,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/green_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 35,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/yellow_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 40,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/yellow_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 45,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/purple_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 50,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/purple_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 55,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/white_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 60,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/white_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 65,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_6_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 80,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_10_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 90,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_12_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 100,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_20_background.png",
+                "box": {
+                    "x": 0,
+                    "y": 110,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_6_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 85,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_10_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 95,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_12_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 105,
+                    "width": 182,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/boss_bar/notched_20_progress.png",
+                "box": {
+                    "x": 0,
+                    "y": 115,
+                    "width": 182,
+                    "height": 5
+                }
+            }
+        ]
+    },
+    {
+        "path": "slider.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 762,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/widget/slider.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/slider_highlighted.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/slider_handle.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/widget/slider_handle_highlighted.png",
+                "metadata": "button_widget",
+                "box": {
+                    "x": 0,
+                    "y": 20,
+                    "width": 200,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "social_interactions.png",
+        "width": 256,
+        "height": 256,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 754,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/social_interactions/background.png",
+                "box": {
+                    "x": 0,
+                    "y": 1,
+                    "width": 236,
+                    "height": 34
+                },
+				"metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 236,
+                            "height": 34,
+                            "border": 8
+                        }
+                    }
+                }
+            },
+            {
+                "path": "sprites/icon/search.png",
+                "box": {
+                    "x": 243,
+                    "y": 1,
+                    "width": 12,
+                    "height": 12
+                }
+            },
+            {
+                "path": "sprites/social_interactions/mute_button.png",
+                "box": {
+                    "x": 0,
+                    "y": 38,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/social_interactions/mute_button_highlighted.png",
+                "box": {
+                    "x": 0,
+                    "y": 58,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/social_interactions/unmute_button.png",
+                "box": {
+                    "x": 20,
+                    "y": 38,
+                    "width": 20,
+                    "height": 20
+                }
+            },
+            {
+                "path": "sprites/social_interactions/unmute_button_highlighted.png",
+                "box": {
+                    "x": 20,
+                    "y": 58,
+                    "width": 20,
+                    "height": 20
+                }
+            }
+        ]
+    },
+    {
+        "path": "book.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/widget/page_forward.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 192,
+                    "width": 23,
+                    "height": 13
+                }
+            },
+            {
+                "path": "sprites/widget/page_forward_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 23,
+                    "y": 192,
+                    "width": 23,
+                    "height": 13
+                }
+            },
+            {
+                "path": "sprites/widget/page_backward.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 205,
+                    "width": 23,
+                    "height": 13
+                }
+            },
+            {
+                "path": "sprites/widget/page_backward_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 23,
+                    "y": 205,
+                    "width": 23,
+                    "height": 13
+                }
+            }
+        ]
+    },
+    {
+        "path": "recipe_book.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/recipe_book/tab.png",
+                "remove": true,
+                "box": {
+                    "x": 153,
+                    "y": 2,
+                    "width": 35,
+                    "height": 27
+                }
+            },
+            {
+                "path": "sprites/recipe_book/tab_selected.png",
+                "remove": true,
+                "box": {
+                    "x": 188,
+                    "y": 2,
+                    "width": 35,
+                    "height": 27
+                }
+            },
+            {
+                "path": "sprites/recipe_book/filter_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 41,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/filter_enabled.png",
+                "remove": true,
+                "box": {
+                    "x": 180,
+                    "y": 41,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/filter_enabled_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 180,
+                    "y": 59,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/filter_disabled_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 59,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay.png",
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 78,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 178,
+                    "y": 78,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 152,
+                    "y": 104,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/crafting_overlay_disabled_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 178,
+                    "y": 104,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 130,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_disabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 130,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_highlighted.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 156,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_overlay_disabled_highlighted.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 156,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_disabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 182,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_enabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 180,
+                    "y": 182,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_disabled_highlighted.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 152,
+                    "y": 200,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/furnace_filter_enabled_highlighted.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 393,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 180,
+                    "y": 200,
+                    "width": 26,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/recipe_book/page_forward.png",
+                "remove": true,
+                "box": {
+                    "x": 1,
+                    "y": 208,
+                    "width": 12,
+                    "height": 17
+                }
+            },
+            {
+                "path": "sprites/recipe_book/page_backward.png",
+                "remove": true,
+                "box": {
+                    "x": 14,
+                    "y": 208,
+                    "width": 12,
+                    "height": 17
+                }
+            },
+            {
+                "path": "sprites/recipe_book/page_forward_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 1,
+                    "y": 226,
+                    "width": 12,
+                    "height": 17
+                }
+            },
+            {
+                "path": "sprites/recipe_book/page_backward_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 14,
+                    "y": 226,
+                    "width": 12,
+                    "height": 17
+                }
+            },
+            {
+                "path": "sprites/recipe_book/slot_craftable.png",
+                "remove": true,
+                "box": {
+                    "x": 29,
+                    "y": 206,
+                    "width": 25,
+                    "height": 25
+                }
+            },
+            {
+                "path": "sprites/recipe_book/slot_uncraftable.png",
+                "remove": true,
+                "box": {
+                    "x": 54,
+                    "y": 206,
+                    "width": 25,
+                    "height": 25
+                }
+            },
+            {
+                "path": "sprites/recipe_book/slot_many_craftable.png",
+                "remove": true,
+                "box": {
+                    "x": 29,
+                    "y": 231,
+                    "width": 25,
+                    "height": 25
+                }
+            },
+            {
+                "path": "sprites/recipe_book/slot_many_uncraftable.png",
+                "remove": true,
+                "box": {
+                    "x": 54,
+                    "y": 231,
+                    "width": 25,
+                    "height": 25
+                }
+            },
+            {
+                "path": "sprites/recipe_book/overlay_recipe.png",
+                "remove": true,
+                "box": {
+                    "x": 82,
+                    "y": 208,
+                    "width": 32,
+                    "height": 32
+                },
+				"metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 32,
+                            "height": 32,
+                            "border": 4
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "path": "accessibility.png",
+        "width": 32,
+        "height": 64,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": []
+    },
+    {
+        "path": "recipe_button.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 393,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/recipe_book/button.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 20,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/recipe_book/button_highlighted.png",
+                "box": {
+                    "x": 0,
+                    "y": 19,
+                    "width": 20,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "advancements/tabs.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/advancements/tab_above_left.png",
+                "box": {
+                    "x": 0, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_middle.png",
+                "box": {
+                    "x": 28, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_right.png",
+                "box": {
+                    "x": 56, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_left.png",
+                "box": {
+                    "x": 84, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_middle.png",
+                "box": {
+                    "x": 112, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_right.png",
+                "box": {
+                    "x": 140, 
+                    "y": 0,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_left_selected.png",
+                "box": {
+                    "x": 0, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_middle_selected.png",
+                "box": {
+                    "x": 28, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_above_right_selected.png",
+                "box": {
+                    "x": 56, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_left_selected.png",
+                "box": {
+                    "x": 84, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_middle_selected.png",
+                "box": {
+                    "x": 112, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_below_right_selected.png",
+                "box": {
+                    "x": 140, 
+                    "y": 32,
+                    "width": 28,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_top.png",
+                "box": {
+                    "x": 0, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_middle.png",
+                "box": {
+                    "x": 32, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_bottom.png",
+                "box": {
+                    "x": 64, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_top.png",
+                "box": {
+                    "x": 96, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_middle.png",
+                "box": {
+                    "x": 128, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_bottom.png",
+                "box": {
+                    "x": 160, 
+                    "y": 64,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_top_selected.png",
+                "box": {
+                    "x": 0, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_middle_selected.png",
+                "box": {
+                    "x": 32, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_left_bottom_selected.png",
+                "box": {
+                    "x": 64, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_top_selected.png",
+                "box": {
+                    "x": 96, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_middle_selected.png",
+                "box": {
+                    "x": 128, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/advancements/tab_right_bottom_selected.png",
+                "box": {
+                    "x": 160, 
+                    "y": 92,
+                    "width": 32,
+                    "height": 28
+                }
+            }
+        ]
+    },
+    {
+        "path": "advancements/widgets.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 335,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/advancements/box_obtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 200,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/box_unobtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 26,
+                    "width": 200,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/title_box.png",
+                "box": {
+                    "x": 0,
+                    "y": 52,
+                    "width": 200,
+                    "height": 26
+                },
+				"metadata": {
+                    "gui": {
+                        "scaling": {
+                            "type": "nine_slice",
+                            "width": 200,
+                            "height": 26,
+                            "border": 10
+                        }
+                    }
+                }
+            },
+            {
+                "path": "sprites/advancements/task_frame_obtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/challenge_frame_obtained.png",
+                "box": {
+                    "x": 26,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/goal_frame_obtained.png",
+                "box": {
+                    "x": 52,
+                    "y": 128,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/task_frame_unobtained.png",
+                "box": {
+                    "x": 0,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/challenge_frame_unobtained.png",
+                "box": {
+                    "x": 26,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/advancements/goal_frame_unobtained.png",
+                "box": {
+                    "x": 52,
+                    "y": 154,
+                    "width": 26,
+                    "height": 26
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/creative_inventory/tabs.png",
+        "width": 256,
+        "height": 256,
+        "delete": true,
+        "textures": [
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_2.png",
+                "box": {
+                    "x": 26,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_3.png",
+                "box": {
+                    "x": 52,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_4.png",
+                "box": {
+                    "x": 78,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_5.png",
+                "box": {
+                    "x": 104,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_6.png",
+                "box": {
+                    "x": 130,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_unselected_7.png",
+                "box": {
+                    "x": 156,
+                    "y": 0,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_2.png",
+                "box": {
+                    "x": 26,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_3.png",
+                "box": {
+                    "x": 52,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_4.png",
+                "box": {
+                    "x": 78,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_5.png",
+                "box": {
+                    "x": 104,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_6.png",
+                "box": {
+                    "x": 130,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_top_selected_7.png",
+                "box": {
+                    "x": 156,
+                    "y": 32,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_2.png",
+                "box": {
+                    "x": 26,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_3.png",
+                "box": {
+                    "x": 52,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_4.png",
+                "box": {
+                    "x": 78,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_5.png",
+                "box": {
+                    "x": 104,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_6.png",
+                "box": {
+                    "x": 130,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_unselected_7.png",
+                "box": {
+                    "x": 156,
+                    "y": 64,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_1.png",
+                "box": {
+                    "x": 0,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_2.png",
+                "box": {
+                    "x": 26,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_3.png",
+                "box": {
+                    "x": 52,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_4.png",
+                "box": {
+                    "x": 78,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_5.png",
+                "box": {
+                    "x": 104,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_6.png",
+                "box": {
+                    "x": 130,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/tab_bottom_selected_7.png",
+                "box": {
+                    "x": 156,
+                    "y": 96,
+                    "width": 26,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/scroller.png",
+                "box": {
+                    "x": 232,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/container/creative_inventory/scroller_disabled.png",
+                "box": {
+                    "x": 244,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/anvil.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/anvil/error.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
+            },
+            {
+                "path": "sprites/container/anvil/text_field.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 110,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/anvil/text_field_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 182,
+                    "width": 110,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/beacon.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/beacon/button.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
+            },
+            {
+                "path": "sprites/container/beacon/button_selected.png",
+                "remove": true,
+                "box": {
+                    "x": 22,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
+            },
+            {
+                "path": "sprites/container/beacon/button_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 44,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
+            },
+            {
+                "path": "sprites/container/beacon/button_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 66,
+                    "y": 219,
+                    "width": 22,
+                    "height": 22
+                }
+            },
+            {
+                "path": "sprites/container/beacon/confirm.png",
+                "remove": true,
+                "box": {
+                    "x": 90,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/beacon/cancel.png",
+                "remove": true,
+                "box": {
+                    "x": 112,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/blast_furnace.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/blast_furnace/lit_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/blast_furnace/burn_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/brewing_stand.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/brewing_stand/brew_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 9,
+                    "height": 28
+                }
+            },
+            {
+                "path": "sprites/container/brewing_stand/bubbles.png",
+                "remove": true,
+                "box": {
+                    "x": 185,
+                    "y": 0,
+                    "width": 12,
+                    "height": 29
+                }
+            },
+            {
+                "path": "sprites/container/brewing_stand/fuel_length.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 176,
+                    "y": 29,
+                    "width": 18,
+                    "height": 4
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/cartography_table.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/cartography_table/map.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 66,
+                    "height": 66
+                }
+            },
+            {
+                "path": "sprites/container/cartography_table/scaled_map.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 66,
+                    "width": 66,
+                    "height": 66
+                }
+            },
+            {
+                "path": "sprites/container/cartography_table/duplicated_map.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 132,
+                    "width": 50,
+                    "height": 66
+                }
+            },
+            {
+                "path": "sprites/container/cartography_table/error.png",
+                "remove": true,
+                "box": {
+                    "x": 226,
+                    "y": 132,
+                    "width": 28,
+                    "height": 21
+                }
+            },
+            {
+                "path": "sprites/container/cartography_table/locked.png",
+                "remove": true,
+                "box": {
+                    "x": 52,
+                    "y": 214,
+                    "width": 10,
+                    "height": 14
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/enchanting_table.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 108,
+                    "height": 19
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 185,
+                    "width": 108,
+                    "height": 19
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/enchantment_slot_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 204,
+                    "width": 108,
+                    "height": 19
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_1.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_2.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 16,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_3.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 32,
+                    "y": 223,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_1_disabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_2_disabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 16,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/enchanting_table/level_3_disabled.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 47,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 32,
+                    "y": 239,
+                    "width": 16,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/furnace.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/furnace/lit_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/furnace/burn_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/gamemode_switcher.png",
+        "width": 128,
+        "height": 128,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 735,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/gamemode_switcher/slot.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 75,
+                    "width": 26,
+                    "height": 26
+                }
+            },
+            {
+                "path": "sprites/gamemode_switcher/selection.png",
+                "remove": true,
+                "box": {
+                    "x": 26,
+                    "y": 75,
+                    "width": 26,
+                    "height": 26
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/grindstone.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/grindstone/error.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/horse.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/container/horse/chest_slots.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 90,
+                    "height": 54
+                }
+            },
+            {
+                "path": "sprites/container/horse/saddle_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 18,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/horse/armor_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/horse/llama_armor_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 36,
+                    "y": 220,
+                    "width": 18,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/inventory.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "textures": [
+            {
+                "path": "sprites/recipe_book/button.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 335,
+                        "max_inclusive": 340
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 0,
+                    "width": 20,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/recipe_book/button_highlighted.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 335,
+                        "max_inclusive": 340
+                    }
+                },
+                "box": {
+                    "x": 178,
+                    "y": 19,
+                    "width": 20,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/inventory/effect_background_large.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 120,
+                    "height": 32
+                }
+            },
+            {
+                "path": "sprites/hud/effect_background.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 141,
+                    "y": 166,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/hud/effect_background_ambient.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 165,
+                    "y": 166,
+                    "width": 24,
+                    "height": 24
+                }
+            },
+            {
+                "path": "sprites/container/inventory/effect_background_small.png",
+                "remove": true,
+                "predicate": {
+                    "protocol": {
+                        "min_inclusive": 107,
+                        "max_inclusive": null
+                    }
+                },
+                "box": {
+                    "x": 0,
+                    "y": 198,
+                    "width": 32,
+                    "height": 32
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/loom.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/loom/banner_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/loom/dye_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 192,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/loom/pattern_slot.png",
+                "remove": true,
+                "box": {
+                    "x": 208,
+                    "y": 0,
+                    "width": 16,
+                    "height": 16
+                }
+            },
+            {
+                "path": "sprites/container/loom/scroller.png",
+                "remove": true,
+                "box": {
+                    "x": 232,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/container/loom/scroller_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 244,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/container/loom/pattern.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/loom/pattern_selected.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 180,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/loom/pattern_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 194,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/loom/error.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 17,
+                    "width": 17,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/smithing.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 735,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/smithing/error.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/smoker.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/smoker/lit_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 14,
+                    "height": 14
+                }
+            },
+            {
+                "path": "sprites/container/smoker/burn_progress.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 14,
+                    "width": 24,
+                    "height": 16
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/stats_icons.png",
+        "width": 128,
+        "height": 128,
+        "textures": [
+            {
+                "path": "sprites/container/slot.png",
+                "box": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/sort_down.png",
+                "box": {
+                    "x": 18,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/sort_up.png",
+                "box": {
+                    "x": 36,
+                    "y": 0,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/header.png",
+                "box": {
+                    "x": 0,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/item_crafted.png",
+                "box": {
+                    "x": 18,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/item_used.png",
+                "box": {
+                    "x": 36,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/block_mined.png",
+                "box": {
+                    "x": 54,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/item_broken.png",
+                "box": {
+                    "x": 72,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/item_picked_up.png",
+                "box": {
+                    "x": 90,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/statistics/item_dropped.png",
+                "box": {
+                    "x": 108,
+                    "y": 18,
+                    "width": 18,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/stonecutter.png",
+        "width": 256,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/stonecutter/scroller.png",
+                "remove": true,
+                "box": {
+                    "x": 176,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/container/stonecutter/scroller_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 188,
+                    "y": 0,
+                    "width": 12,
+                    "height": 15
+                }
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 166,
+                    "width": 16,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe_selected.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 184,
+                    "width": 16,
+                    "height": 18
+                }
+            },
+            {
+                "path": "sprites/container/stonecutter/recipe_highlighted.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 202,
+                    "width": 16,
+                    "height": 18
+                }
+            }
+        ]
+    },
+    {
+        "path": "container/villager2.png",
+        "name": "villager.png",
+        "width": 512,
+        "height": 256,
+        "delete": false,
+        "predicate": {
+            "protocol": {
+                "min_inclusive": 477,
+                "max_inclusive": null
+            }
+        },
+        "textures": [
+            {
+                "path": "sprites/container/villager/out_of_stock.png",
+                "remove": true,
+                "box": {
+                    "x": 311,
+                    "y": 0,
+                    "width": 28,
+                    "height": 21
+                }
+            },
+            {
+                "path": "sprites/container/villager/discount_strikethrough.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 176,
+                    "width": 9,
+                    "height": 2
+                }
+            },
+            {
+                "path": "sprites/container/villager/trade_arrow_out_of_stock.png",
+                "remove": true,
+                "box": {
+                    "x": 25,
+                    "y": 171,
+                    "width": 10,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/container/villager/trade_arrow.png",
+                "remove": true,
+                "box": {
+                    "x": 15,
+                    "y": 171,
+                    "width": 10,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_result.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 181,
+                    "width": 102,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_background.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 186,
+                    "width": 102,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/container/villager/experience_bar_current.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 191,
+                    "width": 102,
+                    "height": 5
+                }
+            },
+            {
+                "path": "sprites/container/villager/scroller.png",
+                "remove": true,
+                "box": {
+                    "x": 0,
+                    "y": 199,
+                    "width": 6,
+                    "height": 27
+                }
+            },
+            {
+                "path": "sprites/container/villager/scroller_disabled.png",
+                "remove": true,
+                "box": {
+                    "x": 6,
+                    "y": 199,
+                    "width": 6,
+                    "height": 27
+                }
+            }
+        ]
+    }
+]

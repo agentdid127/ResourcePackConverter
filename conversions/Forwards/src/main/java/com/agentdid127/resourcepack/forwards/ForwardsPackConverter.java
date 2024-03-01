@@ -103,9 +103,8 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new TitleConverter(this));
 
         if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.20.1")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20.2")) {
-            // register gui slicer
-        }
+            && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20.2"))
+            this.registerConverter(new SlicerConverter(this, Util.getVersionProtocol(gson, from)));
     }
 
     public void runPack(Pack pack) {
