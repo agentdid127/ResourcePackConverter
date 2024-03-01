@@ -10,9 +10,7 @@ import com.google.gson.JsonObject;
 
 public class Texture {
     public String path;
-    public Position position;
-    public int width;
-    public int height;
+    public Box box;
     public boolean remove;
     public JsonObject predicate;
     public JsonObject metadata;
@@ -42,75 +40,65 @@ public class Texture {
         }
     }
 
-    public Texture(String path, Position position, int width, int height, boolean remove, JsonObject predicate, JsonObject metadata) {
+    public Texture(String path, Box box, boolean remove, JsonObject predicate, JsonObject metadata) {
         this.path = path;
-        this.position = position;
-        this.width = width;
-        this.height = height;
+        this.box = box;
         this.remove = remove;
         this.predicate = predicate;
         this.metadata = metadata;
     }
 
-    public Texture(String path, Position position, int width, int height, boolean remove, JsonObject predicate) {
+    public Texture(String path, Box box, boolean remove, JsonObject predicate) {
         this.path = path;
-        this.position = position;
-        this.width = width;
-        this.height = height;
+        this.box = box;
         this.remove = remove;
         this.predicate = predicate;
         this.metadata = new JsonObject();
     }
 
-    public Texture(String path, Position position, int width, int height, boolean remove) {
+    public Texture(String path, Box box, boolean remove) {
         this.path = path;
-        this.position = position;
-        this.width = width;
-        this.height = height;
+        this.box = box;
         this.remove = remove;
         this.predicate = new JsonObject();
         this.metadata = new JsonObject();
     }
 
-    public Texture(String path, Position position, int width, int height) {
+    public Texture(String path, Box box) {
         this.path = path;
-        this.position = position;
-        this.width = width;
-        this.height = height;
+        this.box = box;
         this.remove = false;
         this.predicate = new JsonObject();
         this.metadata = new JsonObject();
     }
 
-    public static Texture[] parse(JsonArray array) {
-        List<Texture> textures = new LinkedList<>();
+    public static Texture parse(JsonObject object) {
+        String path = object.get("path").getAsString();
+        Box box = Box.parse(object.get("box").getAsJsonObject());
+    
+        boolean remove = false;
+        if (object.has("remove")) 
+            remove = object.get("remove").getAsBoolean();    
 
-        for (JsonElement element : array) {            
-            JsonObject textureObject = element.getAsJsonObject();
-            String path = textureObject.get("path").getAsString();
-            Position position = Position.parse(textureObject.get("position").getAsJsonObject());
-            int width = textureObject.get("width").getAsInt();
-            int height = textureObject.get("height").getAsInt();  
-            
-            boolean remove = false;
-            if (textureObject.has("remove")) 
-                remove = textureObject.get("remove").getAsBoolean();    
-
-            JsonObject predicate;
-            if (textureObject.has("predicate")) 
-                predicate = textureObject.get("predicate").getAsJsonObject();
-            else
-                predicate = new JsonObject();
-            
-            JsonObject metadata;
-            if (textureObject.has("metadata")) {
-                JsonElement metadataElement = textureObject.get("metadata");
-                metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : metatdataCache.getOrDefault(metadataElement.getAsString(), new JsonObject());
-            } else metadata = new JsonObject();
-
-            textures.add(new Texture(path, position, width, height, remove, predicate, metadata));
-        }
+        JsonObject predicate;
+        if (object.has("predicate")) 
+            predicate = object.get("predicate").getAsJsonObject();
+        else
+            predicate = new JsonObject();
         
+        JsonObject metadata;
+        if (object.has("metadata")) {
+            JsonElement metadataElement = object.get("metadata");
+            metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : metatdataCache.getOrDefault(metadataElement.getAsString(), new JsonObject());
+        } else metadata = new JsonObject();
+
+        return new Texture(path, box, remove, predicate, metadata);
+    }
+
+    public static Texture[] parseArray(JsonArray array) {
+        List<Texture> textures = new LinkedList<>();
+        for (JsonElement element : array) 
+            textures.add(Texture.parse(element.getAsJsonObject()));
         return textures.toArray(new Texture[] {});
     }
 }

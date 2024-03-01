@@ -16,35 +16,35 @@ public class Slice {
     public Texture[] textures;
     public boolean delete;
 
-    public static Slice[] fromJson(JsonArray array) {
+    public static Slice parse(JsonObject object) {
+        Slice slice = new Slice();
+        slice.path = object.get("path").getAsString();
+
+        if (object.has("name"))
+            slice.name = object.get("name").getAsString();
+        else slice.name = null;
+
+        slice.width = object.get("width").getAsInt();
+        slice.height = object.get("height").getAsInt();
+        
+        slice.textures = Texture.parseArray(object.get("textures").getAsJsonArray());
+        
+        if (object.has("delete"))
+            slice.delete = object.get("delete").getAsBoolean();
+        else slice.delete = true;
+
+        if (object.has("predicate")) 
+            slice.predicate = object.get("predicate").getAsJsonObject();
+        else
+            slice.predicate = new JsonObject();
+
+        return slice;
+    }
+
+    public static Slice[] parseArray(JsonArray array) {
         List<Slice> slices = new LinkedList<>();
-
-        for (JsonElement element : array) {
-            Slice slice = new Slice();
-
-            JsonObject guiObject = element.getAsJsonObject();
-            slice.path = guiObject.get("path").getAsString();
-
-            if (guiObject.has("name"))
-                slice.name = guiObject.get("name").getAsString();
-            else slice.name = null;
-
-            slice.width = guiObject.get("width").getAsInt();
-            slice.height = guiObject.get("height").getAsInt();
-            slice.textures = Texture.parse(guiObject.get("textures").getAsJsonArray());
-            
-            if (guiObject.has("delete"))
-                slice.delete = guiObject.get("delete").getAsBoolean();
-            else slice.delete = true;
-
-            if (guiObject.has("predicate")) 
-                slice.predicate = guiObject.get("predicate").getAsJsonObject();
-            else
-                slice.predicate = new JsonObject();
-
-            slices.add(slice);
-        }
-
+        for (JsonElement element : array) 
+            slices.add(Slice.parse(element.getAsJsonObject()));
         return slices.toArray(new Slice[] {});
     }
 }

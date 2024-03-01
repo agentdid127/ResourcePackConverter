@@ -42,7 +42,7 @@ public class SlicerConverter extends Converter {
         Gson gson = packConverter.getGson();
 
         JsonArray array = Util.readJsonResource(gson, "/forwards/gui.json", JsonArray.class);
-        Slice[] slices = Slice.fromJson(array);
+        Slice[] slices = Slice.parseArray(array);
 
         for (Slice slice : slices) {
             if (!testPredicate(gson, slice.predicate))
@@ -68,18 +68,18 @@ public class SlicerConverter extends Converter {
                     
                 try {
                     converter.saveSlice(
-                        texture.position.x, 
-                        texture.position.y, 
-                        texture.width, 
-                        texture.height, 
+                        texture.box.x, 
+                        texture.box.y, 
+                        texture.box.width, 
+                        texture.box.height, 
                         texturePath);
 
                     if (texture.remove) {
                         converter.fillEmpty(
-                            texture.position.x, 
-                            texture.position.y, 
-                            texture.width,
-                            texture.height);
+                            texture.box.x, 
+                            texture.box.y, 
+                            texture.box.width,
+                            texture.box.height);
                     }
 
                     JsonObject metadata = texture.metadata;
@@ -90,9 +90,7 @@ public class SlicerConverter extends Converter {
                     write_json(metadataPath, metadata);
                 } catch (Exception exception) {
                     Logger.log("Failed to slice texture '" + texture.path + "' (error='" + exception.getLocalizedMessage() + "')");
-                    Logger.log("  - position: (x=" + texture.position.x + ", y=" + texture.position.y + ")");
-                    Logger.log("  - width: " + texture.width);
-                    Logger.log("  - height: " + texture.height);
+                    Logger.log("  - box: (x=" + texture.box.x + ", y=" + texture.box.y + ", width=" + texture.box.width + ", height=" + texture.box.height + ")");
                 }
             }
 
