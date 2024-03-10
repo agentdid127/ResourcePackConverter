@@ -16,7 +16,8 @@ pipeline {
 
         stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true clean install' 
+                sh 'mvn -Dmaven.test.failure.ignore=true clean install'
+                archiveArtifacts artifacts: '**/target/*.jar', excludes: '**/target/original-*.jar', fingerprint: true, followSymlinks: false, onlyIfSuccessful: true
             }
         }
     }
