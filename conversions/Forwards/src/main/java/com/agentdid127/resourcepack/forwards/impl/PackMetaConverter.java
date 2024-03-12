@@ -87,9 +87,9 @@ public class PackMetaConverter extends Converter {
             JsonObject meta = json.getAsJsonObject("meta");
             if (meta == null)
                 meta = new JsonObject();
-            meta.addProperty("game_version", Util.getVersionFromProtocol(packConverter.getGson(), versionInt));
+            meta.addProperty("game_version", Util.getVersionFromProtocol(packConverter.getGson(), to));
             json.add("meta", meta);
-        }
+        }   
 
         {
             JsonObject packObject = json.getAsJsonObject("pack");
@@ -102,7 +102,7 @@ public class PackMetaConverter extends Converter {
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
                 JsonObject supportedFormats = new JsonObject();
                 supportedFormats.addProperty("min_inclusive", versionInt);
-                supportedFormats.addProperty("max_inclusive", Util.getLatestProtocol(packConverter.getGson()));
+                supportedFormats.addProperty("max_inclusive", 26); // TODO: fix hardcoded bruh
                 packObject.add("supported_formats", supportedFormats);
             }
 
