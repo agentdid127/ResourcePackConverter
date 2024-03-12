@@ -102,7 +102,7 @@ public class PackMetaConverter extends Converter {
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
                 JsonObject supportedFormats = new JsonObject();
                 supportedFormats.addProperty("min_inclusive", versionInt);
-                supportedFormats.addProperty("max_inclusive", 28); // TODO: fix hardcoded bruh
+                supportedFormats.addProperty("max_inclusive", versionInt); // TODO: A better way to do this
                 packObject.add("supported_formats", supportedFormats);
             }
 
