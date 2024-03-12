@@ -58,6 +58,7 @@ public class ZipPack extends Pack {
             try {
                 ZipFile zipFile = new ZipFile(pack.getOriginalPath().toFile());
                 zipFile.extractAll(pack.getWorkingPath().toString());
+                zipFile.close();;
             } catch (ZipException e) {
                 Util.propagate(e);
             }
@@ -79,6 +80,7 @@ public class ZipPack extends Pack {
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
                 zipFile.createSplitZipFileFromFolder(pack.getWorkingPath().toFile(), parameters, false, 65536);
+                zipFile.close();
             } catch (ZipException e) {
                 Util.propagate(e);
             }
