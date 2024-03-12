@@ -38,7 +38,7 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(
                 new NameConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
 
-        this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
+        this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
 
         if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.9")
                 && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.9"))
