@@ -200,8 +200,17 @@ public class ImageConverter {
      * @param storey
      * @param flip
      */
-    public void subImage(int x, int y, int x2, int y2, int storex, int storey, int flip) {
-        subImage(x, y, x2, y2, storex, storey, flip == 0 ? false : true);
+    public void subImage(int x, int y, int x2, int y2, int storeX, int storeY, int flip) {
+        double scaleW = getWidthMultiplier();
+        double scaleH = getHeightMultiplier();
+
+        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int height2 = (int) (y2 * scaleH - y * scaleH);
+        int x3 = (int) (x * scaleW);
+        int y3 = (int) (y * scaleH);
+
+        BufferedImage part = getSubImage(x3, y3, width2, height2);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
     /**
@@ -221,6 +230,17 @@ public class ImageConverter {
         BufferedImage gray = new BufferedImage(newImage.getWidth(), newImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
         gray.createGraphics().drawImage(image, 0, 0, null);
         newImage = gray;
+    }
+
+    private static BufferedImage createFlipped(BufferedImage image, int flip) {
+        AffineTransform at = new AffineTransform();
+        if (flip != 1)
+            return image; 
+        at.concatenate(AffineTransform.getScaleInstance(1, -1));
+        at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
+        at.concatenate(AffineTransform.getScaleInstance(-1, 1));
+        at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
+        return createTransformed(image, at);
     }
 
     /**
