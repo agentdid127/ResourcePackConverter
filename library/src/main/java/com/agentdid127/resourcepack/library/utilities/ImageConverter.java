@@ -19,6 +19,7 @@ public class ImageConverter {
 
     /**
      * Default Constructor
+     * 
      * @param defaultWIn
      * @param defaultHIn
      * @param locationIn
@@ -34,16 +35,18 @@ public class ImageConverter {
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         } else {
-            Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName() + "' resolution size is not a power of 2. Converting to be so.");
-            
-            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)), (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
+            Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
+                    + "' resolution size is not a power of 2. Converting to be so.");
+
+            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
+                    (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
             imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
             imageHeight = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
             Graphics2D g = newImage.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, image.getWidth(), image.getHeight(), null);
             g.dispose();
-            
+
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         }
@@ -51,6 +54,7 @@ public class ImageConverter {
 
     /**
      * Save a section of the image to a new image.
+     * 
      * @param sx
      * @param sy
      * @param width
@@ -70,6 +74,7 @@ public class ImageConverter {
 
     /**
      * Fill a spot with nothing.
+     * 
      * @param x
      * @param y
      * @param width
@@ -82,7 +87,7 @@ public class ImageConverter {
         int y1 = scaleY(y);
         int nw = scaleWidth(width);
         int nh = scaleHeight(height);
-                
+
         g2d.drawImage(image, 0, 0, imageWidth, imageHeight, null);
 
         g2d.setComposite(AlphaComposite.Clear);
@@ -94,6 +99,7 @@ public class ImageConverter {
 
     /**
      * Set the current image.
+     * 
      * @param defaultWIn
      * @param defaultHIn
      * @throws IOException
@@ -112,16 +118,19 @@ public class ImageConverter {
 
     /**
      * Creates a new Image to store
+     * 
      * @param newWidth
      * @param newHeight
      */
     public void newImage(int newWidth, int newHeight) {
-        newImage = new BufferedImage(Math.round((float) (newWidth * getWidthMultiplier())), Math.round((float) (newHeight * getHeightMultiplier())), BufferedImage.TYPE_INT_ARGB);
+        newImage = new BufferedImage(Math.round((float) (newWidth * getWidthMultiplier())),
+                Math.round((float) (newHeight * getHeightMultiplier())), BufferedImage.TYPE_INT_ARGB);
         g2d = (Graphics2D) newImage.getGraphics();
     }
 
     /**
      * Add a image to the current image.
+     * 
      * @param imagePath
      * @param x
      * @param y
@@ -131,11 +140,13 @@ public class ImageConverter {
         if (!imagePath.toFile().exists())
             return;
         BufferedImage image = ImageIO.read(imagePath.toFile());
-        g2d.drawImage(image, Math.round((float) (x * getWidthMultiplier())), Math.round((float) (y * getHeightMultiplier())), null);
+        g2d.drawImage(image, Math.round((float) (x * getWidthMultiplier())),
+                Math.round((float) (y * getHeightMultiplier())), null);
     }
 
     /**
      * Takes part of an image and stores it in the new image
+     * 
      * @param x
      * @param y
      * @param x2
@@ -147,7 +158,7 @@ public class ImageConverter {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
 
-        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
         int x3 = (int) (x * scaleW);
         int y3 = (int) (y * scaleH);
@@ -158,6 +169,7 @@ public class ImageConverter {
 
     /**
      * Takes part of an image and stores it in the new image
+     * 
      * @param x
      * @param y
      * @param x2
@@ -169,6 +181,7 @@ public class ImageConverter {
 
     /**
      * Takes a part of an image and flips it either horizontally or vertically
+     * 
      * @param x
      * @param y
      * @param x2
@@ -181,17 +194,19 @@ public class ImageConverter {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
 
-        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
         int x3 = (int) (x * scaleW);
         int y3 = (int) (y * scaleH);
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)),
+                Math.round((float) (storeY * scaleH)), null);
     }
 
     /**
      * Only allows for the number 1 and flips it both horizontally and vertically
+     * 
      * @param x
      * @param y
      * @param x2
@@ -204,17 +219,27 @@ public class ImageConverter {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
 
-        int width2  = (int) (x2 * scaleW - x * scaleW);
+        int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
         int x3 = (int) (x * scaleW);
         int y3 = (int) (y * scaleH);
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)),
+                Math.round((float) (storeY * scaleH)), null);
+    }
+
+    public void subImageSized(int x, int y, int width, int height, int storeX, int storeY) {
+        subImage(x, y, x + width, y + height, storeX, storeY);
+    }
+
+    public void subImageSized(int x, int y, int width, int height) {
+        subImage(x, y, x + width, y + height, 0, 0);
     }
 
     /**
      * Recolor the image using RGB.
+     * 
      * @param rgb
      */
     public void colorize(Color rgb) {
@@ -235,7 +260,7 @@ public class ImageConverter {
     private static BufferedImage createFlipped(BufferedImage image, int flip) {
         AffineTransform at = new AffineTransform();
         if (flip != 1)
-            return image; 
+            return image;
         at.concatenate(AffineTransform.getScaleInstance(1, -1));
         at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
         at.concatenate(AffineTransform.getScaleInstance(-1, 1));
@@ -245,6 +270,7 @@ public class ImageConverter {
 
     /**
      * Flip the Image
+     * 
      * @param image
      * @param flip
      * @return BufferedImage
@@ -263,6 +289,7 @@ public class ImageConverter {
 
     /**
      * Transforms the BufferedImage
+     * 
      * @param image
      * @param at
      * @return BufferedImage
@@ -278,6 +305,7 @@ public class ImageConverter {
 
     /**
      * Save the image as the provided type at the provided location.
+     * 
      * @param locationIn
      * @param type
      * @return boolean
@@ -290,6 +318,7 @@ public class ImageConverter {
 
     /**
      * Save the image at the provided location.
+     * 
      * @param locationIn
      * @return boolean
      * @throws IOException
@@ -300,6 +329,7 @@ public class ImageConverter {
 
     /**
      * Save the image.
+     * 
      * @return boolean
      * @throws IOException
      */
@@ -309,6 +339,7 @@ public class ImageConverter {
 
     /**
      * Get a sub-part of the image using a rectangle.
+     * 
      * @param x
      * @param y
      * @param width
@@ -321,6 +352,7 @@ public class ImageConverter {
 
     /**
      * Get the Image Width
+     * 
      * @return int
      */
     public int getWidth() {
@@ -329,6 +361,7 @@ public class ImageConverter {
 
     /**
      * Get the Image Height
+     * 
      * @return int
      */
     public int getHeight() {
@@ -337,10 +370,11 @@ public class ImageConverter {
 
     /**
      * Get the Width Scale Multiplier (imageWidth/defaultWidth)
+     * 
      * @return double
      */
-    public double getWidthMultiplier() { 
-        double wMultiplier = (double)imageWidth / (double)defaultW;
+    public double getWidthMultiplier() {
+        double wMultiplier = (double) imageWidth / (double) defaultW;
         // Make sure to not have 0 multiplier or cause issues!
         wMultiplier = wMultiplier <= 0 ? 1 : wMultiplier;
         return wMultiplier;
@@ -348,10 +382,11 @@ public class ImageConverter {
 
     /**
      * Get the Height Scale Multiplier (imageHeight/defaultHeigh)
+     * 
      * @return double
-     */    
+     */
     public double getHeightMultiplier() {
-        double hMultiplier = (double)imageHeight / (double)defaultH;
+        double hMultiplier = (double) imageHeight / (double) defaultH;
         // Make sure to not have 0 multiplier or cause issues!
         hMultiplier = hMultiplier <= 0 ? 1 : hMultiplier;
         return hMultiplier;
@@ -388,6 +423,7 @@ public class ImageConverter {
 
     /**
      * Returns true if the image is square.
+     * 
      * @return boolean
      */
     public boolean isSquare() {
