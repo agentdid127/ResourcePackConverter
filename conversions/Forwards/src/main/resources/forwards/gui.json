@@ -1772,12 +1772,6 @@
         "path": "slider.png",
         "width": 256,
         "height": 256,
-        "predicate": {
-            "protocol": {
-                "min_inclusive": 762,
-                "max_inclusive": null
-            }
-        },
         "textures": [
             {
                 "path": "sprites/widget/slider.png",
