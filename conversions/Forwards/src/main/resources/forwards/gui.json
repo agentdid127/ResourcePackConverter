@@ -24,12 +24,6 @@
             },
             {
                 "path": "sprites/hud/hotbar_offhand_left.png",
-                "predicate": {
-                    "protocol": {
-                        "min_inclusive": 107,
-                        "max_inclusive": null
-                    }
-                },
                 "box": {
                     "x": 24,
                     "y": 22,
@@ -39,12 +33,6 @@
             },
             {
                 "path": "sprites/hud/hotbar_offhand_right.png",
-                "predicate": {
-                    "protocol": {
-                        "min_inclusive": 107,
-                        "max_inclusive": null
-                    }
-                },
                 "box": {
                     "x": 53,
                     "y": 22,
@@ -1852,7 +1840,7 @@
                     "width": 236,
                     "height": 34
                 },
-				"metadata": {
+                "metadata": {
                     "gui": {
                         "scaling": {
                             "type": "nine_slice",
@@ -2287,7 +2275,7 @@
                     "width": 32,
                     "height": 32
                 },
-				"metadata": {
+                "metadata": {
                     "gui": {
                         "scaling": {
                             "type": "nine_slice",
@@ -2360,7 +2348,7 @@
             {
                 "path": "sprites/advancements/tab_above_left.png",
                 "box": {
-                    "x": 0, 
+                    "x": 0,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2369,7 +2357,7 @@
             {
                 "path": "sprites/advancements/tab_above_middle.png",
                 "box": {
-                    "x": 28, 
+                    "x": 28,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2378,7 +2366,7 @@
             {
                 "path": "sprites/advancements/tab_above_right.png",
                 "box": {
-                    "x": 56, 
+                    "x": 56,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2387,7 +2375,7 @@
             {
                 "path": "sprites/advancements/tab_below_left.png",
                 "box": {
-                    "x": 84, 
+                    "x": 84,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2396,7 +2384,7 @@
             {
                 "path": "sprites/advancements/tab_below_middle.png",
                 "box": {
-                    "x": 112, 
+                    "x": 112,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2405,7 +2393,7 @@
             {
                 "path": "sprites/advancements/tab_below_right.png",
                 "box": {
-                    "x": 140, 
+                    "x": 140,
                     "y": 0,
                     "width": 28,
                     "height": 32
@@ -2414,7 +2402,7 @@
             {
                 "path": "sprites/advancements/tab_above_left_selected.png",
                 "box": {
-                    "x": 0, 
+                    "x": 0,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2423,7 +2411,7 @@
             {
                 "path": "sprites/advancements/tab_above_middle_selected.png",
                 "box": {
-                    "x": 28, 
+                    "x": 28,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2432,7 +2420,7 @@
             {
                 "path": "sprites/advancements/tab_above_right_selected.png",
                 "box": {
-                    "x": 56, 
+                    "x": 56,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2441,7 +2429,7 @@
             {
                 "path": "sprites/advancements/tab_below_left_selected.png",
                 "box": {
-                    "x": 84, 
+                    "x": 84,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2450,7 +2438,7 @@
             {
                 "path": "sprites/advancements/tab_below_middle_selected.png",
                 "box": {
-                    "x": 112, 
+                    "x": 112,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2459,7 +2447,7 @@
             {
                 "path": "sprites/advancements/tab_below_right_selected.png",
                 "box": {
-                    "x": 140, 
+                    "x": 140,
                     "y": 32,
                     "width": 28,
                     "height": 32
@@ -2468,7 +2456,7 @@
             {
                 "path": "sprites/advancements/tab_left_top.png",
                 "box": {
-                    "x": 0, 
+                    "x": 0,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2477,7 +2465,7 @@
             {
                 "path": "sprites/advancements/tab_left_middle.png",
                 "box": {
-                    "x": 32, 
+                    "x": 32,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2486,7 +2474,7 @@
             {
                 "path": "sprites/advancements/tab_left_bottom.png",
                 "box": {
-                    "x": 64, 
+                    "x": 64,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2495,7 +2483,7 @@
             {
                 "path": "sprites/advancements/tab_right_top.png",
                 "box": {
-                    "x": 96, 
+                    "x": 96,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2504,7 +2492,7 @@
             {
                 "path": "sprites/advancements/tab_right_middle.png",
                 "box": {
-                    "x": 128, 
+                    "x": 128,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2513,7 +2501,7 @@
             {
                 "path": "sprites/advancements/tab_right_bottom.png",
                 "box": {
-                    "x": 160, 
+                    "x": 160,
                     "y": 64,
                     "width": 32,
                     "height": 28
@@ -2522,7 +2510,7 @@
             {
                 "path": "sprites/advancements/tab_left_top_selected.png",
                 "box": {
-                    "x": 0, 
+                    "x": 0,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2531,7 +2519,7 @@
             {
                 "path": "sprites/advancements/tab_left_middle_selected.png",
                 "box": {
-                    "x": 32, 
+                    "x": 32,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2540,7 +2528,7 @@
             {
                 "path": "sprites/advancements/tab_left_bottom_selected.png",
                 "box": {
-                    "x": 64, 
+                    "x": 64,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2549,7 +2537,7 @@
             {
                 "path": "sprites/advancements/tab_right_top_selected.png",
                 "box": {
-                    "x": 96, 
+                    "x": 96,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2558,7 +2546,7 @@
             {
                 "path": "sprites/advancements/tab_right_middle_selected.png",
                 "box": {
-                    "x": 128, 
+                    "x": 128,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2567,7 +2555,7 @@
             {
                 "path": "sprites/advancements/tab_right_bottom_selected.png",
                 "box": {
-                    "x": 160, 
+                    "x": 160,
                     "y": 92,
                     "width": 32,
                     "height": 28
@@ -2613,7 +2601,7 @@
                     "width": 200,
                     "height": 26
                 },
-				"metadata": {
+                "metadata": {
                     "gui": {
                         "scaling": {
                             "type": "nine_slice",
