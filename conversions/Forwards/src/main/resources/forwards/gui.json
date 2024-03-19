@@ -1778,7 +1778,7 @@
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 0,
                     "width": 200,
                     "height": 20
                 }
@@ -1798,7 +1798,7 @@
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 40,
                     "width": 200,
                     "height": 20
                 }
@@ -1808,7 +1808,7 @@
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 60,
                     "width": 200,
                     "height": 20
                 }
