@@ -1772,19 +1772,13 @@
         "path": "slider.png",
         "width": 256,
         "height": 256,
-        "predicate": {
-            "protocol": {
-                "min_inclusive": 762,
-                "max_inclusive": null
-            }
-        },
         "textures": [
             {
                 "path": "sprites/widget/slider.png",
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 0,
                     "width": 200,
                     "height": 20
                 }
@@ -1804,7 +1798,7 @@
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 40,
                     "width": 200,
                     "height": 20
                 }
@@ -1814,7 +1808,7 @@
                 "metadata": "button_widget",
                 "box": {
                     "x": 0,
-                    "y": 20,
+                    "y": 60,
                     "width": 200,
                     "height": 20
                 }

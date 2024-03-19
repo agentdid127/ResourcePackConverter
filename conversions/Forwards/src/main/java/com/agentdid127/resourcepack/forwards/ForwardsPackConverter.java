@@ -96,8 +96,10 @@ public class ForwardsPackConverter extends PackConverter {
         }
 
         if (protocolFrom < Util.getVersionProtocol(gson, "1.19.4")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.19.4"))
+                && protocolTo >= Util.getVersionProtocol(gson, "1.19.4")) {
             this.registerConverter(new EnchantPathConverter(this));
+            this.registerConverter(new SlidersCreator(this));
+        }
 
         if (protocolFrom <= Util.getVersionProtocol(gson, "1.19.4")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.20"))
