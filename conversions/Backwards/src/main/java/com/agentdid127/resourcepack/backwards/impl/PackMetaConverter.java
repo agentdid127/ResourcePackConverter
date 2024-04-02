@@ -32,7 +32,12 @@ public class PackMetaConverter extends Converter {
         Path file = pack.getWorkingPath().resolve("pack.mcmeta");
         if (!file.toFile().exists())
             return;
-        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20"))
+        // Possible TODO: Make this JSON? Possibly use protocol.json, but update it.
+        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2"))
+            versionInt = 22;
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2") && version < Util.getVersionProtocol(packConverter.getGson(), "1.20.3"))
+            versionInt = 18;
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20") && version < Util.getVersionProtocol(packConverter.getGson(), "1.20.2"))
             versionInt = 15;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4") && version < Util.getVersionProtocol(packConverter.getGson(), "1.20"))
             versionInt = 13;
