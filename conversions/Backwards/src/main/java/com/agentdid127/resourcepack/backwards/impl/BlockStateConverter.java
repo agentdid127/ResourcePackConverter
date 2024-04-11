@@ -34,11 +34,11 @@ public class BlockStateConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path states = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-        if (!states.toFile().exists())
+        Path blockstatesPath = pack.getWorkingPath()
+                .resolve("assets/minecraft/blockstates".replace("/", File.separator));
+        if (!blockstatesPath.toFile().exists())
             return;
-        Files.list(states)
+        Files.list(blockstatesPath)
                 .filter(file -> file.toString().endsWith(".json"))
                 .forEach(file -> {
                     try {

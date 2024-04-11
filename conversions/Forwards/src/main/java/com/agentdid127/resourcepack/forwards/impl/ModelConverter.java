@@ -38,7 +38,7 @@ public class ModelConverter extends Converter {
 	@Override
 	public void convert(Pack pack) throws IOException {
 		Path models = pack.getWorkingPath()
-				.resolve("assets" + File.separator + "minecraft" + File.separator + "models");
+				.resolve("assets/minecraft/models".replace("/", File.separator));
 		if (!models.toFile().exists())
 			return;
 		findFiles(models);

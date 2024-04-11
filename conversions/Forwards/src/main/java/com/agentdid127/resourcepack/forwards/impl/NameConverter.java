@@ -71,7 +71,7 @@ public class NameConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path minecraftPath = pack.getWorkingPath().resolve("assets/minecraft");
+        Path minecraftPath = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
         // Less than 1.12
         if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
                 && to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {

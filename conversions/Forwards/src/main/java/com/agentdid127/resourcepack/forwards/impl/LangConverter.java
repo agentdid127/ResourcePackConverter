@@ -112,10 +112,10 @@ public class LangConverter extends Converter {
                 });
 
         for (int i = 0; i < models.size(); i++) {
-            Logger.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
-                    + File.separator + "lang" + File.separator + models.get(i)));
-            Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
-                    + File.separator + models.get(i)));
+            Path langFilePath = pack.getWorkingPath()
+                    .resolve(("assets/minecraft/lang/" + models.get(i)).replace("/", File.separator));
+            Logger.log("Deleting: " + langFilePath);
+            Files.delete(langFilePath);
         }
     }
 }

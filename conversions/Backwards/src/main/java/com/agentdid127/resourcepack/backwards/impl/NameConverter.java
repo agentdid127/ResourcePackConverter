@@ -46,7 +46,7 @@ public class NameConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path mc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft");
+        Path mc = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
 
         // Version is greater than 1.13
         if (to <= Util.getVersionProtocol(packConverter.getGson(), "1.13")
@@ -67,7 +67,7 @@ public class NameConverter extends Converter {
         }
 
         Path models = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "models");
+                .resolve("assets/minecraft/models".replace("/", File.separator));
         if (models.toFile().exists()) {
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
                 renameAll(blockMapping19, ".json", models.resolve("block"));
@@ -90,13 +90,13 @@ public class NameConverter extends Converter {
 
         // Update BlockStates
         Path blockStates = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
+                .resolve("assets/minecraft/blockstates".replace("/", File.separator));
         if (blockStates.toFile().exists())
             renameAll(blockMapping, ".json", blockStates);
 
         // Update textures
         Path textures = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
+                .resolve("assets/minecraft/textures".replace("/", File.separator));
         if (textures.toFile().exists()) {
             // 1.19
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19")
@@ -111,12 +111,12 @@ public class NameConverter extends Converter {
                 renameAll(blockMapping17, ".png", models.resolve("block"));
                 renameAll(itemMapping17, ".png", models.resolve("item"));
                 if (textures.resolve(
-                        "entity" + File.separator + "squid" + File.separator + "squid.png").toFile()
+                        "entity/squid/squid.png").toFile()
                         .exists())
                     Files.move(textures.resolve(
-                            "entity" + File.separator + "squid" + File.separator + "squid.png"),
-                            textures.resolve("entity" + File.separator + "squid.png"));
-                // Files.deleteIfExists(textures.resolve("entity" + File.separator + "squid" +
+                            "entity/squid/squid.png"),
+                            textures.resolve("entity/squid.png"));
+                // Files.deleteIfExists(textures.resolve("entity/squid" +
                 // File.separator));
             }
 
@@ -124,15 +124,15 @@ public class NameConverter extends Converter {
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.16")
                     && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
                 if (textures.resolve(
-                        "entity" + File.separator + "iron_golem" + File.separator + "iron_golem.png")
+                        "entity/iron_golem/iron_golem.png")
                         .toFile().exists())
                     Files.move(
                             textures.resolve(
-                                    "entity" + File.separator + "iron_golem" + File.separator
+                                    "entity/iron_golem" + File.separator
                                             + "iron_golem.png"),
-                            textures.resolve("entity" + File.separator + "iron_golem.png"));
+                            textures.resolve("entity/iron_golem.png"));
                 // Files.deleteIfExists(textures.resolve("entity" + File.separator +
-                // "iron_golem" + File.separator + "iron_golem.png"));
+                // "iron_golem/iron_golem.png"));
             }
 
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
@@ -151,9 +151,9 @@ public class NameConverter extends Converter {
                 renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
 
                 // 1.13 End Crystals
-                if (textures.resolve("entity" + File.separator + "end_crystal").toFile().exists())
-                    Files.move(textures.resolve("entity" + File.separator + "end_crystal"),
-                            textures.resolve("entity" + File.separator + "endercrystal"));
+                if (textures.resolve("entity/end_crystal").toFile().exists())
+                    Files.move(textures.resolve("entity/end_crystal"),
+                            textures.resolve("entity/endercrystal"));
                 findEntityFiles(textures.resolve("entity"));
 
             }
@@ -239,7 +239,7 @@ public class NameConverter extends Converter {
             // i.e grass -> grass_block, tall_grass -> grass, double_grass -> tall_grass
             List<String> grasses = Arrays.asList("tall_grass", "grass", "grass_block");
             if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
-                    && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block"))) {
+                    && (path.endsWith("blockstates") || path.endsWith("textures/block"))) {
                 grasses.stream().forEach(name -> {
                     String newName = mapping.remap(name);
                     Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
@@ -280,7 +280,7 @@ public class NameConverter extends Converter {
                         path1.getFileName().toString().length() - extension.length());
                 // skip the already renamed grass blocks
                 if (grasses.contains(baseName)
-                        && (path.endsWith("blockstates") || path.endsWith("textures" + File.separator + "block")))
+                        && (path.endsWith("blockstates") || path.endsWith("textures/block")))
                     return;
 
                 String newName = mapping.remap(baseName);

@@ -33,11 +33,12 @@ public class LangConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path path = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang");
-        if (!path.toFile().exists())
+        Path langPath = pack.getWorkingPath()
+                .resolve("assets/minecraft/lang".replace("/", File.separator));
+        if (!langPath.toFile().exists())
             return;
         ArrayList<String> models = new ArrayList<String>();
-        Files.list(path)
+        Files.list(langPath)
                 .filter(path1 -> path1.toString().endsWith(".json"))
                 .forEach(model -> {
                     PropertiesEx out = new PropertiesEx();
@@ -87,8 +88,10 @@ public class LangConverter extends Converter {
                         Logger.log("Saving: " + file2 + ".lang");
                         out.store(
                                 new FileOutputStream(
-                                        pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
-                                                + File.separator + "lang" + File.separator + file2 + ".lang").toFile()),
+                                        pack.getWorkingPath()
+                                                .resolve(("assets/minecraft/lang/" + file2 + ".lang").replace("/",
+                                                        File.separator))
+                                                .toFile()),
                                 "");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -97,10 +100,10 @@ public class LangConverter extends Converter {
                     models.add(model.getFileName().toString());
                 });
         for (int i = 0; i < models.size(); i++) {
-            Logger.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
-                    + File.separator + "lang" + File.separator + models.get(i)));
-            Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
-                    + File.separator + models.get(i)));
+            Path langFilePath = pack.getWorkingPath()
+                    .resolve(("assets/minecraft/lang/" + models.get(i)).replace("/", File.separator));
+            Logger.log("Deleting: " + langFilePath);
+            Files.delete(langFilePath);
         }
     }
 }

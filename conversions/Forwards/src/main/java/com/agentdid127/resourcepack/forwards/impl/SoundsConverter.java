@@ -56,7 +56,7 @@ public class SoundsConverter extends Converter {
                                     "Unknown element type: " + jsonElement.getClass().getSimpleName());
 
                         Path baseSoundsPath = pack.getWorkingPath()
-                                .resolve("assets" + File.separator + "minecraft" + File.separator + "sounds");
+                                .resolve("assets/minecraft/sounds".replace("/", File.separator));
                         Path path = baseSoundsPath.resolve(sound + ".ogg");
                         if (!Util.fileExistsCorrectCasing(path)) {
                             String rewrite = path.toFile().getCanonicalPath().substring(

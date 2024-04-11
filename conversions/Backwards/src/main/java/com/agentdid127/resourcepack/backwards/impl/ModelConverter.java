@@ -24,8 +24,6 @@ public class ModelConverter extends Converter {
 	private int from;
 	protected String light = "none";
 
-	protected Path models;
-
 	public ModelConverter(PackConverter packConverter, String lightIn, int fromIn, int versionIn) {
 		super(packConverter);
 		light = lightIn;
@@ -41,8 +39,8 @@ public class ModelConverter extends Converter {
 	 */
 	@Override
 	public void convert(Pack pack) throws IOException {
-		models = pack.getWorkingPath()
-				.resolve("assets" + File.separator + "minecraft" + File.separator + "models");
+		Path models = pack.getWorkingPath()
+				.resolve("assets/minecraft/models".replace("/", File.separator));
 		if (!models.toFile().exists())
 			return;
 		findFiles(models);
@@ -70,10 +68,10 @@ public class ModelConverter extends Converter {
 	 * @param path
 	 * @throws IOException
 	 */
-	protected void remapModelJson(Path path) throws IOException {
-		if (!path.toFile().exists())
+	protected void remapModelJson(Path models) throws IOException {
+		if (!models.toFile().exists())
 			return;
-		Files.list(path)
+		Files.list(models)
 				.filter(path1 -> path1.toString().endsWith(".json"))
 				.forEach(model -> {
 					try {
@@ -101,12 +99,11 @@ public class ModelConverter extends Converter {
 									jsonObject.addProperty(entry.getKey(), getParent(parent));
 								}
 							}
+
 							if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.9")
 									&& version < Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
-
-								jsonObject = mergeParent(jsonObject, jsonObject.get("parent").getAsString());
+								jsonObject = mergeParent(models, jsonObject, jsonObject.get("parent").getAsString());
 							}
-
 						}
 
 						// GUI light system for 1.15.2
@@ -277,7 +274,7 @@ public class ModelConverter extends Converter {
 		return parent;
 	}
 
-	protected JsonObject mergeParent(JsonObject current, String parent) {
+	protected JsonObject mergeParent(Path models, JsonObject current, String parent) {
 		JsonObject jsonObject = current.deepCopy();
 
 		if (parent == null || !models.resolve(parent + ".json").toFile().exists()) {
@@ -296,7 +293,7 @@ public class ModelConverter extends Converter {
 					if (parentObj.has("parent")) {
 						String parentStr = parentObj.get("parent").getAsString();
 						String parentVal = parentStr == null ? null : getParent(parentStr);
-						jsonObject = mergeParent(parentObj, parentVal);
+						jsonObject = mergeParent(models, parentObj, parentVal);
 					}
 
 					if (!jsonObject.has("elements") && current.has("elements")) {

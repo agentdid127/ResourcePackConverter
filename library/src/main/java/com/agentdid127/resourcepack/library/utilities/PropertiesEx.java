@@ -61,12 +61,14 @@ public class PropertiesEx extends Properties {
         bw.write("#" + (new Date()).toString());
         bw.newLine();
         synchronized (this) {
+            @SuppressWarnings("rawtypes")
             Iterator var5 = this.entrySet().iterator();
 
             while (true) {
                 if (!var5.hasNext())
                     break;
 
+                @SuppressWarnings({ "rawtypes", "unchecked" })
                 Map.Entry<Object, Object> e = (Map.Entry) var5.next();
                 String key = (String) e.getKey();
                 String val = (String) e.getValue();

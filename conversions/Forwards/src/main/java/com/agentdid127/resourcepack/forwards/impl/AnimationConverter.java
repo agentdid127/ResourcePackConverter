@@ -22,9 +22,9 @@ public class AnimationConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
+                "assets/minecraft/textures/block"));
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
+                "assets/minecraft/textures/item"));
     }
 
     /**

@@ -27,7 +27,7 @@ public class MCPatcherConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path models = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "optifine");
+                .resolve("assets/minecraft/optifine".replace("/", File.separator));
         if (models.toFile().exists())
             findFiles(models);
         // remapModelJson(models.resolve("item"));

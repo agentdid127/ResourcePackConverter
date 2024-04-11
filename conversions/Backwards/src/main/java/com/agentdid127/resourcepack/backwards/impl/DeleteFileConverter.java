@@ -15,7 +15,6 @@ import java.nio.file.Path;
 
 public class DeleteFileConverter extends Converter {
     int from, to;
-    Path models, textures;
 
     public DeleteFileConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -25,13 +24,15 @@ public class DeleteFileConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        models = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "models");
-        textures = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures");
+        Path models = pack.getWorkingPath()
+                .resolve("assets/minecraft/models".replace("/", File.separator));
+        Path textures = pack.getWorkingPath()
+                .resolve("assets/minecraft/textures".replace("/", File.separator));
 
         for (int i = from; i > to; i--) {
-            deleteBlocks(i);
-            deleteItems(i);
-            deleteEntities(i);
+            deleteBlocks(models, textures, i);
+            deleteItems(models, textures, i);
+            deleteEntities(textures, i);
         }
 
         findFiles(models);
@@ -40,7 +41,7 @@ public class DeleteFileConverter extends Converter {
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
                 && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
             Path atlases = pack.getWorkingPath()
-                    .resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
+                    .resolve("assets/minecraft/atlases".replace("/", File.separator));
             if (atlases.toFile().exists())
                 Util.deleteDirectoryAndContents(atlases);
         }
@@ -59,7 +60,7 @@ public class DeleteFileConverter extends Converter {
             Files.deleteIfExists(directory.toPath());
     }
 
-    public void deleteBlocks(int version) throws IOException {
+    public void deleteBlocks(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/blocks.json");
 
@@ -83,7 +84,7 @@ public class DeleteFileConverter extends Converter {
         }
     }
 
-    public void deleteItems(int version) throws IOException {
+    public void deleteItems(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject items = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/items.json");
 
@@ -107,7 +108,7 @@ public class DeleteFileConverter extends Converter {
         }
     }
 
-    public void deleteEntities(int version) throws IOException {
+    public void deleteEntities(Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/entities.json");
         if (entities.has(protocol)) {
@@ -120,5 +121,4 @@ public class DeleteFileConverter extends Converter {
             }
         }
     }
-
 }
