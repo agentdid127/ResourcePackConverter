@@ -16,23 +16,23 @@ public class EnchantPathConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path misc = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "misc");
+        Path miscPath = pack.getWorkingPath().resolve("assets/minecraft/textures/misc".replace("/", File.separator));
 
-        if (misc.resolve("enchanted_glint_item.png").toFile().exists())
-            Files.move(misc.resolve("enchanted_glint_item.png"), misc.resolve("enchanted_item_glint.png"));
-        else if (misc.resolve("enchanted_glint_entity.png").toFile().exists())
-            Files.move(misc.resolve("enchanted_glint_entity.png"), misc.resolve("enchanted_item_glint.png"));
+        if (miscPath.resolve("enchanted_glint_item.png").toFile().exists())
+            Files.move(miscPath.resolve("enchanted_glint_item.png"), miscPath.resolve("enchanted_item_glint.png"));
+        else if (miscPath.resolve("enchanted_glint_entity.png").toFile().exists())
+            Files.move(miscPath.resolve("enchanted_glint_entity.png"), miscPath.resolve("enchanted_item_glint.png"));
 
-        if (misc.resolve("enchanted_glint_item.png.mcmeta").toFile().exists())
-            Files.move(misc.resolve("enchanted_glint_item.png.mcmeta"),
-                    misc.resolve("enchanted_item_glint.png.mcmeta"));
-        else if (misc.resolve("enchanted_glint_entity.png.mcmeta").toFile().exists())
-            Files.move(misc.resolve("enchanted_glint_entity.png.mcmeta"),
-                    misc.resolve("enchanted_item_glint.png.mcmeta"));
+        if (miscPath.resolve("enchanted_glint_item.png.mcmeta").toFile().exists())
+            Files.move(miscPath.resolve("enchanted_glint_item.png.mcmeta"),
+                    miscPath.resolve("enchanted_item_glint.png.mcmeta"));
+        else if (miscPath.resolve("enchanted_glint_entity.png.mcmeta").toFile().exists())
+            Files.move(miscPath.resolve("enchanted_glint_entity.png.mcmeta"),
+                    miscPath.resolve("enchanted_item_glint.png.mcmeta"));
 
-        Files.deleteIfExists(misc.resolve("enchanted_glint_entity.png.mcmeta"));
-        Files.deleteIfExists(misc.resolve("enchanted_glint_item.png.mcmeta"));
-        Files.deleteIfExists(misc.resolve("enchanted_glint_entity.png"));
-        Files.deleteIfExists(misc.resolve("enchanted_glint_item.png"));
+        Files.deleteIfExists(miscPath.resolve("enchanted_glint_entity.png.mcmeta"));
+        Files.deleteIfExists(miscPath.resolve("enchanted_glint_item.png.mcmeta"));
+        Files.deleteIfExists(miscPath.resolve("enchanted_glint_entity.png"));
+        Files.deleteIfExists(miscPath.resolve("enchanted_glint_item.png"));
     }
 }

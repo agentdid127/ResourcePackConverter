@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.library.pack;
 
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
@@ -58,7 +58,8 @@ public class ZipPack extends Pack {
             try {
                 ZipFile zipFile = new ZipFile(pack.getOriginalPath().toFile());
                 zipFile.extractAll(pack.getWorkingPath().toString());
-                zipFile.close();;
+                zipFile.close();
+                ;
             } catch (ZipException e) {
                 Util.propagate(e);
             }

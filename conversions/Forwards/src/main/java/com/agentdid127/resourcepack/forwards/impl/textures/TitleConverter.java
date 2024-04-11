@@ -22,21 +22,28 @@ public class TitleConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "gui" + File.separator + "title" + File.separator + "minecraft.png");
-        if (!imagePath.toFile().exists())
+        Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
+        if (!texturesPath.toFile().exists())
+            return;
+
+        Path titleFolderPath = texturesPath.resolve("gui/title".replace("/", File.separator));
+        if (!titleFolderPath.toFile().exists())
+            return;
+
+        Path minecraftTilePath = titleFolderPath.resolve("minecraft.png");
+        if (!minecraftTilePath.toFile().exists())
             return;
 
         int oldWidth = 256, oldHeight = 256;
-        ImageConverter image = new ImageConverter(oldWidth, oldHeight, imagePath);
-        if (!image.isSquare())
+        ImageConverter image = new ImageConverter(oldWidth, oldHeight, minecraftTilePath);
+        if (!image.fileIsPowerOfTwo() || !image.isSquare())
             return;
 
         // Normal Minecraft Title
         image.newImage(274, 64);
         // TODO: fix bigger resolutions not aligning properly?? and having extra space
         // to the right of the image
-        image.subImage(0, 0, 156, 44, 0, 0);
+        image.subImage(0, 0, 156, 44);
         image.subImage(0, 45, 119, 90, 155, 0);
 
         // TODO: Realms Minecraft Title

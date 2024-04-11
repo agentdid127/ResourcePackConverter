@@ -2,16 +2,15 @@ package com.agentdid127.resourcepack.backwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonObject;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Deprecated // will be removed when extensions are made
 public class MCPatcherConverter extends Converter {
@@ -42,13 +41,12 @@ public class MCPatcherConverter extends Converter {
      * @throws IOException
      */
     protected void findFiles(Path path) throws IOException {
-        File directory = new File(path.toString());
-        File[] fList = directory.listFiles();
-        for (File file : fList) {
-            if (file.isDirectory()) {
-                remapProperties(Paths.get(file.getPath()));
-                findFiles(Paths.get(file.getPath()));
-            }
+        File directory = path.toFile();
+        for (File file : directory.listFiles()) {
+            if (file.isDirectory())
+                continue;
+            remapProperties(file.toPath());
+            findFiles(file.toPath());
         }
     }
 

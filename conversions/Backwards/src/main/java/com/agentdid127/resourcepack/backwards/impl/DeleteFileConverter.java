@@ -2,8 +2,8 @@ package com.agentdid127.resourcepack.backwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class DeleteFileConverter extends Converter {
     int from, to;
@@ -38,24 +37,26 @@ public class DeleteFileConverter extends Converter {
         findFiles(models);
         findFiles(textures);
 
-        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3") && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-            Path atlases = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
+        if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
+                && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
+            Path atlases = pack.getWorkingPath()
+                    .resolve("assets" + File.separator + "minecraft" + File.separator + "atlases");
             if (atlases.toFile().exists())
                 Util.deleteDirectoryAndContents(atlases);
         }
     }
 
     protected void findFiles(Path path) throws IOException {
-	if (path.toFile().exists()) {
-	    File directory = new File(path.toString());
-	    File[] fList = directory.listFiles();
-	    for (File file : fList)
-		if (file.isDirectory())
-		    findFiles(Paths.get(file.getPath()));
-	    fList = directory.listFiles();
-	    if (fList.length == 0)
-		Files.deleteIfExists(directory.toPath());
-	}
+        if (!path.toFile().exists())
+            return;
+        File directory = path.toFile();
+        File[] filesList = directory.listFiles();
+        for (File file : filesList)
+            if (file.isDirectory())
+                findFiles(file.toPath());
+        filesList = directory.listFiles();
+        if (filesList.length == 0)
+            Files.deleteIfExists(directory.toPath());
     }
 
     public void deleteBlocks(int version) throws IOException {

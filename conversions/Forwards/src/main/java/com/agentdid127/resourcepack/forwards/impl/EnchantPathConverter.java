@@ -16,21 +16,20 @@ public class EnchantPathConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        Path misc = pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "misc");
+        Path miscPath = pack.getWorkingPath().resolve("assets/minecraft/textures/misc".replace("/", File.separator));
 
-        if (misc.resolve("enchanted_item_glint.png").toFile().exists()) {
-            Files.copy(misc.resolve("enchanted_item_glint.png"), misc.resolve("enchanted_glint_entity.png"));
-            Files.copy(misc.resolve("enchanted_item_glint.png"), misc.resolve("enchanted_glint_item.png"));
-            Files.delete(misc.resolve("enchanted_item_glint.png"));
+        if (miscPath.resolve("enchanted_item_glint.png").toFile().exists()) {
+            Files.copy(miscPath.resolve("enchanted_item_glint.png"), miscPath.resolve("enchanted_glint_entity.png"));
+            Files.copy(miscPath.resolve("enchanted_item_glint.png"), miscPath.resolve("enchanted_glint_item.png"));
+            Files.delete(miscPath.resolve("enchanted_item_glint.png"));
         }
 
-        if (misc.resolve("enchanted_item_glint.png.mcmeta").toFile().exists()) {
-            Files.copy(misc.resolve("enchanted_item_glint.png.mcmeta"),
-                    misc.resolve("enchanted_glint_entity.png.mcmeta"));
-            Files.copy(misc.resolve("enchanted_item_glint.png.mcmeta"),
-                    misc.resolve("enchanted_glint_item.png.mcmeta"));
-            Files.delete(misc.resolve("enchanted_item_glint.png.mcmeta"));
+        if (miscPath.resolve("enchanted_item_glint.png.mcmeta").toFile().exists()) {
+            Files.copy(miscPath.resolve("enchanted_item_glint.png.mcmeta"),
+                    miscPath.resolve("enchanted_glint_entity.png.mcmeta"));
+            Files.copy(miscPath.resolve("enchanted_item_glint.png.mcmeta"),
+                    miscPath.resolve("enchanted_glint_item.png.mcmeta"));
+            Files.delete(miscPath.resolve("enchanted_item_glint.png.mcmeta"));
         }
     }
 }

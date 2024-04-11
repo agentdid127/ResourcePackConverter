@@ -2,7 +2,7 @@ package com.agentdid127.resourcepack;
 
 import com.agentdid127.resourcepack.backwards.BackwardsPackConverter;
 import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
-import com.agentdid127.resourcepack.library.Util;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import joptsimple.OptionSet;
@@ -23,18 +23,21 @@ public class Main {
             Options.PARSER.printHelpOn(System.out);
             return;
         }
-        
+
         String from = optionSet.valueOf(Options.FROM);
         String to = optionSet.valueOf(Options.TO);
         String light = optionSet.valueOf(Options.LIGHT);
         boolean minify = optionSet.has(Options.MINIFY);
+        boolean debug = optionSet.valueOf(Options.DEBUG);
         PrintStream out = System.out;
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
-        
+
         if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to))
-            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
+            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out)
+                    .runDir();
         else
-            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), true, out).runDir();
+            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out)
+                    .runDir();
     }
 }

@@ -4,35 +4,35 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
-import java.awt.Color;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
 public class WaterConverter extends Converter {
+	public WaterConverter(PackConverter packConverter) {
+		super(packConverter);
+	}
 
-  public WaterConverter(PackConverter packConverter) {
-    super(packConverter);
-  }
+	@Override
+	public void convert(Pack pack) throws IOException {
+		Path blockFolder = pack.getWorkingPath()
+				.resolve("assets/minecraft/textures/block".replace("/", File.separator));
+		if (!blockFolder.toFile().exists())
+			return;
+		grayscale(blockFolder.resolve("water_flow.png"), 32, 1024);
+		grayscale(blockFolder.resolve("water_still.png"), 32, 1024);
+		grayscale(blockFolder.resolve("water_overlay.png"), 32, 32);
+	}
 
-  @Override
-  public void convert(Pack pack) throws IOException {
-    Path blocks = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "blocks");
-
-    colorize(32, 1024, blocks.resolve("water_flow.png"));
-    colorize(32,1024, blocks.resolve("water_still.png"));
-    colorize(32, 32, blocks.resolve("water_overlay.png"));
-
-  }
-
-  private void colorize(int w, int h, Path path) throws IOException {
-    if (!path.toFile().exists()) return;
-
-    ImageConverter imageConverter = new ImageConverter(w, h, path);
-    if (!imageConverter.fileIsPowerOfTwo()) return;
-
-    imageConverter.newImage(w, h);
-    imageConverter.grayscale();
-    imageConverter.store();
-  }
+	private void grayscale(Path path, int w, int h) throws IOException {
+		if (!path.toFile().exists())
+			return;
+		ImageConverter imageConverter = new ImageConverter(w, h, path);
+		if (!imageConverter.fileIsPowerOfTwo())
+			return;
+		imageConverter.newImage(w, h);
+		imageConverter.grayscale();
+		imageConverter.store();
+	}
 }

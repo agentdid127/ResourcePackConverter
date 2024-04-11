@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,29 +18,29 @@ public class Slice {
     private boolean delete;
 
     public String getPath() {
-        return path;
+        return path.replace("/", File.separator);
     }
-    
+
     public String getPathName() {
         return name;
     }
-    
+
     public int getWidth() {
         return width;
     }
-    
+
     public int getHeight() {
         return height;
     }
-    
+
     public JsonObject getPredicate() {
         return predicate;
     }
-    
+
     public Texture[] getTextures() {
         return textures;
     }
-    
+
     public boolean shouldDelete() {
         return delete;
     }
@@ -50,18 +51,20 @@ public class Slice {
 
         if (object.has("name"))
             slice.name = object.get("name").getAsString();
-        else slice.name = null;
+        else
+            slice.name = null;
 
         slice.width = object.get("width").getAsInt();
         slice.height = object.get("height").getAsInt();
-        
+
         slice.textures = Texture.parseArray(object.get("textures").getAsJsonArray());
-        
+
         if (object.has("delete"))
             slice.delete = object.get("delete").getAsBoolean();
-        else slice.delete = true;
+        else
+            slice.delete = true;
 
-        if (object.has("predicate")) 
+        if (object.has("predicate"))
             slice.predicate = object.get("predicate").getAsJsonObject();
         else
             slice.predicate = new JsonObject();
@@ -71,7 +74,7 @@ public class Slice {
 
     public static Slice[] parseArray(JsonArray array) {
         List<Slice> slices = new LinkedList<>();
-        for (JsonElement element : array) 
+        for (JsonElement element : array)
             slices.add(Slice.parse(element.getAsJsonObject()));
         return slices.toArray(new Slice[] {});
     }

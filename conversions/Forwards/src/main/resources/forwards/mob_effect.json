@@ -1,0 +1,278 @@
+{
+    "path": "gui/container/inventory.png",
+    "width": 256,
+    "height": 256,
+    "delete": false,
+    "textures": [
+        {
+            "path": "mob_effect/speed.png",
+            "remove": true,
+            "box": {
+                "x": 0,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/slowness.png",
+            "remove": true,
+            "box": {
+                "x": 18,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/haste.png",
+            "remove": true,
+            "box": {
+                "x": 36,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/mining_fatigue.png",
+            "remove": true,
+            "box": {
+                "x": 54,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/strength.png",
+            "remove": true,
+            "box": {
+                "x": 72,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/jump_boost.png",
+            "remove": true,
+            "box": {
+                "x": 36,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/nausea.png",
+            "remove": true,
+            "box": {
+                "x": 54,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/regeneration.png",
+            "remove": true,
+            "box": {
+                "x": 126,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/resistance.png",
+            "remove": true,
+            "box": {
+                "x": 108,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/fire_resistance.png",
+            "remove": true,
+            "box": {
+                "x": 126,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/water_breathing.png",
+            "remove": true,
+            "box": {
+                "x": 0,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/invisibility.png",
+            "remove": true,
+            "box": {
+                "x": 0,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/blindness.png",
+            "remove": true,
+            "box": {
+                "x": 90,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/night_vision.png",
+            "remove": true,
+            "box": {
+                "x": 72,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/hunger.png",
+            "remove": true,
+            "box": {
+                "x": 18,
+                "y": 216,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/weakness.png",
+            "remove": true,
+            "box": {
+                "x": 90,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/poison.png",
+            "remove": true,
+            "box": {
+                "x": 108,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/wither.png",
+            "remove": true,
+            "box": {
+                "x": 18,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/health_boost.png",
+            "remove": true,
+            "box": {
+                "x": 126,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/absorption.png",
+            "remove": true,
+            "box": {
+                "x": 36,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/glowing.png",
+            "remove": true,
+            "box": {
+                "x": 72,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/levitation.png",
+            "remove": true,
+            "box": {
+                "x": 54,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/luck.png",
+            "remove": true,
+            "box": {
+                "x": 90,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/unluck.png",
+            "remove": true,
+            "box": {
+                "x": 108,
+                "y": 234,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/slow_falling.png",
+            "remove": true,
+            "box": {
+                "x": 144,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/conduit_power.png",
+            "remove": true,
+            "box": {
+                "x": 162,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        },
+        {
+            "path": "mob_effect/dolphins_grace.png",
+            "remove": true,
+            "box": {
+                "x": 180,
+                "y": 198,
+                "width": 18,
+                "height": 18
+            }
+        }
+    ]
+}

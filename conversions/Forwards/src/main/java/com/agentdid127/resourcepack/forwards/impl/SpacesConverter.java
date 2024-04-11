@@ -2,9 +2,9 @@ package com.agentdid127.resourcepack.forwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,14 +37,13 @@ public class SpacesConverter extends Converter {
      * @throws IOException
      */
     protected void findFiles(Path path) throws IOException {
-        if (path.toFile().exists()) {
-            File directory = new File(path.toString());
-            File[] fList = directory.listFiles();
-            for (File file : fList) {
-                String dir = fixSpaces(file.toPath());
-                if (file.isDirectory())
-                    findFiles(Paths.get(dir));
-            }
+        if (!path.toFile().exists())
+            return;
+        File directory = path.toFile();
+        for (File file : directory.listFiles()) {
+            String dir = fixSpaces(file.toPath());
+            if (file.isDirectory())
+                findFiles(Paths.get(dir));
         }
     }
 
@@ -65,7 +64,7 @@ public class SpacesConverter extends Converter {
         if (ret == null)
             return "null";
 
-        if (ret && packConverter.DEBUG) {
+        if (ret && PackConverter.DEBUG) {
             Logger.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         } else if (!ret) {

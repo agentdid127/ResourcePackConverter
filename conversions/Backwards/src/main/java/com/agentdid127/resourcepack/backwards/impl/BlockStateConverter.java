@@ -2,19 +2,18 @@ package com.agentdid127.resourcepack.backwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Map;
 
 public class BlockStateConverter extends Converter {
@@ -49,7 +48,6 @@ public class BlockStateConverter extends Converter {
                         // process multipart
                         JsonArray multipartArray = json.getAsJsonArray("multipart");
 
-
                         if (multipartArray != null) {
                             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
                                 // TODO: Convert Multipart to variants
@@ -58,7 +56,7 @@ public class BlockStateConverter extends Converter {
                             } else {
                                 for (int i = 0; i < multipartArray.size(); i++) {
                                     JsonObject multipartObject = multipartArray.get(i)
-                                        .getAsJsonObject();
+                                            .getAsJsonObject();
                                     for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
                                         updateModelPath(entry);
                                 }
@@ -90,8 +88,7 @@ public class BlockStateConverter extends Converter {
                                 updateModelPath(entry);
                         }
                         if (anyChanges) {
-                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
-                                    Charset.forName("UTF-8"));
+                            JsonUtil.writeJson(packConverter.getGson(), file, json);
                             if (PackConverter.DEBUG)
                                 Logger.log("      Converted " + file.getFileName());
                         }

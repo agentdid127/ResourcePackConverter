@@ -1,0 +1,251 @@
+{
+    "path": "paintings_kristoffer_zetterstrand.png",
+    "width": 256,
+    "height": 256,
+    "delete": true,
+    "textures": [
+        {
+            "path": "back.png",
+            "box": {
+                "x": 240,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "kebab.png",
+            "box": {
+                "x": 0,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "aztec.png",
+            "box": {
+                "x": 16,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "alban.png",
+            "box": {
+                "x": 32,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "aztec2.png",
+            "box": {
+                "x": 48,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "bomb.png",
+            "box": {
+                "x": 64,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "plant.png",
+            "box": {
+                "x": 80,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "wasteland.png",
+            "box": {
+                "x": 96,
+                "y": 0,
+                "width": 16,
+                "height": 16
+            }
+        },
+        {
+            "path": "pool.png",
+            "box": {
+                "x": 0,
+                "y": 32,
+                "width": 32,
+                "height": 16
+            }
+        },
+        {
+            "path": "courbet.png",
+            "box": {
+                "x": 32,
+                "y": 32,
+                "width": 32,
+                "height": 16
+            }
+        },
+        {
+            "path": "sea.png",
+            "box": {
+                "x": 64,
+                "y": 32,
+                "width": 32,
+                "height": 16
+            }
+        },
+        {
+            "path": "sunset.png",
+            "box": {
+                "x": 96,
+                "y": 32,
+                "width": 32,
+                "height": 16
+            }
+        },
+        {
+            "path": "creebet.png",
+            "box": {
+                "x": 128,
+                "y": 32,
+                "width": 32,
+                "height": 16
+            }
+        },
+        {
+            "path": "wanderer.png",
+            "box": {
+                "x": 0,
+                "y": 64,
+                "width": 16,
+                "height": 32
+            }
+        },
+        {
+            "path": "graham.png",
+            "box": {
+                "x": 16,
+                "y": 64,
+                "width": 16,
+                "height": 32
+            }
+        },
+        {
+            "path": "match.png",
+            "box": {
+                "x": 0,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "bust.png",
+            "box": {
+                "x": 32,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "stage.png",
+            "box": {
+                "x": 64,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "void.png",
+            "box": {
+                "x": 96,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "skull_and_roses.png",
+            "box": {
+                "x": 128,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "wither.png",
+            "box": {
+                "x": 160,
+                "y": 128,
+                "width": 32,
+                "height": 32
+            }
+        },
+        {
+            "path": "fighters.png",
+            "box": {
+                "x": 0,
+                "y": 96,
+                "width": 64,
+                "height": 32
+            }
+        },
+        {
+            "path": "pointer.png",
+            "box": {
+                "x": 0,
+                "y": 192,
+                "width": 64,
+                "height": 64
+            }
+        },
+        {
+            "path": "pigscene.png",
+            "box": {
+                "x": 64,
+                "y": 192,
+                "width": 64,
+                "height": 64
+            }
+        },
+        {
+            "path": "burning_skull.png",
+            "box": {
+                "x": 128,
+                "y": 192,
+                "width": 64,
+                "height": 64
+            }
+        },
+        {
+            "path": "skeleton.png",
+            "box": {
+                "x": 192,
+                "y": 64,
+                "width": 64,
+                "height": 48
+            }
+        },
+        {
+            "path": "donkey_kong.png",
+            "box": {
+                "x": 192,
+                "y": 112,
+                "width": 64,
+                "height": 48
+            }
+        }
+    ]
+}

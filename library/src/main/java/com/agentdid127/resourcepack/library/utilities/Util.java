@@ -1,6 +1,6 @@
-package com.agentdid127.resourcepack.library;
+package com.agentdid127.resourcepack.library.utilities;
 
-import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.PackConverter;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
@@ -135,7 +135,7 @@ public final class Util {
     }
 
     public static int getLatestProtocol(Gson gson) {
-        return getVersionProtocol(gson, "1.20.4");    
+        return getVersionProtocol(gson, "1.20.4");
     }
 
     /**
@@ -212,7 +212,7 @@ public final class Util {
      *         {@code false} if failed
      */
     public static Boolean renameFile(Path file, String newName) {
-        if (!file.toFile().exists()) 
+        if (!file.toFile().exists())
             return null;
         try {
             Files.move(file, file.getParent().resolve(newName));

@@ -1,8 +1,8 @@
 package com.agentdid127.resourcepack.library.pack;
 
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.utilities.BomDetector;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import java.io.IOException;
 import java.nio.file.Path;

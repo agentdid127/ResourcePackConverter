@@ -3,9 +3,9 @@ package com.agentdid127.resourcepack.forwards;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.agentdid127.resourcepack.forwards.impl.*;
 import com.google.gson.GsonBuilder;
 
@@ -20,7 +20,7 @@ public class ForwardsPackConverter extends PackConverter {
 
     public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
             PrintStream out) {
-        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
+        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setLenient();
         if (!minify)
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
@@ -43,7 +43,7 @@ public class ForwardsPackConverter extends PackConverter {
 
         if (protocolFrom < Util.getVersionProtocol(gson, "1.9")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.9")) {
-            this.registerConverter(new CompassConverter(this, protocolFrom, protocolTo));
+            this.registerConverter(new CompassConverter(this, protocolTo));
             this.registerConverter(new OffHandCreator(this));
         }
 
@@ -77,7 +77,7 @@ public class ForwardsPackConverter extends PackConverter {
 
         if (protocolFrom <= Util.getVersionProtocol(gson, "1.13.2")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.14"))
-            this.registerConverter(new MobEffectAtlasConverter(this));
+            this.registerConverter(new MobEffectAtlasConverter(this, protocolFrom));
 
         if (protocolFrom < Util.getVersionProtocol(gson, "1.15")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.15"))
