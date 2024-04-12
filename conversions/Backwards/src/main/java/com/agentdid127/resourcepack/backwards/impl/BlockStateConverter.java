@@ -2,19 +2,18 @@ package com.agentdid127.resourcepack.backwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Map;
 
 public class BlockStateConverter extends Converter {
@@ -35,20 +34,19 @@ public class BlockStateConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path states = pack.getWorkingPath()
-                .resolve("assets" + File.separator + "minecraft" + File.separator + "blockstates");
-        if (!states.toFile().exists())
+        Path blockstatesPath = pack.getWorkingPath()
+                .resolve("assets/minecraft/blockstates".replace("/", File.separator));
+        if (!blockstatesPath.toFile().exists())
             return;
-        Files.list(states)
+        Files.list(blockstatesPath)
                 .filter(file -> file.toString().endsWith(".json"))
                 .forEach(file -> {
                     try {
-                        JsonObject json = Util.readJson(packConverter.getGson(), file);
+                        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
                         anyChanges = false;
 
                         // process multipart
                         JsonArray multipartArray = json.getAsJsonArray("multipart");
-
 
                         if (multipartArray != null) {
                             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
@@ -58,7 +56,7 @@ public class BlockStateConverter extends Converter {
                             } else {
                                 for (int i = 0; i < multipartArray.size(); i++) {
                                     JsonObject multipartObject = multipartArray.get(i)
-                                        .getAsJsonObject();
+                                            .getAsJsonObject();
                                     for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
                                         updateModelPath(entry);
                                 }
@@ -90,8 +88,7 @@ public class BlockStateConverter extends Converter {
                                 updateModelPath(entry);
                         }
                         if (anyChanges) {
-                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
-                                    Charset.forName("UTF-8"));
+                            JsonUtil.writeJson(packConverter.getGson(), file, json);
                             if (PackConverter.DEBUG)
                                 Logger.log("      Converted " + file.getFileName());
                         }

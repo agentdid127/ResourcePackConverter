@@ -10,29 +10,29 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class WaterConverter extends Converter {
+	public WaterConverter(PackConverter packConverter) {
+		super(packConverter);
+	}
 
-  public WaterConverter(PackConverter packConverter) {
-    super(packConverter);
-  }
+	@Override
+	public void convert(Pack pack) throws IOException {
+		Path blocksFolder = pack.getWorkingPath()
+				.resolve("assets/minecraft/textures/blocks".replace("/", File.separator));
+		if (!blocksFolder.toFile().exists())
+			return;
+		colorize(blocksFolder.resolve("water_flow.png"), 32, 1024);
+		colorize(blocksFolder.resolve("water_still.png"), 32, 1024);
+		colorize(blocksFolder.resolve("water_overlay.png"), 32, 32);
+	}
 
-  @Override
-  public void convert(Pack pack) throws IOException {
-    Path blocks = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "blocks");
-
-    colorize(32, 1024, blocks.resolve("water_flow.png"));
-    colorize(32,1024, blocks.resolve("water_still.png"));
-    colorize(32, 32, blocks.resolve("water_overlay.png"));
-
-  }
-
-  private void colorize(int w, int h, Path path) throws IOException {
-    if (!path.toFile().exists()) return;
-
-    ImageConverter imageConverter = new ImageConverter(w, h, path);
-    if (!imageConverter.fileIsPowerOfTwo()) return;
-
-    imageConverter.newImage(w, h);
-    imageConverter.colorize(new Color(45, 63, 244, 170));
-    imageConverter.store();
-  }
+	private void colorize(Path path, int w, int h) throws IOException {
+		if (!path.toFile().exists())
+			return;
+		ImageConverter imageConverter = new ImageConverter(w, h, path);
+		if (!imageConverter.fileIsPowerOfTwo())
+			return;
+		imageConverter.newImage(w, h);
+		imageConverter.colorize(new Color(45, 63, 244, 170));
+		imageConverter.store();
+	}
 }

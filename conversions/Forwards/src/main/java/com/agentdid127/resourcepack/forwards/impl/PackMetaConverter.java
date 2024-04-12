@@ -2,15 +2,13 @@ package com.agentdid127.resourcepack.forwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 
 // Reference: https://minecraft.wiki/w/Pack_format
 public class PackMetaConverter extends Converter {
@@ -34,9 +32,9 @@ public class PackMetaConverter extends Converter {
         Path file = pack.getWorkingPath().resolve("pack.mcmeta");
         if (!file.toFile().exists())
             return;
-        
+
         int versionInt = 4;
-	
+
         // Possible TODO: Make this JSON? Possibly use protocol.json, but update it.
         if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.4"))
             versionInt = 22;
@@ -82,14 +80,14 @@ public class PackMetaConverter extends Converter {
         else
             versionInt = 0;
 
-        JsonObject json = Util.readJson(packConverter.getGson(), file);
+        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
         {
             JsonObject meta = json.getAsJsonObject("meta");
             if (meta == null)
                 meta = new JsonObject();
             meta.addProperty("game_version", Util.getVersionFromProtocol(packConverter.getGson(), to));
             json.add("meta", meta);
-        }   
+        }
 
         {
             JsonObject packObject = json.getAsJsonObject("pack");
@@ -97,9 +95,8 @@ public class PackMetaConverter extends Converter {
                 packObject = new JsonObject();
             packObject.addProperty("pack_format", versionInt);
 
-            if (
-                from < Util.getVersionProtocol(packConverter.getGson(), "1.20.2")
-                && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
+            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.2")
+                    && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
                 JsonObject supportedFormats = new JsonObject();
                 supportedFormats.addProperty("min_inclusive", versionInt);
                 supportedFormats.addProperty("max_inclusive", versionInt); // TODO: A better way to do this
@@ -109,6 +106,6 @@ public class PackMetaConverter extends Converter {
             json.add("pack", packObject);
         }
 
-        Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)), Charset.forName("UTF-8"));
+        JsonUtil.writeJson(packConverter.getGson(), file, json);
     }
 }

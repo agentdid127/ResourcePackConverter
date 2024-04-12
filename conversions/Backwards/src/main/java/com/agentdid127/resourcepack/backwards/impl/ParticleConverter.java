@@ -10,18 +10,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ParticleConverter extends Converter {
-    // Set it up.
     public ParticleConverter(PackConverter packConverter) {
         super(packConverter);
     }
 
     @Override
     public void convert(Pack pack) throws IOException {
-        // The directory to convert
-        Path particles = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "particles");
-        if (particles.resolve("block_marker.json").toFile().exists()) {
-            Files.copy(particles.resolve("block_marker.json"), particles.resolve("block_marker.json"));
-            Files.move(particles.resolve("block_marker.json"), particles.resolve("light.json"));
-        }
+        Path particles = pack.getWorkingPath().resolve("assets/minecraft/particles".replace("/", File.separator));
+        if (!particles.toFile().exists())
+            return;
+        Path blockMarkerPath = particles.resolve("block_marker.json");
+        if (blockMarkerPath.toFile().exists())
+            Files.move(blockMarkerPath, particles.resolve("light.json"));
     }
 }

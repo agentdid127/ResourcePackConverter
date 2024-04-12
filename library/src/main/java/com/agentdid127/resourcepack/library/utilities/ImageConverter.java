@@ -25,31 +25,32 @@ public class ImageConverter {
      * @param locationIn
      * @throws IOException
      */
-    public ImageConverter(int defaultWIn, int defaultHIn, Path locationIn) throws IOException {
+    public ImageConverter(Integer defaultWIn, Integer defaultHIn, Path locationIn) throws IOException {
         image = ImageIO.read(locationIn.toFile());
         location = locationIn;
-        defaultW = defaultWIn;
-        defaultH = defaultHIn;
-        if (fileIsPowerOfTwo()) {
-            newImage = image;
-            imageWidth = image.getWidth();
-            imageHeight = image.getHeight();
-        } else {
+        defaultW = defaultWIn == null ? image.getWidth() : defaultWIn;
+        defaultH = defaultHIn == null ? image.getHeight() : defaultHIn;
+        imageWidth = image.getWidth();
+        imageHeight = image.getHeight();
+        if (!fileIsPowerOfTwo()) {
             Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
                     + "' resolution size is not a power of 2. Converting to be so.");
 
-            newImage = new BufferedImage((int) Math.ceil(Math.log(image.getWidth()) / Math.log(2)),
-                    (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2)), image.getType());
-            imageWidth = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
-            imageHeight = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
+            int fixed_width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
+            if (fixed_width < 1)
+                fixed_width = 1;
+
+            int fixed_height = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
+            if (fixed_height < 1)
+                fixed_height = 1;
+
+            newImage = new BufferedImage(fixed_width, fixed_height, image.getType());
             Graphics2D g = newImage.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-            g.drawImage(image, 0, 0, imageWidth, imageHeight, 0, 0, image.getWidth(), image.getHeight(), null);
+            g.drawImage(image, 0, 0, fixed_width, fixed_height, 0, 0, imageWidth, imageHeight, null);
             g.dispose();
-
-            imageWidth = image.getWidth();
-            imageHeight = image.getHeight();
-        }
+        } else
+            newImage = image;
     }
 
     /**
@@ -82,18 +83,10 @@ public class ImageConverter {
      */
     public void fillEmpty(int x, int y, int width, int height) {
         newImage((int) (imageWidth / getWidthMultiplier()), (int) (imageHeight / getHeightMultiplier()));
-
-        int x1 = scaleX(x);
-        int y1 = scaleY(y);
-        int nw = scaleWidth(width);
-        int nh = scaleHeight(height);
-
         g2d.drawImage(image, 0, 0, imageWidth, imageHeight, null);
-
         g2d.setComposite(AlphaComposite.Clear);
-        g2d.fillRect(x1, y1, nw, nh);
+        g2d.fillRect(scaleX(x), scaleY(y), scaleWidth(width), scaleHeight(height));
         g2d.setComposite(AlphaComposite.Src);
-
         image = newImage;
     }
 
@@ -122,10 +115,13 @@ public class ImageConverter {
      * @param newWidth
      * @param newHeight
      */
-    public void newImage(int newWidth, int newHeight) {
-        newImage = new BufferedImage(Math.round((float) (newWidth * getWidthMultiplier())),
-                Math.round((float) (newHeight * getHeightMultiplier())), BufferedImage.TYPE_INT_ARGB);
+    public void newImage(int newWidth, int newHeight, int type) {
+        newImage = new BufferedImage(scaleWidth(newWidth), scaleHeight(newHeight), type);
         g2d = (Graphics2D) newImage.getGraphics();
+    }
+
+    public void newImage(int newWidth, int newHeight) {
+        newImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
     }
 
     /**
@@ -140,8 +136,7 @@ public class ImageConverter {
         if (!imagePath.toFile().exists())
             return;
         BufferedImage image = ImageIO.read(imagePath.toFile());
-        g2d.drawImage(image, Math.round((float) (x * getWidthMultiplier())),
-                Math.round((float) (y * getHeightMultiplier())), null);
+        g2d.drawImage(image, scaleX(x), scaleY(y), null);
     }
 
     /**
@@ -157,13 +152,9 @@ public class ImageConverter {
     public void subImage(int x, int y, int x2, int y2, int storeX, int storeY) {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
-
         int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
-        int x3 = (int) (x * scaleW);
-        int y3 = (int) (y * scaleH);
-
-        BufferedImage part = getSubImage(x3, y3, width2, height2);
+        BufferedImage part = getSubImage(scaleX(x), scaleY(y), width2, height2);
         g2d.drawImage(part, Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
@@ -193,13 +184,9 @@ public class ImageConverter {
     public void subImage(int x, int y, int x2, int y2, int storeX, int storeY, boolean flip) {
         double scaleW = getWidthMultiplier();
         double scaleH = getHeightMultiplier();
-
         int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
-        int x3 = (int) (x * scaleW);
-        int y3 = (int) (y * scaleH);
-
-        BufferedImage part = getSubImage(x3, y3, width2, height2);
+        BufferedImage part = getSubImage(scaleX(x), scaleY(y), width2, height2);
         g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)),
                 Math.round((float) (storeY * scaleH)), null);
     }
@@ -211,8 +198,8 @@ public class ImageConverter {
      * @param y
      * @param x2
      * @param y2
-     * @param storex
-     * @param storey
+     * @param storeX
+     * @param storeY
      * @param flip
      */
     public void subImage(int x, int y, int x2, int y2, int storeX, int storeY, int flip) {
@@ -238,14 +225,37 @@ public class ImageConverter {
     }
 
     /**
-     * Recolor the image using RGB.
+     * Recolor the entire image.
      * 
-     * @param rgb
+     * @param color
      */
-    public void colorize(Color rgb) {
-        g2d.setPaint(rgb);
+    public void colorize(Color color) {
+        g2d.setPaint(color);
         g2d.drawImage(image, 0, 0, null);
         g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
+    }
+
+    /**
+     * Recolor the grayscale image.
+     * 
+     * @param color
+     */
+    public void colorizeClipped(Color color) {
+        this.newImage(this.getWidth(), this.getHeight());
+        this.g2d.drawImage(this.image, 0, 0, null);
+        for (int y = 0; y < this.getHeight(); y++) {
+            for (int x = 0; x < this.getWidth(); x++) {
+                int imageRGBA = newImage.getRGB(x, y);
+                int alpha = (imageRGBA >> 24) & 0xFF;
+                if (alpha == 0)
+                    continue;
+                int grayscaleValue = (imageRGBA >> 16) & 0xFF;
+                int red = (grayscaleValue * color.getRed()) / 255;
+                int green = (grayscaleValue * color.getGreen()) / 255;
+                int blue = (grayscaleValue * color.getBlue()) / 255;
+                this.newImage.setRGB(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
+            }
+        }
     }
 
     /**
@@ -257,6 +267,13 @@ public class ImageConverter {
         newImage = gray;
     }
 
+    /**
+     * Flip The Image
+     * 
+     * @param image
+     * @param flip
+     * @return BufferedImage
+     */
     private static BufferedImage createFlipped(BufferedImage image, int flip) {
         AffineTransform at = new AffineTransform();
         if (flip != 1)
@@ -269,7 +286,7 @@ public class ImageConverter {
     }
 
     /**
-     * Flip the Image
+     * Flip The Image
      * 
      * @param image
      * @param flip
@@ -288,7 +305,7 @@ public class ImageConverter {
     }
 
     /**
-     * Transforms the BufferedImage
+     * Transforms The BufferedImage
      * 
      * @param image
      * @param at
@@ -301,6 +318,73 @@ public class ImageConverter {
         g.drawImage(image, 0, 0, null);
         g.dispose();
         return newImage;
+    }
+
+    /**
+     * Copy pixels to a new image with a new alpha & ignoring transparent pixels
+     * 
+     * @param inputImage
+     * @param outImage
+     * @param alphaNew
+     * @throws IOException
+     */
+    private void copyPixels(BufferedImage inputImage, BufferedImage outImage, Integer alphaNew)
+            throws IOException {
+        BufferedImage image = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+        image.getGraphics().drawImage(inputImage, 0, 0, null);
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int rgba = image.getRGB(x, y);
+                int alpha = (rgba >> 24) & 0xFF;
+                int red = (rgba >> 16) & 0xFF;
+                int green = (rgba >> 8) & 0xFF;
+                int blue = rgba & 0xFF;
+                if ((red + blue + green + alpha) == 0)
+                    continue;
+                if (alphaNew != null)
+                    alpha = alphaNew;
+                outImage.setRGB(x, y, (alpha << 24) | (red << 16) | (green << 8) | blue);
+            }
+        }
+    }
+
+    /**
+     * Copy pixels to a new image
+     * 
+     * @param inputImage
+     * @param outImage
+     * @throws IOException
+     */
+    private void copyPixels(BufferedImage inputImage, BufferedImage outImage) throws IOException {
+        copyPixels(inputImage, outImage, null);
+    }
+
+    /**
+     * Place a image in the background using transparency
+     * 
+     * @param background
+     * @param alpha
+     * @throws IOException
+     */
+    public void backgroundImage(Path background, int alpha) throws IOException {
+        this.newImage(defaultW, defaultH);
+        BufferedImage backgroundImage = ImageIO.read(background.toFile());
+        this.copyPixels(backgroundImage, newImage, alpha);
+        this.copyPixels(image, newImage);
+    }
+
+    /**
+     * Place a image in the background using transparency
+     * 
+     * @param background
+     * @param alpha
+     * @throws IOException
+     */
+    public void backgroundImage(BufferedImage backgroundImage, int alpha) throws IOException {
+        this.newImage(defaultW, defaultH);
+        this.copyPixels(backgroundImage, newImage, alpha);
+        this.copyPixels(image, newImage);
     }
 
     /**
@@ -376,19 +460,19 @@ public class ImageConverter {
     public double getWidthMultiplier() {
         double wMultiplier = (double) imageWidth / (double) defaultW;
         // Make sure to not have 0 multiplier or cause issues!
-        wMultiplier = wMultiplier <= 0 ? 1 : wMultiplier;
+        wMultiplier = wMultiplier < 1 ? 1 : wMultiplier;
         return wMultiplier;
     }
 
     /**
-     * Get the Height Scale Multiplier (imageHeight/defaultHeigh)
+     * Get the Height Scale Multiplier (imageHeight/defaultHeight)
      * 
      * @return double
      */
     public double getHeightMultiplier() {
         double hMultiplier = (double) imageHeight / (double) defaultH;
         // Make sure to not have 0 multiplier or cause issues!
-        hMultiplier = hMultiplier <= 0 ? 1 : hMultiplier;
+        hMultiplier = hMultiplier < 1 ? 1 : hMultiplier;
         return hMultiplier;
     }
 

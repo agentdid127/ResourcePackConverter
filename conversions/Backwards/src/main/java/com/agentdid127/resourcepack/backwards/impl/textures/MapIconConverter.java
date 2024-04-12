@@ -2,9 +2,9 @@ package com.agentdid127.resourcepack.backwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -40,8 +40,8 @@ public class MapIconConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "map" + File.separator + "backwards/map_icons.png");
+        Path imagePath = pack.getWorkingPath().resolve("assets/minecraft" + File.separator
+                + "textures/map/backwards/map_icons.png");
         if (!imagePath.toFile().exists())
             return;
 

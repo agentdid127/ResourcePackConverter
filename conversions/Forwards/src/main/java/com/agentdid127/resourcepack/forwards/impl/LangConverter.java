@@ -2,19 +2,18 @@ package com.agentdid127.resourcepack.forwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Map;
 
@@ -36,12 +35,12 @@ public class LangConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path path = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang");
-        if (!path.toFile().exists())
+        Path langPath = pack.getWorkingPath().resolve("assets/minecraft/lang".replace("/", File.separator));
+        if (!langPath.toFile().exists())
             return;
-        ArrayList<String> models = new ArrayList<String>();
 
-        Files.list(path)
+        ArrayList<String> models = new ArrayList<String>();
+        Files.list(langPath)
                 .filter(path1 -> path1.toString().endsWith(".lang"))
                 .forEach(model -> {
                     JsonObject out = new JsonObject();
@@ -54,7 +53,7 @@ public class LangConverter extends Converter {
                                         .getVersionProtocol(packConverter.getGson(), "1.13"))
                                         && (Util.getVersionProtocol(packConverter.getGson(), version) <= Util
                                                 .getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
+                            JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
                                     .getAsJsonObject("1_13");
 
                             Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
@@ -72,7 +71,7 @@ public class LangConverter extends Converter {
                         }
                         if (Util.getVersionProtocol(packConverter.getGson(), version) > Util
                                 .getVersionProtocol(packConverter.getGson(), "1.14")) {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
+                            JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
                                     .getAsJsonObject("1_14");
 
                             Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
@@ -99,11 +98,9 @@ public class LangConverter extends Converter {
                         int modelNoLang = model.getFileName().toString().indexOf(".lang");
                         String file2 = model.getFileName().toString().substring(0, modelNoLang);
                         Logger.log("Saving: " + file2 + ".json");
-                        Files.write(
-                                pack.getWorkingPath()
-                                        .resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
-                                                + File.separator + file2 + ".json"),
-                                Collections.singleton(packConverter.getGson().toJson(out)), Charset.forName("UTF-8"));
+                        Path outLangPath = pack.getWorkingPath()
+                                .resolve(("assets/minecraft/lang/" + file2 + ".json").replace("/", File.separator));
+                        JsonUtil.writeJson(packConverter.getGson(), outLangPath, out);
 
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -113,10 +110,10 @@ public class LangConverter extends Converter {
                 });
 
         for (int i = 0; i < models.size(); i++) {
-            Logger.log("Deleting: " + pack.getWorkingPath().resolve("assets" + File.separator + "minecraft"
-                    + File.separator + "lang" + File.separator + models.get(i)));
-            Files.delete(pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "lang"
-                    + File.separator + models.get(i)));
+            Path langFilePath = pack.getWorkingPath()
+                    .resolve(("assets/minecraft/lang/" + models.get(i)).replace("/", File.separator));
+            Logger.log("Deleting: " + langFilePath);
+            Files.delete(langFilePath);
         }
     }
 }
