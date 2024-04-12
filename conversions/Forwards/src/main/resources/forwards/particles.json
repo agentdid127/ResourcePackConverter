@@ -636,6 +636,12 @@
         },
         {
             "path": "bubble_pop_0.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 393,
+                    "max_inclusive": null
+                }
+            },
             "box": {
                 "x": 0,
                 "y": 131,
@@ -645,6 +651,12 @@
         },
         {
             "path": "bubble_pop_1.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 393,
+                    "max_inclusive": null
+                }
+            },
             "box": {
                 "x": 16,
                 "y": 131,
@@ -654,6 +666,12 @@
         },
         {
             "path": "bubble_pop_2.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 393,
+                    "max_inclusive": null
+                }
+            },
             "box": {
                 "x": 32,
                 "y": 131,
@@ -663,6 +681,12 @@
         },
         {
             "path": "bubble_pop_3.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 393,
+                    "max_inclusive": null
+                }
+            },
             "box": {
                 "x": 48,
                 "y": 131,
@@ -672,6 +696,12 @@
         },
         {
             "path": "bubble_pop_4.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 393,
+                    "max_inclusive": null
+                }
+            },
             "box": {
                 "x": 64,
                 "y": 131,
