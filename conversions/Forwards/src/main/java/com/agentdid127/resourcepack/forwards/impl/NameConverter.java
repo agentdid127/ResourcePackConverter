@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.forwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Mapping;
 import com.agentdid127.resourcepack.library.utilities.Util;
@@ -74,12 +75,12 @@ public class NameConverter extends Converter {
                 if (minecraftPath.resolve("optifine").toFile().exists()) {
                     if (PackConverter.DEBUG)
                         Logger.log("OptiFine exists, merging directories");
-                    Util.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
+                    FileUtil.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
                             minecraftPath.resolve("mcpatcher").toFile());
                 } else
                     Files.move(minecraftPath.resolve("mcpatcher"), minecraftPath.resolve("optifine"));
                 if (minecraftPath.resolve("mcpatcher").toFile().exists())
-                    Util.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
+                    FileUtil.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
             }
 
             // 1.13 Models
@@ -88,7 +89,7 @@ public class NameConverter extends Converter {
                 // 1.13 block/item name change
                 if (modelsPath.resolve("blocks").toFile().exists()) {
                     if (modelsPath.resolve("block").toFile().exists())
-                        Util.deleteDirectoryAndContents(modelsPath.resolve("block"));
+                        FileUtil.deleteDirectoryAndContents(modelsPath.resolve("block"));
                     Files.move(modelsPath.resolve("blocks"), modelsPath.resolve("block"));
                 }
 
@@ -96,7 +97,7 @@ public class NameConverter extends Converter {
                 renameAll(blockMapping, ".json", modelsPath.resolve("block"));
                 if (modelsPath.resolve("items").toFile().exists()) {
                     if (modelsPath.resolve("item").toFile().exists())
-                        Util.deleteDirectoryAndContents(modelsPath.resolve("item"));
+                        FileUtil.deleteDirectoryAndContents(modelsPath.resolve("item"));
                     Files.move(modelsPath.resolve("items"), modelsPath.resolve("item"));
                 }
 
@@ -253,26 +254,26 @@ public class NameConverter extends Converter {
                     if (file.getName().equals("items")) {
                         if (PackConverter.DEBUG)
                             Logger.log("Found Items folder, renaming");
-                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
+                        FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
                     }
 
                     if (file.getName().equals("blocks")) {
                         if (PackConverter.DEBUG)
                             Logger.log("Found blocks folder, renaming");
-                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
+                        FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
                     }
 
                     findFiles(file.toPath());
                 }
 
                 if (file.getName().contains("("))
-                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
+                    FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
 
                 if (!file.getName().equals(file.getName().toLowerCase()))
                     if (PackConverter.DEBUG)
                         Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
 
-                Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
+                FileUtil.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
         }
     }
@@ -294,7 +295,7 @@ public class NameConverter extends Converter {
                 if ((path.endsWith("blockstates") || path.endsWith("textures/block"))) {
                     grasses.stream().forEach(name -> {
                         String newName = mapping.remap(name);
-                        Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
+                        Boolean ret = FileUtil.renameFile(Paths.get(path + File.separator + name + extension),
                                 newName + extension);
                         if (ret == null)
                             return;
@@ -312,7 +313,7 @@ public class NameConverter extends Converter {
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")
                     && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
                 if (path.resolve("snow_layer.json").toFile().exists())
-                    Util.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
+                    FileUtil.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
             }
 
             Files.list(path).forEach(path1 -> {
@@ -329,7 +330,7 @@ public class NameConverter extends Converter {
 
                 String newName = mapping.remap(baseName);
                 if (newName != null && !newName.equals(baseName)) {
-                    Boolean ret = Util.renameFile(path1, newName + extension);
+                    Boolean ret = FileUtil.renameFile(path1, newName + extension);
                     if (ret == null)
                         return;
                     if (ret && PackConverter.DEBUG) {

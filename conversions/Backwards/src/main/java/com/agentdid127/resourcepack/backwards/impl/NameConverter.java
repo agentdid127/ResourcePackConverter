@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.backwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Mapping;
 import com.agentdid127.resourcepack.library.utilities.Util;
@@ -68,12 +69,12 @@ public class NameConverter extends Converter {
                 if (minecraftPath.resolve("optifine").toFile().exists()) {
                     if (PackConverter.DEBUG)
                         Logger.log("OptiFine exists, merging directories");
-                    Util.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
+                    FileUtil.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
                             minecraftPath.resolve("mcpatcher").toFile());
                 } else
                     Files.move(minecraftPath.resolve("mcpatcher"), minecraftPath.resolve("optifine"));
                 if (minecraftPath.resolve("mcpatcher").toFile().exists())
-                    Util.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
+                    FileUtil.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
             }
         }
 
@@ -206,26 +207,26 @@ public class NameConverter extends Converter {
                 if (file.getName().equals("item")) {
                     if (PackConverter.DEBUG)
                         Logger.log("Found Items folder, renaming");
-                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
+                    FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
                 }
 
                 if (file.getName().equals("block")) {
                     if (PackConverter.DEBUG)
                         Logger.log("Found blocks folder, renaming");
-                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
+                    FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
                 }
 
                 findFiles(file.toPath());
             }
 
             if (file.getName().contains("("))
-                Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
+                FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
 
             if (!file.getName().equals(file.getName().toLowerCase()))
                 if (PackConverter.DEBUG)
                     Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
 
-            Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
+            FileUtil.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
         }
     }
 
@@ -246,7 +247,7 @@ public class NameConverter extends Converter {
                     && (path.endsWith("blockstates") || path.endsWith("textures/block"))) {
                 grasses.stream().forEach(name -> {
                     String newName = mapping.remap(name);
-                    Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
+                    Boolean ret = FileUtil.renameFile(Paths.get(path + File.separator + name + extension),
                             newName + extension);
                     if (ret == null)
                         return;
@@ -262,7 +263,7 @@ public class NameConverter extends Converter {
                 Arrays.asList("snow", "snow_block").stream().forEach(name -> {
                     String newName = mapping.remap(name);
                     if (!extension.equals(".png")) {
-                        Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
+                        Boolean ret = FileUtil.renameFile(Paths.get(path + File.separator + name + extension),
                                 newName + extension);
                         if (ret == null)
                             return;
@@ -288,7 +289,7 @@ public class NameConverter extends Converter {
 
                 String newName = mapping.remap(baseName);
                 if (newName != null && !newName.equals(baseName)) {
-                    Boolean ret = Util.renameFile(path1, newName + extension);
+                    Boolean ret = FileUtil.renameFile(path1, newName + extension);
                     if (ret == null)
                         return;
                     if (ret && PackConverter.DEBUG)

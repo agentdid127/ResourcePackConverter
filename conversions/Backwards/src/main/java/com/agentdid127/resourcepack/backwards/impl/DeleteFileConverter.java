@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.backwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonArray;
@@ -44,7 +45,7 @@ public class DeleteFileConverter extends Converter {
             Path atlases = pack.getWorkingPath()
                     .resolve("assets/minecraft/atlases".replace("/", File.separator));
             if (atlases.toFile().exists())
-                Util.deleteDirectoryAndContents(atlases);
+                FileUtil.deleteDirectoryAndContents(atlases);
         }
     }
 

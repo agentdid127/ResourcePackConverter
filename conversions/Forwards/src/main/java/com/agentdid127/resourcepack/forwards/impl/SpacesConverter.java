@@ -3,8 +3,8 @@ package com.agentdid127.resourcepack.forwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
-import com.agentdid127.resourcepack.library.utilities.Util;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class SpacesConverter extends Converter {
 
         String noSpaces = path.getFileName().toString().replaceAll(" ", "_");
 
-        Boolean ret = Util.renameFile(path, noSpaces);
+        Boolean ret = FileUtil.renameFile(path, noSpaces);
         if (ret == null)
             return "null";
 

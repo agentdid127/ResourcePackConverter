@@ -103,5 +103,4 @@ public class JsonUtil {
 	public static JsonObject readJsonResource(Gson gson, String path) {
 		return readJsonResource(gson, path, JsonObject.class);
 	}
-
 }

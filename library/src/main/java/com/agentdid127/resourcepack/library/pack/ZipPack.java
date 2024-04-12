@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.library.pack;
 
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
 
@@ -44,7 +45,7 @@ public class ZipPack extends Pack {
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
                 Logger.log("  Deleting existing conversion");
-                Util.deleteDirectoryAndContents(pack.getWorkingPath());
+                FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
             Path convertedZipPath = getConvertedZipPath();
@@ -85,7 +86,7 @@ public class ZipPack extends Pack {
             }
 
             Logger.log("  Deleting working directory");
-            Util.deleteDirectoryAndContents(pack.getWorkingPath());
+            FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
         }
 
         @Override

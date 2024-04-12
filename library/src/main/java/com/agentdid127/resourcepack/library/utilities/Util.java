@@ -3,16 +3,13 @@ package com.agentdid127.resourcepack.library.utilities;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
@@ -20,52 +17,6 @@ import java.util.stream.Collectors;
 public final class Util {
     private Util() {
         throw new UnsupportedOperationException("This class cannot be instantiated");
-    }
-
-    /**
-     * Copies Directory
-     * 
-     * @param src  directory Source
-     * @param dest Directory Destination
-     * @throws IOException
-     */
-    public static void copyDir(Path src, Path dest) throws IOException {
-        Files.walk(src).forEach(path -> {
-            try {
-                if (dest.resolve(src.relativize(path)).toFile().exists())
-                    Files.delete(dest.resolve(src.relativize(path)));
-                Files.copy(path, dest.resolve(src.relativize(path)));
-            } catch (Throwable e) {
-                throw Util.propagate(e);
-            }
-        });
-    }
-
-    /**
-     * Deletes full directory
-     * 
-     * @param dirPath Path of Directory to delete
-     * @throws IOException
-     */
-    public static void deleteDirectoryAndContents(Path dirPath) throws IOException {
-        if (!dirPath.toFile().exists())
-            return;
-
-        // noinspection ResultOfMethodCallIgnored
-        Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
-            file.delete();
-        });
-    }
-
-    /**
-     * If file exists, return file with correct casing.
-     * 
-     * @param path
-     * @return
-     * @throws IOException
-     */
-    public static boolean fileExistsCorrectCasing(Path path) throws IOException {
-        return path.toFile().exists() && path.toString().equals(path.toFile().getCanonicalPath());
     }
 
     /**
@@ -112,7 +63,7 @@ public final class Util {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        List<String> keys = protocols.entrySet().stream().map(i -> i.getKey())
+        Collection<String> keys = protocols.entrySet().stream().map(i -> i.getKey())
                 .collect(Collectors.toCollection(ArrayList::new));
         keys.forEach(key -> {
             if (Integer.parseInt(protocols.get(key).getAsString()) == protocol)
@@ -145,52 +96,6 @@ public final class Util {
             resultStringBuilder.append(line).append("\n");
         br.close();
         return resultStringBuilder.toString();
-    }
-
-    /**
-     * @return null if file doesn't exist, {@code true} if successfully renamed,
-     *         {@code false} if failed
-     */
-    public static Boolean renameFile(Path file, String newName) {
-        if (!file.toFile().exists())
-            return null;
-        try {
-            Files.move(file, file.getParent().resolve(newName));
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
-    /**
-     * Takes dir2 and merges it into dir1
-     * 
-     * @param dir1
-     * @param dir2
-     */
-    public static Boolean mergeDirectories(File dir1, File dir2) throws IOException {
-        if (!dir1.exists() && !dir2.exists())
-            return null;
-
-        String targetDirPath = dir1.getAbsolutePath();
-        File[] files = dir2.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                Logger.log(targetDirPath + File.separator + file.getName());
-                File file3 = new File(targetDirPath + File.separator + file.getName());
-                file3.mkdirs();
-                Logger.log("Created" + file3.getName());
-                mergeDirectories(file3, file);
-            } else {
-                Logger.log(targetDirPath + File.separator + file.getName());
-                file.renameTo(new File(targetDirPath + File.separator + file.getName()));
-            }
-        }
-
-        if (dir2.list().length == 0)
-            Files.delete(dir2.toPath());
-
-        return true;
     }
 
     public static RuntimeException propagate(Throwable t) {
