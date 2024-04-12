@@ -1,14 +1,20 @@
 package com.agentdid127.resourcepack.library.utilities;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 
+import com.agentdid127.resourcepack.library.PackConverter;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 public class JsonUtil {
 	public static JsonArray add(JsonArray lhs, JsonArray rhs) {
@@ -59,4 +65,43 @@ public class JsonUtil {
 	public static void writeJson(Gson gson, Path out, JsonElement json) throws IOException {
 		Files.write(out, Collections.singleton(gson.toJson(json)), Charset.forName("UTF-8"));
 	}
+
+	public static boolean isJson(Gson gson, String Json) {
+		try {
+			gson.fromJson(Json, Object.class);
+			return true;
+		} catch (com.google.gson.JsonSyntaxException ex) {
+			return false;
+		}
+	}
+
+	public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
+		String json = Util.readFromFile(path);
+		if (!isJson(gson, json))
+			return null;
+		JsonReader reader = new JsonReader(new StringReader(json));
+		reader.setLenient(true);
+		return gson.fromJson(reader, clazz);
+	}
+
+	public static JsonObject readJson(Gson gson, Path path) throws IOException {
+		return readJson(gson, path, JsonObject.class);
+	}
+
+	public static <T> T readJsonResource(Gson gson, String path, Class<T> clazz) {
+		try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
+			if (stream == null)
+				return null;
+			try (InputStreamReader streamReader = new InputStreamReader(stream)) {
+				return gson.fromJson(streamReader, clazz);
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static JsonObject readJsonResource(Gson gson, String path) {
+		return readJsonResource(gson, path, JsonObject.class);
+	}
+
 }

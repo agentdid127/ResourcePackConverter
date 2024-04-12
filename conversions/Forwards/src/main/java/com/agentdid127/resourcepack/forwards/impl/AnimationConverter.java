@@ -39,7 +39,7 @@ public class AnimationConverter extends Converter {
                 .filter(file -> file.toString().endsWith(".png.mcmeta"))
                 .forEach(file -> {
                     try {
-                        JsonObject json = Util.readJson(packConverter.getGson(), file);
+                        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
                         boolean anyChanges = false;
                         JsonElement animationElement = json.get("animation");

@@ -42,7 +42,7 @@ public class BlockStateConverter extends Converter {
                 .filter(file -> file.toString().endsWith(".json"))
                 .forEach(file -> {
                     try {
-                        JsonObject json = Util.readJson(packConverter.getGson(), file);
+                        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
                         // process multipart
                         if (json.has("multipart")) {

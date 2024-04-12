@@ -9,7 +9,7 @@ import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -39,7 +39,7 @@ public class MobEffectAtlasConverter extends Converter {
 		if (!inventoryPath.toFile().exists())
 			return;
 		Gson gson = packConverter.getGson();
-		JsonObject effectJson = Util.readJsonResource(gson, "/forwards/mob_effect.json", JsonObject.class);
+		JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/mob_effect.json", JsonObject.class);
 		Slice slice = Slice.parse(effectJson);
 		Slicer.runSlicer(gson, slice, texturesPath, SlicerConverter.PredicateRunnable.class, from, false);
 	}

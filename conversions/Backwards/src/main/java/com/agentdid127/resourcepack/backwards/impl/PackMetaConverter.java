@@ -75,7 +75,7 @@ public class PackMetaConverter extends Converter {
         else
             versionInt = 0;
 
-        JsonObject json = Util.readJson(packConverter.getGson(), file);
+        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
         {
             JsonObject meta = json.getAsJsonObject("meta");
             if (meta == null)

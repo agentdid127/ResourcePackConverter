@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.backwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.library.utilities.Util;
@@ -121,7 +122,7 @@ public class MCPatcherConverter extends Converter {
      * @return
      */
     protected String updateID(String type, PropertiesEx prop, String selection) {
-        JsonObject id = Util.readJsonResource(packConverter.getGson(), "/backwards/ids.json").get(selection)
+        JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/ids.json").get(selection)
                 .getAsJsonObject();
         String[] split = prop.getProperty(type).split(" ");
         String properties2 = " ";

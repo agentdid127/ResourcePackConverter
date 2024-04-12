@@ -9,6 +9,7 @@ import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -35,7 +36,7 @@ public class SlicerConverter extends Converter {
 		if (!spritesPath.toFile().exists())
 			spritesPath.toFile().mkdirs();
 		Gson gson = packConverter.getGson();
-		JsonArray array = Util.readJsonResource(gson, "/forwards/gui.json", JsonArray.class);
+		JsonArray array = JsonUtil.readJsonResource(gson, "/forwards/gui.json", JsonArray.class);
 		Slice[] slices = Slice.parseArray(array);
 		for (Slice slice : slices)
 			Slicer.runSlicer(gson, slice, guiPath, PredicateRunnable.class, from, true);

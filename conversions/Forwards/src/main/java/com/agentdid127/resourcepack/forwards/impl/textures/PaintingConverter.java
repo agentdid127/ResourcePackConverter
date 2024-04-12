@@ -5,7 +5,7 @@ import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -34,7 +34,7 @@ public class PaintingConverter extends Converter {
         if (!paintingPath.toFile().exists())
             return;
         Gson gson = packConverter.getGson();
-        JsonObject effectJson = Util.readJsonResource(gson, "/forwards/paintings_kristoffer_zetterstrand.json",
+        JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/paintings_kristoffer_zetterstrand.json",
                 JsonObject.class);
         Slice slice = Slice.parse(effectJson);
         Slicer.runSlicer(gson, slice, paintingPath, null, -1, false);

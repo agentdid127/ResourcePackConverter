@@ -6,7 +6,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
-import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -38,7 +38,7 @@ public class ParticleTextureConverter extends Converter {
         if (!particlePath.toFile().exists())
             return;
         Gson gson = packConverter.getGson();
-        JsonObject particlesJson = Util.readJsonResource(gson, "/forwards/particles.json",
+        JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json",
                 JsonObject.class);
         Slice slice = Slice.parse(particlesJson);
         Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);

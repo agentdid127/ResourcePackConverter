@@ -24,7 +24,6 @@ public abstract class PackConverter {
      * @param <T>
      * @return
      */
-    @SuppressWarnings("unchecked")
     public <T extends Converter> T getConverter(Class<T> clazz) {
         return (T) converters.get(clazz);
     }

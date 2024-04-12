@@ -74,13 +74,13 @@ public class ModelConverter extends Converter {
 				.forEach(model -> {
 					try {
 						JsonObject jsonObject;
-						if (Util.readJson(packConverter.getGson(), model) != null
-								&& Util.readJson(packConverter.getGson(), model).isJsonObject())
-							jsonObject = Util.readJson(packConverter.getGson(), model);
+						if (JsonUtil.readJson(packConverter.getGson(), model) != null
+								&& JsonUtil.readJson(packConverter.getGson(), model).isJsonObject())
+							jsonObject = JsonUtil.readJson(packConverter.getGson(), model);
 						else {
 							if (PackConverter.DEBUG) {
 								Logger.log("Could not convert model: " + model.getFileName());
-								if (Util.readJson(packConverter.getGson(), model) == null)
+								if (JsonUtil.readJson(packConverter.getGson(), model) == null)
 									Logger.log("Check for Syntax Errors in file.");
 								else
 									Logger.log("File is not JSON Object.");
@@ -277,7 +277,7 @@ public class ModelConverter extends Converter {
 							}
 						}
 
-						if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
+						if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
 							if (PackConverter.DEBUG)
 								Logger.log("Updating Model: " + model.getFileName());
 							JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
@@ -298,7 +298,7 @@ public class ModelConverter extends Converter {
 	 */
 	protected String setParent(String prefix, String path, String parent, String item) {
 		String parent2 = parent.replace(prefix, "");
-		JsonObject file = Util.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
+		JsonObject file = JsonUtil.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
 		if (file == null) {
 			Logger.log("Prefix Failed on: " + parent);
 			return "";
@@ -308,7 +308,7 @@ public class ModelConverter extends Converter {
 	}
 
 	protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
-		JsonObject defaults = Util.readJsonResource(gson, "/forwards/display.json");
+		JsonObject defaults = JsonUtil.readJsonResource(gson, "/forwards/display.json");
 		if (display == null) {
 			return defaults.deepCopy();
 		}

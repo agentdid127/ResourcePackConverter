@@ -3,6 +3,7 @@ package com.agentdid127.resourcepack.backwards.impl;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -62,7 +63,7 @@ public class DeleteFileConverter extends Converter {
 
     public void deleteBlocks(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
-        JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/blocks.json");
+        JsonObject blocks = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/delete/blocks.json");
 
         if (blocks.has(protocol)) {
             Path blockMPath, blockTPath;
@@ -86,7 +87,7 @@ public class DeleteFileConverter extends Converter {
 
     public void deleteItems(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
-        JsonObject items = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/items.json");
+        JsonObject items = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/delete/items.json");
 
         if (items.has(protocol)) {
             Path itemMPath, itemTPath;
@@ -110,7 +111,7 @@ public class DeleteFileConverter extends Converter {
 
     public void deleteEntities(Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
-        JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/delete/entities.json");
+        JsonObject entities = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/delete/entities.json");
         if (entities.has(protocol)) {
             Path entityTPath = textures.resolve("entity");
             JsonArray versionEntity = entities.get(protocol).getAsJsonArray();

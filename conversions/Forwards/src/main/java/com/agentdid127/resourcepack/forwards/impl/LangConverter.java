@@ -53,10 +53,9 @@ public class LangConverter extends Converter {
                                         .getVersionProtocol(packConverter.getGson(), "1.13"))
                                         && (Util.getVersionProtocol(packConverter.getGson(), version) <= Util
                                                 .getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
+                            JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
                                     .getAsJsonObject("1_13");
 
-                            @SuppressWarnings("unchecked")
                             Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
                             while (enums.hasMoreElements()) {
                                 String key = enums.nextElement();
@@ -72,10 +71,9 @@ public class LangConverter extends Converter {
                         }
                         if (Util.getVersionProtocol(packConverter.getGson(), version) > Util
                                 .getVersionProtocol(packConverter.getGson(), "1.14")) {
-                            JsonObject id = Util.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
+                            JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/forwards/lang.json")
                                     .getAsJsonObject("1_14");
 
-                            @SuppressWarnings("unchecked")
                             Enumeration<String> enums = (Enumeration<String>) prop.propertyNames();
                             while (enums.hasMoreElements()) {
                                 String key = enums.nextElement();

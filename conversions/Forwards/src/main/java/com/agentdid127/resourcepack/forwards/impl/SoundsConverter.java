@@ -34,7 +34,7 @@ public class SoundsConverter extends Converter {
         if (!soundsJsonPath.toFile().exists())
             return;
 
-        JsonObject sounds = Util.readJson(packConverter.getGson(), soundsJsonPath);
+        JsonObject sounds = JsonUtil.readJson(packConverter.getGson(), soundsJsonPath);
         JsonObject newSoundsObject = new JsonObject();
 
         for (Map.Entry<String, JsonElement> entry : sounds.entrySet()) {

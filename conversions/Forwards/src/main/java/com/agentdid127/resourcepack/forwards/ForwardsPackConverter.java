@@ -32,8 +32,7 @@ public class ForwardsPackConverter extends PackConverter {
         converterRunner(from, to, light);
     }
 
-    @SuppressWarnings("deprecation")
-    protected void converterRunner(String from, String to, String light) {
+    private void converterRunner(String from, String to, String light) {
         int protocolFrom = Util.getVersionProtocol(gson, from);
         int protocolTo = Util.getVersionProtocol(gson, to);
 

@@ -69,44 +69,6 @@ public final class Util {
     }
 
     /**
-     * Reads Json
-     * 
-     * @param gson Gson Object to use
-     * @param path Json File Path.
-     * @return
-     */
-    public static JsonObject readJsonResource(Gson gson, String path) {
-        try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
-            if (stream == null)
-                return null;
-            try (InputStreamReader streamReader = new InputStreamReader(stream)) {
-                return gson.fromJson(streamReader, JsonObject.class);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Reads Json
-     * 
-     * @param gson Gson Object to use
-     * @param path Json File Path.
-     * @return
-     */
-    public static <T> T readJsonResource(Gson gson, String path, Class<T> clazz) {
-        try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
-            if (stream == null)
-                return null;
-            try (InputStreamReader streamReader = new InputStreamReader(stream)) {
-                return gson.fromJson(streamReader, clazz);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
      * Reads Image as BufferedImage
      * 
      * @param path Path to file
@@ -130,7 +92,7 @@ public final class Util {
      * @return Protocol Integer Number
      */
     public static int getVersionProtocol(Gson gson, String version) {
-        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
         return protocols == null ? 0 : Integer.parseInt(protocols.get(version).getAsString());
     }
 
@@ -147,7 +109,7 @@ public final class Util {
      */
     public static String getVersionFromProtocol(Gson gson, int protocol) {
         AtomicReference<String> version = new AtomicReference<String>("ok boomer");
-        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
         List<String> keys = protocols.entrySet().stream().map(i -> i.getKey())
@@ -166,7 +128,7 @@ public final class Util {
      * @return String list of all minecraft versions
      */
     public static String[] getSupportedVersions(Gson gson) {
-        JsonObject protocols = Util.readJsonResource(gson, "/protocol.json");
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
         return protocols.entrySet()
@@ -175,20 +137,7 @@ public final class Util {
                 .toArray(String[]::new);
     }
 
-    public static JsonObject readJson(Gson gson, Path path) throws IOException {
-        return Util.readJson(gson, path, JsonObject.class);
-    }
-
-    public static boolean isJson(Gson gson, String Json) {
-        try {
-            gson.fromJson(Json, Object.class);
-            return true;
-        } catch (com.google.gson.JsonSyntaxException ex) {
-            return false;
-        }
-    }
-
-    private static String readFromFile(Path path) throws IOException {
+    public static String readFromFile(Path path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
         StringBuilder resultStringBuilder = new StringBuilder();
         String line;
@@ -196,15 +145,6 @@ public final class Util {
             resultStringBuilder.append(line).append("\n");
         br.close();
         return resultStringBuilder.toString();
-    }
-
-    public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
-        String json = readFromFile(path);
-        if (!isJson(gson, json))
-            return null;
-        JsonReader reader = new JsonReader(new StringReader(json));
-        reader.setLenient(true);
-        return gson.fromJson(reader, clazz);
     }
 
     /**

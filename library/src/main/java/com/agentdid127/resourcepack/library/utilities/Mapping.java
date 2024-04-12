@@ -15,7 +15,7 @@ public class Mapping {
     }
 
     protected void load(Gson gson, String source, String path, String key) {
-        JsonObject object = Util.readJsonResource(gson, "/" + source + "/" + path + ".json")
+        JsonObject object = JsonUtil.readJsonResource(gson, "/" + source + "/" + path + ".json")
                 .getAsJsonObject(key);
         if (object == null)
             return;

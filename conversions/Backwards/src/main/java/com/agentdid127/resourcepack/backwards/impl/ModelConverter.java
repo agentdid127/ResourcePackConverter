@@ -76,13 +76,13 @@ public class ModelConverter extends Converter {
 				.forEach(model -> {
 					try {
 						JsonObject jsonObject;
-						if (Util.readJson(packConverter.getGson(), model) != null
-								&& Util.readJson(packConverter.getGson(), model).isJsonObject())
-							jsonObject = Util.readJson(packConverter.getGson(), model);
+						if (JsonUtil.readJson(packConverter.getGson(), model) != null
+								&& JsonUtil.readJson(packConverter.getGson(), model).isJsonObject())
+							jsonObject = JsonUtil.readJson(packConverter.getGson(), model);
 						else {
 							if (PackConverter.DEBUG) {
 								Logger.log("Could not convert model: " + model.getFileName());
-								if (Util.readJson(packConverter.getGson(), model) == null)
+								if (JsonUtil.readJson(packConverter.getGson(), model) == null)
 									Logger.log("Check for Syntax Errors in file.");
 								else
 									Logger.log("File is not JSON Object.");
@@ -222,7 +222,7 @@ public class ModelConverter extends Converter {
 							}
 						}
 
-						if (!Util.readJson(packConverter.getGson(), model).equals(jsonObject)) {
+						if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
 							if (PackConverter.DEBUG)
 								Logger.log("Updating Model: " + model.getFileName());
 							JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
@@ -276,87 +276,70 @@ public class ModelConverter extends Converter {
 
 	protected JsonObject mergeParent(Path models, JsonObject current, String parent) {
 		JsonObject jsonObject = current.deepCopy();
-
-		if (parent == null || !models.resolve(parent + ".json").toFile().exists()) {
+		if (parent == null || !models.resolve(parent + ".json").toFile().exists())
 			return jsonObject;
-		}
-		if (!current.has("parent")) {
+
+		if (!current.has("parent"))
 			return jsonObject;
-		} else {
-			Path parentPath = models.resolve(parent + ".json");
 
-			try {
-
-				JsonObject parentObj = Util.readJson(packConverter.getGson(), parentPath);
-				if (parentObj != null) {
-					jsonObject.remove("parent");
-					if (parentObj.has("parent")) {
-						String parentStr = parentObj.get("parent").getAsString();
-						String parentVal = parentStr == null ? null : getParent(parentStr);
-						jsonObject = mergeParent(models, parentObj, parentVal);
-					}
-
-					if (!jsonObject.has("elements") && current.has("elements")) {
-						jsonObject.add("elements", current.get("elements"));
-					}
-
-					if (!jsonObject.has("elements") && parentObj.has("elements")) {
-						jsonObject.add("elements", parentObj.get("elements"));
-					}
-
-					if (!jsonObject.has("display") && parentObj.has("display")) {
-						jsonObject.add("display", parentObj.get("display"));
-					}
-
-					JsonObject textures = new JsonObject();
-					if (jsonObject.has("textures")) {
-						textures = jsonObject.remove("textures").getAsJsonObject();
-					}
-
-					if (current.has("textures")) {
-						for (String s : current.get("textures").getAsJsonObject().keySet()) {
-							if (!textures.has(s)) {
-								textures.add(s, current.get("textures").getAsJsonObject().get(s));
-							}
-						}
-					}
-
-					if (parentObj.has("textures")) {
-						JsonObject parentTextures = parentObj.get("textures").getAsJsonObject();
-
-						for (String s : parentTextures.keySet()) {
-							if (!textures.has(s)) {
-								textures.add(s, parentTextures.get(s));
-
-							}
-						}
-					}
-
-					for (int i = 0; i < 5; i++) {
-						JsonObject textures2 = new JsonObject();
-						for (String s : textures.keySet()) {
-							if (textures.get(s).getAsString().startsWith("#") &&
-									textures.has(textures.get(s).getAsString().substring(1))) {
-								textures2.add(s,
-										textures.get(textures.get(s).getAsString().substring(1)));
-							} else {
-								textures2.add(s, textures.get(s));
-							}
-						}
-						textures = textures2;
-					}
-
-					if (textures.keySet().size() > 0) {
-						jsonObject.add("textures", textures);
-					}
+		Path parentPath = models.resolve(parent + ".json");
+		try {
+			JsonObject parentObj = JsonUtil.readJson(packConverter.getGson(), parentPath);
+			if (parentObj != null) {
+				jsonObject.remove("parent");
+				if (parentObj.has("parent")) {
+					String parentStr = parentObj.get("parent").getAsString();
+					String parentVal = parentStr == null ? null : getParent(parentStr);
+					jsonObject = mergeParent(models, parentObj, parentVal);
 				}
-			} catch (IOException e) {
 
+				if (!jsonObject.has("elements") && current.has("elements"))
+					jsonObject.add("elements", current.get("elements"));
+
+				if (!jsonObject.has("elements") && parentObj.has("elements"))
+					jsonObject.add("elements", parentObj.get("elements"));
+
+				if (!jsonObject.has("display") && parentObj.has("display"))
+					jsonObject.add("display", parentObj.get("display"));
+
+				JsonObject textures = new JsonObject();
+				if (jsonObject.has("textures"))
+					textures = jsonObject.remove("textures").getAsJsonObject();
+
+				if (current.has("textures")) {
+					for (String s : current.get("textures").getAsJsonObject().keySet())
+						if (!textures.has(s))
+							textures.add(s, current.get("textures").getAsJsonObject().get(s));
+				}
+
+				if (parentObj.has("textures")) {
+					JsonObject parentTextures = parentObj.get("textures").getAsJsonObject();
+					for (String s : parentTextures.keySet())
+						if (!textures.has(s))
+							textures.add(s, parentTextures.get(s));
+				}
+
+				for (int i = 0; i < 5; i++) {
+					JsonObject textures2 = new JsonObject();
+					for (String s : textures.keySet()) {
+						if (textures.get(s).getAsString().startsWith("#") &&
+								textures.has(textures.get(s).getAsString().substring(1))) {
+							textures2.add(s,
+									textures.get(textures.get(s).getAsString().substring(1)));
+						} else {
+							textures2.add(s, textures.get(s));
+						}
+					}
+					textures = textures2;
+				}
+
+				if (textures.keySet().size() > 0)
+					jsonObject.add("textures", textures);
 			}
-
+		} catch (IOException e) {
 		}
-		return jsonObject;
 
+		return jsonObject;
 	}
 
 	/**
@@ -369,7 +352,7 @@ public class ModelConverter extends Converter {
 	 */
 	protected String setParent(String prefix, String path, String parent, String item) {
 		String parent2 = parent.replace(prefix, "");
-		JsonObject file = Util.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
+		JsonObject file = JsonUtil.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
 		if (file == null) {
 			Logger.log("Prefix Failed on: " + parent);
 			return "";
@@ -378,10 +361,9 @@ public class ModelConverter extends Converter {
 	}
 
 	protected static JsonObject updateDisplay(Gson gson, JsonObject display) {
-		JsonObject defaults = Util.readJsonResource(gson, "/backwards/display.json");
-		if (display == null) {
+		JsonObject defaults = JsonUtil.readJsonResource(gson, "/backwards/display.json");
+		if (display == null)
 			return defaults.deepCopy();
-		}
 
 		// First Person
 		boolean found = false;
