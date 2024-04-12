@@ -59,13 +59,11 @@ public class ZipPack extends Pack {
                 ZipFile zipFile = new ZipFile(pack.getOriginalPath().toFile());
                 zipFile.extractAll(pack.getWorkingPath().toString());
                 zipFile.close();
-                ;
             } catch (ZipException e) {
                 Util.propagate(e);
             }
 
             bomRemover(pack.getWorkingPath());
-            return;
         }
 
         /**
