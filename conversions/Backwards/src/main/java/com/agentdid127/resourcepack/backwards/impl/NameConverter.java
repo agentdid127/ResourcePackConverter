@@ -4,9 +4,9 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Mapping;
 import com.agentdid127.resourcepack.library.utilities.Util;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,53 +14,38 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class NameConverter extends Converter {
-    protected class Mapping {
-        protected final Map<String, String> mapping = new HashMap<>();
+    private int to;
+    private int from;
 
-        public Mapping(String path, String key) {
-            load(path, key);
-        }
-
-        protected void load(String path, String key) {
-            JsonObject object = Util.readJsonResource(packConverter.getGson(), "/backwards/" + path + ".json")
-                    .getAsJsonObject(key);
-            if (object == null)
-                return;
-            for (Map.Entry<String, JsonElement> entry : object.entrySet())
-                this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-
-        /**
-         * @return remapped or in if not present
-         */
-        public String remap(String in) {
-            return mapping.getOrDefault(in, in);
-        }
-    }
-
-    protected int to;
-    protected int from;
-
-    protected final Mapping blockMapping = new Mapping("blocks", "1_13");
-    protected final Mapping newBlockMapping = new Mapping("blocks", "1_14");
-    protected final Mapping blockMapping17 = new Mapping("blocks", "1_17");
-    protected final Mapping blockMapping19 = new Mapping("blocks", "1_19");
-    protected final Mapping itemMapping = new Mapping("items", "1_13");
-    protected final Mapping newItemMapping = new Mapping("items", "1_14");
-    protected final Mapping itemMapping17 = new Mapping("items", "1_17");
-    protected final Mapping entityMapping = new Mapping("entities", "*");
-    protected final Mapping langMapping = new Mapping("lang", "1_13");
-    protected final Mapping langMapping14 = new Mapping("lang", "1_14");
+    private final Mapping blockMapping;
+    private final Mapping newBlockMapping;
+    private final Mapping blockMapping17;
+    private final Mapping blockMapping19;
+    private final Mapping itemMapping;
+    private final Mapping newItemMapping;
+    private final Mapping itemMapping17;
+    private final Mapping entityMapping;
+    private final Mapping langMapping;
+    private final Mapping langMapping14;
 
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
+        Gson gson = packConverter.getGson();
+        blockMapping = new Mapping(gson, "blocks", "1_13", true);
+        newBlockMapping = new Mapping(gson, "blocks", "1_14", true);
+        blockMapping17 = new Mapping(gson, "blocks", "1_17", true);
+        blockMapping19 = new Mapping(gson, "blocks", "1_19", true);
+        itemMapping = new Mapping(gson, "items", "1_13", true);
+        newItemMapping = new Mapping(gson, "items", "1_14", true);
+        itemMapping17 = new Mapping(gson, "items", "1_17", true);
+        entityMapping = new Mapping(gson, "entities", "*", true);
+        langMapping = new Mapping(gson, "lang", "1_13", true);
+        langMapping14 = new Mapping(gson, "lang", "1_14", true);
     }
 
     /**
@@ -274,8 +259,7 @@ public class NameConverter extends Converter {
 
             if (from > Util.getVersionProtocol(packConverter.getGson(), "1.12.2") &&
                     to <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")) {
-                List<String> snow = Arrays.asList("snow", "snow_block");
-                snow.stream().forEach(name -> {
+                Arrays.asList("snow", "snow_block").stream().forEach(name -> {
                     String newName = mapping.remap(name);
                     if (!extension.equals(".png")) {
                         Boolean ret = Util.renameFile(Paths.get(path + File.separator + name + extension),
