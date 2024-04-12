@@ -19,18 +19,43 @@ import java.util.List;
 import java.util.Map;
 
 public class NameConverter extends Converter {
+    protected class Mapping {
+        protected final Map<String, String> mapping = new HashMap<>();
+
+        public Mapping(String path, String key) {
+            load(path, key);
+        }
+
+        protected void load(String path, String key) {
+            JsonObject object = Util.readJsonResource(packConverter.getGson(), "/backwards/" + path + ".json")
+                    .getAsJsonObject(key);
+            if (object == null)
+                return;
+            for (Map.Entry<String, JsonElement> entry : object.entrySet())
+                this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+        }
+
+        /**
+         * @return remapped or in if not present
+         */
+        public String remap(String in) {
+            return mapping.getOrDefault(in, in);
+        }
+    }
+
     protected int to;
     protected int from;
-    protected final Mapping blockMapping = new BlockMapping13();
-    protected final Mapping newBlockMapping = new BlockMapping14();
-    protected final Mapping blockMapping17 = new BlockMapping17();
-    protected final Mapping blockMapping19 = new BlockMapping19();
-    protected final Mapping itemMapping = new ItemMapping13();
-    protected final Mapping newItemMapping = new ItemMapping14();
-    protected final Mapping itemMapping17 = new ItemMapping17();
-    protected final Mapping entityMapping = new EntityMapping();
-    protected final Mapping langMapping = new LangMapping();
-    protected final Mapping langMapping14 = new LangMapping14();
+
+    protected final Mapping blockMapping = new Mapping("blocks", "1_13");
+    protected final Mapping newBlockMapping = new Mapping("blocks", "1_14");
+    protected final Mapping blockMapping17 = new Mapping("blocks", "1_17");
+    protected final Mapping blockMapping19 = new Mapping("blocks", "1_19");
+    protected final Mapping itemMapping = new Mapping("items", "1_13");
+    protected final Mapping newItemMapping = new Mapping("items", "1_14");
+    protected final Mapping itemMapping17 = new Mapping("items", "1_17");
+    protected final Mapping entityMapping = new Mapping("entities", "*");
+    protected final Mapping langMapping = new Mapping("lang", "1_13");
+    protected final Mapping langMapping14 = new Mapping("lang", "1_14");
 
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -46,116 +71,110 @@ public class NameConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path mc = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
+        Path minecraftPath = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
 
         // Version is greater than 1.13
         if (to <= Util.getVersionProtocol(packConverter.getGson(), "1.13")
                 && from > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             // OptiFine conversion
-            if (mc.resolve("mcpatcher").toFile().exists()) {
+            if (minecraftPath.resolve("mcpatcher").toFile().exists()) {
                 if (PackConverter.DEBUG)
                     Logger.log("MCPatcher exists, switching to optifine");
-                if (mc.resolve("optifine").toFile().exists()) {
+                if (minecraftPath.resolve("optifine").toFile().exists()) {
                     if (PackConverter.DEBUG)
                         Logger.log("OptiFine exists, merging directories");
-                    Util.mergeDirectories(mc.resolve("optifine").toFile(), mc.resolve("mcpatcher").toFile());
+                    Util.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
+                            minecraftPath.resolve("mcpatcher").toFile());
                 } else
-                    Files.move(mc.resolve("mcpatcher"), mc.resolve("optifine"));
-                if (mc.resolve("mcpatcher").toFile().exists())
-                    Util.deleteDirectoryAndContents(mc.resolve("mcpatcher"));
+                    Files.move(minecraftPath.resolve("mcpatcher"), minecraftPath.resolve("optifine"));
+                if (minecraftPath.resolve("mcpatcher").toFile().exists())
+                    Util.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
             }
         }
 
-        Path models = pack.getWorkingPath()
-                .resolve("assets/minecraft/models".replace("/", File.separator));
-        if (models.toFile().exists()) {
+        Path modelsPath = minecraftPath.resolve("models");
+
+        Path itemModelsPath = modelsPath.resolve("item");
+        Path blockModelsPath = modelsPath.resolve("block");
+
+        if (modelsPath.toFile().exists()) {
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
-                renameAll(blockMapping19, ".json", models.resolve("block"));
+                renameAll(blockMapping19, ".json", blockModelsPath);
 
             // Update 1.14 items
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.14"))
-                renameAll(newItemMapping, ".json", models.resolve("item"));
+                renameAll(newItemMapping, ".json", itemModelsPath);
 
             // 1.13 Models
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(itemMapping, ".json", models.resolve("item"));
-                renameAll(blockMapping, ".json", models.resolve("block"));
-
-                if (models.resolve("item").resolve("banner.json").toFile().exists()) {
-                    models.resolve("item").resolve("banner.json").toFile().delete();
-                }
+                renameAll(itemMapping, ".json", itemModelsPath);
+                renameAll(blockMapping, ".json", blockModelsPath);
+                Path bannerModelPath = itemModelsPath.resolve("banner.json");
+                if (bannerModelPath.toFile().exists())
+                    bannerModelPath.toFile().delete();
             }
-
         }
 
         // Update BlockStates
-        Path blockStates = pack.getWorkingPath()
-                .resolve("assets/minecraft/blockstates".replace("/", File.separator));
+        Path blockStates = minecraftPath.resolve("blockstates");
         if (blockStates.toFile().exists())
             renameAll(blockMapping, ".json", blockStates);
 
         // Update textures
-        Path textures = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (textures.toFile().exists()) {
+        Path texturesPath = minecraftPath.resolve("textures");
+        if (texturesPath.toFile().exists()) {
+            Path texturesBlockPath = texturesPath.resolve("block");
+            Path texturesItemPath = texturesPath.resolve("item");
+
             // 1.19
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19")
                     && from >= Util.getVersionProtocol(packConverter.getGson(), "1.19"))
-                renameAll(blockMapping19, ".png", textures.resolve("block"));
+                renameAll(blockMapping19, ".png", texturesBlockPath);
+
+            // Entities
+            Path entityPath = texturesPath.resolve("entity");
 
             // 1.17 Squid
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.17")
                     && from >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
-                renameAll(blockMapping17, ".png", textures.resolve("block"));
-                renameAll(itemMapping17, ".png", textures.resolve("item"));
-                renameAll(blockMapping17, ".png", models.resolve("block"));
-                renameAll(itemMapping17, ".png", models.resolve("item"));
-                if (textures.resolve(
-                        "entity/squid/squid.png").toFile()
-                        .exists())
-                    Files.move(textures.resolve(
-                            "entity/squid/squid.png"),
-                            textures.resolve("entity/squid.png"));
-                // Files.deleteIfExists(textures.resolve("entity/squid" +
-                // File.separator));
+                renameAll(blockMapping17, ".png", texturesBlockPath);
+                renameAll(itemMapping17, ".png", texturesItemPath);
+                renameAll(blockMapping17, ".png", blockModelsPath);
+                renameAll(itemMapping17, ".png", itemModelsPath);
+                Path newSquidPath = entityPath.resolve("squid/squid.png");
+                if (newSquidPath.toFile().exists())
+                    Files.move(newSquidPath, entityPath.resolve("squid.png"));
             }
 
             // 1.16 Iron golems
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.16")
                     && to < Util.getVersionProtocol(packConverter.getGson(), "1.16")) {
-                if (textures.resolve(
-                        "entity/iron_golem/iron_golem.png")
-                        .toFile().exists())
-                    Files.move(
-                            textures.resolve(
-                                    "entity/iron_golem" + File.separator
-                                            + "iron_golem.png"),
-                            textures.resolve("entity/iron_golem.png"));
-                // Files.deleteIfExists(textures.resolve("entity" + File.separator +
-                // "iron_golem/iron_golem.png"));
+                Path newIronGolemPath = entityPath
+                        .resolve("iron_golem/iron_golem.png".replace("/", File.separator));
+                if (newIronGolemPath.toFile().exists())
+                    Files.move(newIronGolemPath, entityPath.resolve("iron_golem.png"));
             }
 
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
-                renameAll(newBlockMapping, ".png", textures.resolve("block"));
-                renameAll(newBlockMapping, ".png.mcmeta", textures.resolve("block"));
-                renameAll(newItemMapping, ".png", textures.resolve("item"));
-                renameAll(newItemMapping, ".png.mcmeta", textures.resolve("item"));
+                renameAll(newBlockMapping, ".png", texturesBlockPath);
+                renameAll(newBlockMapping, ".png.mcmeta", texturesBlockPath);
+                renameAll(newItemMapping, ".png", texturesItemPath);
+                renameAll(newItemMapping, ".png.mcmeta", texturesItemPath);
             }
 
             if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
                     && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                renameAll(blockMapping, ".png", textures.resolve("block"));
-                renameAll(blockMapping, ".png.mcmeta", textures.resolve("block"));
+                renameAll(blockMapping, ".png", texturesBlockPath);
+                renameAll(blockMapping, ".png.mcmeta", texturesBlockPath);
 
-                renameAll(itemMapping, ".png", textures.resolve("item"));
-                renameAll(itemMapping, ".png.mcmeta", textures.resolve("item"));
+                renameAll(itemMapping, ".png", texturesItemPath);
+                renameAll(itemMapping, ".png.mcmeta", texturesItemPath);
 
                 // 1.13 End Crystals
-                if (textures.resolve("entity/end_crystal").toFile().exists())
-                    Files.move(textures.resolve("entity/end_crystal"),
-                            textures.resolve("entity/endercrystal"));
-                findEntityFiles(textures.resolve("entity"));
+                if (entityPath.resolve("end_crystal").toFile().exists())
+                    Files.move(entityPath.resolve("end_crystal"), entityPath.resolve("endercrystal"));
 
+                findEntityFiles(texturesPath.resolve("entity"));
             }
         }
 
@@ -164,7 +183,7 @@ public class NameConverter extends Converter {
                 && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             if (PackConverter.DEBUG)
                 Logger.log("Finding files that are greater than 1.12");
-            findFiles(mc.resolve("textures"));
+            findFiles(texturesPath);
         }
     }
 
@@ -175,15 +194,15 @@ public class NameConverter extends Converter {
      * @throws IOException
      */
     protected void findEntityFiles(Path path) throws IOException {
-        if (path.toFile().exists()) {
-            File directory = path.toFile();
-            for (File file : directory.listFiles()) {
-                if (file.isDirectory())
-                    continue;
-                renameAll(entityMapping, ".png", file.toPath());
-                renameAll(entityMapping, ".png.mcmeta", file.toPath());
-                findEntityFiles(file.toPath());
-            }
+        if (!path.toFile().exists())
+            return;
+        File directory = path.toFile();
+        for (File file : directory.listFiles()) {
+            if (file.isDirectory())
+                continue;
+            renameAll(entityMapping, ".png", file.toPath());
+            renameAll(entityMapping, ".png.mcmeta", file.toPath());
+            findEntityFiles(file.toPath());
         }
     }
 
@@ -194,34 +213,34 @@ public class NameConverter extends Converter {
      * @throws IOException
      */
     protected void findFiles(Path path) throws IOException {
-        if (path.toFile().exists()) {
-            File directory = path.toFile();
-            for (File file : directory.listFiles()) {
-                if (file.isDirectory()) {
-                    if (file.getName().equals("item")) {
-                        if (PackConverter.DEBUG)
-                            Logger.log("Found Items folder, renaming");
-                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
-                    }
-
-                    if (file.getName().equals("block")) {
-                        if (PackConverter.DEBUG)
-                            Logger.log("Found blocks folder, renaming");
-                        Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
-                    }
-
-                    findFiles(file.toPath());
+        if (!path.toFile().exists())
+            return;
+        File directory = path.toFile();
+        for (File file : directory.listFiles()) {
+            if (file.isDirectory()) {
+                if (file.getName().equals("item")) {
+                    if (PackConverter.DEBUG)
+                        Logger.log("Found Items folder, renaming");
+                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
                 }
 
-                if (file.getName().contains("("))
-                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
-
-                if (!file.getName().equals(file.getName().toLowerCase()))
+                if (file.getName().equals("block")) {
                     if (PackConverter.DEBUG)
-                        Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
+                        Logger.log("Found blocks folder, renaming");
+                    Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
+                }
 
-                Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
+                findFiles(file.toPath());
             }
+
+            if (file.getName().contains("("))
+                Util.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
+
+            if (!file.getName().equals(file.getName().toLowerCase()))
+                if (PackConverter.DEBUG)
+                    Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
+
+            Util.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
         }
     }
 
@@ -333,131 +352,5 @@ public class NameConverter extends Converter {
 
     public Mapping getLangMapping14() {
         return langMapping14;
-    };
-
-    protected abstract static class Mapping {
-        protected final Map<String, String> mapping = new HashMap<>();
-
-        public Mapping() {
-            load();
-        }
-
-        protected abstract void load();
-
-        /**
-         * @return remapped or in if not present
-         */
-        public String remap(String in) {
-            return mapping.getOrDefault(in, in);
-        }
-    }
-
-    protected class BlockMapping13 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/blocks.json")
-                    .getAsJsonObject("1_13");
-            if (blocks != null)
-                for (Map.Entry<String, JsonElement> entry : blocks.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class BlockMapping14 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/blocks.json")
-                    .getAsJsonObject("1_14");
-            if (blocks != null)
-                for (Map.Entry<String, JsonElement> entry : blocks.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class BlockMapping17 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/blocks.json")
-                    .getAsJsonObject("1_17");
-            if (blocks != null)
-                for (Map.Entry<String, JsonElement> entry : blocks.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class BlockMapping19 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject blocks = Util.readJsonResource(packConverter.getGson(), "/backwards/blocks.json")
-                    .getAsJsonObject("1_19");
-            if (blocks != null)
-                for (Map.Entry<String, JsonElement> entry : blocks.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class LangMapping extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/lang.json")
-                    .getAsJsonObject("1_13");
-            if (entities != null)
-                for (Map.Entry<String, JsonElement> entry : entities.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class LangMapping14 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/lang.json")
-                    .getAsJsonObject("1_14");
-            if (entities != null)
-                for (Map.Entry<String, JsonElement> entry : entities.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class EntityMapping extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject entities = Util.readJsonResource(packConverter.getGson(), "/backwards/entities.json");
-            if (entities != null)
-                for (Map.Entry<String, JsonElement> entry : entities.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class ItemMapping13 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject items = Util.readJsonResource(packConverter.getGson(), "/backwards/items.json")
-                    .getAsJsonObject("1_13");
-            if (items != null)
-                for (Map.Entry<String, JsonElement> entry : items.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class ItemMapping14 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject items = Util.readJsonResource(packConverter.getGson(), "/backwards/items.json")
-                    .getAsJsonObject("1_14");
-            if (items != null)
-                for (Map.Entry<String, JsonElement> entry : items.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
-    }
-
-    protected class ItemMapping17 extends Mapping {
-        @Override
-        protected void load() {
-            JsonObject items = Util.readJsonResource(packConverter.getGson(), "/backwards/items.json")
-                    .getAsJsonObject("1_17");
-            if (items != null)
-                for (Map.Entry<String, JsonElement> entry : items.entrySet())
-                    this.mapping.put(entry.getKey(), entry.getValue().getAsString());
-        }
     }
 }
