@@ -188,10 +188,10 @@ public class NameConverter extends Converter {
                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15")
                         && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
                     if (!entityPath.resolve("iron_golem").toFile().exists())
-                        entityPath.resolve("iron_golem" + File.separator).toFile().mkdir();
+                        entityPath.resolve("iron_golem").toFile().mkdir();
                     if (entityPath.resolve("iron_golem.png").toFile().exists())
-                        Files.move(entityPath.resolve("iron_golem.png"), texturesPath
-                                .resolve("entity/iron_golem/iron_golem.png"));
+                        Files.move(entityPath.resolve("iron_golem.png"), entityPath
+                                .resolve("iron_golem/iron_golem.png"));
                 }
 
                 // 1.17 Squid
@@ -202,7 +202,7 @@ public class NameConverter extends Converter {
                     renameAll(blockMapping17, ".png", modelsPath.resolve("block"));
                     renameAll(itemMapping17, ".png", modelsPath.resolve("item"));
                     if (!entityPath.resolve("squid").toFile().exists())
-                        entityPath.resolve("squid" + File.separator).toFile().mkdir();
+                        entityPath.resolve("squid").toFile().mkdir();
                     if (entityPath.resolve("squid.png").toFile().exists())
                         Files.move(entityPath.resolve("squid.png"),
                                 entityPath.resolve("squid/squid.png"));
