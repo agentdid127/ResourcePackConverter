@@ -21,7 +21,7 @@ public class CreativeTabsConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path guiPath = pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/gui");
+                "assets/minecraft/textures/gui".replace("/", File.separator));
         if (!guiPath.toFile().exists())
             return;
 

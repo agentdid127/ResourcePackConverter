@@ -9,6 +9,7 @@ import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,13 +22,13 @@ public class AnimationConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/block"));
+                "assets/minecraft/textures/block".replace("/", File.separator)));
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/item"));
+                "assets/minecraft/textures/item".replace("/", File.separator)));
     }
 
     /**
-     * Updats animated images to newer versions
+     * Updates animated images to newer versions
      * 
      * @param animations
      * @throws IOException

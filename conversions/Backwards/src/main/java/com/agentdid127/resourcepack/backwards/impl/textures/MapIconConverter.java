@@ -40,8 +40,8 @@ public class MapIconConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets/minecraft" + File.separator
-                + "textures/map/backwards/map_icons.png");
+        Path imagePath = pack.getWorkingPath()
+                .resolve("assets/minecraft/textures/map/backwards/map_icons.png".replace("/", File.separator));
         if (!imagePath.toFile().exists())
             return;
 
