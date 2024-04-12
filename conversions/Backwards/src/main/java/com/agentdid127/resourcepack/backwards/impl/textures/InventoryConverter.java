@@ -17,8 +17,7 @@ public class InventoryConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path imagePath = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures/gui"
-                        + File.separator + "container/inventory.png");
+                .resolve("assets/minecraft/textures/gui/container/inventory.png".replace("/", File.separator));
         if (!imagePath.toFile().exists())
             return;
 

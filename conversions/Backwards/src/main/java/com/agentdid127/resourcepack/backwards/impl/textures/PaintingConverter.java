@@ -26,8 +26,8 @@ public class PaintingConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path paintingPath = pack.getWorkingPath().resolve("assets/minecraft" + File.separator
-                + "textures/painting" + File.separator);
+        Path paintingPath = pack.getWorkingPath()
+                .resolve("assets/minecraft/textures/painting".replace("/", File.separator));
         if (!paintingPath.toFile().exists())
             return;
 
