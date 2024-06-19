@@ -31,6 +31,8 @@ public class NameConverter extends Converter {
     private final Mapping entityMapping;
     private final Mapping langMapping;
     private final Mapping langMapping14;
+    private final Mapping blockMapping203;
+    private final Mapping itemMapping203;
 
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -47,6 +49,8 @@ public class NameConverter extends Converter {
         entityMapping = new Mapping(gson, "entities", "*", false);
         langMapping = new Mapping(gson, "lang", "1_13", false);
         langMapping14 = new Mapping(gson, "lang", "1_14", false);
+        blockMapping203 = new Mapping(gson, "blocks", "1_20_3", false);
+        itemMapping203 = new Mapping(gson, "items", "1_20_3", false);
     }
 
     /**
@@ -128,6 +132,11 @@ public class NameConverter extends Converter {
 
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19"))
                     renameAll(blockMapping19, ".json", modelsPath.resolve("block"));
+
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.20.3")) {
+                    renameAll(itemMapping203, ".json", modelsPath.resolve("item"));
+                    renameAll(blockMapping203, ".json", modelsPath.resolve("block"));
+                }
             }
 
             // Update BlockStates

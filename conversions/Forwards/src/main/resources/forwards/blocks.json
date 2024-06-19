@@ -491,5 +491,8 @@
 		"door_bottom_rh": "door_bottom_right",
 		"door_top": "door_top_left",
 		"door_top_rh": "door_top_right"
+	},
+	"1_20_3": {
+		"grass": "short_grass"
 	}
 }

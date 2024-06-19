@@ -31,6 +31,8 @@ public class NameConverter extends Converter {
     private final Mapping entityMapping;
     private final Mapping langMapping;
     private final Mapping langMapping14;
+    private final Mapping blockMapping203;
+    private final Mapping itemMapping203;
 
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -47,6 +49,8 @@ public class NameConverter extends Converter {
         entityMapping = new Mapping(gson, "entities", "*", true);
         langMapping = new Mapping(gson, "lang", "1_13", true);
         langMapping14 = new Mapping(gson, "lang", "1_14", true);
+        blockMapping203 = new Mapping(gson, "blocks", "1_20_3", true);
+        itemMapping203 = new Mapping(gson, "items", "1_20_3", true);
     }
 
     /**
@@ -84,6 +88,12 @@ public class NameConverter extends Converter {
         Path blockModelsPath = modelsPath.resolve("block");
 
         if (modelsPath.toFile().exists()) {
+
+            // 1.20.3 Models
+            if (to < Util.getVersionProtocol(packConverter.getGson(), "1.20.3"))
+                renameAll(blockMapping203, ".json", blockModelsPath);
+
+            // 1.19 Models
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
                 renameAll(blockMapping19, ".json", blockModelsPath);
 
@@ -111,6 +121,11 @@ public class NameConverter extends Converter {
         if (texturesPath.toFile().exists()) {
             Path texturesBlockPath = texturesPath.resolve("block");
             Path texturesItemPath = texturesPath.resolve("item");
+
+            // 1.20.3
+            if (to < Util.getVersionProtocol(packConverter.getGson(), "1.20.3")
+                    && from >= Util.getVersionProtocol(packConverter.getGson(), "1.20.3"))
+                renameAll(blockMapping203, ".png", texturesBlockPath);
 
             // 1.19
             if (to < Util.getVersionProtocol(packConverter.getGson(), "1.19")
