@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ImageConverter {
-    protected int imageWidth = 0;
-    protected int imageHeight = 0;
-    protected int defaultW = 1;
-    protected int defaultH = 1;
+    protected int imageWidth;
+    protected int imageHeight;
+    protected int defaultW;
+    protected int defaultH;
     protected BufferedImage image;
     protected BufferedImage newImage;
     protected Path location;
