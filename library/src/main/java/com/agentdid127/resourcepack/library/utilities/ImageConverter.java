@@ -8,10 +8,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ImageConverter {
-    protected int imageWidth = 0;
-    protected int imageHeight = 0;
-    protected int defaultW = 1;
-    protected int defaultH = 1;
+    protected int imageWidth;
+    protected int imageHeight;
+    protected int defaultW;
+    protected int defaultH;
     protected BufferedImage image;
     protected BufferedImage newImage;
     protected Path location;
@@ -32,6 +32,12 @@ public class ImageConverter {
         defaultH = defaultHIn == null ? image.getHeight() : defaultHIn;
         imageWidth = image.getWidth();
         imageHeight = image.getHeight();
+
+        // check if widths and heights are legal.
+        if (defaultW == 0 || defaultH == 0) {
+            throw new IllegalStateException("Image must have a default width or height greater than zero.");
+        }
+
         if (!fileIsPowerOfTwo()) {
             Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
                     + "' resolution size is not a power of 2. Converting to be so.");
@@ -116,6 +122,10 @@ public class ImageConverter {
      * @param newHeight
      */
     public void newImage(int newWidth, int newHeight, int type) {
+        if (newWidth == 0 || newHeight == 0) {
+            throw new IllegalArgumentException("Width and height must be greater than zero!");
+        }
+
         newImage = new BufferedImage(scaleWidth(newWidth), scaleHeight(newHeight), type);
         g2d = (Graphics2D) newImage.getGraphics();
     }
@@ -466,10 +476,7 @@ public class ImageConverter {
      * @return double
      */
     public double getWidthMultiplier() {
-        double wMultiplier = (double) imageWidth / (double) defaultW;
-        // Make sure to not have 0 multiplier or cause issues!
-        wMultiplier = wMultiplier < 1 ? 1 : wMultiplier;
-        return wMultiplier;
+        return (double) imageWidth / (double) defaultW;
     }
 
     /**
@@ -478,10 +485,7 @@ public class ImageConverter {
      * @return double
      */
     public double getHeightMultiplier() {
-        double hMultiplier = (double) imageHeight / (double) defaultH;
-        // Make sure to not have 0 multiplier or cause issues!
-        hMultiplier = hMultiplier < 1 ? 1 : hMultiplier;
-        return hMultiplier;
+        return (double) imageHeight / (double) defaultH;
     }
 
     public int scaleX(int x) {
