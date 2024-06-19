@@ -20,7 +20,7 @@ public class WaterConverter extends Converter {
 				.resolve("assets/minecraft/textures/block".replace("/", File.separator));
 		if (!blockFolder.toFile().exists())
 			return;
-		grayscale(blockFolder.resolve("water_flow.png"), 16, 512);
+		grayscale(blockFolder.resolve("water_flow.png"), 16, 1024);
 		grayscale(blockFolder.resolve("water_still.png"), 16, 512);
 		grayscale(blockFolder.resolve("water_overlay.png"), 16, 16);
 	}
