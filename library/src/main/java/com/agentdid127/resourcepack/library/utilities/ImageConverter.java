@@ -34,10 +34,6 @@ public class ImageConverter {
         imageHeight = image.getHeight();
 
         // check if widths and heights are legal.
-        if (imageWidth == 0 || imageHeight == 0) {
-            throw new IllegalStateException("Image must have a width or height greater than zero.");
-        }
-
         if (defaultW == 0 || defaultH == 0) {
             throw new IllegalStateException("Image must have a default width or height greater than zero.");
         }
