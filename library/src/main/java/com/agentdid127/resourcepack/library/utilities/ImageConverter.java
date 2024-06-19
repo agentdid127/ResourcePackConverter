@@ -377,7 +377,7 @@ public class ImageConverter {
     /**
      * Place a image in the background using transparency
      * 
-     * @param background
+     * @param backgroundImage
      * @param alpha
      * @throws IOException
      */

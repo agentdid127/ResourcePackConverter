@@ -65,7 +65,7 @@ public class ModelConverter extends Converter {
 	/**
 	 * Updates model Json to newer versions
 	 * 
-	 * @param path
+	 * @param models Model path
 	 * @throws IOException
 	 */
 	protected void remapModelJson(Path models) throws IOException {
