@@ -38,7 +38,6 @@ public class ImageConverter {
             throw new IllegalStateException("Image must have a default width or height greater than zero.");
         }
 
-
         if (!fileIsPowerOfTwo()) {
             Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
                     + "' resolution size is not a power of 2. Converting to be so.");
