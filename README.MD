@@ -31,16 +31,9 @@ To update to any other version than 1.12-1.13, you can use these parameters.
 
 We hope this helps out!
 
-
-
-# To be Added
-Of course there will always be some discrepencies and issues when converting that developers won't always notice, so if you find one, feel free to fix it and send a PR or write an issue here on Github.
-
-Known issues:
-- Particles aren't converting very nicely with larger resource packs.
-
-Things that we want to add/need to be added:
-- Converting to older versions.
-
 # Not On the list to add
 - Horse and Zombified Piglin Conversion (the models were changed, which may make that much more difficult to convert)
+
+## In-Development Versions
+Before a version of the converter is ready for release, it will be automatically built on a Jenkins server, where you can get non-production builds. Note: that there is no guaruntee that these versions are stable, however, feel free to post issue reports on the issues page.
+[Jenkins Server](https://jenkins.dc1.agentdid127.com/job/agentdid127/job/ResourcePackConverter/job/master/)
