@@ -15,7 +15,7 @@ public class TitleConverter extends Converter {
     }
 
     /**
-     * Updates Minecraft Title & Minecraft Realms Title
+     * Updates Minecraft Title and Minecraft Realms Title
      * 
      * @param pack
      * @throws IOException
