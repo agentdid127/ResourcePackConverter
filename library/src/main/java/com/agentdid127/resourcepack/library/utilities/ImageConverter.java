@@ -19,7 +19,7 @@ public class ImageConverter {
 
     /**
      * Default Constructor
-     * 
+     *
      * @param defaultWIn
      * @param defaultHIn
      * @param locationIn
@@ -55,7 +55,7 @@ public class ImageConverter {
 
     /**
      * Save a section of the image to a new image.
-     * 
+     *
      * @param sx
      * @param sy
      * @param width
@@ -75,7 +75,7 @@ public class ImageConverter {
 
     /**
      * Fill a spot with nothing.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -92,7 +92,7 @@ public class ImageConverter {
 
     /**
      * Set the current image.
-     * 
+     *
      * @param defaultWIn
      * @param defaultHIn
      * @throws IOException
@@ -111,7 +111,7 @@ public class ImageConverter {
 
     /**
      * Creates a new Image to store
-     * 
+     *
      * @param newWidth
      * @param newHeight
      */
@@ -126,7 +126,7 @@ public class ImageConverter {
 
     /**
      * Add a image to the current image.
-     * 
+     *
      * @param imagePath
      * @param x
      * @param y
@@ -141,7 +141,7 @@ public class ImageConverter {
 
     /**
      * Takes part of an image and stores it in the new image
-     * 
+     *
      * @param x
      * @param y
      * @param x2
@@ -160,7 +160,7 @@ public class ImageConverter {
 
     /**
      * Takes part of an image and stores it in the new image
-     * 
+     *
      * @param x
      * @param y
      * @param x2
@@ -172,7 +172,7 @@ public class ImageConverter {
 
     /**
      * Takes a part of an image and flips it either horizontally or vertically
-     * 
+     *
      * @param x
      * @param y
      * @param x2
@@ -193,7 +193,7 @@ public class ImageConverter {
 
     /**
      * Only allows for the number 1 and flips it both horizontally and vertically
-     * 
+     *
      * @param x
      * @param y
      * @param x2
@@ -226,7 +226,7 @@ public class ImageConverter {
 
     /**
      * Recolor the entire image.
-     * 
+     *
      * @param color
      */
     public void colorize(Color color) {
@@ -237,7 +237,7 @@ public class ImageConverter {
 
     /**
      * Recolor the grayscale image.
-     * 
+     *
      * @param color
      */
     public void colorizeClipped(Color color) {
@@ -259,17 +259,28 @@ public class ImageConverter {
     }
 
     /**
-     * Grayscale the image
+     * Grayscale the image using the NTSC grayscale formula
      */
     public void grayscale() {
-        BufferedImage gray = new BufferedImage(newImage.getWidth(), newImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        BufferedImage gray = new BufferedImage(newImage.getWidth(), newImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         gray.createGraphics().drawImage(image, 0, 0, null);
+        for (int y = 0; y < gray.getHeight(); y++) {
+            for (int x = 0; x < gray.getWidth(); x++) {
+                int rgba = gray.getRGB(x, y);
+                int alpha = (rgba >> 24) & 0xFF;
+                int red = (rgba >> 16) & 0xFF;
+                int green = (rgba >> 8) & 0xFF;
+                int blue = rgba & 0xFF;
+                int average = (int) ((0.299 * red) + (0.587 * green) + (0.114 * blue));
+                gray.setRGB(x, y, (alpha << 24) | (average << 16) | (average << 8) | average);
+            }
+        }
         newImage = gray;
     }
 
     /**
      * Flip The Image
-     * 
+     *
      * @param image
      * @param flip
      * @return BufferedImage
@@ -287,7 +298,7 @@ public class ImageConverter {
 
     /**
      * Flip The Image
-     * 
+     *
      * @param image
      * @param flip
      * @return BufferedImage
@@ -306,7 +317,7 @@ public class ImageConverter {
 
     /**
      * Transforms The BufferedImage
-     * 
+     *
      * @param image
      * @param at
      * @return BufferedImage
@@ -322,16 +333,13 @@ public class ImageConverter {
 
     /**
      * Copy pixels to a new image with a new alpha & ignoring transparent pixels
-     * 
+     *
      * @param inputImage
      * @param outImage
      * @param alphaNew
-     * @throws IOException
      */
-    private void copyPixels(BufferedImage inputImage, BufferedImage outImage, Integer alphaNew)
-            throws IOException {
-        BufferedImage image = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(),
-                BufferedImage.TYPE_INT_ARGB);
+    private void copyPixels(BufferedImage inputImage, BufferedImage outImage, Integer alphaNew) {
+        BufferedImage image = new BufferedImage(inputImage.getWidth(), inputImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         image.getGraphics().drawImage(inputImage, 0, 0, null);
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -351,7 +359,7 @@ public class ImageConverter {
 
     /**
      * Copy pixels to a new image
-     * 
+     *
      * @param inputImage
      * @param outImage
      * @throws IOException
@@ -362,7 +370,7 @@ public class ImageConverter {
 
     /**
      * Place a image in the background using transparency
-     * 
+     *
      * @param background
      * @param alpha
      * @throws IOException
@@ -376,7 +384,7 @@ public class ImageConverter {
 
     /**
      * Place a image in the background using transparency
-     * 
+     *
      * @param backgroundImage
      * @param alpha
      * @throws IOException
@@ -389,7 +397,7 @@ public class ImageConverter {
 
     /**
      * Save the image as the provided type at the provided location.
-     * 
+     *
      * @param locationIn
      * @param type
      * @return boolean
@@ -402,7 +410,7 @@ public class ImageConverter {
 
     /**
      * Save the image at the provided location.
-     * 
+     *
      * @param locationIn
      * @return boolean
      * @throws IOException
@@ -413,7 +421,7 @@ public class ImageConverter {
 
     /**
      * Save the image.
-     * 
+     *
      * @return boolean
      * @throws IOException
      */
@@ -423,7 +431,7 @@ public class ImageConverter {
 
     /**
      * Get a sub-part of the image using a rectangle.
-     * 
+     *
      * @param x
      * @param y
      * @param width
@@ -436,7 +444,7 @@ public class ImageConverter {
 
     /**
      * Get the Image Width
-     * 
+     *
      * @return int
      */
     public int getWidth() {
@@ -445,7 +453,7 @@ public class ImageConverter {
 
     /**
      * Get the Image Height
-     * 
+     *
      * @return int
      */
     public int getHeight() {
@@ -454,7 +462,7 @@ public class ImageConverter {
 
     /**
      * Get the Width Scale Multiplier (imageWidth/defaultWidth)
-     * 
+     *
      * @return double
      */
     public double getWidthMultiplier() {
@@ -466,7 +474,7 @@ public class ImageConverter {
 
     /**
      * Get the Height Scale Multiplier (imageHeight/defaultHeight)
-     * 
+     *
      * @return double
      */
     public double getHeightMultiplier() {
@@ -507,7 +515,7 @@ public class ImageConverter {
 
     /**
      * Returns true if the image is square.
-     * 
+     *
      * @return boolean
      */
     public boolean isSquare() {
