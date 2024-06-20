@@ -318,6 +318,24 @@
                 }
             },
             {
+                "path": "sprites/hud/heart/absorbing_full.png",
+                "box": {
+                    "x": 160,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
+                "path": "sprites/hud/heart/absorbing_half.png",
+                "box": {
+                    "x": 169,
+                    "y": 45,
+                    "width": 9,
+                    "height": 9
+                }
+            },
+            {
                 "path": "sprites/hud/heart/absorbing_full_blinking.png",
                 "box": {
                     "x": 160,
