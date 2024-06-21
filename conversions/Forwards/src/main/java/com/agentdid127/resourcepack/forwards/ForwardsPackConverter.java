@@ -68,8 +68,8 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new LangConverter(this, from, to));
 
         this.registerConverter(new ParticleTextureConverter(this, protocolFrom, protocolTo));
-
-        this.registerConverter(new ChestConverter(this));
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.15") && protocolTo >= Util.getVersionProtocol(gson, "1.15"))
+            this.registerConverter(new ChestConverter(this));
 
         if (protocolFrom <= Util.getVersionProtocol(gson, "1.13")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.14.4"))
