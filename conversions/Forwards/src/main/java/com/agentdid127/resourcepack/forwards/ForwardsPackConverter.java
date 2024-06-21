@@ -101,13 +101,17 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new SlidersCreator(this));
         }
 
-        if (protocolFrom <= Util.getVersionProtocol(gson, "1.19.4")
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.20"))
             this.registerConverter(new TitleConverter(this));
 
-        if (protocolFrom <= Util.getVersionProtocol(gson, "1.20.1")
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.2")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.20.2"))
             this.registerConverter(new SlicerConverter(this, protocolFrom));
+
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.3")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.20.3"))
+            this.registerConverter(new ImageFormatConverter(this));
     }
 
     public void runPack(Pack pack) {
