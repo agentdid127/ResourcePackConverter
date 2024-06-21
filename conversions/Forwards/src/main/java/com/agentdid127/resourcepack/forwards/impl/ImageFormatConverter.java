@@ -33,7 +33,6 @@ public class ImageFormatConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-
         // All textures in the game
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
 
@@ -71,7 +70,6 @@ public class ImageFormatConverter extends Converter {
      * @throws IOException If the formatting fails.
      */
     protected void remapFile(File file, String oldFormat) throws IOException {
-
         // Get the image
         BufferedImage image = ImageIO.read(file);
 
