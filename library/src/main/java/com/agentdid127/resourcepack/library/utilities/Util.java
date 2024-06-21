@@ -48,7 +48,7 @@ public final class Util {
     }
 
     public static int getLatestProtocol(Gson gson) {
-        return getVersionProtocol(gson, "1.20.4");
+        return getVersionProtocol(gson, "1.21");
     }
 
     /**
@@ -63,7 +63,7 @@ public final class Util {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
         if (protocols == null)
             return null;
-        Collection<String> keys = protocols.entrySet().stream().map(i -> i.getKey())
+        Collection<String> keys = protocols.entrySet().stream().map(Map.Entry::getKey)
                 .collect(Collectors.toCollection(ArrayList::new));
         keys.forEach(key -> {
             if (Integer.parseInt(protocols.get(key).getAsString()) == protocol)
