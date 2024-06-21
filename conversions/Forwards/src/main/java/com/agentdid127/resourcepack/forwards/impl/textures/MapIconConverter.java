@@ -2,9 +2,9 @@ package com.agentdid127.resourcepack.forwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -40,17 +40,18 @@ public class MapIconConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator
-                + "textures" + File.separator + "map" + File.separator + "forwards/map_icons.png");
-        if (!imagePath.toFile().exists())
+        Path mapIconsPath = pack.getWorkingPath()
+                .resolve("assets/minecraft/textures/map/map_icons.png".replace("/", File.separator));
+        if (!mapIconsPath.toFile().exists())
             return;
 
         BufferedImage newImage = Util.readImageResource("/forwards/map_icons.png");
         if (newImage == null)
             throw new NullPointerException();
+
         Graphics2D g2d = (Graphics2D) newImage.getGraphics();
 
-        BufferedImage image = ImageIO.read(imagePath.toFile());
+        BufferedImage image = ImageIO.read(mapIconsPath.toFile());
         int scale = image.getWidth() / 32;
 
         for (int x = 0; x <= 32 - 8; x += 8) {
@@ -68,7 +69,7 @@ public class MapIconConverter extends Converter {
             }
         }
 
-        ImageIO.write(newImage, "png", imagePath.toFile());
+        ImageIO.write(newImage, "png", mapIconsPath.toFile());
     }
 
     protected long pack(int x, int y) {
