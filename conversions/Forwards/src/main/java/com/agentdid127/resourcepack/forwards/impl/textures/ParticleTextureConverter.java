@@ -54,9 +54,9 @@ public class ParticleTextureConverter extends Converter {
                 converter.newImage(256, 256);
                 converter.subImage(0, 0, 128, 128, 0, 0);
                 converter.store();
-                slice.setWidth(256);
-                slice.setHeight(256);
             }
+            slice.setWidth(256);
+            slice.setHeight(256);
         }
 
         if (from <= Util.getVersionProtocol(gson, "1.13.2") &&

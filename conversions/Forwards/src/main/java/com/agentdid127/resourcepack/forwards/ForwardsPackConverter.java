@@ -1,12 +1,12 @@
 package com.agentdid127.resourcepack.forwards;
 
+import com.agentdid127.resourcepack.forwards.impl.*;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
-import com.agentdid127.resourcepack.forwards.impl.*;
 import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
