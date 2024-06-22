@@ -5,10 +5,7 @@ import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
-import com.agentdid127.resourcepack.library.utilities.FileUtil;
-import com.agentdid127.resourcepack.library.utilities.ImageConverter;
-import com.agentdid127.resourcepack.library.utilities.JsonUtil;
-import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -17,7 +14,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class ParticleTextureConverter extends Converter {
-    int from, to;
+    private final int from;
+    private final int to;
 
     public ParticleTextureConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -36,9 +34,11 @@ public class ParticleTextureConverter extends Converter {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
         if (!texturesPath.toFile().exists())
             return;
+
         Path particlePath = texturesPath.resolve("particle");
         if (!particlePath.toFile().exists())
             return;
+
         Gson gson = packConverter.getGson();
 
         JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json", JsonObject.class);
@@ -47,6 +47,7 @@ public class ParticleTextureConverter extends Converter {
         Slice slice = Slice.parse(particlesJson);
         if (from <= Util.getVersionProtocol(gson, "1.12.2") &&
                 to >= Util.getVersionProtocol(gson, "1.13")) {
+            Logger.log("Detected 'particles.png' from versions before 1.13, converting to newer size..");
             Path particlesPath = particlePath.resolve(slice.getPath());
             if (particlesPath.toFile().exists()) {
                 ImageConverter converter = new ImageConverter(slice.getWidth(), slice.getHeight(), particlesPath);
@@ -58,9 +59,11 @@ public class ParticleTextureConverter extends Converter {
             }
         }
 
-        Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);
-
-        Path entityPath = texturesPath.resolve("entity");
-        FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), entityPath.resolve("fishing_hook.png"));
+        if (from <= Util.getVersionProtocol(gson, "1.13.2") &&
+                to >= Util.getVersionProtocol(gson, "1.14")) {
+            Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);
+            Path entityPath = texturesPath.resolve("entity");
+            FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), entityPath.resolve("fishing_hook.png"));
+        }
     }
 }
