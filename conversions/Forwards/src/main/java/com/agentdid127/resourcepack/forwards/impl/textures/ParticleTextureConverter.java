@@ -6,7 +6,9 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
+import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -25,7 +27,7 @@ public class ParticleTextureConverter extends Converter {
 
     /**
      * Slice particles.png into multiple for 1.14+
-     * 
+     *
      * @param pack
      * @throws IOException
      */
@@ -38,10 +40,26 @@ public class ParticleTextureConverter extends Converter {
         if (!particlePath.toFile().exists())
             return;
         Gson gson = packConverter.getGson();
-        JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json",
-                JsonObject.class);
+
+        JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json", JsonObject.class);
+        assert particlesJson != null;
+
         Slice slice = Slice.parse(particlesJson);
+        if (from <= Util.getVersionProtocol(gson, "1.12.2") &&
+                to >= Util.getVersionProtocol(gson, "1.13")) {
+            Path particlesPath = particlePath.resolve(slice.getPath());
+            if (particlesPath.toFile().exists()) {
+                ImageConverter converter = new ImageConverter(slice.getWidth(), slice.getHeight(), particlesPath);
+                converter.newImage(256, 256);
+                converter.subImage(0, 0, 128, 128, 0, 0);
+                converter.store();
+                slice.setWidth(256);
+                slice.setHeight(256);
+            }
+        }
+
         Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);
+
         Path entityPath = texturesPath.resolve("entity");
         FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), entityPath.resolve("fishing_hook.png"));
     }
