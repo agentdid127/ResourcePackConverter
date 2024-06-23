@@ -1,12 +1,12 @@
 package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
 
-import java.io.File;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Slice {
     private String path;
@@ -31,6 +31,18 @@ public class Slice {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setWidth(int width) {
+        if (this.width == width)
+            return;
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        if (this.height == height)
+            return;
+        this.height = height;
     }
 
     public JsonObject getPredicate() {

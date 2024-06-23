@@ -1,20 +1,20 @@
 package com.agentdid127.resourcepack.library.utilities;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Collections;
-
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Collections;
 
 public class JsonUtil {
 	public static JsonArray add(JsonArray lhs, JsonArray rhs) {
@@ -63,7 +63,7 @@ public class JsonUtil {
 	}
 
 	public static void writeJson(Gson gson, Path out, JsonElement json) throws IOException {
-		Files.write(out, Collections.singleton(gson.toJson(json)), Charset.forName("UTF-8"));
+		Files.write(out, Collections.singleton(gson.toJson(json)), StandardCharsets.UTF_8);
 	}
 
 	public static boolean isJson(Gson gson, String Json) {
