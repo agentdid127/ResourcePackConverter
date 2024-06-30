@@ -163,5 +163,8 @@
 	},
 	"1_17": {
 		"dirt_path": "grass_path"
+	},
+	"1_20_3": {
+		"short_grass": "grass" 
 	}
 }

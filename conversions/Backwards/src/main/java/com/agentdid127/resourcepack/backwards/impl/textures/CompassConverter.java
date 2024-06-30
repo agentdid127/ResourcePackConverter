@@ -2,25 +2,20 @@ package com.agentdid127.resourcepack.backwards.impl.textures;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
-import com.google.gson.JsonObject;
+import com.agentdid127.resourcepack.library.utilities.Util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 
 public class CompassConverter extends Converter {
-    private int from, to;
+    private int to;
     private Path items;
 
-    public CompassConverter(PackConverter packConverter, int from, int to) {
+    public CompassConverter(PackConverter packConverter, int to) {
         super(packConverter);
-        this.from = from;
         this.to = to;
     }
 
@@ -29,32 +24,28 @@ public class CompassConverter extends Converter {
         String itemsT = "items";
         if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
             itemsT = "item";
-        Path compassPath = pack.getWorkingPath().resolve("assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + itemsT + File.separator + "compass_00.png");
+        Path compassPath = pack.getWorkingPath()
+                .resolve(("assets/minecraft/textures/" + itemsT + "/compass.png").replace("/", File.separator));
         items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
-            ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
-            imageConverter.newImage(16, 16 * 32);
-            if (!imageConverter.fileIsPowerOfTwo()) return;
+            ImageConverter imageConverter = new ImageConverter(16, 16 * 32, compassPath);
+            if (!imageConverter.fileIsPowerOfTwo())
+                return;
 
             for (int i = 0; i < 32; i++) {
                 int h = i * 16;
                 String it = String.valueOf(i);
                 if (i < 10)
                     it = "0" + it;
-                imageConverter.addImage(items.resolve(it + ".png"), 0, h);
-                if (items.resolve(it + ".png").toFile().exists())
-                    items.resolve(it + ".png").toFile().delete();
+                imageConverter.newImage(16, 16);
+                imageConverter.subImage(0, h, 16, h + 16);
+                imageConverter.store(items.resolve(it + ".png"));
             }
 
-            imageConverter.store(items.resolve("compass.png"));
-
-            JsonObject meta = new JsonObject();
-            meta.add("animation", new JsonObject());
-            Files.write(items.resolve("compass.png.mcmeta"), Collections.singleton(packConverter.getGson().toJson(meta)), Charset.forName("UTF-8"));
+            if (items.resolve("compass.png.mcmeta").toFile().exists()) {
+                items.resolve("compass.png.mcmeta").toFile().delete();
+            }
+            compassPath.toFile().delete();
         }
-    }
-
-    private void compass(int x, int y, String name, ImageConverter imageConverter) throws IOException {
-        throw new RuntimeException("todo: compass function in Backwards/CompassConverter");
     }
 }

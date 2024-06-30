@@ -3,9 +3,9 @@ package com.agentdid127.resourcepack.forwards;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.agentdid127.resourcepack.forwards.impl.*;
 import com.google.gson.GsonBuilder;
 
@@ -20,7 +20,7 @@ public class ForwardsPackConverter extends PackConverter {
 
     public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
             PrintStream out) {
-        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
+        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setLenient();
         if (!minify)
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
@@ -32,79 +32,86 @@ public class ForwardsPackConverter extends PackConverter {
         converterRunner(from, to, light);
     }
 
-    protected void converterRunner(String from, String to, String light) {
-        // this needs to be run first, other converters might reference new directory
-        // names
-        this.registerConverter(
-                new NameConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
+    private void converterRunner(String from, String to, String light) {
+        int protocolFrom = Util.getVersionProtocol(gson, from);
+        int protocolTo = Util.getVersionProtocol(gson, to);
 
-        this.registerConverter(new PackMetaConverter(this, Util.getVersionProtocol(gson, to)));
+        // This needs to be run first, other converters might reference
+        // new directory names.
+        this.registerConverter(new NameConverter(this, protocolFrom, protocolTo));
+        this.registerConverter(new PackMetaConverter(this, protocolFrom, protocolTo));
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.9")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.9"))
-            this.registerConverter(
-                    new CompassConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.9")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.9")) {
+            this.registerConverter(new CompassConverter(this, protocolTo));
+            this.registerConverter(new OffHandCreator(this));
+        }
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.11")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.11"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.11")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.11"))
             this.registerConverter(new SpacesConverter(this));
 
-        this.registerConverter(new ModelConverter(this, light, Util.getVersionProtocol(gson, to),
-                Util.getVersionProtocol(gson, from)));
+        this.registerConverter(new ModelConverter(this, light, protocolTo, protocolFrom));
 
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.12.2")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.13")) {
+        if (protocolFrom <= Util.getVersionProtocol(gson, "1.12.2")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.13")) {
             this.registerConverter(new SoundsConverter(this));
             this.registerConverter(new AnimationConverter(this));
             this.registerConverter(new MapIconConverter(this));
             this.registerConverter(new MCPatcherConverter(this));
+            this.registerConverter(new WaterConverter(this));
         }
 
-        this.registerConverter(
-                new BlockStateConverter(this, Util.getVersionProtocol(gson, from), Util.getVersionProtocol(gson, to)));
+        this.registerConverter(new BlockStateConverter(this, protocolFrom, protocolTo));
 
-        if (Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.13"))
+        if (protocolTo >= Util.getVersionProtocol(gson, "1.13"))
             this.registerConverter(new LangConverter(this, from, to));
 
-        this.registerConverter(new ParticleTextureConverter(this, Util.getVersionProtocol(gson, from),
-                Util.getVersionProtocol(gson, to)));
+        this.registerConverter(new ParticleTextureConverter(this, protocolFrom, protocolTo));
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.15") && protocolTo >= Util.getVersionProtocol(gson, "1.15"))
+            this.registerConverter(new ChestConverter(this));
 
-        this.registerConverter(new ChestConverter(this));
-
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.13")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.14.4"))
+        if (protocolFrom <= Util.getVersionProtocol(gson, "1.13")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.14.4"))
             this.registerConverter(new PaintingConverter(this));
 
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.13.2")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.14"))
-            this.registerConverter(new MobEffectAtlasConverter(this));
+        if (protocolFrom <= Util.getVersionProtocol(gson, "1.13.2")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.14"))
+            this.registerConverter(new MobEffectAtlasConverter(this, protocolFrom));
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.15")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.15"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.15")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.15"))
             this.registerConverter(new EnchantConverter(this));
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.18")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.18"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.18")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.18"))
             this.registerConverter(new ParticleConverter(this));
 
         this.registerConverter(new InventoryConverter(this));
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.19.3")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.19.3"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.19.3")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.19.3")) {
             this.registerConverter(new AtlasConverter(this));
+            this.registerConverter(new CreativeTabsConverter(this));
+        }
 
-        if (Util.getVersionProtocol(gson, from) < Util.getVersionProtocol(gson, "1.19.4")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.19.4"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.19.4")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.19.4")) {
             this.registerConverter(new EnchantPathConverter(this));
+            this.registerConverter(new SlidersCreator(this));
+        }
 
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.19.4")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20"))
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.20"))
             this.registerConverter(new TitleConverter(this));
 
-        if (Util.getVersionProtocol(gson, from) <= Util.getVersionProtocol(gson, "1.20.1")
-                && Util.getVersionProtocol(gson, to) >= Util.getVersionProtocol(gson, "1.20.2")) {
-            // register gui slicer
-        }
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.2")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.20.2"))
+            this.registerConverter(new SlicerConverter(this, protocolFrom));
+
+        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.3")
+                && protocolTo >= Util.getVersionProtocol(gson, "1.20.3"))
+            this.registerConverter(new ImageFormatConverter(this));
     }
 
     public void runPack(Pack pack) {

@@ -2,18 +2,17 @@ package com.agentdid127.resourcepack.forwards.impl;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 
 public class AnimationConverter extends Converter {
     public AnimationConverter(PackConverter packConverter) {
@@ -23,13 +22,13 @@ public class AnimationConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "block"));
+                "assets/minecraft/textures/block".replace("/", File.separator)));
         fixAnimations(pack.getWorkingPath().resolve(
-                "assets" + File.separator + "minecraft" + File.separator + "textures" + File.separator + "item"));
+                "assets/minecraft/textures/item".replace("/", File.separator)));
     }
 
     /**
-     * Updats animated images to newer versions
+     * Updates animated images to newer versions
      * 
      * @param animations
      * @throws IOException
@@ -41,7 +40,7 @@ public class AnimationConverter extends Converter {
                 .filter(file -> file.toString().endsWith(".png.mcmeta"))
                 .forEach(file -> {
                     try {
-                        JsonObject json = Util.readJson(packConverter.getGson(), file);
+                        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
                         boolean anyChanges = false;
                         JsonElement animationElement = json.get("animation");
@@ -56,8 +55,7 @@ public class AnimationConverter extends Converter {
                         }
 
                         if (anyChanges) {
-                            Files.write(file, Collections.singleton(packConverter.getGson().toJson(json)),
-                                    Charset.forName("UTF-8"));
+                            JsonUtil.writeJson(packConverter.getGson(), file, json);
                             if (PackConverter.DEBUG)
                                 Logger.log("      Converted " + file.getFileName());
                         }

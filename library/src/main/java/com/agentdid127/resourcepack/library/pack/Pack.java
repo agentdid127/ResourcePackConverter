@@ -1,7 +1,7 @@
 package com.agentdid127.resourcepack.library.pack;
 
-import com.agentdid127.resourcepack.library.Util;
 import com.agentdid127.resourcepack.library.utilities.BomDetector;
+import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 
 import java.io.IOException;
@@ -75,11 +75,11 @@ public class Pack {
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
                 Logger.log("  Deleting existing conversion");
-                Util.deleteDirectoryAndContents(pack.getWorkingPath());
+                FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
             Logger.log("  Copying existing pack");
-            Util.copyDir(pack.getOriginalPath(), pack.getWorkingPath());
+            FileUtil.copyDirectory(pack.getOriginalPath(), pack.getWorkingPath());
 
             bomRemover(pack.getWorkingPath());
         }
