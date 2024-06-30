@@ -1,0 +1,347 @@
+{
+    "path": "map_icons.png",
+    "width": 128,
+    "height": 128,
+    "delete": true,
+    "textures": [
+        {
+            "path": "decorations/player.png",
+            "box": {
+                "x": 0,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/frame.png",
+            "box": {
+                "x": 8,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/red_marker.png",
+            "box": {
+                "x": 16,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/target_x.png",
+            "box": {
+                "x": 24,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/target_point.png",
+            "box": {
+                "x": 32,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/player_off_map.png",
+            "box": {
+                "x": 40,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/player_off_limits.png",
+            "box": {
+                "x": 48,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/woodland_mansion.png",
+            "box": {
+                "x": 56,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/ocean_monument.png",
+            "box": {
+                "x": 64,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/white_banner.png",
+            "box": {
+                "x": 72,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/orange_banner.png",
+            "box": {
+                "x": 80,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/magenta_banner.png",
+            "box": {
+                "x": 88,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/light_blue_banner.png",
+            "box": {
+                "x": 96,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/yellow_banner.png",
+            "box": {
+                "x": 104,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/lime_banner.png",
+            "box": {
+                "x": 112,
+                "y": 0,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/pink_banner.png",
+            "box": {
+                "x": 0,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/gray_banner.png",
+            "box": {
+                "x": 8,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/light_gray_banner.png",
+            "box": {
+                "x": 16,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/cyan_banner.png",
+            "box": {
+                "x": 24,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/purple_banner.png",
+            "box": {
+                "x": 32,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/blue_banner.png",
+            "box": {
+                "x": 40,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/brown_banner.png",
+            "box": {
+                "x": 48,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/green_banner.png",
+            "box": {
+                "x": 56,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/red_banner.png",
+            "box": {
+                "x": 64,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/black_banner.png",
+            "box": {
+                "x": 72,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/red_x.png",
+            "box": {
+                "x": 80,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/desert_village.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 88,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/plains_village.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 96,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/savanna_village.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 104,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/snowy_village.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 112,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/taiga_village.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 120,
+                "y": 8,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/jungle_temple.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 0,
+                "y": 16,
+                "width": 8,
+                "height": 8
+            }
+        },
+        {
+            "path": "decorations/swamp_hut.png",
+            "predicate": {
+                "protocol": {
+                    "min_inclusive": 764,
+                    "max_inclusive": null
+                }
+            },
+            "box": {
+                "x": 8,
+                "y": 16,
+                "width": 8,
+                "height": 8
+            }
+        }
+    ]
+}
