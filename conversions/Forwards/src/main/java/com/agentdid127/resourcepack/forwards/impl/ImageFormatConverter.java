@@ -56,13 +56,9 @@ public class ImageFormatConverter extends Converter {
         if (!directory.exists() || !directory.isDirectory()) {
             return;
         }
-        File[] files = directory.listFiles();
-        if (files == null) {
-            return;
-        }
 
         // Check each file
-        for (File file : files) {
+        for (File file : directory.listFiles()) {
             if (file.isDirectory())
                 findImage(file.toPath(), type);
             else {
