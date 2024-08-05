@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Converts Images to only use PNG formats.
@@ -34,7 +35,7 @@ public class ImageFormatConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         // All textures in the game
-        Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
+        Path texturesPath = pack.getWorkingPath().resolve(Paths.get("assets", "minecraft", "textures"));
 
         // check for invalid images for all of these types.
         for (String type : types) {
@@ -50,7 +51,13 @@ public class ImageFormatConverter extends Converter {
      * @throws IOException If the images are not found, or the remapping fails.
      */
     protected void findImage(Path path, String type) throws IOException {
+        // Find all files in the directory
         File directory = path.toFile();
+        if (!directory.exists() || !directory.isDirectory()) {
+            return;
+        }
+
+        // Check each file
         for (File file : directory.listFiles()) {
             if (file.isDirectory())
                 findImage(file.toPath(), type);
