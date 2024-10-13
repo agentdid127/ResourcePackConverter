@@ -20,7 +20,7 @@ public class ForwardsPackConverter extends PackConverter {
 
     public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
             PrintStream out) {
-        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setLenient();
+        GsonBuilder gsonBuilder = new GsonBuilder().setLenient();
         if (!minify)
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
