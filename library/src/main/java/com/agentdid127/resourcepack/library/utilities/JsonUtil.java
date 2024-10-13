@@ -71,6 +71,7 @@ public class JsonUtil {
 			gson.fromJson(Json, Object.class);
 			return true;
 		} catch (com.google.gson.JsonSyntaxException ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
