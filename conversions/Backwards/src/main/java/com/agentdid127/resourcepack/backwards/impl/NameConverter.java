@@ -68,11 +68,9 @@ public class NameConverter extends Converter {
                 && from > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             // OptiFine conversion
             if (minecraftPath.resolve("mcpatcher").toFile().exists()) {
-                if (PackConverter.DEBUG)
-                    Logger.log("MCPatcher exists, switching to optifine");
+                Logger.debug("MCPatcher exists, switching to optifine");
                 if (minecraftPath.resolve("optifine").toFile().exists()) {
-                    if (PackConverter.DEBUG)
-                        Logger.log("OptiFine exists, merging directories");
+                    Logger.debug("OptiFine exists, merging directories");
                     FileUtil.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
                             minecraftPath.resolve("mcpatcher").toFile());
                 } else
@@ -182,8 +180,7 @@ public class NameConverter extends Converter {
         // Less than 1.12
         if (from > Util.getVersionProtocol(packConverter.getGson(), "1.13")
                 && to < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-            if (PackConverter.DEBUG)
-                Logger.log("Finding files that are greater than 1.12");
+            Logger.debug("Finding files that are greater than 1.12");
             findFiles(texturesPath);
         }
     }
@@ -220,14 +217,12 @@ public class NameConverter extends Converter {
         for (File file : directory.listFiles()) {
             if (file.isDirectory()) {
                 if (file.getName().equals("item")) {
-                    if (PackConverter.DEBUG)
-                        Logger.log("Found Items folder, renaming");
+                    Logger.debug("Found Items folder, renaming");
                     FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("item", "items"));
                 }
 
                 if (file.getName().equals("block")) {
-                    if (PackConverter.DEBUG)
-                        Logger.log("Found blocks folder, renaming");
+                    Logger.debug("Found blocks folder, renaming");
                     FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("block", "blocks"));
                 }
 
@@ -238,8 +233,7 @@ public class NameConverter extends Converter {
                 FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
 
             if (!file.getName().equals(file.getName().toLowerCase()))
-                if (PackConverter.DEBUG)
-                    Logger.log("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
+                Logger.debug("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
 
             FileUtil.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
         }
@@ -266,8 +260,8 @@ public class NameConverter extends Converter {
                             newName + extension);
                     if (ret == null)
                         return;
-                    if (ret && PackConverter.DEBUG)
-                        Logger.log("      Renamed: " + name + extension + "->" + newName + extension);
+                    if (ret)
+                        Logger.debug("Renamed: " + name + extension + "->" + newName + extension);
                     else if (!ret)
                         System.err.println("      Failed to rename: " + name + extension + "->" + newName + extension);
                 });
@@ -282,11 +276,10 @@ public class NameConverter extends Converter {
                                 newName + extension);
                         if (ret == null)
                             return;
-                        if (ret && PackConverter.DEBUG)
-                            Logger.log("      Renamed: " + name + extension + "->" + newName + extension);
+                        if (ret)
+                            Logger.debug("Renamed: " + name + extension + "->" + newName + extension);
                         else if (!ret)
-                            System.err.println(
-                                    "      Failed to rename: " + name + extension + "->" + newName + extension);
+                            Logger.log("Failed to rename: " + name + extension + "->" + newName + extension);
                     }
                 });
             }
@@ -307,9 +300,8 @@ public class NameConverter extends Converter {
                     Boolean ret = FileUtil.renameFile(path1, newName + extension);
                     if (ret == null)
                         return;
-                    if (ret && PackConverter.DEBUG)
-                        Logger.log(
-                                "      Renamed: " + path1.getFileName().toString() + "->" + newName + extension);
+                    if (ret)
+                        Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newName + extension);
                     else if (!ret)
                         System.err.println("      Failed to rename: " + path1.getFileName().toString() + "->" + newName
                                 + extension);

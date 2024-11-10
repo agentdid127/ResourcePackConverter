@@ -43,47 +43,49 @@ public class BlockStateConverter extends Converter {
                 .forEach(file -> {
                     try {
                         JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
+                        if (json != null) {
+                            // process multipart
+                            if (json.has("multipart")) {
+                                JsonElement multipart = json.get("multipart");
+                                if (multipart.isJsonArray()) {
+                                    JsonArray multipartArray = multipart.getAsJsonArray();
+                                    for (JsonElement element : multipartArray) {
+                                        JsonObject multipartObject = element.getAsJsonObject();
+                                        for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
+                                            updateModelPath(entry);
+                                    }
+                                }
+                            }
 
-                        // process multipart
-                        if (json.has("multipart")) {
-                            JsonElement multipart = json.get("multipart");
-                            if (multipart.isJsonArray()) {
-                                JsonArray multipartArray = multipart.getAsJsonArray();
-                                for (JsonElement element : multipartArray) {
-                                    JsonObject multipartObject = element.getAsJsonObject();
-                                    for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
+                            // process variants
+                            if (json.has("variants")) {
+                                JsonElement variants = json.get("variants");
+                                if (variants.isJsonObject()) {
+                                    JsonObject variantsObject = variants.getAsJsonObject();
+                                    // change "normal" key to ""
+                                    if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
+                                            && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
+                                            && variantsObject.has("normal")) {
+                                        JsonElement normal = variantsObject.get("normal");
+                                        if (normal instanceof JsonObject || normal instanceof JsonArray) {
+                                            variantsObject.add("", normal);
+                                            variantsObject.remove("normal");
+                                            anyChanges = true;
+                                        }
+                                    }
+
+                                    // update model paths to prepend block
+                                    for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet())
                                         updateModelPath(entry);
                                 }
                             }
-                        }
 
-                        // process variants
-                        if (json.has("variants")) {
-                            JsonElement variants = json.get("variants");
-                            if (variants.isJsonObject()) {
-                                JsonObject variantsObject = variants.getAsJsonObject();
-                                // change "normal" key to ""
-                                if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
-                                        && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                                        && variantsObject.has("normal")) {
-                                    JsonElement normal = variantsObject.get("normal");
-                                    if (normal instanceof JsonObject || normal instanceof JsonArray) {
-                                        variantsObject.add("", normal);
-                                        variantsObject.remove("normal");
-                                        anyChanges = true;
-                                    }
-                                }
-
-                                // update model paths to prepend block
-                                for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet())
-                                    updateModelPath(entry);
+                            if (anyChanges) {
+                                JsonUtil.writeJson(packConverter.getGson(), file, json);
+                                Logger.debug("Converted " + file.getFileName());
                             }
-                        }
-
-                        if (anyChanges) {
-                            JsonUtil.writeJson(packConverter.getGson(), file, json);
-                            if (PackConverter.DEBUG)
-                                Logger.log("      Converted " + file.getFileName());
+                        } else {
+                            Logger.log("Failed to convert: " + file.getFileName() + " as JSON is invalid.");
                         }
                     } catch (IOException e) {
                         Util.propagate(e);

@@ -102,13 +102,13 @@ public final class FileUtil {
         File[] files = dir2.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                Logger.log(targetDirPath + File.separator + file.getName());
+                Logger.debug(targetDirPath + File.separator + file.getName());
                 File file3 = new File(targetDirPath + File.separator + file.getName());
                 file3.mkdirs();
-                Logger.log("Created" + file3.getName());
+                Logger.debug("Created" + file3.getName());
                 mergeDirectories(file3, file);
             } else {
-                Logger.log(targetDirPath + File.separator + file.getName());
+                Logger.debug(targetDirPath + File.separator + file.getName());
                 file.renameTo(new File(targetDirPath + File.separator + file.getName()));
             }
         }

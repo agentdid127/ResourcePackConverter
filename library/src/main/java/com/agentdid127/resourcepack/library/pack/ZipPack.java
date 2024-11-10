@@ -44,13 +44,13 @@ public class ZipPack extends Pack {
         @Override
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                Logger.log("  Deleting existing conversion");
+                Logger.log("Deleting existing conversion");
                 FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
             Path convertedZipPath = getConvertedZipPath();
             if (convertedZipPath.toFile().exists()) {
-                Logger.log("  Deleting existing conversion zip");
+                Logger.log("Deleting existing conversion zip");
                 convertedZipPath.toFile().delete();
             }
 
@@ -75,7 +75,7 @@ public class ZipPack extends Pack {
         @Override
         public void finish() throws IOException {
             try {
-                Logger.log("  Zipping working directory");
+                Logger.log("Zipping working directory");
                 ZipFile zipFile = new ZipFile(getConvertedZipPath().toFile());
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
@@ -85,7 +85,7 @@ public class ZipPack extends Pack {
                 Util.propagate(e);
             }
 
-            Logger.log("  Deleting working directory");
+            Logger.log("Deleting working directory");
             FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
         }
 

@@ -61,7 +61,7 @@ public class MapIconConverter extends Converter {
 
                 int newX = (int) (mapped >> 32);
                 int newY = (int) (long) mapped;
-                Logger.log("      Mapping " + x + "," + y + " to " + newX + "," + newY);
+                Logger.log("Mapping " + x + "," + y + " to " + newX + "," + newY);
 
                 g2d.drawImage(image.getSubimage(x * scale, y * scale, 8 * scale, 8 * scale), newX * scale, newY * scale,
                         null);

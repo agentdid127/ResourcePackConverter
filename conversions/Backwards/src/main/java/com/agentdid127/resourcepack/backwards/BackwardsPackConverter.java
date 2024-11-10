@@ -24,10 +24,9 @@ public class BackwardsPackConverter extends PackConverter {
         if (!minify)
             gsonBuilder.setPrettyPrinting();
         gson = gsonBuilder.create();
-        DEBUG = debug;
+        Logger.setDebug(debug);
         Logger.setStream(out);
-        Logger.log(from);
-        Logger.log(to);
+        Logger.log("Converting packs from: " + from + " to " + to);
         this.INPUT_DIR = input;
         converterRunner(from, to, light);
     }
@@ -88,15 +87,19 @@ public class BackwardsPackConverter extends PackConverter {
     public void runPack(Pack pack) {
         try {
             Logger.log("Converting " + pack);
+            Logger.addTab();
             pack.getHandler().setup();
-            Logger.log("  Running Converters");
+            Logger.log("Running Converters");
             for (Converter converter : converters.values()) {
-                if (DEBUG)
-                    Logger.log("    Running " + converter.getClass().getSimpleName());
+                Logger.addTab();
+                Logger.log("Running " + converter.getClass().getSimpleName());
                 converter.convert(pack);
+                Logger.subTab();
             }
             pack.getHandler().finish();
+            Logger.subTab();
         } catch (Throwable t) {
+            Logger.resetTab();
             Logger.log("Failed to convert!");
             Util.propagate(t);
         }
