@@ -21,7 +21,7 @@ public class Slicer {
 
         Path path = root.resolve(slice.getPath());
         if (!path.toFile().exists()) {
-            Logger.log("Texture '" + slice.getPath() + "' doesn't exist, ignoring...");
+            Logger.debug("Texture '" + slice.getPath() + "' doesn't exist, ignoring...");
             return;
         }
 
@@ -79,7 +79,7 @@ public class Slicer {
         }
 
         if (!path.toFile().delete())
-            Logger.log("Failed to remove '" + path.getFileName() + "' whilst slicing.");
+            Logger.debug("Failed to remove '" + path.getFileName() + "' whilst slicing.");
 
         if (!slice.shouldDelete())
             converter.store(imagePath);

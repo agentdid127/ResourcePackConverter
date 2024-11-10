@@ -89,8 +89,7 @@ public class BlockStateConverter extends Converter {
                         }
                         if (anyChanges) {
                             JsonUtil.writeJson(packConverter.getGson(), file, json);
-                            if (PackConverter.DEBUG)
-                                Logger.log("      Converted " + file.getFileName());
+                                Logger.debug("Converted " + file.getFileName());
                         }
                     } catch (IOException e) {
                         Util.propagate(e);

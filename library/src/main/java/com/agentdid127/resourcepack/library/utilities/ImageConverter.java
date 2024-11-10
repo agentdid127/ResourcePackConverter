@@ -39,7 +39,7 @@ public class ImageConverter {
         }
 
         if (!fileIsPowerOfTwo()) {
-            Logger.log("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
+            Logger.debug("Image (" + image.getWidth() + "x" + image.getHeight() + ") '" + locationIn.getFileName()
                     + "' resolution size is not a power of 2. Converting to be so.");
 
             int fixed_width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
@@ -105,7 +105,7 @@ public class ImageConverter {
      */
     public void setImage(int defaultWIn, int defaultHIn) throws IOException {
         if (!imageIsPowerOfTwo(newImage)) {
-            Logger.log("Image '" + location.getFileName() + "' is not a power of 2");
+            Logger.debug("Image '" + location.getFileName() + "' is not a power of 2");
             return;
         }
         image = newImage;

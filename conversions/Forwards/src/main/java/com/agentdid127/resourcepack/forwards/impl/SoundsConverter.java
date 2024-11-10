@@ -62,8 +62,7 @@ public class SoundsConverter extends Converter {
                             String rewrite = path.toFile().getCanonicalPath().substring(
                                     baseSoundsPath.toString().length() + 1,
                                     path.toFile().getCanonicalPath().length() - 4);
-                            if (PackConverter.DEBUG)
-                                Logger.log("      Rewriting Sound: '" + sound + "' -> '" + rewrite + "'");
+                            Logger.debug("Rewriting Sound: '" + sound + "' -> '" + rewrite + "'");
                             sound = rewrite;
                         } else {
                             sound = jsonElement.getAsString();

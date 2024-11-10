@@ -49,7 +49,7 @@ public class ParticleTextureConverter extends Converter {
             if (from <= Util.getVersionProtocol(gson, "1.12.2")) {
                 Path particlesPath = particlePath.resolve(slice.getPath());
                 if (particlesPath.toFile().exists()) {
-                    Logger.log("Detected 'particles.png' from versions before 1.13, converting to newer size..");
+                    Logger.debug("Detected 'particles.png' from versions before 1.13, converting to newer size..");
                     ImageConverter converter = new ImageConverter(slice.getWidth(), slice.getHeight(), particlesPath);
                     converter.newImage(256, 256);
                     converter.subImage(0, 0, 128, 128, 0, 0);

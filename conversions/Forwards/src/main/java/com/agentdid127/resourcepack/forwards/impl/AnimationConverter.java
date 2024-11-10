@@ -42,24 +42,28 @@ public class AnimationConverter extends Converter {
                     try {
                         JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
-                        boolean anyChanges = false;
-                        JsonElement animationElement = json.get("animation");
-                        if (animationElement instanceof JsonObject) {
-                            JsonObject animationObject = (JsonObject) animationElement;
+                        if (json != null) {
+                            boolean anyChanges = false;
+                            JsonElement animationElement = json.get("animation");
+                            if (animationElement instanceof JsonObject) {
+                                JsonObject animationObject = (JsonObject) animationElement;
 
-                            // TODO: Confirm this doesn't break any packs
-                            animationObject.remove("width");
-                            animationObject.remove("height");
+                                // TODO: Confirm this doesn't break any packs
+                                animationObject.remove("width");
+                                animationObject.remove("height");
 
-                            anyChanges = true;
-                        }
+                                anyChanges = true;
+                            }
 
-                        if (anyChanges) {
-                            JsonUtil.writeJson(packConverter.getGson(), file, json);
-                            if (PackConverter.DEBUG)
-                                Logger.log("      Converted " + file.getFileName());
+                            if (anyChanges) {
+                                JsonUtil.writeJson(packConverter.getGson(), file, json);
+                                Logger.debug("Converted " + file.getFileName());
+                            }
+                        } else {
+                            Logger.log("File: " + file.getFileName() + " is not a valid JSON file.");
                         }
                     } catch (IOException e) {
+                        Logger.log("Failed to convert file: " + file.getFileName());
                         Util.propagate(e);
                     }
                 });

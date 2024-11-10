@@ -64,11 +64,11 @@ public class SpacesConverter extends Converter {
         if (ret == null)
             return "null";
 
-        if (ret && PackConverter.DEBUG) {
-            Logger.log("      Renamed: " + path.getFileName().toString() + "->" + noSpaces);
+        if (ret) {
+            Logger.debug("Renamed: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         } else if (!ret) {
-            System.err.println("      Failed to rename: " + path.getFileName().toString() + "->" + noSpaces);
+            Logger.log("Failed to rename: " + path.getFileName().toString() + "->" + noSpaces);
             return path.getParent() + File.separator + noSpaces;
         }
 

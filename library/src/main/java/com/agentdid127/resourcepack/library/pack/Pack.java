@@ -74,11 +74,11 @@ public class Pack {
          */
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                Logger.log("  Deleting existing conversion");
+                Logger.log("Deleting existing conversion");
                 FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
-            Logger.log("  Copying existing pack");
+            Logger.log("Copying existing pack");
             FileUtil.copyDirectory(pack.getOriginalPath(), pack.getWorkingPath());
 
             bomRemover(pack.getWorkingPath());
@@ -90,7 +90,7 @@ public class Pack {
                     ".txt", ".json", ".mcmeta", ".properties", ".lang");
             int count = bom.findBOMs().size();
             if (count > 0)
-                Logger.log("Removing BOMs from " + count + " files.");
+                Logger.debug("Removing BOMs from " + count + " files.");
             bom.removeBOMs();
         }
 
