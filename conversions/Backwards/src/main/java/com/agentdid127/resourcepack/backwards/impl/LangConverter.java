@@ -86,7 +86,7 @@ public class LangConverter extends Converter {
                     try {
                         int modelNoJson = model.getFileName().toString().indexOf(".json");
                         String file2 = model.getFileName().toString().substring(0, modelNoJson);
-                        Logger.log("Saving: " + file2 + ".lang");
+                        Logger.debug("Saving: " + file2 + ".lang");
                         out.store(
                                 new FileOutputStream(
                                         pack.getWorkingPath()
@@ -103,7 +103,7 @@ public class LangConverter extends Converter {
         for (int i = 0; i < models.size(); i++) {
             Path langFilePath = pack.getWorkingPath()
                     .resolve(("assets/minecraft/lang/" + models.get(i)).replace("/", File.separator));
-            Logger.log("Deleting: " + langFilePath);
+            Logger.debug("Deleting: " + langFilePath);
             Files.delete(langFilePath);
         }
     }

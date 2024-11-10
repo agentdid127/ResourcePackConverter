@@ -64,8 +64,7 @@ public class MCPatcherConverter extends Converter {
                 .filter(path1 -> path1.toString().endsWith(".properties"))
                 .forEach(model -> {
                     try (InputStream input = new FileInputStream(model.toString())) {
-                        if (PackConverter.DEBUG)
-                            Logger.log("Updating:" + model.getFileName());
+                        Logger.debug("Updating:" + model.getFileName());
                         PropertiesEx prop = new PropertiesEx();
                         prop.load(input);
 

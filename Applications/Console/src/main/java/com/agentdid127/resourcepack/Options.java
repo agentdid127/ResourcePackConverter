@@ -16,7 +16,7 @@ public class Options {
 
     public static final OptionSpec<Path> INPUT_DIR = PARSER.acceptsAll(Arrays.asList("i", "input", "input-dir"), "Input directory for the packs").withRequiredArg().withValuesConvertedBy(new PathConverter()).defaultsTo(Paths.get("./"));
 
-    public static final OptionSpec<Boolean> DEBUG = PARSER.accepts("debug", "Displays other output").withRequiredArg().ofType(Boolean.class).defaultsTo(true);
+    public static final OptionSpec<Boolean> DEBUG = PARSER.accepts("debug", "Displays other output").withRequiredArg().ofType(Boolean.class).defaultsTo(false);
 
     public static final OptionSpec<String> TO = PARSER.accepts("to", "Updates to version").withRequiredArg().ofType(String.class).defaultsTo("1.13");
 

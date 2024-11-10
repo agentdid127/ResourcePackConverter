@@ -80,13 +80,13 @@ public class ModelConverter extends Converter {
 								&& JsonUtil.readJson(packConverter.getGson(), model).isJsonObject())
 							jsonObject = JsonUtil.readJson(packConverter.getGson(), model);
 						else {
-							if (PackConverter.DEBUG) {
-								Logger.log("Could not convert model: " + model.getFileName());
+							Logger.debug("Could not convert model: " + model.getFileName());
+							Logger.addTab();
 								if (JsonUtil.readJson(packConverter.getGson(), model) == null)
-									Logger.log("Check for Syntax Errors in file.");
+									Logger.debug("Check for Syntax Errors in file.");
 								else
-									Logger.log("File is not JSON Object.");
-							}
+									Logger.debug("File is not JSON Object.");
+							Logger.subTab();	
 							return;
 						}
 
@@ -223,8 +223,7 @@ public class ModelConverter extends Converter {
 						}
 
 						if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
-							if (PackConverter.DEBUG)
-								Logger.log("Updating Model: " + model.getFileName());
+							Logger.debug("Updating Model: " + model.getFileName());
 							JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
 						}
 					} catch (IOException e) {
@@ -354,7 +353,7 @@ public class ModelConverter extends Converter {
 		String parent2 = parent.replace(prefix, "");
 		JsonObject file = JsonUtil.readJsonResource(packConverter.getGson(), path).getAsJsonObject(item);
 		if (file == null) {
-			Logger.log("Prefix Failed on: " + parent);
+			Logger.debug("Prefix Failed on: " + parent);
 			return "";
 		}
 		return file.has(parent2) ? prefix + file.get(parent2).getAsString() : parent;
