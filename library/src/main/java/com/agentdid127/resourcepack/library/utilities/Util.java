@@ -2,17 +2,17 @@ package com.agentdid127.resourcepack.library.utilities;
 
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public final class Util {
     private Util() {
@@ -21,7 +21,7 @@ public final class Util {
 
     /**
      * Reads Image as BufferedImage
-     * 
+     *
      * @param path Path to file
      * @return Buffered Image
      */
@@ -36,15 +36,67 @@ public final class Util {
     }
 
     /**
+     * Gets Minecraft Version from Protocol number
+     *
+     * @param gson     Gson object to use
+     * @param protocol Protocol version number
+     * @return Minecraft Version number
+     */
+    public static String getVersionFromProtocol(Gson gson, int protocol) {
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
+        if (protocols == null) return null;
+
+        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+            JsonObject versionObj = entry.getValue().getAsJsonObject();
+            if (Integer.parseInt(versionObj.get("protocol_version").getAsString()) == protocol) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets version object containing protocol_version and pack_format by protocol version
+     *
+     * @param gson     Gson object to use
+     * @param protocol Protocol version number
+     * @return JsonObject containing version information
+     */
+    public static JsonObject getVersionObjectByProtocol(Gson gson, int protocol) {
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
+        if (protocols == null) return null;
+
+        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+            JsonObject versionObj = entry.getValue().getAsJsonObject();
+            if (Integer.parseInt(versionObj.get("protocol_version").getAsString()) == protocol) {
+                return versionObj;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets version object containing protocol_version and pack_format
+     *
+     * @param gson    Gson object to use
+     * @param version Minecraft Version Number.
+     * @return JsonObject containing version information
+     */
+    public static JsonObject getVersionObject(Gson gson, String version) {
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
+        return protocols == null ? null : protocols.getAsJsonObject(version);
+    }
+
+    /**
      * Gets version protocol number
-     * 
+     *
      * @param gson    Gson object to use
      * @param version Minecraft Version Number.
      * @return Protocol Integer Number
      */
     public static int getVersionProtocol(Gson gson, String version) {
-        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        return protocols == null ? 0 : Integer.parseInt(protocols.get(version).getAsString());
+        JsonObject versionObj = getVersionObject(gson, version);
+        return versionObj == null ? 0 : Integer.parseInt(versionObj.get("protocol_version").getAsString());
     }
 
     public static int getLatestProtocol(Gson gson) {
@@ -52,29 +104,8 @@ public final class Util {
     }
 
     /**
-     * Gets Minecraft Version from Protocol number
-     * 
-     * @param gson     Gson object to use
-     * @param protocol Protocol version number
-     * @return Minecraft Version number
-     */
-    public static String getVersionFromProtocol(Gson gson, int protocol) {
-        AtomicReference<String> version = new AtomicReference<String>("ok boomer");
-        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null)
-            return null;
-        Collection<String> keys = protocols.entrySet().stream().map(Map.Entry::getKey)
-                .collect(Collectors.toCollection(ArrayList::new));
-        keys.forEach(key -> {
-            if (Integer.parseInt(protocols.get(key).getAsString()) == protocol)
-                version.set(key);
-        });
-        return version.toString();
-    }
-
-    /**
      * Gets Supported versions of Resource Pack Converter
-     * 
+     *
      * @param gson Gson object to use
      * @return String list of all minecraft versions
      */

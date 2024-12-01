@@ -23,7 +23,7 @@ public class PackMetaConverter extends Converter {
 
     /**
      * Converts MCMeta to newer version
-     * 
+     *
      * @param pack
      * @throws IOException
      */
@@ -34,67 +34,17 @@ public class PackMetaConverter extends Converter {
             return;
 
         int versionInt = 4;
-
-        // Possible TODO: Make this JSON? Possibly use protocol.json, but update it.
-        if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.2"))
-            versionInt = 42;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.21")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.21.2"))
-            versionInt = 34;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.5")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.21"))
-            versionInt = 32;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.3")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.20.5"))
-            versionInt = 22;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.20.3"))
-            versionInt = 18;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.20")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.20.2"))
-            versionInt = 15;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.4")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.20"))
-            versionInt = 13;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.4"))
-            versionInt = 12;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3"))
-            versionInt = 9;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.18")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
-            versionInt = 8;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.17")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.18"))
-            versionInt = 7;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.16.2")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.17"))
-            versionInt = 6;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.16.2"))
-            versionInt = 5;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.15"))
-            versionInt = 4;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.11")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.13"))
-            versionInt = 3;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.9")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.11"))
-            versionInt = 2;
-        else if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.7.2")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.9"))
-            versionInt = 1;
-        else
-            versionInt = 0;
+        JsonObject versionObj = Util.getVersionObjectByProtocol(packConverter.getGson(), to);
+        if (versionObj != null) {
+            versionInt = Integer.parseInt(versionObj.get("pack_format").getAsString());
+        }
 
         JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
         if (json == null) {
             json = new JsonObject();
         }
-        
+
         {
             JsonObject meta = json.getAsJsonObject("meta");
             if (meta == null)
@@ -111,9 +61,12 @@ public class PackMetaConverter extends Converter {
 
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.2")
                     && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
+                JsonObject fromVersion = Util.getVersionObjectByProtocol(packConverter.getGson(), from);
+                JsonObject toVersion = Util.getVersionObjectByProtocol(packConverter.getGson(), to);
+
                 JsonObject supportedFormats = new JsonObject();
-                supportedFormats.addProperty("min_inclusive", versionInt);
-                supportedFormats.addProperty("max_inclusive", versionInt); // TODO: A better way to do this
+                supportedFormats.addProperty("min_inclusive", fromVersion != null ? Integer.parseInt(fromVersion.get("pack_format").getAsString()) : versionInt);
+                supportedFormats.addProperty("max_inclusive", toVersion != null ? Integer.parseInt(toVersion.get("pack_format").getAsString()) : versionInt);
                 packObject.add("supported_formats", supportedFormats);
             }
 

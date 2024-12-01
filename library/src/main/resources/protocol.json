@@ -1,86 +1,338 @@
 {
-	"1.7.2": "4",
-	"1.7.3": "4",
-	"1.7.4": "4",
-	"1.7.5": "4",
-	"1.7.6": "5",
-	"1.7.7": "5",
-	"1.7.8": "5",
-	"1.7.9": "5",
-	"1.7.10": "5",
-	"1.8": "47",
-	"1.8.0": "47",
-	"1.8.1": "47",
-	"1.8.2": "47",
-	"1.8.3": "47",
-	"1.8.4": "47",
-	"1.8.5": "47",
-	"1.8.6": "47",
-	"1.8.7": "47",
-	"1.8.8": "47",
-	"1.8.9": "47",
-	"1.9": "107",
-	"1.9.0": "107",
-	"1.9.1": "108",
-	"1.9.2": "109",
-	"1.9.3": "110",
-	"1.9.4": "110",
-	"1.10": "210",
-	"1.10.0": "210",
-	"1.10.1": "210",
-	"1.10.2": "210",
-	"1.11": "315",
-	"1.11.0": "315",
-	"1.11.1": "316",
-	"1.11.2": "316",
-	"1.12": "335",
-	"1.12.0": "335",
-	"1.12.1": "338",
-	"1.12.2": "340",
-	"1.13": "393",
-	"1.13.0": "393",
-	"1.13.1": "401",
-	"1.13.2": "404",
-	"1.14": "477",
-	"1.14.0": "477",
-	"1.14.1": "480",
-	"1.14.2": "485",
-	"1.14.3": "490",
-	"1.14.4": "498",
-	"1.15": "573",
-	"1.15.0": "573",
-	"1.15.1": "575",
-	"1.15.2": "578",
-	"1.16": "735",
-	"1.16.0": "735",
-	"1.16.1": "736",
-	"1.16.2": "751",
-	"1.16.3": "753",
-	"1.16.4": "754",
-	"1.16.5": "754",
-	"1.17": "755",
-	"1.17.0": "755",
-	"1.17.1": "756",
-	"1.18": "757",
-	"1.18.0": "757",
-	"1.18.1": "758",
-	"1.18.2": "758",
-	"1.19": "759",
-	"1.19.0": "759",
-	"1.19.1": "760",
-	"1.19.2": "760",
-	"1.19.3": "761",
-	"1.19.4": "762",
-	"1.20": "763",
-	"1.20.0": "763",
-	"1.20.1": "763",
-	"1.20.2": "764",
-	"1.20.3": "765",
-	"1.20.4": "765",
-	"1.20.5": "766",
-	"1.20.6": "766",
-	"1.21": "767",
-	"1.21.1": "767",
-	"1.21.2": "768",
-	"1.21.3": "768"
+  "1.7.2": {
+    "protocol_version": "4",
+    "pack_format": "1"
+  },
+  "1.7.3": {
+    "protocol_version": "4",
+    "pack_format": "1"
+  },
+  "1.7.4": {
+    "protocol_version": "4",
+    "pack_format": "1"
+  },
+  "1.7.5": {
+    "protocol_version": "4",
+    "pack_format": "1"
+  },
+  "1.7.6": {
+    "protocol_version": "5",
+    "pack_format": "1"
+  },
+  "1.7.7": {
+    "protocol_version": "5",
+    "pack_format": "1"
+  },
+  "1.7.8": {
+    "protocol_version": "5",
+    "pack_format": "1"
+  },
+  "1.7.9": {
+    "protocol_version": "5",
+    "pack_format": "1"
+  },
+  "1.7.10": {
+    "protocol_version": "5",
+    "pack_format": "1"
+  },
+  "1.8": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.0": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.1": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.2": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.3": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.4": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.5": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.6": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.7": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.8": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.8.9": {
+    "protocol_version": "47",
+    "pack_format": "1"
+  },
+  "1.9": {
+    "protocol_version": "107",
+    "pack_format": "2"
+  },
+  "1.9.0": {
+    "protocol_version": "107",
+    "pack_format": "2"
+  },
+  "1.9.1": {
+    "protocol_version": "108",
+    "pack_format": "2"
+  },
+  "1.9.2": {
+    "protocol_version": "109",
+    "pack_format": "2"
+  },
+  "1.9.3": {
+    "protocol_version": "110",
+    "pack_format": "2"
+  },
+  "1.9.4": {
+    "protocol_version": "110",
+    "pack_format": "2"
+  },
+  "1.10": {
+    "protocol_version": "210",
+    "pack_format": "2"
+  },
+  "1.10.0": {
+    "protocol_version": "210",
+    "pack_format": "2"
+  },
+  "1.10.1": {
+    "protocol_version": "210",
+    "pack_format": "2"
+  },
+  "1.10.2": {
+    "protocol_version": "210",
+    "pack_format": "2"
+  },
+  "1.11": {
+    "protocol_version": "315",
+    "pack_format": "3"
+  },
+  "1.11.0": {
+    "protocol_version": "315",
+    "pack_format": "3"
+  },
+  "1.11.1": {
+    "protocol_version": "316",
+    "pack_format": "3"
+  },
+  "1.11.2": {
+    "protocol_version": "316",
+    "pack_format": "3"
+  },
+  "1.12": {
+    "protocol_version": "335",
+    "pack_format": "3"
+  },
+  "1.12.0": {
+    "protocol_version": "335",
+    "pack_format": "3"
+  },
+  "1.12.1": {
+    "protocol_version": "338",
+    "pack_format": "3"
+  },
+  "1.12.2": {
+    "protocol_version": "340",
+    "pack_format": "3"
+  },
+  "1.13": {
+    "protocol_version": "393",
+    "pack_format": "4"
+  },
+  "1.13.0": {
+    "protocol_version": "393",
+    "pack_format": "4"
+  },
+  "1.13.1": {
+    "protocol_version": "401",
+    "pack_format": "4"
+  },
+  "1.13.2": {
+    "protocol_version": "404",
+    "pack_format": "4"
+  },
+  "1.14": {
+    "protocol_version": "477",
+    "pack_format": "4"
+  },
+  "1.14.0": {
+    "protocol_version": "477",
+    "pack_format": "4"
+  },
+  "1.14.1": {
+    "protocol_version": "480",
+    "pack_format": "4"
+  },
+  "1.14.2": {
+    "protocol_version": "485",
+    "pack_format": "4"
+  },
+  "1.14.3": {
+    "protocol_version": "490",
+    "pack_format": "4"
+  },
+  "1.14.4": {
+    "protocol_version": "498",
+    "pack_format": "4"
+  },
+  "1.15": {
+    "protocol_version": "573",
+    "pack_format": "5"
+  },
+  "1.15.0": {
+    "protocol_version": "573",
+    "pack_format": "5"
+  },
+  "1.15.1": {
+    "protocol_version": "575",
+    "pack_format": "5"
+  },
+  "1.15.2": {
+    "protocol_version": "578",
+    "pack_format": "5"
+  },
+  "1.16": {
+    "protocol_version": "735",
+    "pack_format": "5"
+  },
+  "1.16.0": {
+    "protocol_version": "735",
+    "pack_format": "5"
+  },
+  "1.16.1": {
+    "protocol_version": "736",
+    "pack_format": "5"
+  },
+  "1.16.2": {
+    "protocol_version": "751",
+    "pack_format": "6"
+  },
+  "1.16.3": {
+    "protocol_version": "753",
+    "pack_format": "6"
+  },
+  "1.16.4": {
+    "protocol_version": "754",
+    "pack_format": "6"
+  },
+  "1.16.5": {
+    "protocol_version": "754",
+    "pack_format": "6"
+  },
+  "1.17": {
+    "protocol_version": "755",
+    "pack_format": "7"
+  },
+  "1.17.0": {
+    "protocol_version": "755",
+    "pack_format": "7"
+  },
+  "1.17.1": {
+    "protocol_version": "756",
+    "pack_format": "7"
+  },
+  "1.18": {
+    "protocol_version": "757",
+    "pack_format": "8"
+  },
+  "1.18.0": {
+    "protocol_version": "757",
+    "pack_format": "8"
+  },
+  "1.18.1": {
+    "protocol_version": "758",
+    "pack_format": "8"
+  },
+  "1.18.2": {
+    "protocol_version": "758",
+    "pack_format": "8"
+  },
+  "1.19": {
+    "protocol_version": "759",
+    "pack_format": "9"
+  },
+  "1.19.0": {
+    "protocol_version": "759",
+    "pack_format": "9"
+  },
+  "1.19.1": {
+    "protocol_version": "760",
+    "pack_format": "9"
+  },
+  "1.19.2": {
+    "protocol_version": "760",
+    "pack_format": "9"
+  },
+  "1.19.3": {
+    "protocol_version": "761",
+    "pack_format": "12"
+  },
+  "1.19.4": {
+    "protocol_version": "762",
+    "pack_format": "13"
+  },
+  "1.20": {
+    "protocol_version": "763",
+    "pack_format": "15"
+  },
+  "1.20.0": {
+    "protocol_version": "763",
+    "pack_format": "15"
+  },
+  "1.20.1": {
+    "protocol_version": "763",
+    "pack_format": "15"
+  },
+  "1.20.2": {
+    "protocol_version": "764",
+    "pack_format": "18"
+  },
+  "1.20.3": {
+    "protocol_version": "765",
+    "pack_format": "22"
+  },
+  "1.20.4": {
+    "protocol_version": "765",
+    "pack_format": "22"
+  },
+  "1.20.5": {
+    "protocol_version": "766",
+    "pack_format": "32"
+  },
+  "1.20.6": {
+    "protocol_version": "766",
+    "pack_format": "32"
+  },
+  "1.21": {
+    "protocol_version": "767",
+    "pack_format": "34"
+  },
+  "1.21.1": {
+    "protocol_version": "767",
+    "pack_format": "34"
+  },
+  "1.21.2": {
+    "protocol_version": "768",
+    "pack_format": "42"
+  },
+  "1.21.3": {
+    "protocol_version": "768",
+    "pack_format": "42"
+  }
 }
