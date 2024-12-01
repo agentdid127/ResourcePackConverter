@@ -31,7 +31,10 @@ public class PackMetaConverter extends Converter {
         if (!file.toFile().exists())
             return;
         // Possible TODO: Make this JSON? Possibly use protocol.json, but update it.
-        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.21"))
+        if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.21.2"))
+            versionInt = 42;
+        else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.21")
+                && version < Util.getVersionProtocol(packConverter.getGson(), "1.21.2"))
             versionInt = 34;
         else if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.20.5")
                 && version < Util.getVersionProtocol(packConverter.getGson(), "1.21"))

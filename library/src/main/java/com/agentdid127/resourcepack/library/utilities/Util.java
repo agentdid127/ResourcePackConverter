@@ -48,7 +48,7 @@ public final class Util {
     }
 
     public static int getLatestProtocol(Gson gson) {
-        return getVersionProtocol(gson, "1.21");
+        return getVersionProtocol(gson, "1.21.3");
     }
 
     /**
