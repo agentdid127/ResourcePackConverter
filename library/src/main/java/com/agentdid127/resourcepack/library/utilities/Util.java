@@ -100,7 +100,18 @@ public final class Util {
     }
 
     public static int getLatestProtocol(Gson gson) {
-        return getVersionProtocol(gson, "1.21.3");
+        JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
+        if (protocols == null) return 0;
+
+        int latestProtocol = 0;
+        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+            JsonObject versionObj = entry.getValue().getAsJsonObject();
+            int protocol = Integer.parseInt(versionObj.get("protocol_version").getAsString());
+            if (protocol > latestProtocol) {
+                latestProtocol = protocol;
+            }
+        }
+        return latestProtocol;
     }
 
     /**
