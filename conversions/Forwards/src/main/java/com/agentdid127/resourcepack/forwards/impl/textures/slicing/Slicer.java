@@ -1,9 +1,5 @@
 package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.nio.file.Path;
-
 import com.agentdid127.resourcepack.forwards.impl.textures.SlicerConverter;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
@@ -12,12 +8,16 @@ import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.nio.file.Path;
+
 public class Slicer {
-    public static <T> void runSlicer(Gson gson, Slice slice, Path root, Class<T> predicateClass, int from,
-            boolean texture_has_metadata)
+    public static <T> void runSlicer(Gson gson, Slice slice, Path root, Class<T> predicateClass, int from, boolean has_metadata)
             throws IOException {
-        if (!SlicerConverter.PredicateRunnable.run(gson, from, slice.getPredicate()))
+        if (!SlicerConverter.PredicateRunnable.run(gson, from, slice.getPredicate())) {
             return;
+        }
 
         Path path = root.resolve(slice.getPath());
         if (!path.toFile().exists()) {
@@ -28,11 +28,19 @@ public class Slicer {
         ImageConverter converter = new ImageConverter(slice.getWidth(), slice.getHeight(), path);
 
         Path imagePath = path;
-        if (slice.getPathName() != null)
+        if (slice.getPathName() != null) {
             imagePath = path.resolveSibling(slice.getPathName());
+        }
 
         for (Texture texture : slice.getTextures()) {
             Path texturePath = root.resolve(texture.getPath());
+            if (texturePath.toFile().exists()) {
+                // Sometimes packs include both newer and older textures but
+                // since we are upgrading to a newer version, we want what was shown in the original
+                // version so we delete the existing new one, so we can replace it with the
+                // version used in said version.
+                texturePath.toFile().delete();
+            }
             FileUtil.ensureParentExists(texturePath);
 
             if (predicateClass != null) {
@@ -48,7 +56,6 @@ public class Slicer {
 
             try {
                 Box box = texture.getBox();
-
                 converter.saveSlice(
                         box.getX(),
                         box.getY(),
@@ -56,19 +63,20 @@ public class Slicer {
                         box.getHeight(),
                         texturePath);
 
-                if (texture.shouldRemove())
+                if (texture.shouldRemove()) {
                     converter.fillEmpty(
                             box.getX(),
                             box.getY(),
                             box.getWidth(),
                             box.getHeight());
+                }
 
-                if (texture_has_metadata) {
+                if (has_metadata) {
                     JsonObject metadata = texture.getMetadata();
-                    if (metadata.keySet().isEmpty() || metadata.entrySet().isEmpty())
-                        continue;
-                    Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
-                    JsonUtil.writeJson(gson, metadataPath, metadata);
+                    if (!metadata.keySet().isEmpty() && !metadata.entrySet().isEmpty()) {
+                        Path metadataPath = texturePath.resolveSibling(texturePath.getFileName() + ".mcmeta");
+                        JsonUtil.writeJson(gson, metadataPath, metadata);
+                    }
                 }
             } catch (Exception exception) {
                 Logger.log("Failed to slice texture '" + texture.getPath() + "' (error='"
@@ -78,10 +86,12 @@ public class Slicer {
             }
         }
 
-        if (!path.toFile().delete())
+        if (!path.toFile().delete()) {
             Logger.debug("Failed to remove '" + path.getFileName() + "' whilst slicing.");
+        }
 
-        if (!slice.shouldDelete())
+        if (!slice.shouldDelete()) {
             converter.store(imagePath);
+        }
     }
 }
