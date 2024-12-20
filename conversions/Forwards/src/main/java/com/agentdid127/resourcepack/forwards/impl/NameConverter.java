@@ -16,10 +16,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class NameConverter extends Converter {
-    private int to;
-    private int from;
+    private final int to;
+    private final int from;
 
     private final Mapping blockMapping;
     private final Mapping newBlockMapping;
@@ -55,7 +56,7 @@ public class NameConverter extends Converter {
 
     /**
      * Fixes folder names and file names
-     * 
+     *
      * @param pack Resource Pack
      * @throws IOException Error handler
      */
@@ -76,12 +77,14 @@ public class NameConverter extends Converter {
                 Logger.debug("MCPatcher exists, switching to optifine");
                 if (minecraftPath.resolve("optifine").toFile().exists()) {
                     Logger.debug("OptiFine exists, merging directories");
-                    FileUtil.mergeDirectories(minecraftPath.resolve("optifine").toFile(),
-                            minecraftPath.resolve("mcpatcher").toFile());
-                } else
+                    FileUtil.mergeDirectories(minecraftPath.resolve("optifine").toFile(), minecraftPath.resolve("mcpatcher").toFile());
+                } else {
                     Files.move(minecraftPath.resolve("mcpatcher"), minecraftPath.resolve("optifine"));
-                if (minecraftPath.resolve("mcpatcher").toFile().exists())
+                }
+
+                if (minecraftPath.resolve("mcpatcher").toFile().exists()) {
                     FileUtil.deleteDirectoryAndContents(minecraftPath.resolve("mcpatcher"));
+                }
             }
 
             // 1.13 Models
@@ -89,16 +92,20 @@ public class NameConverter extends Converter {
             if (modelsPath.toFile().exists()) {
                 // 1.13 block/item name change
                 if (modelsPath.resolve("blocks").toFile().exists()) {
-                    if (modelsPath.resolve("block").toFile().exists())
+                    if (modelsPath.resolve("block").toFile().exists()) {
                         FileUtil.deleteDirectoryAndContents(modelsPath.resolve("block"));
+                    }
+
                     Files.move(modelsPath.resolve("blocks"), modelsPath.resolve("block"));
                 }
 
                 // Update all blocks for 1.13
                 renameAll(blockMapping, ".json", modelsPath.resolve("block"));
                 if (modelsPath.resolve("items").toFile().exists()) {
-                    if (modelsPath.resolve("item").toFile().exists())
+                    if (modelsPath.resolve("item").toFile().exists()) {
                         FileUtil.deleteDirectoryAndContents(modelsPath.resolve("item"));
+                    }
+
                     Files.move(modelsPath.resolve("items"), modelsPath.resolve("item"));
                 }
 
@@ -110,25 +117,29 @@ public class NameConverter extends Converter {
                     Path itemModelPath = modelsPath.resolve("iem");
                     renameAll(newItemMapping, ".json", itemModelPath);
                     if (!itemModelPath.resolve("ink_sac.json").toFile().exists()
-                            && itemModelPath.resolve("black_dye.json").toFile().exists())
-                        Files.copy(itemModelPath.resolve("black_dye.json"),
-                                itemModelPath.resolve("ink_sac.json"));
+                            && itemModelPath.resolve("black_dye.json").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("black_dye.json"), itemModelPath.resolve("ink_sac.json"));
+                    }
+
                     if (!itemModelPath.resolve("cocoa_beans.json").toFile().exists()
-                            && itemModelPath.resolve("brown_dye.json").toFile().exists())
-                        Files.copy(itemModelPath.resolve("brown_dye.json"),
-                                itemModelPath.resolve("cocoa_beans.json"));
+                            && itemModelPath.resolve("brown_dye.json").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("brown_dye.json"), itemModelPath.resolve("cocoa_beans.json"));
+                    }
+
                     if (!itemModelPath.resolve("bone_meal.json").toFile().exists()
-                            && itemModelPath.resolve("white_dye.json").toFile().exists())
-                        Files.copy(itemModelPath.resolve("white_dye.json"),
-                                itemModelPath.resolve("bone_meal.json"));
+                            && itemModelPath.resolve("white_dye.json").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("white_dye.json"), itemModelPath.resolve("bone_meal.json"));
+                    }
+
                     if (!itemModelPath.resolve("lapis_lazuli.json").toFile().exists()
-                            && itemModelPath.resolve("blue_dye.json").toFile().exists())
-                        Files.copy(itemModelPath.resolve("blue_dye.json"),
-                                itemModelPath.resolve("lapis_lazuli.json"));
+                            && itemModelPath.resolve("blue_dye.json").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("blue_dye.json"), itemModelPath.resolve("lapis_lazuli.json"));
+                    }
                 }
 
-                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+                if (to > Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                     renameAll(blockMapping19, ".json", modelsPath.resolve("block"));
+                }
 
                 if (to > Util.getVersionProtocol(packConverter.getGson(), "1.20.3")) {
                     renameAll(itemMapping203, ".json", modelsPath.resolve("item"));
@@ -137,10 +148,10 @@ public class NameConverter extends Converter {
             }
 
             // Update BlockStates
-            Path blockStates = pack.getWorkingPath()
-                    .resolve("assets/minecraft/blockstates".replace("/", File.separator));
-            if (blockStates.toFile().exists())
+            Path blockStates = pack.getWorkingPath().resolve("assets/minecraft/blockstates".replace("/", File.separator));
+            if (blockStates.toFile().exists()) {
                 renameAll(blockMapping, ".json", blockStates);
+            }
 
             // Update textures
             Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
@@ -170,21 +181,24 @@ public class NameConverter extends Converter {
                     renameAll(newItemMapping, ".png.mcmeta", itemPath);
                     Path itemModelPath = modelsPath.resolve("item");
                     if (!itemModelPath.resolve("ink_sac.png").toFile().exists()
-                            && itemModelPath.resolve("black_dye.png").toFile().exists())
-                        Files.copy(itemModelPath.resolve("black_dye.png"),
-                                itemModelPath.resolve("ink_sac.png"));
+                            && itemModelPath.resolve("black_dye.png").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("black_dye.png"), itemModelPath.resolve("ink_sac.png"));
+                    }
+
                     if (!itemModelPath.resolve("cocoa_beans.png").toFile().exists()
-                            && itemModelPath.resolve("brown_dye.png").toFile().exists())
-                        Files.copy(itemModelPath.resolve("brown_dye.png"),
-                                itemModelPath.resolve("cocoa_beans.png"));
+                            && itemModelPath.resolve("brown_dye.png").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("brown_dye.png"), itemModelPath.resolve("cocoa_beans.png"));
+                    }
+
                     if (!itemModelPath.resolve("bone_meal.png").toFile().exists()
-                            && itemModelPath.resolve("white_dye.png").toFile().exists())
-                        Files.copy(itemModelPath.resolve("white_dye.png"),
-                                itemModelPath.resolve("bone_meal.png"));
+                            && itemModelPath.resolve("white_dye.png").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("white_dye.png"), itemModelPath.resolve("bone_meal.png"));
+                    }
+
                     if (!itemModelPath.resolve("lapis_lazuli.png").toFile().exists()
-                            && itemModelPath.resolve("blue_dye.png").toFile().exists())
-                        Files.copy(itemModelPath.resolve("blue_dye.png"),
-                                itemModelPath.resolve("lapis_lazuli.png"));
+                            && itemModelPath.resolve("blue_dye.png").toFile().exists()) {
+                        Files.copy(itemModelPath.resolve("blue_dye.png"), itemModelPath.resolve("lapis_lazuli.png"));
+                    }
                 }
 
                 // Entities
@@ -193,11 +207,18 @@ public class NameConverter extends Converter {
                 // 1.16 Iron golems
                 if (from < Util.getVersionProtocol(packConverter.getGson(), "1.15")
                         && to >= Util.getVersionProtocol(packConverter.getGson(), "1.15")) {
-                    if (!entityPath.resolve("iron_golem").toFile().exists())
+                    if (!entityPath.resolve("iron_golem").toFile().exists()) {
                         entityPath.resolve("iron_golem").toFile().mkdir();
-                    if (entityPath.resolve("iron_golem.png").toFile().exists())
-                        Files.move(entityPath.resolve("iron_golem.png"), entityPath
-                                .resolve("iron_golem/iron_golem.png"));
+                    }
+
+                    if (entityPath.resolve("iron_golem.png").toFile().exists()) {
+                        Path newIronGolemPath = entityPath.resolve("iron_golem/iron_golem.png");
+                        if (newIronGolemPath.toFile().exists()) {
+                            newIronGolemPath.toFile().delete();
+                        }
+
+                        Files.move(entityPath.resolve("iron_golem.png"), newIronGolemPath);
+                    }
                 }
 
                 // 1.17 Squid
@@ -207,21 +228,38 @@ public class NameConverter extends Converter {
                     renameAll(itemMapping17, ".png", texturesPath.resolve("item"));
                     renameAll(blockMapping17, ".png", modelsPath.resolve("block"));
                     renameAll(itemMapping17, ".png", modelsPath.resolve("item"));
-                    if (!entityPath.resolve("squid").toFile().exists())
-                        entityPath.resolve("squid").toFile().mkdir();
-                    if (!entityPath.resolve("squid.png").toFile().exists())
-                        Files.move(entityPath.resolve("squid.png"),
-                                entityPath.resolve("squid/squid.png"));
+
+                    Path squidFolderPath = entityPath.resolve("squid");
+                    if (!squidFolderPath.toFile().exists()) {
+                        squidFolderPath.toFile().mkdir();
+                    }
+
+                    if (entityPath.resolve("squid.png").toFile().exists()) {
+                        Path newSquidPath = squidFolderPath.resolve("squid.png");
+                        if (newSquidPath.toFile().exists()) {
+                            newSquidPath.toFile().delete();
+                        }
+
+                        Files.move(entityPath.resolve("squid.png"), newSquidPath);
+                    }
                 }
 
                 if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")
-                        && from < Util.getVersionProtocol(packConverter.getGson(), "1.19"))
+                        && from < Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
                     renameAll(blockMapping19, ".png", blockPath);
+                }
 
                 // 1.13 End Crystals
                 if (entityPath.resolve("endercrystal").toFile().exists()
-                        && !entityPath.resolve("end_crystal").toFile().exists())
-                    Files.move(entityPath.resolve("endercrystal"), entityPath.resolve("end_crystal"));
+                        && !entityPath.resolve("end_crystal").toFile().exists()) {
+                    Path newEnderCrystalPath = entityPath.resolve("end_crystal");
+                    if (newEnderCrystalPath.toFile().exists()) {
+                        newEnderCrystalPath.toFile().delete();
+                    }
+
+                    Files.move(entityPath.resolve("endercrystal"), newEnderCrystalPath);
+                }
+
                 findEntityFiles(entityPath);
             }
         }
@@ -229,33 +267,33 @@ public class NameConverter extends Converter {
 
     /**
      * Finds files in entity folder
-     * 
+     *
      * @param path
      * @throws IOException
      */
     protected void findEntityFiles(Path path) throws IOException {
-        if (!path.toFile().exists())
-            return;
-        File directory = path.toFile();
-        for (File file : directory.listFiles()) {
-            if (!file.isDirectory())
-                continue;
-            renameAll(entityMapping, ".png", file.toPath());
-            renameAll(entityMapping, ".png.mcmeta", file.toPath());
-            findEntityFiles(file.toPath());
+        if (path.toFile().exists()) {
+            File directory = path.toFile();
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
+                if (file.isDirectory()) {
+                    renameAll(entityMapping, ".png", file.toPath());
+                    renameAll(entityMapping, ".png.mcmeta", file.toPath());
+                    findEntityFiles(file.toPath());
+                }
+            }
         }
     }
 
     /**
      * Finds files in folders called
-     * 
+     *
      * @param path
      * @throws IOException
      */
-    protected void findFiles(Path path) throws IOException {
+    protected void findFiles(Path path) {
         if (path.toFile().exists()) {
             File directory = path.toFile();
-            for (File file : directory.listFiles()) {
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
                 if (file.isDirectory()) {
                     if (file.getName().equals("items")) {
                         Logger.debug("Found Items folder, renaming");
@@ -270,11 +308,13 @@ public class NameConverter extends Converter {
                     findFiles(file.toPath());
                 }
 
-                if (file.getName().contains("("))
+                if (file.getName().contains("(")) {
                     FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("[()]", ""));
+                }
 
-                if (!file.getName().equals(file.getName().toLowerCase()))
+                if (!file.getName().equals(file.getName().toLowerCase())) {
                     Logger.debug("Renamed: " + file.getName() + "->" + file.getName().toLowerCase());
+                }
 
                 FileUtil.renameFile(path.resolve(file.getName()), file.getName().toLowerCase());
             }
@@ -283,7 +323,7 @@ public class NameConverter extends Converter {
 
     /**
      * Renames folder
-     * 
+     *
      * @param mapping
      * @param extension
      * @param path
@@ -296,7 +336,7 @@ public class NameConverter extends Converter {
             List<String> grasses = Arrays.asList("grass", "tall_grass", "double_grass");
             if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")) {
                 if ((path.endsWith("blockstates") || path.endsWith("textures/block"))) {
-                    grasses.stream().forEach(name -> {
+                    grasses.forEach(name -> {
                         String newName = mapping.remap(name);
                         Boolean ret = FileUtil.renameFile(Paths.get(path + File.separator + name + extension),
                                 newName + extension);
@@ -314,35 +354,44 @@ public class NameConverter extends Converter {
             // remap snow jsons, but not images.
             if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")
                     && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-                if (path.resolve("snow_layer.json").toFile().exists())
+                if (path.resolve("snow_layer.json").toFile().exists()) {
                     FileUtil.renameFile(path.resolve("snow_layer" + extension), "snow" + extension);
+                }
             }
 
+            Logger.addTab();
             Files.list(path).forEach(path1 -> {
                 if (!path1.toString().endsWith(extension))
                     return;
 
-                String baseName = path1.getFileName().toString().substring(0,
-                        path1.getFileName().toString().length() - extension.length());
+                String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
 
                 // skip the already renamed grass blocks
-                if (grasses.contains(baseName)
-                        && (path.endsWith("blockstates") || path.endsWith("textures/block")))
+                if (grasses.contains(baseName) && (path.endsWith("blockstates") || path.endsWith("textures/block"))) {
                     return;
+                }
 
-                String newName = mapping.remap(baseName);
-                if (newName != null && !newName.equals(baseName)) {
-                    Boolean ret = FileUtil.renameFile(path1, newName + extension);
-                    if (ret == null)
+                String remappedName = mapping.remap(baseName);
+                if (remappedName != null && !remappedName.equals(baseName)) {
+                    Path newPath = path1.getParent().resolve(remappedName + extension);
+                    if (newPath.toFile().exists()) {
+                        // Same note from Slicer.java line 38
+                        newPath.toFile().delete();
+                    }
+
+                    Boolean renameSuccess = FileUtil.renameFile(path1, newPath);
+                    if (renameSuccess == null) {
                         return;
-                    if (ret) {
-                        Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newName + extension);
-                    } else if (!ret) {
-                        Logger.log("Failed to rename: " + path1.getFileName().toString() + "->" + newName
-                                + extension);
+                    }
+
+                    if (renameSuccess) {
+                        Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newPath.getFileName());
+                    } else if (!renameSuccess) {
+                        Logger.log("Failed to rename: " + path1.getFileName().toString() + "->" + newPath.getFileName());
                     }
                 }
             });
+            Logger.subTab();
         }
     }
 
