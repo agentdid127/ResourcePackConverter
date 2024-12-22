@@ -360,37 +360,36 @@ public class NameConverter extends Converter {
             }
 
             Logger.addTab();
-            Files.list(path).forEach(path1 -> {
-                if (!path1.toString().endsWith(extension))
-                    return;
+            Files.list(path)
+                    .filter(path1 -> path.toString().endsWith(extension))
+                    .forEach(path1 -> {
+                        String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
 
-                String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
+                        // skip the already renamed grass blocks
+                        if (grasses.contains(baseName) && (path.endsWith("blockstates") || path.endsWith("textures/block"))) {
+                            return;
+                        }
 
-                // skip the already renamed grass blocks
-                if (grasses.contains(baseName) && (path.endsWith("blockstates") || path.endsWith("textures/block"))) {
-                    return;
-                }
+                        String remappedName = mapping.remap(baseName);
+                        if (remappedName != null && !remappedName.equals(baseName)) {
+                            Path newPath = path1.getParent().resolve(remappedName + extension);
+                            if (newPath.toFile().exists()) {
+                                // Same note from Slicer.java line 38
+                                newPath.toFile().delete();
+                            }
 
-                String remappedName = mapping.remap(baseName);
-                if (remappedName != null && !remappedName.equals(baseName)) {
-                    Path newPath = path1.getParent().resolve(remappedName + extension);
-                    if (newPath.toFile().exists()) {
-                        // Same note from Slicer.java line 38
-                        newPath.toFile().delete();
-                    }
+                            Boolean renameSuccess = FileUtil.renameFile(path1, newPath);
+                            if (renameSuccess == null) {
+                                return;
+                            }
 
-                    Boolean renameSuccess = FileUtil.renameFile(path1, newPath);
-                    if (renameSuccess == null) {
-                        return;
-                    }
-
-                    if (renameSuccess) {
-                        Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newPath.getFileName());
-                    } else if (!renameSuccess) {
-                        Logger.log("Failed to rename: " + path1.getFileName().toString() + "->" + newPath.getFileName());
-                    }
-                }
-            });
+                            if (renameSuccess) {
+                                Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newPath.getFileName());
+                            } else if (!renameSuccess) {
+                                Logger.log("Failed to rename: " + path1.getFileName().toString() + "->" + newPath.getFileName());
+                            }
+                        }
+                    });
             Logger.subTab();
         }
     }
