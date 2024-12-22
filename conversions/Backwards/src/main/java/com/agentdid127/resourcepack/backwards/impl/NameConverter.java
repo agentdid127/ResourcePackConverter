@@ -301,7 +301,7 @@ public class NameConverter extends Converter {
                 if (renameSuccess) {
                     Logger.debug("Renamed: " + name + extension + "->" + newPath.getFileName());
                 } else if (!renameSuccess) {
-                    System.err.println("      Failed to rename: " + name + extension + "->" + newPath.getFileName());
+                    Logger.error("      Failed to rename: " + name + extension + "->" + newPath.getFileName());
                 }
             });
         }
@@ -358,7 +358,7 @@ public class NameConverter extends Converter {
                         if (renameSuccess) {
                             Logger.debug("Renamed: " + path1.getFileName().toString() + "->" + newPath.getFileName());
                         } else if (!renameSuccess) {
-                            System.err.println("      Failed to rename: " + path1.getFileName().toString() + "->" + newPath.getFileName());
+                            Logger.error("      Failed to rename: " + path1.getFileName().toString() + "->" + newPath.getFileName());
                         }
                     }
                 });
