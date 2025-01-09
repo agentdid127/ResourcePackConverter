@@ -14,6 +14,7 @@ import java.util.List;
 public class ArmorMoverConverter extends Converter {
     private final List<String> MATERIALS = new ArrayList<>();
 
+    // TODO: Trims/Wolf Armor/Turtle/Llama/Horse/Elytra
     public ArmorMoverConverter(PackConverter packConverter) {
         super(packConverter);
         MATERIALS.add("chainmail");
