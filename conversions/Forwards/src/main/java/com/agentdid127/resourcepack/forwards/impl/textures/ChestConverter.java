@@ -4,6 +4,7 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
+import com.agentdid127.resourcepack.library.utilities.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,16 +17,16 @@ public class ChestConverter extends Converter {
 
     /**
      * Fixes Chest Textures in 1.15 Remaps textures, and updates images
-     * 
+     *
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures/entity/chest".replace("/", File.separator));
-        if (!imagePath.toFile().exists())
+        Path imagePath = pack.getWorkingPath().resolve("assets/minecraft/textures/entity/chest".replace("/", File.separator));
+        if (!imagePath.toFile().exists()) {
             return;
+        }
 
         // Double chest
         doubleChest(imagePath, "normal");
@@ -41,19 +42,21 @@ public class ChestConverter extends Converter {
 
     /**
      * Fixes Normal chests
-     * 
+     *
      * @param imagePath
      * @param name
      * @throws IOException
      */
     private void chest(Path imagePath, String name) throws IOException {
-        if (!imagePath.resolve(name + ".png").toFile().exists())
+        if (!imagePath.resolve(name + ".png").toFile().exists()) {
             return;
+        }
 
         int defaultW = 64, defaultH = 64;
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
-        if (!normal.fileIsPowerOfTwo())
+        if (!normal.fileIsPowerOfTwo()) {
             return;
+        }
 
         // Create a new Image
         normal.newImage(defaultW, defaultH);
@@ -85,18 +88,21 @@ public class ChestConverter extends Converter {
 
     /**
      * Splits Double Chests into 2 images
-     * 
+     *
      * @param imagePath
      * @param name
      * @throws IOException
      */
     private void doubleChest(Path imagePath, String name) throws IOException {
         int defaultW = 128, defaultH = 64;
-        if (!imagePath.resolve(name + "_double.png").toFile().exists())
+        if (!imagePath.resolve(name + "_double.png").toFile().exists()) {
             return;
+        }
+
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + "_double.png"));
-        if (!normal.fileIsPowerOfTwo())
+        if (!normal.fileIsPowerOfTwo()) {
             return;
+        }
 
         // Left Side
         // Body
@@ -142,6 +148,8 @@ public class ChestConverter extends Converter {
         normal.subImage(1, 1, 2, 5, 3, 1, true);
         normal.store(imagePath.resolve(name + "_right.png"));
 
-        imagePath.resolve(name + "_double.png").toFile().delete();
+        if (!imagePath.resolve(name + "_double.png").toFile().delete()) {
+            Logger.log("Failed to remove chest \"_double.png\".");
+        }
     }
 }
