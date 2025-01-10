@@ -14,7 +14,9 @@ public class Logger {
 
     public static void subTab() {
         tabs--;
-        if (tabs < 0) tabs = 0;
+        if (tabs < 0) {
+            tabs = 0;
+        }
     }
 
     public static void resetTab() {
@@ -22,12 +24,11 @@ public class Logger {
     }
 
     private static String getTabs() {
-        String out = "";
-
+        StringBuilder out = new StringBuilder();
         for (int i = 0; i < tabs; i++) {
-            out += "  ";
+            out.append("  ");
         }
-        return out;
+        return out.toString();
     }
 
     public static void setStream(PrintStream stream) {
@@ -39,15 +40,21 @@ public class Logger {
     }
 
     public static void debug(String message) {
-        if (debug) log(message);
+        if (debug) {
+            log(message);
+        }
     }
 
     public static void log(String message) {
         stream.println(getTabs() + message);
     }
 
+    public static void error(String message) {
+        log(message);
+    }
+
     private static void debug(Object thing) {
-        if (debug) log(thing);
+        debug(thing.toString());
     }
 
     public static void log(Object thing) {

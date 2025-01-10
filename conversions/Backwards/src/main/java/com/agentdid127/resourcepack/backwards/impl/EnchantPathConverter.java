@@ -17,18 +17,39 @@ public class EnchantPathConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path miscPath = pack.getWorkingPath().resolve("assets/minecraft/textures/misc".replace("/", File.separator));
+        if (miscPath.toFile().exists()) {
+            return;
+        }
 
-        if (miscPath.resolve("enchanted_glint_item.png").toFile().exists())
-            Files.move(miscPath.resolve("enchanted_glint_item.png"), miscPath.resolve("enchanted_item_glint.png"));
-        else if (miscPath.resolve("enchanted_glint_entity.png").toFile().exists())
-            Files.move(miscPath.resolve("enchanted_glint_entity.png"), miscPath.resolve("enchanted_item_glint.png"));
+        Path enchantGlintItemPath = miscPath.resolve("enchanted_glint_item.png");
+        Path enchantGlintEntityPath = miscPath.resolve("enchanted_glint_entity.png");
+        Path newEnchantGlintItemPath = miscPath.resolve("enchanted_item_glint.png");
+        if (enchantGlintItemPath.toFile().exists()) {
+            if (newEnchantGlintItemPath.toFile().exists()) {
+                newEnchantGlintItemPath.toFile().delete();
+            }
+            Files.move(enchantGlintItemPath, newEnchantGlintItemPath);
+        } else if (enchantGlintEntityPath.toFile().exists()) {
+            if (newEnchantGlintItemPath.toFile().exists()) {
+                newEnchantGlintItemPath.toFile().delete();
+            }
+            Files.move(enchantGlintEntityPath, newEnchantGlintItemPath);
+        }
 
-        if (miscPath.resolve("enchanted_glint_item.png.mcmeta").toFile().exists())
-            Files.move(miscPath.resolve("enchanted_glint_item.png.mcmeta"),
-                    miscPath.resolve("enchanted_item_glint.png.mcmeta"));
-        else if (miscPath.resolve("enchanted_glint_entity.png.mcmeta").toFile().exists())
-            Files.move(miscPath.resolve("enchanted_glint_entity.png.mcmeta"),
-                    miscPath.resolve("enchanted_item_glint.png.mcmeta"));
+        Path enchantGlintItemMetaPath = miscPath.resolve("enchanted_glint_item.png.mcmeta");
+        Path enchantGlintEntityMetaPath = miscPath.resolve("enchanted_glint_entity.png.mcmeta");
+        Path newEnchantGlintItemMetaPath = miscPath.resolve("enchanted_item_glint.png.mcmeta");
+        if (enchantGlintItemMetaPath.toFile().exists()) {
+            if (newEnchantGlintItemMetaPath.toFile().exists()) {
+                newEnchantGlintItemMetaPath.toFile().delete();
+            }
+            Files.move(enchantGlintItemMetaPath, newEnchantGlintItemMetaPath);
+        } else if (enchantGlintEntityMetaPath.toFile().exists()) {
+            if (newEnchantGlintItemMetaPath.toFile().exists()) {
+                newEnchantGlintItemMetaPath.toFile().delete();
+            }
+            Files.move(enchantGlintEntityMetaPath, newEnchantGlintItemMetaPath);
+        }
 
         Files.deleteIfExists(miscPath.resolve("enchanted_glint_entity.png.mcmeta"));
         Files.deleteIfExists(miscPath.resolve("enchanted_glint_item.png.mcmeta"));
