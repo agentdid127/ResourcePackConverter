@@ -51,48 +51,47 @@ public class ArmorMoverConverter extends Converter {
 
         Path humanoidPath = equipmentFolderPath.resolve("humanoid");
         Path humanoidLeggingsPath = equipmentFolderPath.resolve("humanoid_leggings");
-
-        // TODO: Cleanup this messy for loop
         for (String material : MATERIALS) {
-            Path layer1Path = modelsArmorPath.resolve(material + "_layer_1.png");
-            if (layer1Path.toFile().exists() && !humanoidPath.toFile().exists()) {
-                humanoidPath.toFile().mkdirs();
-            }
-
-            Path layer2Path = modelsArmorPath.resolve(material + "_layer_2.png");
-            if (layer2Path.toFile().exists() && !humanoidLeggingsPath.toFile().exists()) {
-                humanoidLeggingsPath.toFile().mkdirs();
-            }
-
-            if (layer1Path.toFile().exists()) {
-                Files.move(layer1Path, humanoidPath.resolve(material + ".png"));
-            }
-
-            if (layer2Path.toFile().exists()) {
-                Files.move(layer2Path, humanoidLeggingsPath.resolve(material + ".png"));
-            }
-
+            moveArmorLayers(material, modelsArmorPath, humanoidPath, humanoidLeggingsPath);
             if (material.equals("leather")) {
-                Path overlayLayer1 = modelsPath.resolve("_layer_1_overlay.png");
-                if (overlayLayer1.toFile().exists() && !humanoidPath.toFile().exists()) {
-                    humanoidLeggingsPath.toFile().mkdirs();
-                }
-
-                Path overlayLayer2 = modelsPath.resolve("_layer_2_overlay.png");
-                if (overlayLayer2.toFile().exists() && !humanoidLeggingsPath.toFile().exists()) {
-                    humanoidPath.toFile().mkdirs();
-                }
-
-                if (overlayLayer1.toFile().exists()) {
-                    Files.move(overlayLayer1, humanoidPath.resolve(material + "_overlay.png"));
-                }
-
-                if (overlayLayer2.toFile().exists()) {
-                    Files.move(overlayLayer2, humanoidLeggingsPath.resolve(material + "_overlay.png"));
-                }
+                moveLeatherArmorFiles(modelsPath, humanoidPath, humanoidLeggingsPath);
             }
         }
 
         modelsPath.toFile().delete();
+    }
+
+    private void ensureFolder(Path filePath, Path intendedFolderPath) {
+        if (filePath.toFile().exists() && !intendedFolderPath.toFile().exists()) {
+            intendedFolderPath.toFile().mkdirs();
+        }
+    }
+
+    private void moveArmorLayers(String material, Path modelsArmorPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
+        Path layer1Path = modelsArmorPath.resolve(material + "_layer_1.png");
+        ensureFolder(layer1Path, humanoidPath);
+        if (layer1Path.toFile().exists()) {
+            Files.move(layer1Path, humanoidPath.resolve(material + ".png"));
+        }
+
+        Path layer2Path = modelsArmorPath.resolve(material + "_layer_2.png");
+        ensureFolder(layer2Path, humanoidLeggingsPath);
+        if (layer2Path.toFile().exists()) {
+            Files.move(layer2Path, humanoidLeggingsPath.resolve(material + ".png"));
+        }
+    }
+
+    private void moveLeatherArmorFiles(Path modelsPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
+        Path overlayLayer1 = modelsPath.resolve("leather_layer_1_overlay.png");
+        ensureFolder(overlayLayer1, humanoidPath);
+        if (overlayLayer1.toFile().exists()) {
+            Files.move(overlayLayer1, humanoidPath.resolve("leather_overlay.png"));
+        }
+
+        Path overlayLayer2 = modelsPath.resolve("leather_layer_2_overlay.png");
+        ensureFolder(overlayLayer2, humanoidLeggingsPath);
+        if (overlayLayer2.toFile().exists()) {
+            Files.move(overlayLayer2, humanoidLeggingsPath.resolve("leather_overlay.png"));
+        }
     }
 }
