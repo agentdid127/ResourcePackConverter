@@ -54,10 +54,11 @@ public class ArmorMoverConverter extends Converter {
         for (String material : MATERIALS) {
             moveArmorLayers(material, modelsArmorPath, humanoidPath, humanoidLeggingsPath);
             if (material.equals("leather")) {
-                moveLeatherArmorFiles(modelsPath, humanoidPath, humanoidLeggingsPath);
+                moveLeatherArmorFiles(modelsArmorPath, humanoidPath, humanoidLeggingsPath);
             }
         }
 
+        modelsArmorPath.toFile().delete(); // TODO/NOTE: For some reason, it will only delete "models" folder if I delete this first
         modelsPath.toFile().delete();
     }
 
@@ -81,14 +82,14 @@ public class ArmorMoverConverter extends Converter {
         }
     }
 
-    private void moveLeatherArmorFiles(Path modelsPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
-        Path overlayLayer1 = modelsPath.resolve("leather_layer_1_overlay.png");
+    private void moveLeatherArmorFiles(Path modelsArmorPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
+        Path overlayLayer1 = modelsArmorPath.resolve("leather_layer_1_overlay.png");
         ensureFolder(overlayLayer1, humanoidPath);
         if (overlayLayer1.toFile().exists()) {
             Files.move(overlayLayer1, humanoidPath.resolve("leather_overlay.png"));
         }
 
-        Path overlayLayer2 = modelsPath.resolve("leather_layer_2_overlay.png");
+        Path overlayLayer2 = modelsArmorPath.resolve("leather_layer_2_overlay.png");
         ensureFolder(overlayLayer2, humanoidLeggingsPath);
         if (overlayLayer2.toFile().exists()) {
             Files.move(overlayLayer2, humanoidLeggingsPath.resolve("leather_overlay.png"));
