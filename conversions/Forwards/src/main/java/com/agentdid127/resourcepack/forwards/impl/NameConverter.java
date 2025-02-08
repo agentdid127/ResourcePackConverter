@@ -74,7 +74,7 @@ public class NameConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path minecraftPath = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
-
+        Logger.addTab();
         // Less than 1.12
         if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
                 && to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
@@ -278,6 +278,7 @@ public class NameConverter extends Converter {
                 findEntityFiles(entityPath);
             }
         }
+        Logger.subTab();
     }
 
     /**
@@ -309,12 +310,12 @@ public class NameConverter extends Converter {
             for (File file : Objects.requireNonNull(directory.listFiles())) {
                 if (file.isDirectory()) {
                     if (file.getName().equals("items")) {
-                        Logger.debug("Found Items folder, renaming");
+                        Logger.debug("Found Items folder, renaming..");
                         FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("items", "item"));
                     }
 
                     if (file.getName().equals("blocks")) {
-                        Logger.debug("Found blocks folder, renaming");
+                        Logger.debug("Found blocks folder, renaming..");
                         FileUtil.renameFile(path.resolve(file.getName()), file.getName().replaceAll("blocks", "block"));
                     }
 
@@ -373,7 +374,6 @@ public class NameConverter extends Converter {
                 }
             }
 
-            Logger.addTab();
             try (Stream<Path> pathStream = Files.list(path).filter(path1 -> path1.toString().endsWith(extension))) {
                 pathStream.forEach(path1 -> {
                     String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
@@ -404,8 +404,6 @@ public class NameConverter extends Converter {
                     }
                 });
             }
-
-            Logger.subTab();
         }
     }
 

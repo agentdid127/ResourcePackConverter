@@ -53,7 +53,7 @@ public class ForwardsPackConverter extends PackConverter {
             this.registerConverter(new SpacesConverter(this));
         }
 
-        this.registerConverter(new ModelConverter(this, light, protocolTo, protocolFrom));
+        this.registerConverter(new ModelConverter(this, light, protocolFrom, protocolTo));
 
         if (protocolFrom <= Util.getVersionProtocol(gson, "1.12.2")
                 && protocolTo >= Util.getVersionProtocol(gson, "1.13")) {

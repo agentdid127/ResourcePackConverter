@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 public class AnimationConverter extends Converter {
     public AnimationConverter(PackConverter packConverter) {
@@ -21,51 +22,48 @@ public class AnimationConverter extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        fixAnimations(pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/block".replace("/", File.separator)));
-        fixAnimations(pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/item".replace("/", File.separator)));
+        Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
+        fixAnimations(texturesPath.resolve("block"));
+        fixAnimations(texturesPath.resolve("item"));
     }
 
     /**
      * Updates animated images to newer versions
-     * 
+     *
      * @param animations
      * @throws IOException
      */
     protected void fixAnimations(Path animations) throws IOException {
         if (!animations.toFile().exists())
             return;
-        Files.list(animations)
-                .filter(file -> file.toString().endsWith(".png.mcmeta"))
-                .forEach(file -> {
-                    try {
-                        JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
-
-                        if (json != null) {
-                            boolean anyChanges = false;
-                            JsonElement animationElement = json.get("animation");
-                            if (animationElement instanceof JsonObject) {
-                                JsonObject animationObject = (JsonObject) animationElement;
-
-                                // TODO: Confirm this doesn't break any packs
-                                animationObject.remove("width");
-                                animationObject.remove("height");
-
-                                anyChanges = true;
-                            }
-
-                            if (anyChanges) {
-                                JsonUtil.writeJson(packConverter.getGson(), file, json);
-                                Logger.debug("Converted " + file.getFileName());
-                            }
-                        } else {
-                            Logger.log("File: " + file.getFileName() + " is not a valid JSON file.");
+        Logger.addTab();
+        try (Stream<Path> pathStream = Files.list(animations).filter(file -> file.toString().endsWith(".png.mcmeta"))) {
+            pathStream.forEach(file -> {
+                try {
+                    JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
+                    if (json != null) {
+                        boolean anyChanges = false;
+                        JsonElement animationElement = json.get("animation");
+                        if (animationElement instanceof JsonObject animationObject) {
+                            // TODO: Confirm this doesn't break any packs
+                            animationObject.remove("width");
+                            animationObject.remove("height");
+                            anyChanges = true;
                         }
-                    } catch (IOException e) {
-                        Logger.log("Failed to convert file: " + file.getFileName());
-                        Util.propagate(e);
+
+                        if (anyChanges) {
+                            JsonUtil.writeJson(packConverter.getGson(), file, json);
+                            Logger.debug("Converted " + file.getFileName());
+                        }
+                    } else {
+                        Logger.log("File: " + file.getFileName() + " is not a valid JSON file.");
                     }
-                });
+                } catch (IOException e) {
+                    Logger.log("Failed to convert file: " + file.getFileName());
+                    Util.propagate(e);
+                }
+            });
+        }
+        Logger.subTab();
     }
 }
