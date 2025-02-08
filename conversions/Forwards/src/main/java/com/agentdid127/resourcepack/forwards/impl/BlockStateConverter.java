@@ -130,26 +130,26 @@ public class BlockStateConverter extends Converter {
 
         if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
-            val = nameConverter.getBlockMapping().remap(val);
+            val = nameConverter.getBlockMapping_1_13().remap(val);
             prefix = prefix.replaceAll("blocks", "block");
             anyChanges = true;
         }
 
         if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
-            val = nameConverter.getNewBlockMapping().remap(val);
+            val = nameConverter.getBlockMapping_1_14().remap(val);
             anyChanges = true;
         }
 
         if (from < Util.getVersionProtocol(packConverter.getGson(), "1.17")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
-            val = nameConverter.getBlockMapping17().remap(val);
+            val = nameConverter.getBlockMapping_1_17().remap(val);
             anyChanges = true;
         }
 
         if (from < Util.getVersionProtocol(packConverter.getGson(), "1.19")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
-            val = nameConverter.getBlockMapping19().remap(val);
+            val = nameConverter.getBlockMapping_1_19().remap(val);
             anyChanges = true;
         }
 

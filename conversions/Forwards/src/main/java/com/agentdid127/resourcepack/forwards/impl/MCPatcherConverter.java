@@ -105,9 +105,9 @@ public class MCPatcherConverter extends Converter {
         NameConverter nameConverter = packConverter.getConverter(NameConverter.class);
         String properties = prop.getProperty("texture");
         if (properties.startsWith("textures/blocks/"))
-            properties = "textures/block/" + nameConverter.getBlockMapping();
+            properties = "textures/block/" + nameConverter.getBlockMapping_1_13();
         else if (properties.startsWith("textures/items/"))
-            properties = "textures/item/" + nameConverter.getItemMapping();
+            properties = "textures/item/" + nameConverter.getItemMapping_1_13();
         return properties;
     }
 

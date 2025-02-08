@@ -125,18 +125,18 @@ public class ModelConverter extends Converter {
 								// 1.13 Mappings
 								if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
 									if (value.startsWith("block/")) {
-										value = "block/" + nameConverter.getBlockMapping()
+										value = "block/" + nameConverter.getBlockMapping_1_13()
 												.remap(value.substring("block/".length())).toLowerCase()
 												.replaceAll("[()]", "");
 										
 										Logger.debug(value.substring("block/".length()).toLowerCase()
 											.replaceAll("[()]", ""));
-										Logger.debug(nameConverter.getBlockMapping()
+										Logger.debug(nameConverter.getBlockMapping_1_13()
 												.remap(value.substring("block/".length())).toLowerCase()
 												.replaceAll("[()]", ""));
 									
 									} else if (value.startsWith("item/")) {
-										value = "item/" + nameConverter.getItemMapping()
+										value = "item/" + nameConverter.getItemMapping_1_13()
 												.remap(value.substring("item/".length())).toLowerCase()
 												.replaceAll("[()]", "");
 									} else
@@ -146,18 +146,18 @@ public class ModelConverter extends Converter {
 								// 1.14 Mappings
 								if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
 									if (value.startsWith("block/"))
-										value = "block/" + nameConverter.getNewBlockMapping()
+										value = "block/" + nameConverter.getBlockMapping_1_14()
 												.remap(value.substring("block/".length()));
 								}
 
 								// 1.17 Mappings
 								if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
 									if (value.startsWith("block/")) {
-										value = "block/" + nameConverter.getBlockMapping17()
+										value = "block/" + nameConverter.getBlockMapping_1_17()
 												.remap(value.substring("block/".length())).toLowerCase()
 												.replaceAll("[()]", "");
 									} else if (value.startsWith("item/")) {
-										value = "item/" + nameConverter.getItemMapping17()
+										value = "item/" + nameConverter.getItemMapping_1_17()
 												.remap(value.substring("item/".length())).toLowerCase()
 												.replaceAll("[()]", "");
 									}
@@ -167,7 +167,7 @@ public class ModelConverter extends Converter {
 								// 1.19 Mappings
 								if (version >= Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
 									if (value.startsWith("block/")) {
-										value = "block/" + nameConverter.getBlockMapping19()
+										value = "block/" + nameConverter.getBlockMapping_1_19()
 												.remap(value.substring("block/".length())).toLowerCase()
 												.replaceAll("[()]", "");
 									}
@@ -177,7 +177,7 @@ public class ModelConverter extends Converter {
 								// Dyes
 								if (value.startsWith("item/") && value.contains("dye")) {
 									if (version > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
-										value = "item/" + nameConverter.getNewItemMapping()
+										value = "item/" + nameConverter.getItemMapping_1_14()
 												.remap(value.substring("item/".length()));
 								}
 

@@ -62,35 +62,33 @@ public class ArmorMoverConverter extends Converter {
         modelsPath.toFile().delete();
     }
 
-    private void ensureFolder(Path filePath, Path intendedFolderPath) {
+    private Path ensureFolder(Path filePath, Path intendedFolderPath) {
         if (filePath.toFile().exists() && !intendedFolderPath.toFile().exists()) {
             intendedFolderPath.toFile().mkdirs();
         }
+
+        return filePath;
     }
 
     private void moveArmorLayers(String material, Path modelsArmorPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
-        Path layer1Path = modelsArmorPath.resolve(material + "_layer_1.png");
-        ensureFolder(layer1Path, humanoidPath);
+        Path layer1Path = ensureFolder(modelsArmorPath.resolve(material + "_layer_1.png"), humanoidPath);
         if (layer1Path.toFile().exists()) {
             Files.move(layer1Path, humanoidPath.resolve(material + ".png"));
         }
 
-        Path layer2Path = modelsArmorPath.resolve(material + "_layer_2.png");
-        ensureFolder(layer2Path, humanoidLeggingsPath);
+        Path layer2Path = ensureFolder(modelsArmorPath.resolve(material + "_layer_2.png"), humanoidLeggingsPath);
         if (layer2Path.toFile().exists()) {
             Files.move(layer2Path, humanoidLeggingsPath.resolve(material + ".png"));
         }
     }
 
     private void moveLeatherArmorFiles(Path modelsArmorPath, Path humanoidPath, Path humanoidLeggingsPath) throws IOException {
-        Path overlayLayer1 = modelsArmorPath.resolve("leather_layer_1_overlay.png");
-        ensureFolder(overlayLayer1, humanoidPath);
+        Path overlayLayer1 = ensureFolder(modelsArmorPath.resolve("leather_layer_1_overlay.png"), humanoidPath);
         if (overlayLayer1.toFile().exists()) {
             Files.move(overlayLayer1, humanoidPath.resolve("leather_overlay.png"));
         }
 
-        Path overlayLayer2 = modelsArmorPath.resolve("leather_layer_2_overlay.png");
-        ensureFolder(overlayLayer2, humanoidLeggingsPath);
+        Path overlayLayer2 = ensureFolder(modelsArmorPath.resolve("leather_layer_2_overlay.png"), humanoidLeggingsPath);
         if (overlayLayer2.toFile().exists()) {
             Files.move(overlayLayer2, humanoidLeggingsPath.resolve("leather_overlay.png"));
         }

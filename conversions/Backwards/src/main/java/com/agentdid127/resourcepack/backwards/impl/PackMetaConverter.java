@@ -33,7 +33,7 @@ public class PackMetaConverter extends Converter {
 
         JsonObject versionObj = Util.getVersionObjectByProtocol(packConverter.getGson(), version);
         if (versionObj != null) {
-            versionInt = Integer.parseInt(versionObj.get("pack_format").getAsString());
+            versionInt = versionObj.get("pack_format").getAsInt();
         }
 
         JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);

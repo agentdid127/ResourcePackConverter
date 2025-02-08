@@ -1,11 +1,11 @@
 package com.agentdid127.resourcepack.library.utilities;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Mapping {
     protected final Map<String, String> mapping = new HashMap<>();
@@ -15,12 +15,12 @@ public class Mapping {
     }
 
     protected void load(Gson gson, String source, String path, String key) {
-        JsonObject object = JsonUtil.readJsonResource(gson, "/" + source + "/" + path + ".json")
-                .getAsJsonObject(key);
-        if (object == null)
-            return;
-        for (Map.Entry<String, JsonElement> entry : object.entrySet())
-            this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+        JsonObject object = JsonUtil.readJsonResource(gson, "/" + source + "/" + path + ".json").getAsJsonObject(key);
+        if (object != null) {
+            for (Map.Entry<String, JsonElement> entry : object.entrySet()) {
+                this.mapping.put(entry.getKey(), entry.getValue().getAsString());
+            }
+        }
     }
 
     /**
