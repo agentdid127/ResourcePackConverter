@@ -8,6 +8,7 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.GsonBuilder;
+import com.google.gson.Strictness;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,9 +21,10 @@ public class ForwardsPackConverter extends PackConverter {
 
     public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
                                  PrintStream out) {
-        GsonBuilder gsonBuilder = new GsonBuilder().setLenient();
-        if (!minify)
+        GsonBuilder gsonBuilder = new GsonBuilder().setStrictness(Strictness.LENIENT);
+        if (!minify) {
             gsonBuilder.setPrettyPrinting();
+        }
         gson = gsonBuilder.create();
         Logger.setDebug(debug);
         Logger.setStream(out);
