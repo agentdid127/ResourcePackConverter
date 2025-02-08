@@ -103,13 +103,15 @@ public class BlockStateConverter extends Converter {
      * @param entry
      */
     private void updateModelPath(Map.Entry<String, JsonElement> entry) {
-        if (entry.getValue() instanceof JsonObject value) {
+        if (entry.getValue() instanceof JsonObject) {
+            JsonObject value = entry.getValue().getAsJsonObject();
             if (value.has("model")) {
                 updateModelObject(value);
             }
         } else if (entry.getValue() instanceof JsonArray) {
             for (JsonElement jsonElement : ((JsonArray) entry.getValue())) {
-                if (jsonElement instanceof JsonObject value) {
+                if (jsonElement instanceof JsonObject) {
+                    JsonObject value = jsonElement.getAsJsonObject();
                     if (value.has("model")) {
                         updateModelObject(value);
                     }

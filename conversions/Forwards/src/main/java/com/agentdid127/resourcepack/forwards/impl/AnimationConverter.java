@@ -44,7 +44,8 @@ public class AnimationConverter extends Converter {
                     if (json != null) {
                         boolean anyChanges = false;
                         JsonElement animationElement = json.get("animation");
-                        if (animationElement instanceof JsonObject animationObject) {
+                        if (animationElement instanceof JsonObject) {
+                            JsonObject animationObject = animationElement.getAsJsonObject();
                             // TODO: Confirm this doesn't break any packs
                             animationObject.remove("width");
                             animationObject.remove("height");
