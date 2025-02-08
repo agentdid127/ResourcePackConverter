@@ -32,15 +32,16 @@ public class ParticleTextureConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists())
+        if (!texturesPath.toFile().exists()) {
             return;
+        }
 
         Path particlePath = texturesPath.resolve("particle");
-        if (!particlePath.toFile().exists())
+        if (!particlePath.toFile().exists()) {
             return;
+        }
 
         Gson gson = packConverter.getGson();
-
         JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json", JsonObject.class);
         assert particlesJson != null;
 
@@ -65,7 +66,11 @@ public class ParticleTextureConverter extends Converter {
                 to >= Util.getVersionProtocol(gson, "1.14")) {
             Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);
             Path entityPath = texturesPath.resolve("entity");
-            FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), entityPath.resolve("fishing_hook.png"));
+            Path newFishingHookPath = entityPath.resolve("fishing_hook.png");
+            if (newFishingHookPath.toFile().exists()) {
+                newFishingHookPath.toFile().delete();
+            }
+            FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), newFishingHookPath);
         }
     }
 }
