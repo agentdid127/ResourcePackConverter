@@ -54,15 +54,14 @@ public class BackwardsPackConverter extends PackConverter {
             this.registerConverter(new InventoryConverter(this));
         }
 
-        if (protocolFrom >= Util.getVersionProtocol(gson, "1.15")
-                && protocolTo < Util.getVersionProtocol(gson, "1.15")) {
+        if (protocolFrom >= Util.getVersionProtocol(gson, "1.15") && protocolTo < Util.getVersionProtocol(gson, "1.15")) {
             this.registerConverter(new EnchantConverter(this));
             this.registerConverter(new ChestConverter(this));
         }
 
-        if (protocolFrom >= Util.getVersionProtocol(gson, "1.14")
-                && protocolTo < Util.getVersionProtocol(gson, "1.14"))
+        if (protocolFrom >= Util.getVersionProtocol(gson, "1.14") && protocolTo < Util.getVersionProtocol(gson, "1.14")) {
             this.registerConverter(new PaintingConverter(this));
+        }
 
         this.registerConverter(new ParticleTextureConverter(this, protocolFrom, protocolTo));
 
@@ -79,9 +78,9 @@ public class BackwardsPackConverter extends PackConverter {
         this.registerConverter(new BlockStateConverter(this, protocolFrom, protocolTo));
         this.registerConverter(new ModelConverter(this, light, protocolFrom, protocolTo));
 
-        if (protocolFrom >= Util.getVersionProtocol(gson, "1.9")
-                && protocolTo < Util.getVersionProtocol(gson, "1.9"))
+        if (protocolFrom >= Util.getVersionProtocol(gson, "1.9") && protocolTo < Util.getVersionProtocol(gson, "1.9")) {
             this.registerConverter(new CompassConverter(this, protocolTo));
+        }
     }
 
     public void runPack(Pack pack) {

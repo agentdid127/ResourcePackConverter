@@ -334,7 +334,7 @@ public class NameConverter extends Converter {
         }
 
         Files.list(path)
-                .filter(path1 -> path.toString().endsWith(extension))
+                .filter(path1 -> path1.toString().endsWith(extension))
                 .forEach(path1 -> {
                     String baseName = path1.getFileName().toString().substring(0, path1.getFileName().toString().length() - extension.length());
                     // NOTE: skip the already renamed grass blocks
