@@ -13,6 +13,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GUI {
     static JFrame frame;
@@ -27,13 +28,12 @@ public class GUI {
     private JButton convertButton;
 
     private PrintStream out;
-    private GsonBuilder gsonBuilder = new GsonBuilder();
-    private Gson gson = gsonBuilder.disableHtmlEscaping().create();
+    private final GsonBuilder gsonBuilder = new GsonBuilder();
+    private final Gson gson = gsonBuilder.disableHtmlEscaping().create();
 
     public GUI() {
         String[] versions = Util.getSupportedVersions(gson);
-
-        for (String item : versions) {
+        for (String item : versions == null ? new String[]{} : versions) {
             initialVersionBox.addItem(item);
             finalVersionBox.addItem(item);
         }
@@ -41,23 +41,23 @@ public class GUI {
         convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
 
-            String from = initialVersionBox.getSelectedItem().toString();
-            String to = finalVersionBox.getSelectedItem().toString();
+            String from = Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString();
+            String to = Objects.requireNonNull(finalVersionBox.getSelectedItem()).toString();
             String light = "none";
 
             boolean minify = minifyCheckBox.isSelected();
             new Thread(() -> {
                 convertButton.setVisible(false);
                 try {
-                    if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to))
+                    if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
                         new BackwardsPackConverter(from, to, light, minify, Paths.get("./"), false, out).runDir();
-                    else
+                    } else {
                         new ForwardsPackConverter(from, to, light, minify, Paths.get("./"), false, out).runDir();
+                    }
                 } catch (Exception exception) {
                     out.println(Arrays.toString(exception.getStackTrace()));
                 }
                 convertButton.setVisible(true);
-                return;
             }).start();
         });
     }

@@ -9,17 +9,17 @@ import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class BackwardsPackConverter extends PackConverter {
     Path INPUT_DIR;
 
     public BackwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
-            PrintStream out) {
+                                  PrintStream out) {
         GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setLenient();
         if (!minify)
             gsonBuilder.setPrettyPrinting();
@@ -105,12 +105,15 @@ public class BackwardsPackConverter extends PackConverter {
         }
     }
 
-    public void runDir() throws IOException {
-        Files.list(INPUT_DIR)
-                .map(Pack::parse)
-                .filter(Objects::nonNull)
-                .forEach(pack -> {
-                    runPack(pack);
-                });
+    public void runDir() {
+        try (Stream<Path> pathStream = Files.list(INPUT_DIR)) {
+            try (Stream<Pack> packStream = pathStream.map(Pack::parse).filter(Objects::nonNull)) {
+                packStream.forEach(this::runPack);
+            } catch (Exception exception) {
+                Util.propagate(exception);
+            }
+        } catch (Exception exception) {
+            Util.propagate(exception);
+        }
     }
 }

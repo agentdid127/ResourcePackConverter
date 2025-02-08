@@ -13,7 +13,7 @@ import java.io.PrintStream;
 public class Main {
     /**
      * Main class. Runs program
-     * 
+     *
      * @param args
      * @throws IOException
      */
@@ -32,12 +32,10 @@ public class Main {
         PrintStream out = System.out;
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.disableHtmlEscaping().create();
-
-        if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to))
-            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out)
-                    .runDir();
-        else
-            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out)
-                    .runDir();
+        if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
+            new BackwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out).runDir();
+        } else {
+            new ForwardsPackConverter(from, to, light, minify, optionSet.valueOf(Options.INPUT_DIR), debug, out).runDir();
+        }
     }
 }
