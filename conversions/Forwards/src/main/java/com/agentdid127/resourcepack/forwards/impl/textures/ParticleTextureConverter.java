@@ -41,6 +41,8 @@ public class ParticleTextureConverter extends Converter {
             return;
         }
 
+        Logger.addTab();
+
         Gson gson = packConverter.getGson();
         JsonObject particlesJson = JsonUtil.readJsonResource(gson, "/forwards/particles.json", JsonObject.class);
         assert particlesJson != null;
@@ -72,5 +74,7 @@ public class ParticleTextureConverter extends Converter {
             }
             FileUtil.moveIfExists(particlePath.resolve("fishing_hook.png"), newFishingHookPath);
         }
+
+        Logger.subTab();
     }
 }

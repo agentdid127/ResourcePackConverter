@@ -44,6 +44,8 @@ public class LangConverter extends Converter {
             return;
         }
 
+        Logger.addTab();
+
         ArrayList<String> models = new ArrayList<String>();
         try (Stream<Path> pathStream = Files.list(langPath).filter(path1 -> path1.toString().endsWith(".lang"))) {
             pathStream.forEach(lang -> {
@@ -106,5 +108,7 @@ public class LangConverter extends Converter {
             Logger.debug("Deleting: " + langFilePath);
             Files.delete(langFilePath);
         }
+
+        Logger.subTab();
     }
 }
