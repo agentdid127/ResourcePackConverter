@@ -9,10 +9,15 @@ import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.JsonObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 @Deprecated // will be removed when extensions are made
@@ -29,10 +34,12 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath()
-                .resolve("assets/minecraft/optifine".replace("/", File.separator));
-        if (models.toFile().exists())
+        Path models = pack.getWorkingPath().resolve("assets/minecraft/optifine".replace("/", File.separator));
+        if (models.toFile().exists()) {
+            Logger.addTab();
             findFiles(models);
+            Logger.subTab();
+        }
         // remapModelJson(models.resolve("item"));
         // remapModelJson(models.resolve("block"));
     }
@@ -45,11 +52,12 @@ public class MCPatcherConverter extends Converter {
      */
     protected void findFiles(Path path) throws IOException {
         File directory = path.toFile();
-        for (File file : directory.listFiles()) {
-            if (!file.isDirectory())
-                continue;
-            remapProperties(file.toPath());
-            findFiles(file.toPath());
+        for (File file : Objects.requireNonNull(directory.listFiles())) {
+            if (!file.isDirectory()) {
+                remapProperties(file.toPath());
+            } else {
+                findFiles(file.toPath());
+            }
         }
     }
 
@@ -63,26 +71,31 @@ public class MCPatcherConverter extends Converter {
         if (path.toFile().exists()) {
             try (Stream<Path> pathStream = Files.list(path).filter(path1 -> path1.toString().endsWith(".properties"))) {
                 pathStream.forEach(model -> {
-                    try (InputStream input = new FileInputStream(model.toString())) {
+                    Path inputStreamPath = Paths.get(model.toString());
+                    try (InputStream input = Files.newInputStream(inputStreamPath)) {
                         Logger.debug("Updating:" + model.getFileName());
 
                         PropertiesEx prop = new PropertiesEx();
                         prop.load(input);
 
-                        try (OutputStream output = new FileOutputStream(model.toString())) {
+                        try (OutputStream output = Files.newOutputStream(inputStreamPath)) {
                             // updates textures
-                            if (prop.containsKey("texture"))
+                            if (prop.containsKey("texture")) {
                                 prop.setProperty("texture", replaceTextures(prop));
+                            }
 
                             // Updates Item IDs
-                            if (prop.containsKey("matchItems"))
+                            if (prop.containsKey("matchItems")) {
                                 prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
+                            }
 
-                            if (prop.containsKey("items"))
+                            if (prop.containsKey("items")) {
                                 prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
+                            }
 
-                            if (prop.containsKey("matchBlocks"))
+                            if (prop.containsKey("matchBlocks")) {
                                 prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
+                            }
 
                             // Saves File
                             prop.store(output, "");

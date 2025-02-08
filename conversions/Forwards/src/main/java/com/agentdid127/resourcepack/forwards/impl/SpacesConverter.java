@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class SpacesConverter extends Converter {
     public SpacesConverter(PackConverter packConverter) {
@@ -18,51 +19,53 @@ public class SpacesConverter extends Converter {
 
     /**
      * Runs findFiles
-     * 
+     *
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
         Path assets = pack.getWorkingPath().resolve("assets");
-        if (!assets.toFile().exists())
-            return;
-        findFiles(assets);
+        if (assets.toFile().exists()) {
+            Logger.addTab();
+            findFiles(assets);
+            Logger.subTab();
+        }
     }
 
     /**
      * Recursively finds files to fix Spaces
-     * 
+     *
      * @param path
-     * @throws IOException
      */
-    protected void findFiles(Path path) throws IOException {
-        if (!path.toFile().exists())
-            return;
-        File directory = path.toFile();
-        for (File file : directory.listFiles()) {
-            String dir = fixSpaces(file.toPath());
-            if (file.isDirectory())
-                findFiles(Paths.get(dir));
+    protected void findFiles(Path path) {
+        if (path.toFile().exists()) {
+            File directory = path.toFile();
+            for (File file : Objects.requireNonNull(directory.listFiles())) {
+                String dir = fixSpaces(file.toPath());
+                if (file.isDirectory()) {
+                    findFiles(Paths.get(dir));
+                }
+            }
         }
     }
 
     /**
      * Replaces spaces in files with underscores
-     * 
+     *
      * @param path
      * @return
-     * @throws IOException
      */
-    protected String fixSpaces(Path path) throws IOException {
-        if (!path.getFileName().toString().contains(" "))
+    protected String fixSpaces(Path path) {
+        if (!path.getFileName().toString().contains(" ")) {
             return path.toString();
+        }
 
         String noSpaces = path.getFileName().toString().replaceAll(" ", "_");
-
         Boolean ret = FileUtil.renameFile(path, noSpaces);
-        if (ret == null)
+        if (ret == null) {
             return "null";
+        }
 
         if (ret) {
             Logger.debug("Renamed: " + path.getFileName().toString() + "->" + noSpaces);
