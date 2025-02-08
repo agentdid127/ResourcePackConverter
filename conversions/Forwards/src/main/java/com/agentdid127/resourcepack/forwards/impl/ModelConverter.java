@@ -48,13 +48,13 @@ public class ModelConverter extends Converter {
     }
 
     /**
-     * Recursively finds files with Path path and runs remapModelJson
+     * Recursively finds files with Path rootPath and runs remapModelJson
      *
-     * @param path
+     * @param rootPath
      * @throws IOException
      */
-    protected void findFiles(Path path) throws IOException {
-        File directory = path.toFile();
+    protected void findFiles(Path rootPath) throws IOException {
+        File directory = rootPath.toFile();
         for (File file : Objects.requireNonNull(directory.listFiles())) {
             Path filePath = file.toPath();
             if (!file.isDirectory()) {

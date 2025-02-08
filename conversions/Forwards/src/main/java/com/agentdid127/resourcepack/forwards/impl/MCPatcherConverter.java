@@ -34,10 +34,10 @@ public class MCPatcherConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath().resolve("assets/minecraft/optifine".replace("/", File.separator));
-        if (models.toFile().exists()) {
+        Path optifinePath = pack.getWorkingPath().resolve("assets/minecraft/optifine".replace("/", File.separator));
+        if (optifinePath.toFile().exists()) {
             Logger.addTab();
-            findFiles(models);
+            findFiles(optifinePath);
             Logger.subTab();
         }
         // remapModelJson(models.resolve("item"));
@@ -45,18 +45,33 @@ public class MCPatcherConverter extends Converter {
     }
 
     /**
-     * Finds all files in the specified path
+     * Finds all files in the specified rootPath
      *
-     * @param path
+     * @param rootPath
      * @throws IOException
      */
-    protected void findFiles(Path path) throws IOException {
-        File directory = path.toFile();
+    protected void findFiles(Path rootPath) throws IOException {
+        File directory = rootPath.toFile();
         for (File file : Objects.requireNonNull(directory.listFiles())) {
+            Path filePath = file.toPath();
             if (!file.isDirectory()) {
-                remapProperties(file.toPath());
+                remapProperties(filePath);
             } else {
-                findFiles(file.toPath());
+                remapPropertiesFolder(filePath);
+            }
+        }
+    }
+
+    protected void remapPropertiesFolder(Path rootPath) throws IOException {
+        if (rootPath.toFile().exists()) {
+            try (Stream<Path> pathStream = Files.list(rootPath).filter(path1 -> path1.toString().endsWith(".properties"))) {
+                pathStream.forEach(propertyPath -> {
+                    try {
+                        this.remapProperties(propertyPath);
+                    } catch (IOException e) {
+                        Util.propagate(e);
+                    }
+                });
             }
         }
     }
@@ -64,49 +79,48 @@ public class MCPatcherConverter extends Converter {
     /**
      * Remaps properties to work in newer versions
      *
-     * @param path
+     * @param rootPath
+     * @param propertyPath
      * @throws IOException
      */
-    protected void remapProperties(Path path) throws IOException {
-        if (path.toFile().exists()) {
-            try (Stream<Path> pathStream = Files.list(path).filter(path1 -> path1.toString().endsWith(".properties"))) {
-                pathStream.forEach(model -> {
-                    Path inputStreamPath = Paths.get(model.toString());
-                    try (InputStream input = Files.newInputStream(inputStreamPath)) {
-                        Logger.debug("Updating:" + model.getFileName());
+    protected void remapProperties(Path propertyPath) throws IOException {
+        if (!propertyPath.toFile().exists()) {
+            return;
+        }
 
-                        PropertiesEx prop = new PropertiesEx();
-                        prop.load(input);
+        Path inputStreamPath = Paths.get(propertyPath.toString());
+        try (InputStream input = Files.newInputStream(inputStreamPath)) {
+            Logger.debug("Updating:" + propertyPath.getFileName());
 
-                        try (OutputStream output = Files.newOutputStream(inputStreamPath)) {
-                            // updates textures
-                            if (prop.containsKey("texture")) {
-                                prop.setProperty("texture", replaceTextures(prop));
-                            }
+            PropertiesEx prop = new PropertiesEx();
+            prop.load(input);
 
-                            // Updates Item IDs
-                            if (prop.containsKey("matchItems")) {
-                                prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
-                            }
+            try (OutputStream output = Files.newOutputStream(inputStreamPath)) {
+                // updates textures
+                if (prop.containsKey("texture")) {
+                    prop.setProperty("texture", replaceTextures(prop));
+                }
 
-                            if (prop.containsKey("items")) {
-                                prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
-                            }
+                // Updates Item IDs
+                if (prop.containsKey("matchItems")) {
+                    prop.setProperty("matchItems", updateID("matchItems", prop, "regular").replaceAll("\"", ""));
+                }
 
-                            if (prop.containsKey("matchBlocks")) {
-                                prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
-                            }
+                if (prop.containsKey("items")) {
+                    prop.setProperty("items", updateID("items", prop, "regular").replaceAll("\"", ""));
+                }
 
-                            // Saves File
-                            prop.store(output, "");
-                        } catch (IOException io) {
-                            io.printStackTrace();
-                        }
-                    } catch (IOException e) {
-                        throw Util.propagate(e);
-                    }
-                });
+                if (prop.containsKey("matchBlocks")) {
+                    prop.setProperty("matchBlocks", updateID("matchBlocks", prop, "regular").replaceAll("\"", ""));
+                }
+
+                // Saves File
+                prop.store(output, "");
+            } catch (IOException io) {
+                io.printStackTrace();
             }
+        } catch (IOException e) {
+            throw Util.propagate(e);
         }
     }
 
