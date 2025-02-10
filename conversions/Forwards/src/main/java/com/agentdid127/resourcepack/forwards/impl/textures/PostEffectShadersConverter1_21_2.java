@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// https://www.minecraft.net/en-us/article/minecraft-java-edition-1-21-2
 public class PostEffectShadersConverter1_21_2 extends Converter {
     private static final Map<String, String> MAPPING = new HashMap<>();
 
@@ -54,6 +55,7 @@ public class PostEffectShadersConverter1_21_2 extends Converter {
             postEffectPath.toFile().delete();
         }
 
+        // TODO: Move the corresponding program shader from shaders/program to shaders/post
         Files.move(shadersPostPath, postEffectPath);
 
         // Update shaders
@@ -67,9 +69,14 @@ public class PostEffectShadersConverter1_21_2 extends Converter {
                     if (json.has("targets") && json.get("targets").isJsonArray()) {
                         JsonObject targets = new JsonObject();
                         JsonArray targetElements = json.remove("targets").getAsJsonArray();
-                        for (JsonPrimitive primitive : targetElements.asList().stream().map(JsonElement::getAsJsonPrimitive).filter(JsonPrimitive::isString).collect(Collectors.toList())) {
-                            String target = primitive.getAsString();
-                            targets.add(MAPPING.getOrDefault(target, target), new JsonObject());
+                        for (JsonElement element : targetElements) {
+                            if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString()) {
+                                String target = element.getAsString();
+                                targets.add(MAPPING.getOrDefault(target, target), new JsonObject());
+                            } else if (element.isJsonObject()) {
+                                // TODO
+                                // For example, [{"name": "potato", "width": 16, "height": 16}] becomes {"potato": {"width": 16, "height": 16}}
+                            }
                         }
                         json.add("targets", targets);
                     }
