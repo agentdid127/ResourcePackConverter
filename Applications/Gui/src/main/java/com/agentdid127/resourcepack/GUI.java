@@ -18,31 +18,98 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class GUI extends JPanel {
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT).disableHtmlEscaping().create();
+
     private PrintStream out;
-    private JTextArea outputLogPane;
-    private JComboBox<String> initialVersionBox;
-    private JComboBox<String> targetVersions;
-    private JCheckBox minifyCheckBox;
-    private JComboBox<String> lightOptions;
-    private JButton convertButton;
+    private final JTextArea outputLogPane;
+    private final JComboBox<String> initialVersionBox;
+    private final JComboBox<String> targetVersions;
+    private final JCheckBox minifyCheckBox;
+    private final JComboBox<String> lightOptions;
+    private final JButton convertButton;
 
     public GUI() {
-        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT);
-        Gson gson = gsonBuilder.disableHtmlEscaping().create();
-        setupGUI(gson);
+        // Log Output Panel
+        final JPanel logPanel = new JPanel();
+        final JScrollPane scrollPane = new JScrollPane();
+        this.outputLogPane = new JTextArea();
+        this.outputLogPane.setColumns(60);
+        this.outputLogPane.setRows(20);
+        this.outputLogPane.setText("");
+        this.outputLogPane.setEditable(false);
+        scrollPane.setViewportView(this.outputLogPane);
+        logPanel.add(scrollPane);
+        this.add(logPanel);
+
+        // Menubar Panel
+        final JPanel menuBarPanel = new JPanel();
+        // Initial Version
+        JLabel initialVersionLabel = new JLabel();
+        initialVersionLabel.setText("Initial Version");
+        menuBarPanel.add(initialVersionLabel);
+
+        this.initialVersionBox = new JComboBox<>();
+        initialVersionLabel.setLabelFor(this.initialVersionBox);
+        menuBarPanel.add(this.initialVersionBox);
+
+        // Target Version
+        JLabel targetVersionsLabel = new JLabel();
+        targetVersionsLabel.setText("Final Version");
+        menuBarPanel.add(targetVersionsLabel);
+
+        this.targetVersions = new JComboBox<>();
+        targetVersionsLabel.setLabelFor(targetVersions);
+        menuBarPanel.add(this.targetVersions);
+
+        // Add items to both ^
+        String[] versions = Util.getSupportedVersions(GSON);
+        if (versions == null) {
+            throw new RuntimeException("Failed to get supported version, application possibly corrupt!");
+        }
+
+        if (versions.length > 0) {
+            for (String version : versions) {
+                initialVersionBox.addItem(version);
+                targetVersions.addItem(version);
+            }
+            targetVersions.setSelectedIndex(targetVersions.getItemCount() - 1);
+        }
+
+        // Minify Checkbox
+        JLabel minifyCheckboxLabel = new JLabel();
+        minifyCheckboxLabel.setText("Minify");
+        menuBarPanel.add(minifyCheckboxLabel);
+
+        this.minifyCheckBox = new JCheckBox();
+        minifyCheckboxLabel.setLabelFor(this.minifyCheckBox);
+        menuBarPanel.add(this.minifyCheckBox);
+
+        // Item Lighting Options
+        JLabel lightOptionsLabel = new JLabel();
+        lightOptionsLabel.setText("Item Lighting");
+        menuBarPanel.add(lightOptionsLabel);
+
+        this.lightOptions = new JComboBox<>();
+        lightOptionsLabel.setLabelFor(this.lightOptions);
+        menuBarPanel.add(this.lightOptions);
+
         Arrays.stream((new String[]{"none", "front", "side"})).forEach(lightOptions::addItem);
-        convertButton.addActionListener(e -> {
+
+        // Convert Button
+        this.convertButton = new JButton();
+        this.convertButton.setText("Convert");
+        this.convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
             String light = Objects.requireNonNull(lightOptions.getSelectedItem()).toString();
-            int from = Util.getVersionProtocol(gson, Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString());
-            int to = Util.getVersionProtocol(gson, Objects.requireNonNull(targetVersions.getSelectedItem()).toString());
+            int from = Util.getVersionProtocol(GSON, Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString());
+            int to = Util.getVersionProtocol(GSON, Objects.requireNonNull(targetVersions.getSelectedItem()).toString());
             boolean minify = minifyCheckBox.isSelected();
             new Thread(() -> {
                 convertButton.setEnabled(false);
                 try {
-                    Gson packGson = gson;
+                    Gson packGson = GSON;
                     if (!minify) {
-                        packGson = gson.newBuilder().setPrettyPrinting().create();
+                        packGson = packGson.newBuilder().setPrettyPrinting().create();
                     }
 
                     Path dotPath = Paths.get("./");
@@ -57,6 +124,9 @@ public class GUI extends JPanel {
                 convertButton.setEnabled(true);
             }).start();
         });
+        menuBarPanel.add(this.convertButton);
+
+        this.add(menuBarPanel);
     }
 
     public static void main(String[] args) {
@@ -70,89 +140,14 @@ public class GUI extends JPanel {
             System.err.println("GTK look not supported, ignoring.");
         }
 
-        frame.setFocusable(true);
         Dimension dimensions = new Dimension(854, 480);
-        frame.setMaximumSize(dimensions);
         frame.setMinimumSize(dimensions);
         frame.setPreferredSize(dimensions);
+        frame.setFocusable(true);
+        frame.setResizable(false);
         frame.setLocationRelativeTo(null); // Centers window on screen
         frame.pack();
         frame.setVisible(true);
-    }
-
-    private void setupGUI(Gson gson) {
-        {
-            final JPanel panel = new JPanel();
-            final JScrollPane scrollPane = new JScrollPane();
-            this.outputLogPane = new JTextArea();
-            this.outputLogPane.setColumns(60);
-            this.outputLogPane.setRows(20);
-            this.outputLogPane.setText("");
-            this.outputLogPane.setEditable(false);
-            scrollPane.setViewportView(this.outputLogPane);
-            panel.add(scrollPane);
-            this.add(panel);
-        }
-
-        {
-            final JPanel menuBar = new JPanel();
-            // Initial Version
-            JLabel initialVersionLabel = new JLabel();
-            initialVersionLabel.setText("Initial Version");
-            menuBar.add(initialVersionLabel);
-
-            this.initialVersionBox = new JComboBox<>();
-            initialVersionLabel.setLabelFor(this.initialVersionBox);
-            menuBar.add(this.initialVersionBox);
-
-            // Target Version
-            JLabel targetVersionsLabel = new JLabel();
-            targetVersionsLabel.setText("Final Version");
-            menuBar.add(targetVersionsLabel);
-
-            this.targetVersions = new JComboBox<>();
-            targetVersionsLabel.setLabelFor(targetVersions);
-            menuBar.add(this.targetVersions);
-
-            // Add items to both ^
-            String[] versions = Util.getSupportedVersions(gson);
-            if (versions == null) {
-                throw new RuntimeException("Failed to get supported version, application possibly corrupt!");
-            }
-
-            if (versions.length > 0) {
-                for (String version : versions) {
-                    initialVersionBox.addItem(version);
-                    targetVersions.addItem(version);
-                }
-                targetVersions.setSelectedIndex(targetVersions.getItemCount() - 1);
-            }
-
-            // Minify Checkbox
-            JLabel minifyCheckboxLabel = new JLabel();
-            minifyCheckboxLabel.setText("Minify");
-            menuBar.add(minifyCheckboxLabel);
-
-            this.minifyCheckBox = new JCheckBox();
-            minifyCheckboxLabel.setLabelFor(this.minifyCheckBox);
-            menuBar.add(this.minifyCheckBox);
-
-            // Item Lighting Options
-            JLabel lightOptionsLabel = new JLabel();
-            lightOptionsLabel.setText("Item Lighting");
-            menuBar.add(lightOptionsLabel);
-
-            this.lightOptions = new JComboBox<>();
-            lightOptionsLabel.setLabelFor(this.lightOptions);
-            menuBar.add(this.lightOptions);
-
-            // Convert Button
-            this.convertButton = new JButton();
-            this.convertButton.setText("Convert");
-            menuBar.add(this.convertButton);
-
-            this.add(menuBar);
-        }
     }
 
     private PrintStream redirectSystemStreams() {
