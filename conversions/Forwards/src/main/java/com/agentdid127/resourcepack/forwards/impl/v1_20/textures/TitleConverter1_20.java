@@ -24,15 +24,7 @@ public class TitleConverter1_20 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists()) {
-            return;
-        }
-
         Path titleFolderPath = texturesPath.resolve("gui/title".replace("/", File.separator));
-        if (!titleFolderPath.toFile().exists()) {
-            return;
-        }
-
         Path minecraftTilePath = titleFolderPath.resolve("minecraft.png");
         if (!minecraftTilePath.toFile().exists()) {
             return;

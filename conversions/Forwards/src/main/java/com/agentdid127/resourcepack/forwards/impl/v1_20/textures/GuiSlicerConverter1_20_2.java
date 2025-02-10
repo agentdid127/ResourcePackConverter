@@ -34,10 +34,6 @@ public class GuiSlicerConverter1_20_2 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists()) {
-            return;
-        }
-
         Path guiPath = texturesPath.resolve("gui");
         if (!guiPath.toFile().exists()) {
             return; // No need to do any slicing.

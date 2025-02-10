@@ -6,10 +6,10 @@ import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Strictness;
+import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
@@ -17,151 +17,160 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class GUI {
-    static JFrame frame;
-    private JPanel panel1;
-    private JComboBox<String> initialVersionBox;
-    private JComboBox<String> finalVersionBox;
-    private JTextArea outputArea;
-    private JCheckBox minifyCheckBox;
-    private JLabel finalVersionLabel;
-    private JLabel initialVersionLabel;
-    private JLabel outputLabel;
-    private JButton convertButton;
-
+public class GUI extends JPanel {
     private PrintStream out;
-    private final Gson gson;
+    private JTextArea outputLogPane;
+    private JComboBox<String> initialVersionBox;
+    private JComboBox<String> targetVersions;
+    private JCheckBox minifyCheckBox;
+    private JComboBox<String> lightOptions;
+    private JButton convertButton;
 
     public GUI() {
         GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT);
-        this.gson = gsonBuilder.disableHtmlEscaping().create();
-
-        String[] versions = Util.getSupportedVersions(gson);
-        for (String item : versions == null ? new String[]{} : versions) {
-            initialVersionBox.addItem(item);
-            finalVersionBox.addItem(item);
-        }
-
+        Gson gson = gsonBuilder.disableHtmlEscaping().create();
+        setupGUI(gson);
+        Arrays.stream((new String[]{"none", "front", "side"})).forEach(lightOptions::addItem);
         convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
+            String light = Objects.requireNonNull(lightOptions.getSelectedItem()).toString();
             int from = Util.getVersionProtocol(gson, Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString());
-            int to = Util.getVersionProtocol(gson, Objects.requireNonNull(finalVersionBox.getSelectedItem()).toString());
-            String light = "none";
+            int to = Util.getVersionProtocol(gson, Objects.requireNonNull(targetVersions.getSelectedItem()).toString());
             boolean minify = minifyCheckBox.isSelected();
             new Thread(() -> {
-                convertButton.setVisible(false);
+                convertButton.setEnabled(false);
                 try {
-                    Gson gson = this.gson;
+                    Gson packGson = gson;
                     if (!minify) {
-                        gson = gsonBuilder.setPrettyPrinting().create();
+                        packGson = gson.newBuilder().setPrettyPrinting().create();
                     }
 
                     Path dotPath = Paths.get("./");
-                    if (from > to) {
-                        new BackwardsPackConverter(gson, from, to, dotPath, false, out).runDir();
+                    if (from < to) {
+                        new ForwardsPackConverter(packGson, from, to, light, dotPath, true, out).runDir();
                     } else {
-                        new ForwardsPackConverter(gson, from, to, light, dotPath, false, out).runDir();
+                        new BackwardsPackConverter(packGson, from, to, dotPath, true, out).runDir();
                     }
                 } catch (Exception exception) {
                     out.println(Arrays.toString(exception.getStackTrace()));
                 }
-                convertButton.setVisible(true);
+                convertButton.setEnabled(true);
             }).start();
         });
     }
 
     public static void main(String[] args) {
-        frame = new JFrame("Resource Pack Converter");
-        frame.setContentPane(new GUI().panel1);
+        JFrame frame = new JFrame("RPC - Resource Pack Converter");
+        frame.setContentPane(new GUI());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        try {
+            UIManager.setLookAndFeel(new GTKLookAndFeel());
+        } catch (Exception ignored) {
+            System.err.println("GTK look not supported, ignoring.");
+        }
+
+        frame.setFocusable(true);
+        Dimension dimensions = new Dimension(854, 480);
+        frame.setMaximumSize(dimensions);
+        frame.setMinimumSize(dimensions);
+        frame.setPreferredSize(dimensions);
+        frame.setLocationRelativeTo(null); // Centers window on screen
         frame.pack();
         frame.setVisible(true);
     }
 
-    private void updateTextArea(final String text) {
-        outputArea.append(text);
+    private void setupGUI(Gson gson) {
+        {
+            final JPanel panel = new JPanel();
+            final JScrollPane scrollPane = new JScrollPane();
+            this.outputLogPane = new JTextArea();
+            this.outputLogPane.setColumns(60);
+            this.outputLogPane.setRows(20);
+            this.outputLogPane.setText("");
+            this.outputLogPane.setEditable(false);
+            scrollPane.setViewportView(this.outputLogPane);
+            panel.add(scrollPane);
+            this.add(panel);
+        }
+
+        {
+            final JPanel menuBar = new JPanel();
+            // Initial Version
+            JLabel initialVersionLabel = new JLabel();
+            initialVersionLabel.setText("Initial Version");
+            menuBar.add(initialVersionLabel);
+
+            this.initialVersionBox = new JComboBox<>();
+            initialVersionLabel.setLabelFor(this.initialVersionBox);
+            menuBar.add(this.initialVersionBox);
+
+            // Target Version
+            JLabel targetVersionsLabel = new JLabel();
+            targetVersionsLabel.setText("Final Version");
+            menuBar.add(targetVersionsLabel);
+
+            this.targetVersions = new JComboBox<>();
+            targetVersionsLabel.setLabelFor(targetVersions);
+            menuBar.add(this.targetVersions);
+
+            // Add items to both ^
+            String[] versions = Util.getSupportedVersions(gson);
+            if (versions == null) {
+                throw new RuntimeException("Failed to get supported version, application possibly corrupt!");
+            }
+
+            if (versions.length > 0) {
+                for (String version : versions) {
+                    initialVersionBox.addItem(version);
+                    targetVersions.addItem(version);
+                }
+                targetVersions.setSelectedIndex(targetVersions.getItemCount() - 1);
+            }
+
+            // Minify Checkbox
+            JLabel minifyCheckboxLabel = new JLabel();
+            minifyCheckboxLabel.setText("Minify");
+            menuBar.add(minifyCheckboxLabel);
+
+            this.minifyCheckBox = new JCheckBox();
+            minifyCheckboxLabel.setLabelFor(this.minifyCheckBox);
+            menuBar.add(this.minifyCheckBox);
+
+            // Item Lighting Options
+            JLabel lightOptionsLabel = new JLabel();
+            lightOptionsLabel.setText("Item Lighting");
+            menuBar.add(lightOptionsLabel);
+
+            this.lightOptions = new JComboBox<>();
+            lightOptionsLabel.setLabelFor(this.lightOptions);
+            menuBar.add(this.lightOptions);
+
+            // Convert Button
+            this.convertButton = new JButton();
+            this.convertButton.setText("Convert");
+            menuBar.add(this.convertButton);
+
+            this.add(menuBar);
+        }
     }
 
-    // Followings are The Methods that do the Redirect, you can simply Ignore them.
     private PrintStream redirectSystemStreams() {
-        OutputStream out2 = new OutputStream() {
+        return new PrintStream(new OutputStream() {
             @Override
-            public void write(int b) throws IOException {
-                updateTextArea(String.valueOf((char) b));
+            public void write(int b) {
+                outputLogPane.append(String.valueOf((char) b));
             }
 
             @Override
-            public void write(byte[] b, int off, int len) throws IOException {
-                updateTextArea(new String(b, off, len));
+            public void write(byte[] b, int off, int len) {
+                outputLogPane.append(new String(b, off, len));
             }
 
             @Override
-            public void write(byte[] b) throws IOException {
+            public void write(byte[] b) {
                 write(b, 0, b.length);
             }
-        };
-
-        return new PrintStream(out2);
-    }
-
-    {
-        // GUI initializer generated by IntelliJ IDEA GUI Designer
-        // >>> IMPORTANT!! <<<
-        // DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
-    }
-
-    /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
-     */
-    private void $$$setupUI$$$() {
-        panel1 = new JPanel();
-        panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel1.setFocusable(true);
-        panel1.setMaximumSize(new Dimension(700, 375));
-        panel1.setMinimumSize(new Dimension(700, 375));
-        panel1.setPreferredSize(new Dimension(700, 375));
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel1.add(panel2);
-        initialVersionBox = new JComboBox();
-        panel2.add(initialVersionBox);
-        initialVersionLabel = new JLabel();
-        initialVersionLabel.setText("Initial Version");
-        panel2.add(initialVersionLabel);
-        finalVersionBox = new JComboBox();
-        panel2.add(finalVersionBox);
-        finalVersionLabel = new JLabel();
-        finalVersionLabel.setText("Final Version");
-        panel2.add(finalVersionLabel);
-        minifyCheckBox = new JCheckBox();
-        minifyCheckBox.setText("Minify");
-        panel2.add(minifyCheckBox);
-        final JPanel panel3 = new JPanel();
-        panel3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        panel1.add(panel3);
-        outputLabel = new JLabel();
-        outputLabel.setText("Output");
-        panel3.add(outputLabel);
-        final JScrollPane scrollPane1 = new JScrollPane();
-        panel3.add(scrollPane1);
-        outputArea = new JTextArea();
-        outputArea.setColumns(60);
-        outputArea.setRows(15);
-        outputArea.setText("");
-        scrollPane1.setViewportView(outputArea);
-        convertButton = new JButton();
-        convertButton.setActionCommand("Convert");
-        convertButton.setLabel("Convert");
-        convertButton.setText("Convert");
-        panel1.add(convertButton);
-    }
-
-    public JComponent $$$getRootComponent$$$() {
-        return panel1;
+        });
     }
 }

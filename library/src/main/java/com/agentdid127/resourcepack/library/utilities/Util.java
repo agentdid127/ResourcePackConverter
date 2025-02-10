@@ -88,7 +88,11 @@ public final class Util {
      */
     public static JsonObject getVersionObject(Gson gson, String version) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        return protocols == null ? null : protocols.getAsJsonObject(version);
+        if (protocols != null) {
+            return protocols.getAsJsonObject(version);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -100,7 +104,11 @@ public final class Util {
      */
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject versionObj = getVersionObject(gson, version);
-        return versionObj == null ? 0 : versionObj.get("protocol_version").getAsInt();
+        if (versionObj != null) {
+            return versionObj.get("protocol_version").getAsInt();
+        } else {
+            return 0;
+        }
     }
 
     public static int getLatestProtocol(Gson gson) {
@@ -127,13 +135,10 @@ public final class Util {
      */
     public static String[] getSupportedVersions(Gson gson) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null) {
-            return null;
+        if (protocols != null) {
+            return protocols.entrySet().stream().map(Map.Entry::getKey).toArray(String[]::new);
         } else {
-            return protocols.entrySet()
-                    .stream()
-                    .map(Map.Entry::getKey)
-                    .toArray(String[]::new);
+            return null;
         }
     }
 

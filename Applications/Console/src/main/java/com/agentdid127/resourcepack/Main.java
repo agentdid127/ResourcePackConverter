@@ -40,10 +40,10 @@ public class Main {
 
         int from = Util.getVersionProtocol(gson, optionSet.valueOf(Options.FROM));
         int to = Util.getVersionProtocol(gson, optionSet.valueOf(Options.TO));
-        if (from > to) {
-            new BackwardsPackConverter(gson, from, to, inputPath, debug, out).runDir();
-        } else {
+        if (from < to) {
             new ForwardsPackConverter(gson, from, to, light, inputPath, debug, out).runDir();
+        } else {
+            new BackwardsPackConverter(gson, from, to, inputPath, debug, out).runDir();
         }
     }
 }

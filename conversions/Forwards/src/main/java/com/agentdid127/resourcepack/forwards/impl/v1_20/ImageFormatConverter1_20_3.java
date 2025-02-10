@@ -64,12 +64,10 @@ public class ImageFormatConverter1_20_3 extends Converter {
 
         // Check each file
         for (File file : Objects.requireNonNull(directory.listFiles())) {
-            if (file.isDirectory())
+            if (file.isDirectory()) {
                 findImage(file.toPath(), type);
-            else {
-                if (file.getName().endsWith(type)) {
-                    remapFile(file, type);
-                }
+            } else if (file.getName().endsWith(type)) {
+                remapFile(file, type);
             }
         }
     }

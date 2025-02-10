@@ -30,10 +30,6 @@ public class MapIconSlicerConverter1_20_5 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists()) {
-            return;
-        }
-
         Path mapIconsPath = texturesPath.resolve("map/".replace("/", File.separator));
         if (!mapIconsPath.toFile().exists()) {
             return;
