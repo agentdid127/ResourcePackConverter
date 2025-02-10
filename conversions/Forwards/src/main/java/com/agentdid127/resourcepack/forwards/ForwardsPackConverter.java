@@ -61,7 +61,7 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new PackMetaConverter(this, from, to));
         this.registerConverter(new CompassConverter1_9(this, to));
         this.registerConverter(new OffHandCreator1_9(this));
-        this.registerConverter(new SpacesConverter1_11(this));
+        this.registerConverter(new RemoveSpacesConverter1_11(this));
         this.registerConverter(new ModelConverter(this, light, from, to));
         this.registerConverter(new SoundsConverter1_13(this));
         this.registerConverter(new AnimationConverter1_13(this));

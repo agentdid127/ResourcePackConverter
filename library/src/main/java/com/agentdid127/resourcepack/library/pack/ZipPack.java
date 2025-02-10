@@ -3,7 +3,6 @@ package com.agentdid127.resourcepack.library.pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
-
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -37,7 +36,7 @@ public class ZipPack extends Pack {
 
         /**
          * Removes Existing Conversions and starts new one
-         * 
+         *
          * @throws IOException Any issue with loading the pack, or deleting previous
          *                     packs
          */
@@ -69,7 +68,7 @@ public class ZipPack extends Pack {
 
         /**
          * Runs after program is finished. Zips directory.
-         * 
+         *
          * @throws IOException Any IO exception
          */
         @Override

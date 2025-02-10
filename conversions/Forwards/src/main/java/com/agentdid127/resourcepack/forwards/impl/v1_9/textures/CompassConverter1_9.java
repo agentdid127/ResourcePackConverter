@@ -14,7 +14,6 @@ import java.nio.file.Path;
 
 public class CompassConverter1_9 extends Converter {
     private final int to;
-    private Path items;
 
     public CompassConverter1_9(PackConverter packConverter, int to) {
         super(packConverter);
@@ -28,33 +27,31 @@ public class CompassConverter1_9 extends Converter {
 
     @Override
     public void convert(Pack pack) throws IOException {
-        String itemsT = "items";
-        if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
-            itemsT = "item";
-        Path compassPath = pack.getWorkingPath()
-                .resolve(("assets/minecraft/textures/" + itemsT + "/compass.png").replace("/", File.separator));
-        items = compassPath.getParent();
+        String itemsT = to >= Util.getVersionProtocol(packConverter.getGson(), "1.13") ? "item" : "items";
+        Path compassPath = pack.getWorkingPath().resolve(("assets/minecraft/textures/" + itemsT + "/compass.png").replace("/", File.separator));
+        Path items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 512, compassPath);
-            if (!imageConverter.fileIsPowerOfTwo())
-                return;
+            if (imageConverter.fileIsPowerOfTwo()) {
+                for (int i = 0; i < 32; i++) {
+                    int h = i * 16;
+                    String it = String.valueOf(i);
+                    if (i < 10) {
+                        it = "0" + it;
+                    }
+                    compass(items, 0, h, 16, 16, "compass_" + it, imageConverter);
+                }
 
-            for (int i = 0; i < 32; i++) {
-                int h = i * 16;
-                String it = String.valueOf(i);
-                if (i < 10)
-                    it = "0" + it;
-                compass(0, h, 16, h + 16, "compass_" + it, imageConverter);
+                if (items.resolve("compass.png.mcmeta").toFile().exists()) {
+                    Files.delete(items.resolve("compass.png.mcmeta"));
+                }
             }
-
-            if (items.resolve("compass.png.mcmeta").toFile().exists())
-                Files.delete(items.resolve("compass.png.mcmeta"));
         }
     }
 
-    private void compass(int x, int y, int x2, int y2, String name, ImageConverter imageConverter) throws IOException {
+    private void compass(Path items, int x, int y, int width, int height, String name, ImageConverter imageConverter) throws IOException {
         imageConverter.newImage(16, 16);
-        imageConverter.subImage(x, y, x2, y2, 0, 0);
+        imageConverter.subImage(x, y, x + width, y + height, 0, 0);
         imageConverter.store(items.resolve(name + ".png"));
     }
 }

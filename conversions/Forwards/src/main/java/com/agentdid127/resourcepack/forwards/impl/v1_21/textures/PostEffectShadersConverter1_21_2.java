@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -40,30 +42,26 @@ public class PostEffectShadersConverter1_21_2 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path minecraftPath = pack.getWorkingPath().resolve("assets/minecraft".replace("/", File.separator));
-        if (!minecraftPath.toFile().exists()) {
-            return;
-        }
-
-        // Move shaders
-        Path shadersPostPath = minecraftPath.resolve("shaders/post".replace("/", File.separator));
+        Path shadersPath = minecraftPath.resolve("shaders");
+        Path shadersPostPath = shadersPath.resolve("post");
         if (!shadersPostPath.toFile().exists()) {
             return;
         }
 
+        Logger.addTab();
         Path postEffectPath = minecraftPath.resolve("post_effect");
         if (postEffectPath.toFile().exists()) {
+            // TODO: Should we merge directories?
             postEffectPath.toFile().delete();
         }
-
-        // TODO: Move the corresponding program shader from shaders/program to shaders/post
         Files.move(shadersPostPath, postEffectPath);
 
-        // TODO: Determind if legacy post-effect & ignore it/delete it
-
         // Update shaders
-        Logger.addTab();
+        // TODO: Determind if legacy post-effect & ignore it/delete it
+        List<Path> postShaders = new ArrayList<>();
         try (Stream<Path> pathStream = Files.list(postEffectPath).filter(file -> file.toString().endsWith(".json"))) {
             pathStream.forEach(file -> {
+                postShaders.add(file.getFileName());
                 try {
                     JsonObject json = JsonUtil.readJson(packConverter.getGson(), file);
 
@@ -97,14 +95,39 @@ public class PostEffectShadersConverter1_21_2 extends Converter {
                     }
 
                     JsonUtil.writeJson(this.packConverter.getGson(), file, json);
-                    Logger.debug("Saving updated post-effect shader \"" + file.toString() + "\"");
+                    Logger.debug("Saving updated post-effect shader \"" + file + "\"");
                 } catch (Exception e) {
-                    Logger.debug("Failed to update post-effect shader \"" + file.toString() + "\": " + e.getMessage());
+                    Logger.debug("Failed to update post-effect shader \"" + file + "\": " + e.getMessage());
                 }
             });
         } catch (Exception e) {
-            Logger.debug("Failed to update shader, unable to open file stream");
+            Logger.debug("Failed to update shader, unable to open file stream.");
         }
+
+        Path shadersProgramPath = shadersPath.resolve("program");
+        if (!shadersProgramPath.toFile().exists()) {
+            return;
+        }
+
+        // TODO: Could be just all ".json" in "shaders/program"?
+        postShaders.forEach(postShaderPath -> {
+            Path programShaderPath = shadersProgramPath.resolve(postShaderPath);
+            if (!programShaderPath.toFile().exists()) {
+                return;
+            }
+
+            if (!shadersPostPath.toFile().exists()) {
+                shadersPostPath.toFile().mkdirs();
+            }
+
+            try {
+                Logger.debug("Moved post-effect program shader \"" + programShaderPath + "\" to post folder.");
+                Files.move(programShaderPath, shadersPostPath.resolve(postShaderPath));
+            } catch (IOException e) {
+                Logger.debug("Failed to move post-effect program shader to post folder.");
+            }
+        });
+
         Logger.subTab();
     }
 

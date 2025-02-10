@@ -74,11 +74,13 @@ public class JsonUtil {
 
     public static <T> T readJson(Gson gson, Path path, Class<T> clazz) throws IOException {
         String json = Util.readFromFile(path);
-        if (!isJson(gson, json))
+        if (isJson(gson, json)) {
+            JsonReader reader = new JsonReader(new StringReader(json));
+            reader.setStrictness(Strictness.LENIENT);
+            return gson.fromJson(reader, clazz);
+        } else {
             return null;
-        JsonReader reader = new JsonReader(new StringReader(json));
-        reader.setStrictness(Strictness.LENIENT);
-        return gson.fromJson(reader, clazz);
+        }
     }
 
     public static JsonObject readJson(Gson gson, Path path) throws IOException {
@@ -87,8 +89,10 @@ public class JsonUtil {
 
     public static <T> T readJsonResource(Gson gson, String path, Class<T> clazz) {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
-            if (stream == null)
+            if (stream == null) {
                 return null;
+            }
+
             try (InputStreamReader streamReader = new InputStreamReader(stream)) {
                 return gson.fromJson(streamReader, clazz);
             }

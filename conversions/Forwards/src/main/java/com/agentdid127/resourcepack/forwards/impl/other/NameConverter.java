@@ -20,8 +20,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class NameConverter extends Converter {
-    private final int to;
     private final int from;
+    private final int to;
 
     private final Mapping entityMapping;
 

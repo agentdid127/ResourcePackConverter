@@ -14,8 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
-public class SpacesConverter1_11 extends Converter {
-    public SpacesConverter1_11(PackConverter packConverter) {
+public class RemoveSpacesConverter1_11 extends Converter {
+    public RemoveSpacesConverter1_11(PackConverter packConverter) {
         super(packConverter);
     }
 

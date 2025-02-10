@@ -13,8 +13,8 @@ import java.nio.file.Path;
 
 // Reference: https://minecraft.wiki/w/Pack_format
 public class PackMetaConverter extends Converter {
-    private final int to;
     private final int from;
+    private final int to;
 
     public PackMetaConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -68,7 +68,7 @@ public class PackMetaConverter extends Converter {
             }
 
             packObject.addProperty("pack_format", versionInt);
-            if (from < Util.getVersionProtocol(packConverter.getGson(), "1.20.2")
+            if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.20.1")
                     && to >= Util.getVersionProtocol(packConverter.getGson(), "1.20.2")) {
                 JsonObject fromVersion = Util.getVersionObjectByProtocol(packConverter.getGson(), from);
                 JsonObject toVersion = Util.getVersionObjectByProtocol(packConverter.getGson(), to);
