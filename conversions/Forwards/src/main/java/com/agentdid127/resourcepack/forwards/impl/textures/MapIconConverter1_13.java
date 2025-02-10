@@ -16,7 +16,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapIconConverter extends Converter {
+public class MapIconConverter1_13 extends Converter {
     private static final Map<Long, Long> MAPPING = new HashMap<>();
 
     static {
@@ -32,7 +32,7 @@ public class MapIconConverter extends Converter {
         MAPPING.put(pack(8, 16), pack(72, 0));
     }
 
-    public MapIconConverter(PackConverter packConverter) {
+    public MapIconConverter1_13(PackConverter packConverter) {
         super(packConverter);
     }
 

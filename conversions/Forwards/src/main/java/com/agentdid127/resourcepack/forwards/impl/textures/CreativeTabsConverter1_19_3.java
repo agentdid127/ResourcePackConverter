@@ -11,12 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class CreativeTabsConverter extends Converter {
+public class CreativeTabsConverter1_19_3 extends Converter {
     private static final int OLD_TAB_WIDTH = 28;
     private static final int NEW_TAB_WIDTH = 26;
     private static final int OLD_TAB_HALF = OLD_TAB_WIDTH / 2;
 
-    public CreativeTabsConverter(PackConverter converter) {
+    public CreativeTabsConverter1_19_3(PackConverter converter) {
         super(converter);
     }
 

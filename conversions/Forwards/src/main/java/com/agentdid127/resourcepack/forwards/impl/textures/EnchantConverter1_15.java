@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class EnchantConverter extends Converter {
-    public EnchantConverter(PackConverter packConverter) {
+public class EnchantConverter1_15 extends Converter {
+    public EnchantConverter1_15(PackConverter packConverter) {
         super(packConverter);
     }
 

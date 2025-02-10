@@ -12,11 +12,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class CompassConverter extends Converter {
+public class CompassConverter1_9 extends Converter {
     private final int to;
     private Path items;
 
-    public CompassConverter(PackConverter packConverter, int to) {
+    public CompassConverter1_9(PackConverter packConverter, int to) {
         super(packConverter);
         this.to = to;
     }

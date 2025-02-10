@@ -11,8 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class TitleConverter extends Converter {
-    public TitleConverter(PackConverter packConverter) {
+public class TitleConverter1_20 extends Converter {
+    public TitleConverter1_20(PackConverter packConverter) {
         super(packConverter);
     }
 

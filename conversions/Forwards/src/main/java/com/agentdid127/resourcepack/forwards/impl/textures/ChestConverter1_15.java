@@ -12,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ChestConverter extends Converter {
-    public ChestConverter(PackConverter packConverter) {
+public class ChestConverter1_15 extends Converter {
+    public ChestConverter1_15(PackConverter packConverter) {
         super(packConverter);
     }
 

@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArmorMoverConverter extends Converter {
+public class ArmorMoverConverter1_21_2 extends Converter {
     private static final List<String> MATERIALS = new ArrayList<>();
 
     static {
@@ -26,7 +26,7 @@ public class ArmorMoverConverter extends Converter {
     }
 
     // TODO: Trims/Wolf Armor/Llama/Horse/Elytra
-    public ArmorMoverConverter(PackConverter packConverter) {
+    public ArmorMoverConverter1_21_2(PackConverter packConverter) {
         super(packConverter);
     }
 

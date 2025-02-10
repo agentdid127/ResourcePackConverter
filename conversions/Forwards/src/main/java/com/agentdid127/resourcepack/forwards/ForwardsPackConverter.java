@@ -39,34 +39,34 @@ public class ForwardsPackConverter extends PackConverter {
     private void setupConverters(String light) {
         this.registerConverter(new NameConverter(this, from, to)); // This needs to be run first, other converters might reference new directory names.
         this.registerConverter(new PackMetaConverter(this, from, to));
-        this.registerConverter(new CompassConverter(this, to));
+        this.registerConverter(new CompassConverter1_9(this, to));
         this.registerConverter(new OffHandCreator(this));
         this.registerConverter(new SpacesConverter(this));
         this.registerConverter(new ModelConverter(this, light, from, to));
         this.registerConverter(new SoundsConverter(this));
         this.registerConverter(new AnimationConverter(this));
-        this.registerConverter(new MapIconConverter(this));
+        this.registerConverter(new MapIconConverter1_13(this));
         this.registerConverter(new MCPatcherConverter(this));
-        this.registerConverter(new WaterConverter(this));
+        this.registerConverter(new WaterConverter1_13(this));
         this.registerConverter(new BlockStateConverter(this, from, to));
         this.registerConverter(new LangConverter(this, from, to));
         this.registerConverter(new ParticlesSlicerConverter(this, from, to));
         this.registerConverter(new PaintingSlicerConverter(this));
         this.registerConverter(new MobEffectAtlasSlicerConverter(this, from));
-        this.registerConverter(new ChestConverter(this));
-        this.registerConverter(new EnchantConverter(this));
+        this.registerConverter(new ChestConverter1_15(this));
+        this.registerConverter(new EnchantConverter1_15(this));
         this.registerConverter(new ParticleConverter(this));
         this.registerConverter(new InventoryConverter(this));
         this.registerConverter(new AtlasConverter(this));
-        this.registerConverter(new CreativeTabsConverter(this));
+        this.registerConverter(new CreativeTabsConverter1_19_3(this));
         this.registerConverter(new EnchantPathConverter(this));
         this.registerConverter(new WidgetSlidersCreator(this));
-        this.registerConverter(new TitleConverter(this));
+        this.registerConverter(new TitleConverter1_20(this));
         this.registerConverter(new GuiSlicerConverter(this, from));
         this.registerConverter(new ImageFormatConverter(this));
         this.registerConverter(new MapIconSlicerConverter(this, from));
-        this.registerConverter(new ArmorMoverConverter(this));
-        // Shaders
+        this.registerConverter(new ArmorMoverConverter1_21_2(this));
+        this.registerConverter(new PostEffectShadersConverter1_21_2(this));
     }
 
     public void runPack(Pack pack) {
