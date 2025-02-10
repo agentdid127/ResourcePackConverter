@@ -6,13 +6,12 @@ import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.sun.istack.internal.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 public class Slicer {
-    public static void runSlicer(Gson gson, Slice slice, Path root, @Nullable PredicateRunnable predicateRunnable, int from, boolean has_metadata) throws IOException {
+    public static void runSlicer(Gson gson, Slice slice, Path root, /* nullable */ PredicateRunnable predicateRunnable, int from, boolean has_metadata) throws IOException {
         if (predicateRunnable != null && !predicateRunnable.run(gson, from, slice.getPredicate())) {
             return;
         }

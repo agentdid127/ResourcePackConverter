@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,9 +86,9 @@ public class Slice {
         return slice;
     }
 
-    public static Slice[] parseArray(JsonArray array) {
+    public static List<Slice> parseArray(JsonArray array) {
         List<Slice> slices = new LinkedList<>();
         array.forEach(element -> slices.add(Slice.parse(element.getAsJsonObject())));
-        return slices.toArray(new Slice[]{});
+        return Collections.unmodifiableList(slices);
     }
 }

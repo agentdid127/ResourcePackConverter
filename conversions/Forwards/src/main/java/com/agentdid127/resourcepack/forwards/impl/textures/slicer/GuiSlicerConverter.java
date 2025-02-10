@@ -52,8 +52,7 @@ public class GuiSlicerConverter extends Converter {
         JsonArray array = JsonUtil.readJsonResource(gson, "/forwards/gui.json", JsonArray.class);
         if (array != null) {
             Logger.addTab();
-            Slice[] slices = Slice.parseArray(array);
-            for (Slice slice : slices) {
+            for (Slice slice : Slice.parseArray(array)) {
                 Slicer.runSlicer(gson, slice, guiPath, new GuiPredicateRunnable(), from, true);
             }
             Logger.subTab();

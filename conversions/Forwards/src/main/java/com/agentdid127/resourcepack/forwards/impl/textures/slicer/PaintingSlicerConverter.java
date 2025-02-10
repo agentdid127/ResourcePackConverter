@@ -47,7 +47,7 @@ public class PaintingSlicerConverter extends Converter {
         JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/paintings_kristoffer_zetterstrand.json", JsonObject.class);
         if (effectJson != null) {
             Slice slice = Slice.parse(effectJson);
-            Slicer.runSlicer(gson, slice, paintingPath, null, -1, false);
+            Slicer.runSlicer(gson, slice, paintingPath, (gson1, from, predicate) -> true, -1, false);
         }
     }
 }
