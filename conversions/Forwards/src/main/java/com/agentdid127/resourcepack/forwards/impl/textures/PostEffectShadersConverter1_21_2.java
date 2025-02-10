@@ -74,8 +74,11 @@ public class PostEffectShadersConverter1_21_2 extends Converter {
                                 String target = element.getAsString();
                                 targets.add(MAPPING.getOrDefault(target, target), new JsonObject());
                             } else if (element.isJsonObject()) {
-                                // TODO
-                                // For example, [{"name": "potato", "width": 16, "height": 16}] becomes {"potato": {"width": 16, "height": 16}}
+                                JsonObject object = element.getAsJsonObject();
+                                if (object.has("name")) {
+                                    String name = object.remove("name").getAsString();
+                                    targets.add(name, object);
+                                }
                             }
                         }
                         json.add("targets", targets);
