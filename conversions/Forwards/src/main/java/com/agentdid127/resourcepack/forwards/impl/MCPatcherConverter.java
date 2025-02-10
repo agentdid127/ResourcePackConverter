@@ -7,6 +7,7 @@ import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.File;
@@ -24,6 +25,11 @@ import java.util.stream.Stream;
 public class MCPatcherConverter extends Converter {
     public MCPatcherConverter(PackConverter packConverter) {
         super(packConverter);
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.12.2") && to >= Util.getVersionProtocol(gson, "1.13");
     }
 
     /**

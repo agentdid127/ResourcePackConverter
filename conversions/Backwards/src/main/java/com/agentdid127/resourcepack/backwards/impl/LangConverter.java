@@ -7,6 +7,7 @@ import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.PropertiesEx;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -20,13 +21,18 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class LangConverter extends Converter {
-    private final String from;
-    private final String to;
+    private final int from;
+    private final int to;
 
-    public LangConverter(PackConverter packConverter, String from, String to) {
+    public LangConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from >= Util.getVersionProtocol(gson, "1.13") && to <= Util.getVersionProtocol(gson, "1.12.2");
     }
 
     /**
@@ -48,9 +54,9 @@ public class LangConverter extends Converter {
                 PropertiesEx out = new PropertiesEx();
                 try {
                     JsonObject object = JsonUtil.readJson(packConverter.getGson(), model, JsonObject.class);
-                    if (Util.getVersionProtocol(packConverter.getGson(), from) > Util.getVersionProtocol(packConverter.getGson(), "1.12")
-                            && ((Util.getVersionProtocol(packConverter.getGson(), to) < Util.getVersionProtocol(packConverter.getGson(), "1.13"))
-                            && (Util.getVersionProtocol(packConverter.getGson(), to) > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
+                    if (from > Util.getVersionProtocol(packConverter.getGson(), "1.12")
+                            && ((to < Util.getVersionProtocol(packConverter.getGson(), "1.13"))
+                            && (to > Util.getVersionProtocol(packConverter.getGson(), "1.13.2")))) {
                         JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/lang.json").getAsJsonObject("1_13");
                         if (object != null) {
                             object.keySet().forEach(key -> {
@@ -64,7 +70,7 @@ public class LangConverter extends Converter {
                         }
                     }
 
-                    if (Util.getVersionProtocol(packConverter.getGson(), to) <= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
+                    if (to <= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
                         JsonObject id = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/lang.json").getAsJsonObject("1_14");
                         if (object != null) {
                             object.keySet().forEach(key -> {

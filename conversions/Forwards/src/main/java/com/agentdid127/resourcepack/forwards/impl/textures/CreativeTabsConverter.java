@@ -1,34 +1,41 @@
 package com.agentdid127.resourcepack.forwards.impl.textures;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class CreativeTabsConverter extends Converter {
-    private static int old_tab_width = 28;
-    private static int new_tab_width = 26;
-    private static int old_half = old_tab_width / 2;
+    private static final int OLD_TAB_WIDTH = 28;
+    private static final int NEW_TAB_WIDTH = 26;
+    private static final int OLD_TAB_HALF = OLD_TAB_WIDTH / 2;
 
     public CreativeTabsConverter(PackConverter converter) {
         super(converter);
     }
 
     @Override
-    public void convert(Pack pack) throws IOException {
-        Path guiPath = pack.getWorkingPath().resolve(
-                "assets/minecraft/textures/gui".replace("/", File.separator));
-        if (!guiPath.toFile().exists())
-            return;
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.19.2") && to >= Util.getVersionProtocol(gson, "1.19.3");
+    }
 
-        Path tabsImage = guiPath
-                .resolve("container/creative_inventory/tabs.png".replace("/", File.separator));
-        if (!tabsImage.toFile().exists())
+    @Override
+    public void convert(Pack pack) throws IOException {
+        Path guiPath = pack.getWorkingPath().resolve("assets/minecraft/textures/gui".replace("/", File.separator));
+        if (!guiPath.toFile().exists()) {
             return;
+        }
+
+        Path tabsImage = guiPath.resolve("container/creative_inventory/tabs.png".replace("/", File.separator));
+        if (!tabsImage.toFile().exists()) {
+            return;
+        }
 
         int originalWidth = 256;
         int originalHeight = 256;
@@ -60,25 +67,24 @@ public class CreativeTabsConverter extends Converter {
         converter.store();
     }
 
-    private static void copy_tab(ImageConverter converter, int index, int original_index, int left_padding,
-            int right_padding) {
-        int first_tab_start_x = original_index * old_tab_width;
-        int first_tab_start_end_x = (original_index * old_tab_width) + old_tab_width;
+    private static void copy_tab(ImageConverter converter, int index, int original_index, int left_padding, int right_padding) {
+        int first_tab_start_x = original_index * OLD_TAB_WIDTH;
+        int first_tab_start_end_x = (original_index * OLD_TAB_WIDTH) + OLD_TAB_WIDTH;
 
         converter.subImage(
                 first_tab_start_x,
                 0,
-                first_tab_start_end_x - old_half,
+                first_tab_start_end_x - OLD_TAB_HALF,
                 160,
-                (index * new_tab_width) + left_padding,
+                (index * NEW_TAB_WIDTH) + left_padding,
                 0);
 
         converter.subImage(
-                first_tab_start_x + old_half,
+                first_tab_start_x + OLD_TAB_HALF,
                 0,
                 first_tab_start_end_x,
                 160,
-                ((index * new_tab_width) + (old_half - right_padding)),
+                ((index * NEW_TAB_WIDTH) + (OLD_TAB_HALF - right_padding)),
                 0);
     }
 }

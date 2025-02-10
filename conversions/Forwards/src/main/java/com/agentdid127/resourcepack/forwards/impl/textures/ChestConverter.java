@@ -5,6 +5,8 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.Logger;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,11 @@ import java.nio.file.Path;
 public class ChestConverter extends Converter {
     public ChestConverter(PackConverter packConverter) {
         super(packConverter);
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.14.4") && to >= Util.getVersionProtocol(gson, "1.15");
     }
 
     /**

@@ -4,6 +4,8 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,18 +16,23 @@ public class ChestConverter extends Converter {
         super(packConverter);
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from >= Util.getVersionProtocol(gson, "1.15") && to <= Util.getVersionProtocol(gson, "1.14.4");
+    }
+
     /**
      * Fixes Chest Textures in 1.15 Remaps textures, and updates images
-     * 
+     *
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path imagePath = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures/entity/chest".replace("/", File.separator));
-        if (!imagePath.toFile().exists())
+        Path imagePath = pack.getWorkingPath().resolve("assets/minecraft/textures/entity/chest".replace("/", File.separator));
+        if (!imagePath.toFile().exists()) {
             return;
+        }
 
         // Double chest
         doubleChest(imagePath, "normal");
@@ -41,19 +48,21 @@ public class ChestConverter extends Converter {
 
     /**
      * Fixes Normal chests
-     * 
+     *
      * @param imagePath
      * @param name
      * @throws IOException
      */
     private void chest(Path imagePath, String name) throws IOException {
         int defaultW = 64, defaultH = 64;
-        if (!imagePath.resolve(name + ".png").toFile().exists())
+        if (!imagePath.resolve(name + ".png").toFile().exists()) {
             return;
+        }
 
         ImageConverter normal = new ImageConverter(defaultW, defaultH, imagePath.resolve(name + ".png"));
-        if (!normal.fileIsPowerOfTwo())
+        if (!normal.fileIsPowerOfTwo()) {
             return;
+        }
 
         // Create a new Image
         normal.newImage(defaultW, defaultH);
@@ -88,7 +97,7 @@ public class ChestConverter extends Converter {
 
     /**
      * Splits Double Chests into 2 images
-     * 
+     *
      * @param imagePath
      * @param name
      * @throws IOException

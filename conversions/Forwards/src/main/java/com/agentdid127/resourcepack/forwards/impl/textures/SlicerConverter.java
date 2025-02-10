@@ -26,6 +26,11 @@ public class SlicerConverter extends Converter {
     }
 
     @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.20.1") && to >= Util.getVersionProtocol(gson, "1.20.2");
+    }
+
+    @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
         if (!texturesPath.toFile().exists()) {
@@ -80,9 +85,7 @@ public class SlicerConverter extends Converter {
                     max_inclusive = Util.getLatestProtocol(gson);
                 }
 
-                if (from < min_inclusive || from > max_inclusive) {
-                    return false;
-                }
+                return from >= min_inclusive && from <= max_inclusive;
             }
 
             return true;

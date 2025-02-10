@@ -6,6 +6,7 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -18,6 +19,11 @@ import java.util.stream.Stream;
 public class AnimationConverter extends Converter {
     public AnimationConverter(PackConverter packConverter) {
         super(packConverter);
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.12.2") && to >= Util.getVersionProtocol(gson, "1.13");
     }
 
     @Override

@@ -23,6 +23,11 @@ public class ParticleTextureConverter extends Converter {
         this.to = to;
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
+
     /**
      * Slice particles.png into multiple for 1.14+
      *

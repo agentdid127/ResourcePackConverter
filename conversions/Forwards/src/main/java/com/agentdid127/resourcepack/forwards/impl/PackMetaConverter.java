@@ -5,6 +5,7 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -19,6 +20,11 @@ public class PackMetaConverter extends Converter {
         super(packConverter);
         this.from = from;
         this.to = to;
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
     }
 
     /**

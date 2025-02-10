@@ -4,6 +4,8 @@ import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import java.awt.*;
 import java.io.File;
@@ -16,16 +18,22 @@ public class EnchantConverter extends Converter {
     }
 
     @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.14.4") && to >= Util.getVersionProtocol(gson, "1.15");
+    }
+
+    @Override
     public void convert(Pack pack) throws IOException {
-        Path itemGlintPath = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures/misc/enchanted_item_glint.png".replace("/", File.separator));
-        if (!itemGlintPath.toFile().exists())
+        Path itemGlintPath = pack.getWorkingPath().resolve("assets/minecraft/textures/misc/enchanted_item_glint.png".replace("/", File.separator));
+        if (!itemGlintPath.toFile().exists()) {
             return;
+        }
+
         ImageConverter imageConverter = new ImageConverter(64, 64, itemGlintPath);
-        if (!imageConverter.fileIsPowerOfTwo())
-            return;
-        imageConverter.newImage(64, 64);
-        imageConverter.colorize(new Color(94, 9, 178, 120));
-        imageConverter.store();
+        if (imageConverter.fileIsPowerOfTwo()) {
+            imageConverter.newImage(64, 64);
+            imageConverter.colorize(new Color(94, 9, 178, 120));
+            imageConverter.store();
+        }
     }
 }

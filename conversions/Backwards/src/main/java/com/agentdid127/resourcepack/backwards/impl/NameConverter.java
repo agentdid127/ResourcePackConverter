@@ -19,8 +19,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class NameConverter extends Converter {
-    private int to;
-    private int from;
+    private final int from;
+    private final int to;
 
     private final Mapping blockMapping;
     private final Mapping newBlockMapping;
@@ -33,7 +33,7 @@ public class NameConverter extends Converter {
     private final Mapping langMapping;
     private final Mapping langMapping14;
     private final Mapping blockMapping203;
-    private final Mapping itemMapping203;
+//    private final Mapping itemMapping203;
 
     public NameConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -51,7 +51,12 @@ public class NameConverter extends Converter {
         langMapping = new Mapping(gson, "lang", "1_13", true);
         langMapping14 = new Mapping(gson, "lang", "1_14", true);
         blockMapping203 = new Mapping(gson, "blocks", "1_20_3", true);
-        itemMapping203 = new Mapping(gson, "items", "1_20_3", true);
+//      TODO/(not used?):  itemMapping203 = new Mapping(gson, "items", "1_20_3", true);
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
     }
 
     /**

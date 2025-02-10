@@ -5,6 +5,7 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -32,9 +33,14 @@ public class MapIconConverter extends Converter {
         mapping.put(pack(8, 16), pack(72, 0));
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.12.2") && to >= Util.getVersionProtocol(gson, "1.13");
+    }
+
     /**
      * Converts maps
-     * 
+     *
      * @param pack
      * @throws IOException
      */

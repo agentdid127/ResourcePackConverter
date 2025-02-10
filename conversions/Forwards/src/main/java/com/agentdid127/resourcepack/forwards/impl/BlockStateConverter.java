@@ -6,6 +6,7 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -29,6 +30,11 @@ public class BlockStateConverter extends Converter {
         this.anyChanges = false;
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
+
     /**
      * Updates blockstates in blockstates folder
      *
@@ -38,8 +44,10 @@ public class BlockStateConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path states = pack.getWorkingPath().resolve("assets/minecraft/blockstates".replace("/", File.separator));
-        if (!states.toFile().exists())
+        if (!states.toFile().exists()) {
             return;
+        }
+
         Logger.addTab();
         try (Stream<Path> pathStream = Files.list(states).filter(file -> file.toString().endsWith(".json"))) {
             pathStream.forEach(file -> {
@@ -53,8 +61,9 @@ public class BlockStateConverter extends Converter {
                                 JsonArray multipartArray = multipart.getAsJsonArray();
                                 for (JsonElement element : multipartArray) {
                                     JsonObject multipartObject = element.getAsJsonObject();
-                                    for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet())
+                                    for (Map.Entry<String, JsonElement> entry : multipartObject.entrySet()) {
                                         updateModelPath(entry);
+                                    }
                                 }
                             }
                         }
@@ -77,8 +86,9 @@ public class BlockStateConverter extends Converter {
                                 }
 
                                 // update model paths to prepend block
-                                for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet())
+                                for (Map.Entry<String, JsonElement> entry : variantsObject.entrySet()) {
                                     updateModelPath(entry);
+                                }
                             }
                         }
 
@@ -127,45 +137,46 @@ public class BlockStateConverter extends Converter {
         String val = split[split.length - 1];
         String prefix = value.get("model").getAsString().substring(0, value.get("model").getAsString().length() - val.length());
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.9")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.8.9")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.9")) {
             prefix = "block/" + prefix;
             anyChanges = true;
         }
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.13")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.12.2")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             val = nameConverter.getBlockMapping_1_13().remap(val);
             prefix = prefix.replaceAll("blocks", "block");
             anyChanges = true;
         }
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.14")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.13.2")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.14")) {
             val = nameConverter.getBlockMapping_1_14().remap(val);
             anyChanges = true;
         }
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.17")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.16.5")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.17")) {
             val = nameConverter.getBlockMapping_1_17().remap(val);
             anyChanges = true;
         }
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.19")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.18.2")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.19")) {
             val = nameConverter.getBlockMapping_1_19().remap(val);
             anyChanges = true;
         }
 
-        if (from < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
+        if (from <= Util.getVersionProtocol(packConverter.getGson(), "1.19.2")
                 && to >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
             prefix = "minecraft:" + prefix;
             anyChanges = true;
         }
 
+        String result = prefix + val;
         if (anyChanges) {
-            value.addProperty("model", prefix + val);
+            value.addProperty("model", result);
         }
     }
 }

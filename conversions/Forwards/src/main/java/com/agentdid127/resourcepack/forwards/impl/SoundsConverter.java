@@ -6,10 +6,8 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,22 +19,26 @@ public class SoundsConverter extends Converter {
         super(packConverter);
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.12.2") && to >= Util.getVersionProtocol(gson, "1.13");
+    }
+
     /**
      * Updates Sounds
-     * 
+     *
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path soundsJsonPath = pack.getWorkingPath()
-                .resolve("assets/minecraft/sounds.json".replace("/", File.separator));
-        if (!soundsJsonPath.toFile().exists())
+        Path soundsJsonPath = pack.getWorkingPath().resolve("assets/minecraft/sounds.json".replace("/", File.separator));
+        if (!soundsJsonPath.toFile().exists()) {
             return;
+        }
 
         JsonObject sounds = JsonUtil.readJson(packConverter.getGson(), soundsJsonPath);
         JsonObject newSoundsObject = new JsonObject();
-
         for (Map.Entry<String, JsonElement> entry : sounds.entrySet()) {
             if (entry.getValue().isJsonObject()) {
                 JsonObject soundObject = entry.getValue().getAsJsonObject();
@@ -46,17 +48,15 @@ public class SoundsConverter extends Converter {
                     JsonArray newSoundsArray = new JsonArray();
                     for (JsonElement jsonElement : soundsArray) {
                         String sound;
-
-                        if (jsonElement instanceof JsonObject)
+                        if (jsonElement instanceof JsonObject) {
                             sound = ((JsonObject) jsonElement).get("name").getAsString();
-                        else if (jsonElement instanceof JsonPrimitive)
+                        } else if (jsonElement instanceof JsonPrimitive) {
                             sound = jsonElement.getAsString();
-                        else
-                            throw new IllegalArgumentException(
-                                    "Unknown element type: " + jsonElement.getClass().getSimpleName());
+                        } else {
+                            throw new IllegalArgumentException("Unknown element type: " + jsonElement.getClass().getSimpleName());
+                        }
 
-                        Path baseSoundsPath = pack.getWorkingPath()
-                                .resolve("assets/minecraft/sounds".replace("/", File.separator));
+                        Path baseSoundsPath = pack.getWorkingPath().resolve("assets/minecraft/sounds".replace("/", File.separator));
                         Path path = baseSoundsPath.resolve(sound + ".ogg");
                         if (!FileUtil.fileExistsCorrectCasing(path)) {
                             String rewrite = path.toFile().getCanonicalPath().substring(
@@ -75,8 +75,9 @@ public class SoundsConverter extends Converter {
                         if (jsonElement instanceof JsonObject) {
                             ((JsonObject) jsonElement).addProperty("name", sound);
                             newSound = jsonElement;
-                        } else if (jsonElement instanceof JsonPrimitive)
+                        } else if (jsonElement instanceof JsonPrimitive) {
                             newSound = new JsonPrimitive(jsonElement.getAsString());
+                        }
 
                         newSoundsArray.add(newSound);
                     }

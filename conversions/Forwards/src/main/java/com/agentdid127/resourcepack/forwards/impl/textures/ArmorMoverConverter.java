@@ -3,6 +3,8 @@ package com.agentdid127.resourcepack.forwards.impl.textures;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
+import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.List;
 public class ArmorMoverConverter extends Converter {
     private final List<String> MATERIALS = new ArrayList<>();
 
-    // TODO: Trims/Wolf Armor/Turtle/Llama/Horse/Elytra
+    // TODO: Trims/Wolf Armor/Llama/Horse/Elytra
     public ArmorMoverConverter(PackConverter packConverter) {
         super(packConverter);
         MATERIALS.add("chainmail");
@@ -23,6 +25,11 @@ public class ArmorMoverConverter extends Converter {
         MATERIALS.add("iron");
         MATERIALS.add("leather");
         MATERIALS.add("netherite");
+    }
+
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from <= Util.getVersionProtocol(gson, "1.21.1") && to >= Util.getVersionProtocol(gson, "1.21.2");
     }
 
     @Override
@@ -58,6 +65,13 @@ public class ArmorMoverConverter extends Converter {
             }
         }
 
+        // Special
+        Path turtleLayer1 = modelsArmorPath.resolve("turtle_layer_1.png");
+        if (turtleLayer1.toFile().exists()) {
+            Files.move(turtleLayer1, humanoidPath.resolve("turtle_scute.png"));
+        }
+
+        // Cleanup
         modelsArmorPath.toFile().delete(); // TODO/NOTE: For some reason, it will only delete "models" folder if I delete this first
         modelsPath.toFile().delete();
     }

@@ -31,6 +31,11 @@ public class ModelConverter extends Converter {
         this.to = to;
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
+
     /**
      * Runs findfiles with the directory Models
      *

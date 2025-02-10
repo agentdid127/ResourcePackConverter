@@ -5,14 +5,14 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
 public class CompassConverter extends Converter {
-    private int to;
-    private Path items;
+    private final int to;
 
     public CompassConverter(PackConverter packConverter, int to) {
         super(packConverter);
@@ -20,13 +20,19 @@ public class CompassConverter extends Converter {
     }
 
     @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return from >= Util.getVersionProtocol(gson, "1.9") && to <= Util.getVersionProtocol(gson, "1.8.9");
+    }
+
+    @Override
     public void convert(Pack pack) throws IOException {
         String itemsT = "items";
-        if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13"))
+        if (to > Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
             itemsT = "item";
-        Path compassPath = pack.getWorkingPath()
-                .resolve(("assets/minecraft/textures/" + itemsT + "/compass.png").replace("/", File.separator));
-        items = compassPath.getParent();
+        }
+
+        Path compassPath = pack.getWorkingPath().resolve(("assets/minecraft/textures/" + itemsT + "/compass.png").replace("/", File.separator));
+        Path items = compassPath.getParent();
         if (compassPath.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(16, 16 * 32, compassPath);
             if (!imageConverter.fileIsPowerOfTwo())

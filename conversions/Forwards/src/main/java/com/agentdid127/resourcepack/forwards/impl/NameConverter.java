@@ -65,6 +65,11 @@ public class NameConverter extends Converter {
         itemMapping1_20_3 = new Mapping(gson, "items", "1_20_3", false);
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
+
     /**
      * Fixes folder names and file names
      *

@@ -5,12 +5,14 @@ import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
 import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.Strictness;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Objects;
@@ -28,10 +30,12 @@ public class GUI {
     private JButton convertButton;
 
     private PrintStream out;
-    private final GsonBuilder gsonBuilder = new GsonBuilder();
-    private final Gson gson = gsonBuilder.disableHtmlEscaping().create();
+    private final Gson gson;
 
     public GUI() {
+        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT);
+        this.gson = gsonBuilder.disableHtmlEscaping().create();
+
         String[] versions = Util.getSupportedVersions(gson);
         for (String item : versions == null ? new String[]{} : versions) {
             initialVersionBox.addItem(item);
@@ -40,19 +44,23 @@ public class GUI {
 
         convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
-
-            String from = Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString();
-            String to = Objects.requireNonNull(finalVersionBox.getSelectedItem()).toString();
+            int from = Util.getVersionProtocol(gson, Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString());
+            int to = Util.getVersionProtocol(gson, Objects.requireNonNull(finalVersionBox.getSelectedItem()).toString());
             String light = "none";
-
             boolean minify = minifyCheckBox.isSelected();
             new Thread(() -> {
                 convertButton.setVisible(false);
                 try {
-                    if (Util.getVersionProtocol(gson, from) > Util.getVersionProtocol(gson, to)) {
-                        new BackwardsPackConverter(from, to, light, minify, Paths.get("./"), false, out).runDir();
+                    Gson gson = this.gson;
+                    if (!minify) {
+                        gson = gsonBuilder.setPrettyPrinting().create();
+                    }
+
+                    Path dotPath = Paths.get("./");
+                    if (from > to) {
+                        new BackwardsPackConverter(gson, from, to, dotPath, false, out).runDir();
                     } else {
-                        new ForwardsPackConverter(from, to, light, minify, Paths.get("./"), false, out).runDir();
+                        new ForwardsPackConverter(gson, from, to, light, dotPath, false, out).runDir();
                     }
                 } catch (Exception exception) {
                     out.println(Arrays.toString(exception.getStackTrace()));

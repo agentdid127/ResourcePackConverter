@@ -7,131 +7,63 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
-import com.google.gson.GsonBuilder;
-import com.google.gson.Strictness;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class ForwardsPackConverter extends PackConverter {
     Path INPUT_DIR;
+    private final int from;
+    private final int to;
 
-    public ForwardsPackConverter(String from, String to, String light, boolean minify, Path input, boolean debug,
+    public ForwardsPackConverter(Gson gson, int from, int to, String light, Path input, boolean debug,
                                  PrintStream out) {
-        GsonBuilder gsonBuilder = new GsonBuilder().setStrictness(Strictness.LENIENT);
-        if (!minify) {
-            gsonBuilder.setPrettyPrinting();
-        }
-        gson = gsonBuilder.create();
+        this.gson = gson;
         Logger.setDebug(debug);
         Logger.setStream(out);
         Logger.log("Converting packs from: " + from + " to " + to);
+        this.from = from;
+        this.to = to;
         this.INPUT_DIR = input;
-        converterRunner(from, to, light);
+        this.setupConverters(light);
     }
 
-    private void converterRunner(String from, String to, String light) {
-        int protocolFrom = Util.getVersionProtocol(gson, from);
-        int protocolTo = Util.getVersionProtocol(gson, to);
-
-        // This needs to be run first, other converters might reference
-        // new directory names.
-        this.registerConverter(new NameConverter(this, protocolFrom, protocolTo));
-        this.registerConverter(new PackMetaConverter(this, protocolFrom, protocolTo));
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.9")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.9")) {
-            this.registerConverter(new CompassConverter(this, protocolTo));
-            this.registerConverter(new OffHandCreator(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.11")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.11")) {
-            this.registerConverter(new SpacesConverter(this));
-        }
-
-        this.registerConverter(new ModelConverter(this, light, protocolFrom, protocolTo));
-
-        if (protocolFrom <= Util.getVersionProtocol(gson, "1.12.2")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.13")) {
-            this.registerConverter(new SoundsConverter(this));
-            this.registerConverter(new AnimationConverter(this));
-            this.registerConverter(new MapIconConverter(this));
-            this.registerConverter(new MCPatcherConverter(this));
-            this.registerConverter(new WaterConverter(this));
-        }
-
-        this.registerConverter(new BlockStateConverter(this, protocolFrom, protocolTo));
-
-        if (protocolTo >= Util.getVersionProtocol(gson, "1.13")) {
-            this.registerConverter(new LangConverter(this, from, to));
-        }
-
-        this.registerConverter(new ParticleTextureConverter(this, protocolFrom, protocolTo));
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.15") && protocolTo >= Util.getVersionProtocol(gson, "1.15")) {
-            this.registerConverter(new ChestConverter(this));
-        }
-
-        if (protocolFrom <= Util.getVersionProtocol(gson, "1.13")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.14.4")) {
-            this.registerConverter(new PaintingConverter(this));
-        }
-
-        if (protocolFrom <= Util.getVersionProtocol(gson, "1.13.2")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.14")) {
-            this.registerConverter(new MobEffectAtlasConverter(this, protocolFrom));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.15")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.15")) {
-            this.registerConverter(new EnchantConverter(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.18")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.18")) {
-            this.registerConverter(new ParticleConverter(this));
-        }
-
+    private void setupConverters(String light) {
+        this.registerConverter(new NameConverter(this, from, to)); // This needs to be run first, other converters might reference new directory names.
+        this.registerConverter(new PackMetaConverter(this, from, to));
+        this.registerConverter(new CompassConverter(this, to));
+        this.registerConverter(new OffHandCreator(this));
+        this.registerConverter(new SpacesConverter(this));
+        this.registerConverter(new ModelConverter(this, light, from, to));
+        this.registerConverter(new SoundsConverter(this));
+        this.registerConverter(new AnimationConverter(this));
+        this.registerConverter(new MapIconConverter(this));
+        this.registerConverter(new MCPatcherConverter(this));
+        this.registerConverter(new WaterConverter(this));
+        this.registerConverter(new BlockStateConverter(this, from, to));
+        this.registerConverter(new LangConverter(this, from, to));
+        this.registerConverter(new ParticleTextureConverter(this, from, to));
+        this.registerConverter(new PaintingConverter(this));
+        this.registerConverter(new MobEffectAtlasConverter(this, from));
+        this.registerConverter(new ChestConverter(this));
+        this.registerConverter(new EnchantConverter(this));
+        this.registerConverter(new ParticleConverter(this));
         this.registerConverter(new InventoryConverter(this));
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.19.3")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.19.3")) {
-            this.registerConverter(new AtlasConverter(this));
-            this.registerConverter(new CreativeTabsConverter(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.19.4")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.19.4")) {
-            this.registerConverter(new EnchantPathConverter(this));
-            this.registerConverter(new SlidersCreator(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.20")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.20")) {
-            this.registerConverter(new TitleConverter(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.2")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.20.2")) {
-            this.registerConverter(new SlicerConverter(this, protocolFrom));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.3")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.20.3")) {
-            this.registerConverter(new ImageFormatConverter(this));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.20.5")
-                && protocolTo >= Util.getVersionProtocol(gson, "1.20.5")) {
-            this.registerConverter(new MapIconSlicerConverter(this, protocolFrom));
-        }
-
-        if (protocolFrom < Util.getVersionProtocol(gson, "1.21.2") && protocolTo >= Util.getVersionProtocol(gson, "1.21.2")) {
-            this.registerConverter(new ArmorMoverConverter(this));
-        }
+        this.registerConverter(new AtlasConverter(this));
+        this.registerConverter(new CreativeTabsConverter(this));
+        this.registerConverter(new EnchantPathConverter(this));
+        this.registerConverter(new WidgetSlidersCreator(this));
+        this.registerConverter(new TitleConverter(this));
+        this.registerConverter(new SlicerConverter(this, from));
+        this.registerConverter(new ImageFormatConverter(this));
+        this.registerConverter(new MapIconSlicerConverter(this, from));
+        this.registerConverter(new ArmorMoverConverter(this));
+        // Shaders
     }
 
     public void runPack(Pack pack) {
@@ -141,10 +73,12 @@ public class ForwardsPackConverter extends PackConverter {
             Logger.addTab();
             Logger.log("Running Converters");
             for (Converter converter : converters.values()) {
-                Logger.addTab();
-                Logger.log("Running " + converter.getClass().getSimpleName());
-                converter.convert(pack);
-                Logger.subTab();
+                if (converter.shouldConvert(gson, from, to)) {
+                    Logger.addTab();
+                    Logger.log("Running " + converter.getClass().getSimpleName());
+                    converter.convert(pack);
+                    Logger.subTab();
+                }
             }
             Logger.subTab();
             pack.getHandler().finish();
@@ -156,9 +90,10 @@ public class ForwardsPackConverter extends PackConverter {
     }
 
     public void runDir() throws IOException {
-        Files.list(INPUT_DIR)
-                .map(Pack::parse)
-                .filter(Objects::nonNull)
-                .forEach(pack -> runPack(pack));
+        try (Stream<Path> pathStream = Files.list(INPUT_DIR)) {
+            try (Stream<Pack> packStream = pathStream.map(Pack::parse).filter(Objects::nonNull)) {
+                packStream.forEach(this::runPack);
+            }
+        }
     }
 }
