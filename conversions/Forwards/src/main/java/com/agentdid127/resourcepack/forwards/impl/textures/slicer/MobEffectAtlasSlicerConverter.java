@@ -1,23 +1,23 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.forwards.impl.textures.slicer;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slice;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slicer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-public class MobEffectAtlasConverter extends Converter {
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
+public class MobEffectAtlasSlicerConverter extends Converter {
     private final int from;
 
-    public MobEffectAtlasConverter(PackConverter packConverter, int from) {
+    public MobEffectAtlasSlicerConverter(PackConverter packConverter, int from) {
         super(packConverter);
         this.from = from;
     }
@@ -36,17 +36,20 @@ public class MobEffectAtlasConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists())
+        if (!texturesPath.toFile().exists()) {
             return;
-        Path containerPath = texturesPath.resolve("gui/container".replace("/", File.separator));
-        if (!containerPath.toFile().exists())
+        }
+
+        Path inventoryPath = texturesPath.resolve("gui/container/inventory.png".replace("/", File.separator));
+        if (!inventoryPath.toFile().exists()) {
             return;
-        Path inventoryPath = containerPath.resolve("inventory.png");
-        if (!inventoryPath.toFile().exists())
-            return;
+        }
+
         Gson gson = packConverter.getGson();
         JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/mob_effect.json", JsonObject.class);
-        Slice slice = Slice.parse(effectJson);
-        Slicer.runSlicer(gson, slice, texturesPath, SlicerConverter.PredicateRunnable.class, from, false);
+        if (effectJson != null) {
+            Slice slice = Slice.parse(effectJson);
+            Slicer.runSlicer(gson, slice, texturesPath, new GuiSlicerConverter.GuiPredicateRunnable(), from, false);
+        }
     }
 }

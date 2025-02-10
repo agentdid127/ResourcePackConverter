@@ -43,20 +43,23 @@ public class ImageConverter {
                     + "' resolution size is not a power of 2. Converting to be so.");
 
             int fixed_width = (int) Math.ceil(Math.log(image.getWidth()) / Math.log(2));
-            if (fixed_width < 1)
+            if (fixed_width < 1) {
                 fixed_width = 1;
+            }
 
             int fixed_height = (int) Math.ceil(Math.log(image.getHeight()) / Math.log(2));
-            if (fixed_height < 1)
+            if (fixed_height < 1) {
                 fixed_height = 1;
+            }
 
             newImage = new BufferedImage(fixed_width, fixed_height, image.getType());
             Graphics2D g = newImage.createGraphics();
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
             g.drawImage(image, 0, 0, fixed_width, fixed_height, 0, 0, imageWidth, imageHeight, null);
             g.dispose();
-        } else
+        } else {
             newImage = image;
+        }
     }
 
     /**
@@ -108,6 +111,7 @@ public class ImageConverter {
             Logger.debug("Image '" + location.getFileName() + "' is not a power of 2");
             return;
         }
+
         image = newImage;
         defaultW = defaultWIn;
         defaultH = defaultHIn;
@@ -143,10 +147,10 @@ public class ImageConverter {
      * @throws IOException
      */
     public void addImage(Path imagePath, int x, int y) throws IOException {
-        if (!imagePath.toFile().exists())
-            return;
-        BufferedImage image = ImageIO.read(imagePath.toFile());
-        g2d.drawImage(image, scaleX(x), scaleY(y), null);
+        if (imagePath.toFile().exists()) {
+            BufferedImage image = ImageIO.read(imagePath.toFile());
+            g2d.drawImage(image, scaleX(x), scaleY(y), null);
+        }
     }
 
     /**
@@ -197,8 +201,7 @@ public class ImageConverter {
         int width2 = (int) (x2 * scaleW - x * scaleW);
         int height2 = (int) (y2 * scaleH - y * scaleH);
         BufferedImage part = getSubImage(scaleX(x), scaleY(y), width2, height2);
-        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)),
-                Math.round((float) (storeY * scaleH)), null);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
     /**
@@ -222,8 +225,7 @@ public class ImageConverter {
         int y3 = (int) (y * scaleH);
 
         BufferedImage part = getSubImage(x3, y3, width2, height2);
-        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)),
-                Math.round((float) (storeY * scaleH)), null);
+        g2d.drawImage(createFlipped(part, flip), Math.round((float) (storeX * scaleW)), Math.round((float) (storeY * scaleH)), null);
     }
 
     public void subImageSized(int x, int y, int width, int height, int storeX, int storeY) {
@@ -257,8 +259,10 @@ public class ImageConverter {
             for (int x = 0; x < this.getWidth(); x++) {
                 int imageRGBA = newImage.getRGB(x, y);
                 int alpha = (imageRGBA >> 24) & 0xFF;
-                if (alpha == 0)
+                if (alpha == 0) {
                     continue;
+                }
+
                 int grayscaleValue = (imageRGBA >> 16) & 0xFF;
                 int red = (grayscaleValue * color.getRed()) / 255;
                 int green = (grayscaleValue * color.getGreen()) / 255;
@@ -297,13 +301,15 @@ public class ImageConverter {
      */
     private static BufferedImage createFlipped(BufferedImage image, int flip) {
         AffineTransform at = new AffineTransform();
-        if (flip != 1)
+        if (flip != 1) {
             return image;
-        at.concatenate(AffineTransform.getScaleInstance(1, -1));
-        at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
-        at.concatenate(AffineTransform.getScaleInstance(-1, 1));
-        at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
-        return createTransformed(image, at);
+        } else {
+            at.concatenate(AffineTransform.getScaleInstance(1, -1));
+            at.concatenate(AffineTransform.getTranslateInstance(0, -image.getHeight()));
+            at.concatenate(AffineTransform.getScaleInstance(-1, 1));
+            at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
+            return createTransformed(image, at);
+        }
     }
 
     /**

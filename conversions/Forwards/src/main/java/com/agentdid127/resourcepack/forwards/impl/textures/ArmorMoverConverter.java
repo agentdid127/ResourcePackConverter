@@ -14,17 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArmorMoverConverter extends Converter {
-    private final List<String> MATERIALS = new ArrayList<>();
+    private static final List<String> MATERIALS = new ArrayList<>();
 
-    // TODO: Trims/Wolf Armor/Llama/Horse/Elytra
-    public ArmorMoverConverter(PackConverter packConverter) {
-        super(packConverter);
+    static {
         MATERIALS.add("chainmail");
         MATERIALS.add("diamond");
         MATERIALS.add("gold");
         MATERIALS.add("iron");
         MATERIALS.add("leather");
         MATERIALS.add("netherite");
+    }
+
+    // TODO: Trims/Wolf Armor/Llama/Horse/Elytra
+    public ArmorMoverConverter(PackConverter packConverter) {
+        super(packConverter);
     }
 
     @Override

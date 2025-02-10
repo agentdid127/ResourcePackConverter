@@ -2,6 +2,9 @@ package com.agentdid127.resourcepack.forwards;
 
 import com.agentdid127.resourcepack.forwards.impl.*;
 import com.agentdid127.resourcepack.forwards.impl.textures.*;
+import com.agentdid127.resourcepack.forwards.impl.textures.creator.OffHandCreator;
+import com.agentdid127.resourcepack.forwards.impl.textures.creator.WidgetSlidersCreator;
+import com.agentdid127.resourcepack.forwards.impl.textures.slicer.*;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
@@ -47,9 +50,9 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new WaterConverter(this));
         this.registerConverter(new BlockStateConverter(this, from, to));
         this.registerConverter(new LangConverter(this, from, to));
-        this.registerConverter(new ParticleTextureConverter(this, from, to));
-        this.registerConverter(new PaintingConverter(this));
-        this.registerConverter(new MobEffectAtlasConverter(this, from));
+        this.registerConverter(new ParticlesSlicerConverter(this, from, to));
+        this.registerConverter(new PaintingSlicerConverter(this));
+        this.registerConverter(new MobEffectAtlasSlicerConverter(this, from));
         this.registerConverter(new ChestConverter(this));
         this.registerConverter(new EnchantConverter(this));
         this.registerConverter(new ParticleConverter(this));
@@ -59,7 +62,7 @@ public class ForwardsPackConverter extends PackConverter {
         this.registerConverter(new EnchantPathConverter(this));
         this.registerConverter(new WidgetSlidersCreator(this));
         this.registerConverter(new TitleConverter(this));
-        this.registerConverter(new SlicerConverter(this, from));
+        this.registerConverter(new GuiSlicerConverter(this, from));
         this.registerConverter(new ImageFormatConverter(this));
         this.registerConverter(new MapIconSlicerConverter(this, from));
         this.registerConverter(new ArmorMoverConverter(this));

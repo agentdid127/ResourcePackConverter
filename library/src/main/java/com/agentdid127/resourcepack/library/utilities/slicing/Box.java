@@ -1,12 +1,12 @@
-package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
+package com.agentdid127.resourcepack.library.utilities.slicing;
 
 import com.google.gson.JsonObject;
 
 public class Box {
-    private int x;
-    private int y;
-    private int width;
-    private int height;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final int height;
 
     public Box(int x, int y, int width, int height) {
         this.x = x;

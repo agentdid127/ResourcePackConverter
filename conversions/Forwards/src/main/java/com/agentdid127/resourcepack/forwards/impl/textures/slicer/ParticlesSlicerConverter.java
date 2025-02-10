@@ -1,11 +1,11 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.forwards.impl.textures.slicer;
 
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.*;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slice;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slicer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -13,11 +13,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ParticleTextureConverter extends Converter {
+public class ParticlesSlicerConverter extends Converter {
     private final int from;
     private final int to;
 
-    public ParticleTextureConverter(PackConverter packConverter, int from, int to) {
+    public ParticlesSlicerConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
@@ -71,7 +71,7 @@ public class ParticleTextureConverter extends Converter {
 
         if (from <= Util.getVersionProtocol(gson, "1.13.2") &&
                 to >= Util.getVersionProtocol(gson, "1.14")) {
-            Slicer.runSlicer(gson, slice, particlePath, SlicerConverter.PredicateRunnable.class, from, false);
+            Slicer.runSlicer(gson, slice, particlePath, new GuiSlicerConverter.GuiPredicateRunnable(), from, false);
             Path entityPath = texturesPath.resolve("entity");
             Path newFishingHookPath = entityPath.resolve("fishing_hook.png");
             if (newFishingHookPath.toFile().exists()) {

@@ -1,7 +1,6 @@
-package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
+package com.agentdid127.resourcepack.library.utilities.slicing;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.File;
@@ -34,15 +33,15 @@ public class Slice {
     }
 
     public void setWidth(int width) {
-        if (this.width == width)
-            return;
-        this.width = width;
+        if (this.width != width) {
+            this.width = width;
+        }
     }
 
     public void setHeight(int height) {
-        if (this.height == height)
-            return;
-        this.height = height;
+        if (this.height != height) {
+            this.height = height;
+        }
     }
 
     public JsonObject getPredicate() {
@@ -61,33 +60,34 @@ public class Slice {
         Slice slice = new Slice();
         slice.path = object.get("path").getAsString();
 
-        if (object.has("name"))
+        if (object.has("name")) {
             slice.name = object.get("name").getAsString();
-        else
+        } else {
             slice.name = null;
+        }
 
         slice.width = object.get("width").getAsInt();
         slice.height = object.get("height").getAsInt();
-
         slice.textures = Texture.parseArray(object.get("textures").getAsJsonArray());
 
-        if (object.has("delete"))
+        if (object.has("delete")) {
             slice.delete = object.get("delete").getAsBoolean();
-        else
+        } else {
             slice.delete = true;
+        }
 
-        if (object.has("predicate"))
+        if (object.has("predicate")) {
             slice.predicate = object.get("predicate").getAsJsonObject();
-        else
+        } else {
             slice.predicate = new JsonObject();
+        }
 
         return slice;
     }
 
     public static Slice[] parseArray(JsonArray array) {
         List<Slice> slices = new LinkedList<>();
-        for (JsonElement element : array)
-            slices.add(Slice.parse(element.getAsJsonObject()));
-        return slices.toArray(new Slice[] {});
+        array.forEach(element -> slices.add(Slice.parse(element.getAsJsonObject())));
+        return slices.toArray(new Slice[]{});
     }
 }

@@ -1,12 +1,12 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.forwards.impl.textures.slicer;
 
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slice;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slicer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -43,7 +43,7 @@ public class MapIconSlicerConverter extends Converter {
         JsonObject mapIconsJson = JsonUtil.readJsonResource(gson, "/forwards/map_icons.json", JsonObject.class);
         if (mapIconsJson != null) {
             Slice slice = Slice.parse(mapIconsJson);
-            Slicer.runSlicer(gson, slice, mapIconsPath, SlicerConverter.PredicateRunnable.class, from, false);
+            Slicer.runSlicer(gson, slice, mapIconsPath, new GuiSlicerConverter.GuiPredicateRunnable(), from, false);
         }
     }
 }

@@ -1,21 +1,19 @@
-package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
+package com.agentdid127.resourcepack.library.utilities.slicing;
 
-import com.agentdid127.resourcepack.forwards.impl.textures.SlicerConverter;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.sun.istack.internal.Nullable;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.nio.file.Path;
 
 public class Slicer {
-    public static <T> void runSlicer(Gson gson, Slice slice, Path root, Class<T> predicateClass, int from, boolean has_metadata)
-            throws IOException {
-        if (!SlicerConverter.PredicateRunnable.run(gson, from, slice.getPredicate())) {
+    public static void runSlicer(Gson gson, Slice slice, Path root, @Nullable PredicateRunnable predicateRunnable, int from, boolean has_metadata) throws IOException {
+        if (predicateRunnable != null && !predicateRunnable.run(gson, from, slice.getPredicate())) {
             return;
         }
 
@@ -43,15 +41,8 @@ public class Slicer {
             }
             FileUtil.ensureParentExists(texturePath);
 
-            if (predicateClass != null) {
-                // Hacky
-                try {
-                    Method predicateTest = predicateClass.getMethod("run", Gson.class, int.class, JsonObject.class);
-                    if (!((boolean) predicateTest.invoke(null, gson, from, texture.getPredicate())))
-                        continue;
-                } catch (Exception exception) {
-                    Logger.log("Failed to get test predicate from predicate class");
-                }
+            if (predicateRunnable != null && !predicateRunnable.run(gson, from, texture.getPredicate())) {
+                continue;
             }
 
             try {

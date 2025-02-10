@@ -1,13 +1,14 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.forwards.impl.textures.slicer;
 
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.slicing.PredicateRunnable;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slice;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slicer;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -17,10 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class SlicerConverter extends Converter {
+public class GuiSlicerConverter extends Converter {
     private final int from;
 
-    public SlicerConverter(PackConverter converter, int from) {
+    public GuiSlicerConverter(PackConverter converter, int from) {
         super(converter);
         this.from = from;
     }
@@ -53,14 +54,14 @@ public class SlicerConverter extends Converter {
             Logger.addTab();
             Slice[] slices = Slice.parseArray(array);
             for (Slice slice : slices) {
-                Slicer.runSlicer(gson, slice, guiPath, PredicateRunnable.class, from, true);
+                Slicer.runSlicer(gson, slice, guiPath, new GuiPredicateRunnable(), from, true);
             }
             Logger.subTab();
         }
     }
 
-    public static class PredicateRunnable {
-        public static boolean run(Gson gson, int from, JsonObject predicate) {
+    public static class GuiPredicateRunnable implements PredicateRunnable {
+        public boolean run(Gson gson, int from, JsonObject predicate) {
             if (predicate.has("protocol")) {
                 JsonObject protocol = predicate.getAsJsonObject("protocol");
 

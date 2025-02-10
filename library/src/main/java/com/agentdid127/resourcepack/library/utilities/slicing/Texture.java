@@ -1,22 +1,23 @@
-package com.agentdid127.resourcepack.forwards.impl.textures.slicing;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+package com.agentdid127.resourcepack.library.utilities.slicing;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class Texture {
-    private String path;
-    private Box box;
-    private boolean remove;
-    private JsonObject predicate;
-    private JsonObject metadata;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
-    public static HashMap<String, JsonObject> metatdataCache = new HashMap<>();
-    static {    
+public class Texture {
+    private final String path;
+    private final Box box;
+    private final boolean remove;
+    private final JsonObject predicate;
+    private final JsonObject metadata;
+
+    public static HashMap<String, JsonObject> METADATA_CACHE = new HashMap<>();
+
+    static {
         {
             // Button Widget
             JsonObject buttonWidget = new JsonObject();
@@ -36,7 +37,7 @@ public class Texture {
 
             gui.add("scaling", scaling);
             buttonWidget.add("gui", gui);
-            metatdataCache.put("button_widget", buttonWidget);
+            METADATA_CACHE.put("button_widget", buttonWidget);
         }
     }
 
@@ -95,30 +96,33 @@ public class Texture {
     public static Texture parse(JsonObject object) {
         String path = object.get("path").getAsString();
         Box box = Box.parse(object.get("box").getAsJsonObject());
-    
+
         boolean remove = false;
-        if (object.has("remove")) 
-            remove = object.get("remove").getAsBoolean();    
+        if (object.has("remove")) {
+            remove = object.get("remove").getAsBoolean();
+        }
 
         JsonObject predicate;
-        if (object.has("predicate")) 
+        if (object.has("predicate")) {
             predicate = object.get("predicate").getAsJsonObject();
-        else
+        } else {
             predicate = new JsonObject();
-        
+        }
+
         JsonObject metadata;
         if (object.has("metadata")) {
             JsonElement metadataElement = object.get("metadata");
-            metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : metatdataCache.getOrDefault(metadataElement.getAsString(), new JsonObject());
-        } else metadata = new JsonObject();
+            metadata = metadataElement.isJsonObject() ? metadataElement.getAsJsonObject() : METADATA_CACHE.getOrDefault(metadataElement.getAsString(), new JsonObject());
+        } else {
+            metadata = new JsonObject();
+        }
 
         return new Texture(path, box, remove, predicate, metadata);
     }
 
     public static Texture[] parseArray(JsonArray array) {
         List<Texture> textures = new LinkedList<>();
-        for (JsonElement element : array) 
-            textures.add(Texture.parse(element.getAsJsonObject()));
-        return textures.toArray(new Texture[] {});
+        array.forEach(element -> textures.add(Texture.parse(element.getAsJsonObject())));
+        return textures.toArray(new Texture[]{});
     }
 }

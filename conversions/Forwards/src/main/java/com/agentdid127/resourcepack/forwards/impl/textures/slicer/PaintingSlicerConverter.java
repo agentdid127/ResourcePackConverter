@@ -1,12 +1,12 @@
-package com.agentdid127.resourcepack.forwards.impl.textures;
+package com.agentdid127.resourcepack.forwards.impl.textures.slicer;
 
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slice;
-import com.agentdid127.resourcepack.forwards.impl.textures.slicing.Slicer;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slice;
+import com.agentdid127.resourcepack.library.utilities.slicing.Slicer;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -14,8 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class PaintingConverter extends Converter {
-    public PaintingConverter(PackConverter packConverter) {
+public class PaintingSlicerConverter extends Converter {
+    public PaintingSlicerConverter(PackConverter packConverter) {
         super(packConverter);
     }
 
