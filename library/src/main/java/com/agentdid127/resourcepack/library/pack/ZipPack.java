@@ -74,7 +74,7 @@ public class ZipPack extends Pack {
         @Override
         public void finish() throws IOException {
             try {
-                Logger.log("Zipping working directory");
+                Logger.debug("Zipping working directory");
                 ZipFile zipFile = new ZipFile(getConvertedZipPath().toFile());
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
@@ -84,7 +84,7 @@ public class ZipPack extends Pack {
                 Util.propagate(e);
             }
 
-            Logger.log("Deleting working directory");
+            Logger.debug("Deleting working directory");
             FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             Logger.log("Finished!");
         }

@@ -48,7 +48,6 @@ public class GUI extends JPanel {
         JLabel baseVersionLabel = new JLabel();
         baseVersionLabel.setText("Base Version");
         menuBarPanel.add(baseVersionLabel);
-
         this.baseVersions = new JComboBox<>();
         baseVersionLabel.setLabelFor(this.baseVersions);
         menuBarPanel.add(this.baseVersions);
@@ -57,7 +56,6 @@ public class GUI extends JPanel {
         JLabel targetVersionsLabel = new JLabel();
         targetVersionsLabel.setText("Target Version");
         menuBarPanel.add(targetVersionsLabel);
-
         this.targetVersions = new JComboBox<>();
         targetVersionsLabel.setLabelFor(targetVersions);
         menuBarPanel.add(this.targetVersions);
@@ -66,13 +64,12 @@ public class GUI extends JPanel {
         String[] versions = Util.getSupportedVersions(GSON);
         if (versions == null) {
             throw new RuntimeException("Failed to get supported version, application possibly corrupt!");
-        }
-
-        if (versions.length > 0) {
+        } else if (versions.length > 0) {
             for (String version : versions) {
                 baseVersions.addItem(version);
                 targetVersions.addItem(version);
             }
+
             targetVersions.setSelectedIndex(targetVersions.getItemCount() - 1);
         }
 

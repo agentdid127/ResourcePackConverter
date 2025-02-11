@@ -37,10 +37,6 @@ public class MobEffectAtlasSlicerConverter1_14 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists()) {
-            return;
-        }
-
         Path inventoryPath = texturesPath.resolve("gui/container/inventory.png".replace("/", File.separator));
         if (!inventoryPath.toFile().exists()) {
             return;
@@ -49,8 +45,7 @@ public class MobEffectAtlasSlicerConverter1_14 extends Converter {
         Gson gson = packConverter.getGson();
         JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/mob_effect.json", JsonObject.class);
         if (effectJson != null) {
-            Slice slice = Slice.parse(effectJson);
-            Slicer.runSlicer(gson, slice, texturesPath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(), from, false);
+            Slicer.run(gson, Slice.parse(effectJson), texturesPath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(gson), from, false);
         }
     }
 }

@@ -72,7 +72,7 @@ public class ParticlesSlicerConverter extends Converter {
 
         if (from <= Util.getVersionProtocol(gson, "1.13.2") &&
                 to >= Util.getVersionProtocol(gson, "1.14")) {
-            Slicer.runSlicer(gson, slice, particlePath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(), from, false);
+            Slicer.run(gson, slice, particlePath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(gson), from, false);
             Path entityPath = texturesPath.resolve("entity");
             Path newFishingHookPath = entityPath.resolve("fishing_hook.png");
             if (newFishingHookPath.toFile().exists()) {

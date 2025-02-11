@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 public class Slicer {
-    public static void runSlicer(Gson gson, Slice slice, Path root, /* nullable */ PredicateRunnable predicateRunnable, int from, boolean has_metadata) throws IOException {
-        if (predicateRunnable != null && !predicateRunnable.run(gson, from, slice.getPredicate())) {
+    public static void run(Gson gson, Slice slice, Path root, /* nullable */ PredicateRunnable predicateRunnable, int from, boolean has_metadata) throws IOException {
+        if (predicateRunnable != null && !predicateRunnable.run(from, slice.getPredicate())) {
             return;
         }
 
@@ -40,25 +40,15 @@ public class Slicer {
             }
             FileUtil.ensureParentExists(texturePath);
 
-            if (predicateRunnable != null && !predicateRunnable.run(gson, from, texture.getPredicate())) {
+            if (predicateRunnable != null && !predicateRunnable.run(from, texture.getPredicate())) {
                 continue;
             }
 
             try {
                 Box box = texture.getBox();
-                converter.saveSlice(
-                        box.getX(),
-                        box.getY(),
-                        box.getWidth(),
-                        box.getHeight(),
-                        texturePath);
-
+                converter.saveSlice(box.getX(), box.getY(), box.getWidth(), box.getHeight(), texturePath);
                 if (texture.shouldRemove()) {
-                    converter.fillEmpty(
-                            box.getX(),
-                            box.getY(),
-                            box.getWidth(),
-                            box.getHeight());
+                    converter.fillEmpty(box.getX(), box.getY(), box.getWidth(), box.getHeight());
                 }
 
                 if (has_metadata) {
@@ -69,10 +59,8 @@ public class Slicer {
                     }
                 }
             } catch (Exception exception) {
-                Logger.log("Failed to slice texture '" + texture.getPath() + "' (error='"
-                        + exception.getLocalizedMessage() + "')");
-                Logger.log("  - box: (x=" + texture.getBox().getX() + ", y=" + texture.getBox().getY() + ", width="
-                        + texture.getBox().getWidth() + ", height=" + texture.getBox().getHeight() + ")");
+                Logger.log("Failed to slice texture '" + texture.getPath() + "' (error='" + exception.getLocalizedMessage() + "')");
+                Logger.log("  - box: (x=" + texture.getBox().getX() + ", y=" + texture.getBox().getY() + ", width=" + texture.getBox().getWidth() + ", height=" + texture.getBox().getHeight() + ")");
             }
         }
 

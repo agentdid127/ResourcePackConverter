@@ -34,10 +34,6 @@ public class PaintingSlicerConverter1_14_4 extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists()) {
-            return;
-        }
-
         Path paintingPath = texturesPath.resolve("painting");
         if (!paintingPath.toFile().exists()) {
             return;
@@ -46,8 +42,7 @@ public class PaintingSlicerConverter1_14_4 extends Converter {
         Gson gson = packConverter.getGson();
         JsonObject effectJson = JsonUtil.readJsonResource(gson, "/forwards/paintings_kristoffer_zetterstrand.json", JsonObject.class);
         if (effectJson != null) {
-            Slice slice = Slice.parse(effectJson);
-            Slicer.runSlicer(gson, slice, paintingPath, (gson1, from, predicate) -> true, -1, false);
+            Slicer.run(gson, Slice.parse(effectJson), paintingPath, (from, predicate) -> true, -1, false);
         }
     }
 }

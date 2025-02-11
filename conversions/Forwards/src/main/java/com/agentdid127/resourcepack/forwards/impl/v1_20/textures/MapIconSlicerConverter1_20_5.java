@@ -38,8 +38,7 @@ public class MapIconSlicerConverter1_20_5 extends Converter {
         Gson gson = packConverter.getGson();
         JsonObject mapIconsJson = JsonUtil.readJsonResource(gson, "/forwards/map_icons.json", JsonObject.class);
         if (mapIconsJson != null) {
-            Slice slice = Slice.parse(mapIconsJson);
-            Slicer.runSlicer(gson, slice, mapIconsPath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(), from, false);
+            Slicer.run(gson, Slice.parse(mapIconsJson), mapIconsPath, new GuiSlicerConverter1_20_2.GuiPredicateRunnable(gson), from, false);
         }
     }
 }

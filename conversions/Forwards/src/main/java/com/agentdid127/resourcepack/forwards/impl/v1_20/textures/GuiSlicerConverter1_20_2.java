@@ -49,14 +49,21 @@ public class GuiSlicerConverter1_20_2 extends Converter {
         if (array != null) {
             Logger.addTab();
             for (Slice slice : Slice.parseArray(array)) {
-                Slicer.runSlicer(gson, slice, guiPath, new GuiPredicateRunnable(), from, true);
+                Slicer.run(gson, slice, guiPath, new GuiPredicateRunnable(gson), from, true);
             }
             Logger.subTab();
         }
     }
 
     public static class GuiPredicateRunnable implements PredicateRunnable {
-        public boolean run(Gson gson, int from, JsonObject predicate) {
+        private final Gson gson;
+
+        public GuiPredicateRunnable(Gson gson) {
+            this.gson = gson;
+        }
+
+        @Override
+        public boolean run(int from, JsonObject predicate) {
             if (predicate.has("protocol")) {
                 JsonObject protocol = predicate.getAsJsonObject("protocol");
 
