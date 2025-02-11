@@ -22,7 +22,7 @@ public class GUI extends JPanel {
 
     private PrintStream out;
     private final JTextArea outputLogPane;
-    private final JComboBox<String> initialVersionBox;
+    private final JComboBox<String> baseVersions;
     private final JComboBox<String> targetVersions;
     private final JCheckBox minifyCheckBox;
     private final JComboBox<String> lightOptions;
@@ -44,18 +44,18 @@ public class GUI extends JPanel {
 
         // Menubar Panel
         final JPanel menuBarPanel = new JPanel();
-        // Initial Version
-        JLabel initialVersionLabel = new JLabel();
-        initialVersionLabel.setText("Initial Version");
-        menuBarPanel.add(initialVersionLabel);
+        // Base Version
+        JLabel baseVersionLabel = new JLabel();
+        baseVersionLabel.setText("Base Version");
+        menuBarPanel.add(baseVersionLabel);
 
-        this.initialVersionBox = new JComboBox<>();
-        initialVersionLabel.setLabelFor(this.initialVersionBox);
-        menuBarPanel.add(this.initialVersionBox);
+        this.baseVersions = new JComboBox<>();
+        baseVersionLabel.setLabelFor(this.baseVersions);
+        menuBarPanel.add(this.baseVersions);
 
         // Target Version
         JLabel targetVersionsLabel = new JLabel();
-        targetVersionsLabel.setText("Final Version");
+        targetVersionsLabel.setText("Target Version");
         menuBarPanel.add(targetVersionsLabel);
 
         this.targetVersions = new JComboBox<>();
@@ -70,7 +70,7 @@ public class GUI extends JPanel {
 
         if (versions.length > 0) {
             for (String version : versions) {
-                initialVersionBox.addItem(version);
+                baseVersions.addItem(version);
                 targetVersions.addItem(version);
             }
             targetVersions.setSelectedIndex(targetVersions.getItemCount() - 1);
@@ -102,7 +102,7 @@ public class GUI extends JPanel {
         this.convertButton.addActionListener(e -> {
             out = redirectSystemStreams();
             String light = Objects.requireNonNull(lightOptions.getSelectedItem()).toString();
-            int from = Util.getVersionProtocol(GSON, Objects.requireNonNull(initialVersionBox.getSelectedItem()).toString());
+            int from = Util.getVersionProtocol(GSON, Objects.requireNonNull(baseVersions.getSelectedItem()).toString());
             int to = Util.getVersionProtocol(GSON, Objects.requireNonNull(targetVersions.getSelectedItem()).toString());
             boolean minify = minifyCheckBox.isSelected();
             new Thread(() -> {

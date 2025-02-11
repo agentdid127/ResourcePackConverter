@@ -86,6 +86,7 @@ public class ZipPack extends Pack {
 
             Logger.log("Deleting working directory");
             FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
+            Logger.log("Finished!");
         }
 
         @Override
