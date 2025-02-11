@@ -9,6 +9,7 @@ import com.google.gson.Strictness;
 import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -37,6 +38,7 @@ public class GUI extends JPanel {
         this.outputLogPane.setRows(20);
         this.outputLogPane.setText("");
         this.outputLogPane.setEditable(false);
+        ((DefaultCaret) this.outputLogPane.getCaret()).setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
         scrollPane.setViewportView(this.outputLogPane);
         logPanel.add(scrollPane);
         this.add(logPanel);
