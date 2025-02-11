@@ -6,7 +6,6 @@ import com.agentdid127.resourcepack.library.utilities.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Strictness;
-import com.sun.java.swing.plaf.gtk.GTKLookAndFeel;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -137,7 +136,7 @@ public class GUI extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
-            UIManager.setLookAndFeel(new GTKLookAndFeel());
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
         } catch (Exception ignored) {
             System.err.println("GTK look not supported, ignoring.");
         }
