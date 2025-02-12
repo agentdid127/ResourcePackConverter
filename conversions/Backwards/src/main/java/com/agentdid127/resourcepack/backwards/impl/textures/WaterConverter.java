@@ -27,8 +27,8 @@ public class WaterConverter extends Converter {
         Path blocksFolder = pack.getWorkingPath().resolve("assets/minecraft/textures/blocks".replace("/", File.separator));
         if (blocksFolder.toFile().exists()) {
             colorize(blocksFolder.resolve("water_flow.png"), 32, 1024);
-            colorize(blocksFolder.resolve("water_still.png"), 32, 1024);
-            colorize(blocksFolder.resolve("water_overlay.png"), 32, 32);
+            colorize(blocksFolder.resolve("water_still.png"), 16, 512);
+            colorize(blocksFolder.resolve("water_overlay.png"), 16, 16);
         }
     }
 
@@ -37,7 +37,7 @@ public class WaterConverter extends Converter {
             ImageConverter imageConverter = new ImageConverter(w, h, path);
             if (imageConverter.fileIsPowerOfTwo()) {
                 imageConverter.newImage(w, h);
-                imageConverter.colorize(new Color(45, 63, 244, 170));
+                imageConverter.colorizeGrayscale(new Color(45, 63, 244));
                 imageConverter.store();
             }
         }

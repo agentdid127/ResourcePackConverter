@@ -237,33 +237,22 @@ public class ImageConverter {
     }
 
     /**
-     * Recolor the entire image.
-     *
-     * @param color
-     */
-    public void colorize(Color color) {
-        g2d.setPaint(color);
-        g2d.drawImage(image, 0, 0, null);
-        g2d.fillRect(0, 0, newImage.getWidth(), newImage.getHeight());
-    }
-
-    /**
      * Recolor the grayscale image.
      *
      * @param color
      */
-    public void colorizeClipped(Color color) {
+    public void colorizeGrayscale(Color color) {
         this.newImage(this.getWidth(), this.getHeight());
         this.g2d.drawImage(this.image, 0, 0, null);
         for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {
-                int imageRGBA = newImage.getRGB(x, y);
-                int alpha = (imageRGBA >> 24) & 0xFF;
+                int rgba = this.newImage.getRGB(x, y);
+                int alpha = (rgba >> 24) & 0xFF;
                 if (alpha == 0) {
                     continue;
                 }
 
-                int grayscaleValue = (imageRGBA >> 16) & 0xFF;
+                int grayscaleValue = (rgba >> 16) & 0xFF;
                 int red = (grayscaleValue * color.getRed()) / 255;
                 int green = (grayscaleValue * color.getGreen()) / 255;
                 int blue = (grayscaleValue * color.getBlue()) / 255;
@@ -276,8 +265,8 @@ public class ImageConverter {
      * Grayscale the image using the NTSC grayscale formula
      */
     public void grayscale() {
-        BufferedImage gray = new BufferedImage(newImage.getWidth(), newImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        gray.createGraphics().drawImage(image, 0, 0, null);
+        BufferedImage gray = new BufferedImage(this.newImage.getWidth(), this.newImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        gray.createGraphics().drawImage(this.image, 0, 0, null);
         for (int y = 0; y < gray.getHeight(); y++) {
             for (int x = 0; x < gray.getWidth(); x++) {
                 int rgba = gray.getRGB(x, y);
@@ -289,7 +278,7 @@ public class ImageConverter {
                 gray.setRGB(x, y, (alpha << 24) | (average << 16) | (average << 8) | average);
             }
         }
-        newImage = gray;
+        this.newImage = gray;
     }
 
     /**
