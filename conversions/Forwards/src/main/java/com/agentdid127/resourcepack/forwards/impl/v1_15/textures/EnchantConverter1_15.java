@@ -31,7 +31,6 @@ public class EnchantConverter1_15 extends Converter {
 
         ImageConverter imageConverter = new ImageConverter(64, 64, itemGlintPath);
         if (imageConverter.fileIsPowerOfTwo()) {
-            imageConverter.newImage(64, 64);
             imageConverter.colorizeGrayscale(new Color(128, 64, 204));
             imageConverter.store();
         }

@@ -242,7 +242,7 @@ public class ImageConverter {
      * @param color
      */
     public void colorizeGrayscale(Color color) {
-        this.newImage(this.getWidth(), this.getHeight());
+        this.newImage(this.defaultW, this.defaultH);
         this.g2d.drawImage(this.image, 0, 0, null);
         for (int y = 0; y < this.getHeight(); y++) {
             for (int x = 0; x < this.getWidth(); x++) {

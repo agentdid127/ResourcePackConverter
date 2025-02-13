@@ -36,7 +36,6 @@ public class WaterConverter extends Converter {
         if (path.toFile().exists()) {
             ImageConverter imageConverter = new ImageConverter(w, h, path);
             if (imageConverter.fileIsPowerOfTwo()) {
-                imageConverter.newImage(w, h);
                 imageConverter.colorizeGrayscale(new Color(45, 63, 244));
                 imageConverter.store();
             }
