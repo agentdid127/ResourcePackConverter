@@ -1,5 +1,6 @@
 package com.agentdid127.resourcepack.forwards.impl.other;
 
+import com.agentdid127.resourcepack.forwards.ForwardsPackConverter;
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
@@ -24,11 +25,14 @@ public class ModelConverter extends Converter {
     private final int to;
     protected String light = "none";
 
+    private Pack pack;
+
     public ModelConverter(PackConverter packConverter, String light, int from, int to) {
         super(packConverter);
         this.light = light;
         this.from = from;
         this.to = to;
+        pack = null;
     }
 
     @Override
@@ -44,6 +48,7 @@ public class ModelConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
+        this.pack = pack;
         Path models = pack.getWorkingPath().resolve("assets/minecraft/models".replace("/", File.separator));
         if (models.toFile().exists()) {
             Logger.addTab();
@@ -280,6 +285,28 @@ public class ModelConverter extends Converter {
                 }
             }
 
+
+            // New Override System for 1.21.4+
+            if (to >= Util.getVersionProtocol(packConverter.getGson(), "1.21.4")
+                    && from < Util.getVersionProtocol(packConverter.getGson(), "1.21.4")) {
+
+                // Check for new overrides
+                if (jsonObject.has("overrides")) {
+                    JsonArray overridesArray = jsonObject.get("overrides").getAsJsonArray();
+
+                    // Convert damages, and model data
+                    if (isDamageModel(overridesArray)) {
+                        createDamageModel(overridesArray, model);
+                    } else if (isCustomModelData(overridesArray)) {
+                        createCustomModelData(overridesArray, model);
+                    }
+
+                    // remove old damages
+                    jsonObject.remove("overrides");
+                }
+            }
+
+
             if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                 Logger.debug("Updating Model: " + model.getFileName());
                 JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
@@ -291,6 +318,136 @@ public class ModelConverter extends Converter {
         }
     }
 
+    /**
+     * Creates a Damage-based item in the new directory for 1.21.4+
+     *
+     * @param overrides overrides system from old model
+     * @param original original model file
+     * @throws IOException if we can't save the new file.
+     */
+    private void createDamageModel(JsonArray overrides, Path original) throws IOException {
+        if (pack == null) return;
+        Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/items");
+        if (!itemsPath.toFile().exists()) {
+            itemsPath.toFile().mkdirs();
+        }
+
+        JsonObject out = new JsonObject();
+        JsonObject model = new JsonObject();
+        model.addProperty("type", "range_dispatch");
+        model.addProperty("property", "damage");
+
+        JsonObject fallback = new JsonObject();
+        fallback.addProperty("type", "model");
+
+        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+        model.add("fallback", fallback);
+
+
+        // iterate through old override entries, and migrate to new file.
+        JsonArray entries = new JsonArray();
+        for (JsonElement override : overrides) {
+            JsonObject entry = new JsonObject();
+            if (override.isJsonObject()) {
+                double damage = override.getAsJsonObject().get("predicate").getAsJsonObject().get("damage").getAsDouble();
+                String entryModel = override.getAsJsonObject().get("model").getAsString();
+
+                entry.addProperty("threshold", damage);
+                JsonObject modelEntry = new JsonObject();
+                modelEntry.addProperty("model", entryModel);
+                modelEntry.addProperty("type", "model");
+                entry.add("model", modelEntry);
+                entries.add(entry);
+            }
+        }
+
+        model.add("entries", entries);
+        out.add("model", model);
+
+        JsonUtil.writeJson(packConverter.getGson(), itemsPath.resolve(original.toFile().getName()), out);
+    }
+
+
+    /**
+     * Creates a Custom Model Data based item in the 1.21.4+ format.
+     *
+     * @param overrides old overrides
+     * @param original original model file path
+     * @throws IOException if we can't save the new file.
+     */
+    private void createCustomModelData(JsonArray overrides, Path original) throws IOException {
+        if (pack == null) return;
+        Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/items");
+        if (!itemsPath.toFile().exists()) {
+            itemsPath.toFile().mkdirs();
+        }
+
+        JsonObject out = new JsonObject();
+        JsonObject model = new JsonObject();
+        model.addProperty("type", "range_dispatch");
+        model.addProperty("property", "custom_model_data");
+
+        JsonObject fallback = new JsonObject();
+        fallback.addProperty("type", "model");
+        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+        model.add("fallback", fallback);
+
+        JsonArray entries = new JsonArray();
+        for (JsonElement override : overrides) {
+            JsonObject entry = new JsonObject();
+            if (override.isJsonObject()) {
+                long customModelData = override.getAsJsonObject().get("predicate").getAsJsonObject().get("custom_model_data").getAsLong();
+                String entryModel = override.getAsJsonObject().get("model").getAsString();
+
+                entry.addProperty("threshold", customModelData);
+                JsonObject modelEntry = new JsonObject();
+                modelEntry.addProperty("model", entryModel);
+                modelEntry.addProperty("type", "model");
+                entry.add("model", modelEntry);
+                entries.add(entry);
+            }
+        }
+        model.add("entries", entries);
+        out.add("model", model);
+
+        JsonUtil.writeJson(packConverter.getGson(), itemsPath.resolve(original.toFile().getName()), out);
+    }
+
+    /**
+     * Checks if overrides is damage-based
+     *
+     * @param overrides old overrides model
+     * @return {@code true} if it is a damage-based model
+     */
+    private boolean isDamageModel(JsonArray overrides) {
+        for (JsonElement override : overrides) {
+            if (override instanceof JsonObject && override.getAsJsonObject().has("predicate")) {
+                JsonObject predicate = override.getAsJsonObject().get("predicate").getAsJsonObject();
+                if (predicate.has("damage") && !predicate.has("custom_model_data")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if overrides is CustomModelData-based
+     *
+     * @param overrides old overrides model
+     * @return {@code true} if it is a CustomModelData-based model
+     */
+    private boolean isCustomModelData(JsonArray overrides) {
+        for (JsonElement override : overrides) {
+            if (override instanceof JsonObject && override.getAsJsonObject().has("predicate")) {
+                JsonObject predicate = override.getAsJsonObject().get("predicate").getAsJsonObject();
+                if (!predicate.has("damage") && predicate.has("custom_model_data")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     /**
      * Gets parent object and sets a new one
      *
