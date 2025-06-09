@@ -1,7 +1,7 @@
 # Resource Pack Converter
 [![](https://jitpack.io/v/agentdid127/ResourcePackConverter.svg)](https://jitpack.io/#agentdid127/ResourcePackConverter)
 
-This is a program that converts most issues with resource packs between any version from 1.7.2 all the way to 1.20.3.
+This is a program that converts most issues with resource packs between any version from 1.7.2 all the way to 1.21.4.
 
 This should convert most things, but if you notice anything that does not work correctly, or should be added, create an issue on Github.
 

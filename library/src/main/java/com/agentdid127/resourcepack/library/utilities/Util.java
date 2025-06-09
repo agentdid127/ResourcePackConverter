@@ -27,9 +27,11 @@ public final class Util {
      */
     public static BufferedImage readImageResource(String path) {
         try (InputStream stream = PackConverter.class.getResourceAsStream(path)) {
-            if (stream == null)
+            if (stream == null) {
                 return null;
-            return ImageIO.read(stream);
+            } else {
+                return ImageIO.read(stream);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -44,14 +46,15 @@ public final class Util {
      */
     public static String getVersionFromProtocol(Gson gson, int protocol) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null) return null;
-
-        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
-            JsonObject versionObj = entry.getValue().getAsJsonObject();
-            if (Integer.parseInt(versionObj.get("protocol_version").getAsString()) == protocol) {
-                return entry.getKey();
+        if (protocols != null) {
+            for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+                JsonObject versionObj = entry.getValue().getAsJsonObject();
+                if (versionObj.get("protocol_version").getAsInt() == protocol) {
+                    return entry.getKey();
+                }
             }
         }
+
         return null;
     }
 
@@ -64,14 +67,15 @@ public final class Util {
      */
     public static JsonObject getVersionObjectByProtocol(Gson gson, int protocol) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null) return null;
-
-        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
-            JsonObject versionObj = entry.getValue().getAsJsonObject();
-            if (Integer.parseInt(versionObj.get("protocol_version").getAsString()) == protocol) {
-                return versionObj;
+        if (protocols != null) {
+            for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+                JsonObject versionObj = entry.getValue().getAsJsonObject();
+                if (versionObj.get("protocol_version").getAsInt() == protocol) {
+                    return versionObj;
+                }
             }
         }
+
         return null;
     }
 
@@ -84,7 +88,11 @@ public final class Util {
      */
     public static JsonObject getVersionObject(Gson gson, String version) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        return protocols == null ? null : protocols.getAsJsonObject(version);
+        if (protocols != null) {
+            return protocols.getAsJsonObject(version);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -96,21 +104,26 @@ public final class Util {
      */
     public static int getVersionProtocol(Gson gson, String version) {
         JsonObject versionObj = getVersionObject(gson, version);
-        return versionObj == null ? 0 : Integer.parseInt(versionObj.get("protocol_version").getAsString());
+        if (versionObj != null) {
+            return versionObj.get("protocol_version").getAsInt();
+        } else {
+            return 0;
+        }
     }
 
     public static int getLatestProtocol(Gson gson) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null) return 0;
-
         int latestProtocol = 0;
-        for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
-            JsonObject versionObj = entry.getValue().getAsJsonObject();
-            int protocol = Integer.parseInt(versionObj.get("protocol_version").getAsString());
-            if (protocol > latestProtocol) {
-                latestProtocol = protocol;
+        if (protocols != null) {
+            for (Map.Entry<String, JsonElement> entry : protocols.entrySet()) {
+                JsonObject versionObj = entry.getValue().getAsJsonObject();
+                int protocol = versionObj.get("protocol_version").getAsInt();
+                if (protocol > latestProtocol) {
+                    latestProtocol = protocol;
+                }
             }
         }
+
         return latestProtocol;
     }
 
@@ -122,20 +135,20 @@ public final class Util {
      */
     public static String[] getSupportedVersions(Gson gson) {
         JsonObject protocols = JsonUtil.readJsonResource(gson, "/protocol.json");
-        if (protocols == null)
+        if (protocols != null) {
+            return protocols.entrySet().stream().map(Map.Entry::getKey).toArray(String[]::new);
+        } else {
             return null;
-        return protocols.entrySet()
-                .stream()
-                .map(Map.Entry::getKey)
-                .toArray(String[]::new);
+        }
     }
 
     public static String readFromFile(Path path) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(path.toFile()));
         StringBuilder resultStringBuilder = new StringBuilder();
         String line;
-        while ((line = br.readLine()) != null)
+        while ((line = br.readLine()) != null) {
             resultStringBuilder.append(line).append("\n");
+        }
         br.close();
         return resultStringBuilder.toString();
     }
