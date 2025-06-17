@@ -254,7 +254,11 @@ public class ModelConverter extends Converter {
                         if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                             Logger.debug("Updating Model: " + model.getFileName());
                             if (from1_21_4) {
-                                JsonUtil.writeJson(packConverter.getGson(), model.getParent().resolve("models/item/" + model.toFile().getName()), jsonObject);
+                                Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/models/item");
+                                if (!itemsPath.toFile().exists()) {
+                                    itemsPath.toFile().mkdirs();
+                                }
+                                JsonUtil.writeJson(packConverter.getGson(), itemsPath.resolve(model.toFile().getName()), jsonObject);
                                 Files.delete(model);
                             } else {
                                 JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
@@ -565,7 +569,7 @@ public class ModelConverter extends Converter {
         String texture = modelNew.get("fallback").getAsJsonObject().get("model").getAsString();
 
         JsonObject out = new JsonObject();
-        out.addProperty("parent", "item/handheld");
+        out.addProperty("parent", "item/generated");
         JsonObject textures = new JsonObject();
         out.add("textures", textures);
         textures.addProperty("layer0", texture);
