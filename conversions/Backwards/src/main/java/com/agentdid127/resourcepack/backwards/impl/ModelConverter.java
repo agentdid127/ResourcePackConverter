@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import jdk.jpackage.internal.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.util.Objects;
 public class ModelConverter extends Converter {
     private final int to;
     private final int from;
+
+    private Pack pack;
 
     public ModelConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -43,7 +46,8 @@ public class ModelConverter extends Converter {
      */
     @Override
     public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath().resolve("assets/minecraft/models".replace("/", File.separator));
+        this.pack = pack;
+        Path models = pack.getWorkingPath().resolve("assets/minecraft/".replace("/", File.separator));
         if (models.toFile().exists()) {
             findFiles(models);
         }
@@ -58,7 +62,7 @@ public class ModelConverter extends Converter {
     protected void findFiles(Path path) throws IOException {
         File directory = path.toFile();
         for (File file : Objects.requireNonNull(directory.listFiles())) {
-            if (file.isDirectory())
+            if (!file.isDirectory())
                 continue;
             remapModelJson(file.toPath());
             findFiles(file.toPath());
@@ -72,8 +76,9 @@ public class ModelConverter extends Converter {
      * @throws IOException
      */
     protected void remapModelJson(Path models) throws IOException {
-        if (!models.toFile().exists())
+        if (!models.toFile().exists()) {
             return;
+        }
         Files.list(models)
                 .filter(path1 -> path1.toString().endsWith(".json"))
                 .forEach(model -> {
@@ -92,6 +97,26 @@ public class ModelConverter extends Converter {
                             Logger.subTab();
                             return;
                         }
+
+                        boolean from1_21_4 = false;
+
+                        if (to < Util.getVersionProtocol(packConverter.getGson(), "1.21.4")
+                                && from >= Util.getVersionProtocol(packConverter.getGson(), "1.21.4")) {
+                            // Check for new overrides
+                            if (jsonObject.has("model") && jsonObject.get("model").isJsonObject()) {
+                                JsonObject modelJson = jsonObject.get("model").getAsJsonObject();
+                                // Convert damages, and model data
+
+                                if (isDamageModel(modelJson)) {
+                                    jsonObject = createDamageModel(modelJson, model);
+                                } else if (isCustomModelData(modelJson)) {
+                                    jsonObject = createCustomModelData(modelJson, model);
+                                }
+                            }
+                            from1_21_4 = true;
+                        }
+
+
 
                         // Parent Stuff
                         if (jsonObject.has("parent")) {
@@ -228,7 +253,12 @@ public class ModelConverter extends Converter {
 
                         if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                             Logger.debug("Updating Model: " + model.getFileName());
-                            JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
+                            if (from1_21_4) {
+                                JsonUtil.writeJson(packConverter.getGson(), model.getParent().resolve("models/item/" + model.toFile().getName()), jsonObject);
+                                Files.delete(model);
+                            } else {
+                                JsonUtil.writeJson(packConverter.getGson(), model, jsonObject);
+                            }
                         }
                     } catch (IOException e) {
                         throw Util.propagate(e);
@@ -489,5 +519,85 @@ public class ModelConverter extends Converter {
         }
 
         return newObject;
+    }
+
+
+    private JsonObject createDamageModel(JsonObject modelNew, Path original) throws IOException {
+        if (pack == null) return null;
+        JsonArray entries = modelNew.get("entries").getAsJsonArray();
+
+        String texture = modelNew.get("fallback").getAsJsonObject().get("model").getAsString();
+
+        JsonObject out = new JsonObject();
+        out.addProperty("parent", "item/handheld");
+        JsonObject textures = new JsonObject();
+        out.add("textures", textures);
+        textures.addProperty("layer0", texture);
+
+        JsonObject fallback = new JsonObject();
+        fallback.addProperty("type", "model");
+        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+
+        JsonArray overrides = new JsonArray();
+        for (JsonElement entry : entries) {
+            JsonObject override = new JsonObject();
+            if (entry.isJsonObject()) {
+                long customModelData = entry.getAsJsonObject().get("threshold").getAsLong();
+                String overrideModel = override.getAsJsonObject().get("model").getAsJsonObject().get("model").getAsString();
+
+                override.addProperty("model", overrideModel);
+                JsonObject predicate = new JsonObject();
+                predicate.addProperty("damage", customModelData);
+                override.add("predicate", predicate);
+                entries.add(entry);
+            }
+        }
+        out.add("overrides", overrides);
+
+        return out;
+    }
+
+
+    private JsonObject createCustomModelData(JsonObject modelNew, Path original) throws IOException {
+        if (pack == null) return null;
+        JsonArray entries = modelNew.get("entries").getAsJsonArray();
+
+        String texture = modelNew.get("fallback").getAsJsonObject().get("model").getAsString();
+
+        JsonObject out = new JsonObject();
+        out.addProperty("parent", "item/handheld");
+        JsonObject textures = new JsonObject();
+        out.add("textures", textures);
+        textures.addProperty("layer0", texture);
+
+        JsonObject fallback = new JsonObject();
+        fallback.addProperty("type", "model");
+        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+
+        JsonArray overrides = new JsonArray();
+        for (JsonElement entry : entries) {
+            JsonObject override = new JsonObject();
+            if (entry.isJsonObject()) {
+                long customModelData = entry.getAsJsonObject().get("threshold").getAsLong();
+                String overrideModel = entry.getAsJsonObject().get("model").getAsJsonObject().get("model").getAsString();
+
+                override.addProperty("model", overrideModel);
+                JsonObject predicate = new JsonObject();
+                predicate.addProperty("custom_model_data", customModelData);
+                override.add("predicate", predicate);
+                overrides.add(override);
+            }
+        }
+        out.add("overrides", overrides);
+
+        return out;
+    }
+
+    private boolean isDamageModel(JsonObject model) {
+        return model.has("property") && model.get("property").getAsString().equals("damage");
+    }
+
+    private boolean isCustomModelData(JsonObject model) {
+        return model.has("property") && model.get("property").getAsString().equals("custom_model_data");
     }
 }
