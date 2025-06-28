@@ -5,16 +5,17 @@ import com.agentdid127.resourcepack.library.PackConverter;
 import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.ImageConverter;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import javax.imageio.ImageIO;
-
 public class ParticleTextureConverter extends Converter {
-    int from, to;
+    private final int from;
+    private final int to;
 
     public ParticleTextureConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -22,27 +23,36 @@ public class ParticleTextureConverter extends Converter {
         this.to = to;
     }
 
+    @Override
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
+
     /**
      * Updates Particles
-     * 
+     *
      * @param pack
      * @throws IOException
      */
     @Override
     public void convert(Pack pack) throws IOException {
         Path texturesPath = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
-        if (!texturesPath.toFile().exists())
+        if (!texturesPath.toFile().exists()) {
             return;
+        }
 
         Path particleFolderPath = texturesPath.resolve("particle");
-        if (!particleFolderPath.toFile().exists())
+        if (!particleFolderPath.toFile().exists()) {
             return;
+        }
 
         Path particlesImagePath = particleFolderPath.resolve("particles.png");
-        if (!particlesImagePath.toFile().exists())
+        if (!particlesImagePath.toFile().exists()) {
             return;
+        }
 
-        int defaultW = 128, defaultH = 128;
+        // Default W/H is 128
+        int defaultW, defaultH;
 
         // Particles
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.14")
@@ -148,8 +158,9 @@ public class ParticleTextureConverter extends Converter {
 
             Path entityPath = texturesPath.resolve("entity");
             Path fishingHookPath = entityPath.resolve("fishing_hook.png");
-            if (fishingHookPath.toFile().exists())
+            if (fishingHookPath.toFile().exists()) {
                 converter.addImage(fishingHookPath, 8, 16);
+            }
 
             converter.store();
         }
@@ -159,11 +170,11 @@ public class ParticleTextureConverter extends Converter {
             defaultW = 128;
             defaultH = 128;
             ImageConverter converter = new ImageConverter(defaultW, defaultH, particlesImagePath);
-            if (!converter.fileIsPowerOfTwo())
-                return;
-            converter.newImage(128, 128);
-            converter.subImage(0, 0, 128, 128, 0, 0);
-            converter.store();
+            if (converter.fileIsPowerOfTwo()) {
+                converter.newImage(128, 128);
+                converter.subImage(0, 0, 128, 128, 0, 0);
+                converter.store();
+            }
         }
     }
 }

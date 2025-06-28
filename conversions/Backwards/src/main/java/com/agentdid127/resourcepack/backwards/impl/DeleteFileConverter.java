@@ -6,6 +6,7 @@ import com.agentdid127.resourcepack.library.pack.Pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.JsonUtil;
 import com.agentdid127.resourcepack.library.utilities.Util;
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,7 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class DeleteFileConverter extends Converter {
-    int from, to;
+    private final int from;
+    private final int to;
 
     public DeleteFileConverter(PackConverter packConverter, int from, int to) {
         super(packConverter);
@@ -25,12 +27,14 @@ public class DeleteFileConverter extends Converter {
     }
 
     @Override
-    public void convert(Pack pack) throws IOException {
-        Path models = pack.getWorkingPath()
-                .resolve("assets/minecraft/models".replace("/", File.separator));
-        Path textures = pack.getWorkingPath()
-                .resolve("assets/minecraft/textures".replace("/", File.separator));
+    public boolean shouldConvert(Gson gson, int from, int to) {
+        return true;
+    }
 
+    @Override
+    public void convert(Pack pack) throws IOException {
+        Path models = pack.getWorkingPath().resolve("assets/minecraft/models".replace("/", File.separator));
+        Path textures = pack.getWorkingPath().resolve("assets/minecraft/textures".replace("/", File.separator));
         for (int i = from; i > to; i--) {
             deleteBlocks(models, textures, i);
             deleteItems(models, textures, i);
@@ -39,33 +43,39 @@ public class DeleteFileConverter extends Converter {
 
         findFiles(models);
         findFiles(textures);
-
         if (from >= Util.getVersionProtocol(packConverter.getGson(), "1.19.3")
-                && to < Util.getVersionProtocol(packConverter.getGson(), "1.19.3")) {
-            Path atlases = pack.getWorkingPath()
-                    .resolve("assets/minecraft/atlases".replace("/", File.separator));
-            if (atlases.toFile().exists())
+                && to <= Util.getVersionProtocol(packConverter.getGson(), "1.19.2")) {
+            Path atlases = pack.getWorkingPath().resolve("assets/minecraft/atlases".replace("/", File.separator));
+            if (atlases.toFile().exists()) {
                 FileUtil.deleteDirectoryAndContents(atlases);
+            }
         }
     }
 
     protected void findFiles(Path path) throws IOException {
         if (!path.toFile().exists())
             return;
+
         File directory = path.toFile();
         File[] filesList = directory.listFiles();
-        for (File file : filesList)
-            if (file.isDirectory())
+
+        assert filesList != null;
+        for (File file : filesList) {
+            if (file.isDirectory()) {
                 findFiles(file.toPath());
+            }
+        }
+
         filesList = directory.listFiles();
-        if (filesList.length == 0)
+        assert filesList != null;
+        if (filesList.length == 0) {
             Files.deleteIfExists(directory.toPath());
+        }
     }
 
     public void deleteBlocks(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject blocks = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/delete/blocks.json");
-
         if (blocks.has(protocol)) {
             Path blockMPath, blockTPath;
             if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {
@@ -89,7 +99,6 @@ public class DeleteFileConverter extends Converter {
     public void deleteItems(Path models, Path textures, int version) throws IOException {
         String protocol = Util.getVersionFromProtocol(packConverter.getGson(), version);
         JsonObject items = JsonUtil.readJsonResource(packConverter.getGson(), "/backwards/delete/items.json");
-
         if (items.has(protocol)) {
             Path itemMPath, itemTPath;
             if (version < Util.getVersionProtocol(packConverter.getGson(), "1.13")) {

@@ -3,7 +3,6 @@ package com.agentdid127.resourcepack.library.pack;
 import com.agentdid127.resourcepack.library.utilities.FileUtil;
 import com.agentdid127.resourcepack.library.utilities.Logger;
 import com.agentdid127.resourcepack.library.utilities.Util;
-
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
@@ -37,20 +36,20 @@ public class ZipPack extends Pack {
 
         /**
          * Removes Existing Conversions and starts new one
-         * 
+         *
          * @throws IOException Any issue with loading the pack, or deleting previous
          *                     packs
          */
         @Override
         public void setup() throws IOException {
             if (pack.getWorkingPath().toFile().exists()) {
-                Logger.log("  Deleting existing conversion");
+                Logger.log("Deleting existing conversion");
                 FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
             }
 
             Path convertedZipPath = getConvertedZipPath();
             if (convertedZipPath.toFile().exists()) {
-                Logger.log("  Deleting existing conversion zip");
+                Logger.log("Deleting existing conversion zip");
                 convertedZipPath.toFile().delete();
             }
 
@@ -69,13 +68,13 @@ public class ZipPack extends Pack {
 
         /**
          * Runs after program is finished. Zips directory.
-         * 
+         *
          * @throws IOException Any IO exception
          */
         @Override
         public void finish() throws IOException {
             try {
-                Logger.log("  Zipping working directory");
+                Logger.debug("Zipping working directory");
                 ZipFile zipFile = new ZipFile(getConvertedZipPath().toFile());
                 ZipParameters parameters = new ZipParameters();
                 parameters.setIncludeRootFolder(false);
@@ -85,8 +84,9 @@ public class ZipPack extends Pack {
                 Util.propagate(e);
             }
 
-            Logger.log("  Deleting working directory");
+            Logger.debug("Deleting working directory");
             FileUtil.deleteDirectoryAndContents(pack.getWorkingPath());
+            Logger.log("Finished!");
         }
 
         @Override

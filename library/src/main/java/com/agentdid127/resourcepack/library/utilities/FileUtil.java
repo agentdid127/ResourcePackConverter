@@ -5,31 +5,26 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.Objects;
 
 public final class FileUtil {
     public static void moveIfExists(Path in, Path out) throws IOException {
-        if (!in.toFile().exists())
-            return;
-        ensureParentExists(out);
-        Files.move(in, out);
-    }
-
-    public static void copyIfExists(Path in, Path out) throws IOException {
-        if (!in.toFile().exists())
-            return;
-        ensureParentExists(out);
-        Files.copy(in, out);
+        if (in.toFile().exists()) {
+            ensureParentExists(out);
+            Files.move(in, out);
+        }
     }
 
     public static void ensureParentExists(Path path) {
         Path parentPath = path.getParent();
-        if (!parentPath.toFile().exists())
+        if (!parentPath.toFile().exists()) {
             parentPath.toFile().mkdirs();
+        }
     }
 
     /**
      * Copies Directory
-     * 
+     *
      * @param src  directory Source
      * @param dest Directory Destination
      * @throws IOException
@@ -48,23 +43,22 @@ public final class FileUtil {
 
     /**
      * Deletes full directory
-     * 
+     *
      * @param dirPath Path of Directory to delete
      * @throws IOException
      */
     public static void deleteDirectoryAndContents(Path dirPath) throws IOException {
-        if (!dirPath.toFile().exists())
-            return;
-
-        // noinspection ResultOfMethodCallIgnored
-        Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
-            file.delete();
-        });
+        if (dirPath.toFile().exists()) {
+            // noinspection ResultOfMethodCallIgnored
+            Files.walk(dirPath).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(file -> {
+                file.delete();
+            });
+        }
     }
 
     /**
      * If file exists, return file with correct casing.
-     * 
+     *
      * @param path
      * @return
      * @throws IOException
@@ -77,9 +71,26 @@ public final class FileUtil {
      * @return null if file doesn't exist, {@code true} if successfully renamed,
      *         {@code false} if failed
      */
-    public static Boolean renameFile(Path file, String newName) {
-        if (!file.toFile().exists())
+    public static Boolean renameFile(Path file, Path newFile) {
+        if (!file.toFile().exists()) {
             return null;
+        }
+        try {
+            Files.move(file, newFile);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * @return null if file doesn't exist, {@code true} if successfully renamed,
+     *         {@code false} if failed
+     */
+    public static Boolean renameFile(Path file, String newName) {
+        if (!file.toFile().exists()) {
+            return null;
+        }
         try {
             Files.move(file, file.getParent().resolve(newName));
             return true;
@@ -90,32 +101,33 @@ public final class FileUtil {
 
     /**
      * Takes dir2 and merges it into dir1
-     * 
+     *
      * @param dir1
      * @param dir2
      */
-    public static Boolean mergeDirectories(File dir1, File dir2) throws IOException {
-        if (!dir1.exists() && !dir2.exists())
-            return null;
+    public static void mergeDirectories(File dir1, File dir2) throws IOException {
+        if (!dir1.exists() && !dir2.exists()) {
+            return;
+        }
 
         String targetDirPath = dir1.getAbsolutePath();
         File[] files = dir2.listFiles();
+        assert files != null;
         for (File file : files) {
             if (file.isDirectory()) {
-                Logger.log(targetDirPath + File.separator + file.getName());
+                Logger.debug(targetDirPath + File.separator + file.getName());
                 File file3 = new File(targetDirPath + File.separator + file.getName());
                 file3.mkdirs();
-                Logger.log("Created" + file3.getName());
+                Logger.debug("Created" + file3.getName());
                 mergeDirectories(file3, file);
             } else {
-                Logger.log(targetDirPath + File.separator + file.getName());
+                Logger.debug(targetDirPath + File.separator + file.getName());
                 file.renameTo(new File(targetDirPath + File.separator + file.getName()));
             }
         }
 
-        if (dir2.list().length == 0)
+        if (Objects.requireNonNull(dir2.list()).length == 0) {
             Files.delete(dir2.toPath());
-
-        return true;
+        }
     }
 }
