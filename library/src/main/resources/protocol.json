@@ -350,5 +350,9 @@
 	"1.21.7": {
 		"protocol_version": 772,
 		"pack_format": 64
-	}
+	},
+	"1.21.8": {
+		"protocol_version": 772,
+		"pack_format": 64
+        }
 }
