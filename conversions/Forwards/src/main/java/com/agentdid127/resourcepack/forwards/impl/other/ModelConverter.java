@@ -296,16 +296,15 @@ public class ModelConverter extends Converter {
 
                     // Convert damages, and model data
                     if (isDamageModel(overridesArray)) {
-                        createDamageModel(overridesArray, model);
+                        createDamageModel(jsonObject, model);
                     } else if (isCustomModelData(overridesArray)) {
-                        createCustomModelData(overridesArray, model);
+                        createCustomModelData(jsonObject, model);
                     }
 
                     // remove old damages
                     jsonObject.remove("overrides");
                 }
             }
-
 
             if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                 Logger.debug("Updating Model: " + model.getFileName());
@@ -321,12 +320,23 @@ public class ModelConverter extends Converter {
     /**
      * Creates a Damage-based item in the new directory for 1.21.4+
      *
-     * @param overrides overrides system from old model
+     * @param oldModel old model
      * @param original original model file
      * @throws IOException if we can't save the new file.
      */
-    private void createDamageModel(JsonArray overrides, Path original) throws IOException {
+    private void createDamageModel(JsonObject oldModel, Path original) throws IOException {
         if (pack == null) return;
+        JsonArray overrides = oldModel.get("overrides").getAsJsonArray();
+        String texture = null;
+        if (oldModel.has("textures")) {
+            JsonObject textures = oldModel.get("textures").getAsJsonObject();
+            for (JsonElement element : textures.asMap().values()) {
+                if (element.isJsonPrimitive()) {
+                    texture = element.getAsString();
+                    break;
+                }
+            }
+        }
         Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/items");
         if (!itemsPath.toFile().exists()) {
             itemsPath.toFile().mkdirs();
@@ -339,16 +349,20 @@ public class ModelConverter extends Converter {
 
         JsonObject fallback = new JsonObject();
         fallback.addProperty("type", "model");
-
-        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+        fallback.addProperty("model", texture);
         model.add("fallback", fallback);
-
 
         // iterate through old override entries, and migrate to new file.
         JsonArray entries = new JsonArray();
         for (JsonElement override : overrides) {
             JsonObject entry = new JsonObject();
             if (override.isJsonObject()) {
+                if (!override.getAsJsonObject().has("predicate")) {
+                    continue;
+                }
+                if (!override.getAsJsonObject().get("predicate").getAsJsonObject().has("damage")) {
+                    continue;
+                }
                 double damage = override.getAsJsonObject().get("predicate").getAsJsonObject().get("damage").getAsDouble();
                 String entryModel = override.getAsJsonObject().get("model").getAsString();
 
@@ -371,12 +385,23 @@ public class ModelConverter extends Converter {
     /**
      * Creates a Custom Model Data based item in the 1.21.4+ format.
      *
-     * @param overrides old overrides
+     * @param oldModel old model
      * @param original original model file path
      * @throws IOException if we can't save the new file.
      */
-    private void createCustomModelData(JsonArray overrides, Path original) throws IOException {
+    private void createCustomModelData(JsonObject oldModel, Path original) throws IOException {
         if (pack == null) return;
+        JsonArray overrides = oldModel.get("overrides").getAsJsonArray();
+        String texture = null;
+        if (oldModel.has("textures")) {
+            JsonObject textures = oldModel.get("textures").getAsJsonObject();
+            for (JsonElement element : textures.asMap().values()) {
+                if (element.isJsonPrimitive()) {
+                    texture = element.getAsString();
+                    break;
+                }
+            }
+        }
         Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/items");
         if (!itemsPath.toFile().exists()) {
             itemsPath.toFile().mkdirs();
@@ -389,13 +414,19 @@ public class ModelConverter extends Converter {
 
         JsonObject fallback = new JsonObject();
         fallback.addProperty("type", "model");
-        fallback.addProperty("model", original.toFile().getAbsolutePath().replace(pack.getWorkingPath().resolve("assets/minecraft/models").toFile().getAbsolutePath() + "/", "").replace(".json", ""));
+        fallback.addProperty("model", texture);
         model.add("fallback", fallback);
 
         JsonArray entries = new JsonArray();
         for (JsonElement override : overrides) {
             JsonObject entry = new JsonObject();
             if (override.isJsonObject()) {
+                if (!override.getAsJsonObject().has("predicate")) {
+                    continue;
+                }
+                if (!override.getAsJsonObject().get("predicate").getAsJsonObject().has("custom_model_data")) {
+                    continue;
+                }
                 long customModelData = override.getAsJsonObject().get("predicate").getAsJsonObject().get("custom_model_data").getAsLong();
                 String entryModel = override.getAsJsonObject().get("model").getAsString();
 
