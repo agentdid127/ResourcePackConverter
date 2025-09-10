@@ -10,7 +10,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import jdk.jpackage.internal.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +46,7 @@ public class ModelConverter extends Converter {
     @Override
     public void convert(Pack pack) throws IOException {
         this.pack = pack;
-        Path models = pack.getWorkingPath().resolve("assets/minecraft/".replace("/", File.separator));
+        Path models = pack.getWorkingPath().resolve("assets/minecraft/models".replace("/", File.separator));
         if (models.toFile().exists()) {
             findFiles(models);
         }
@@ -98,8 +97,6 @@ public class ModelConverter extends Converter {
                             return;
                         }
 
-                        boolean from1_21_4 = false;
-
                         if (to < Util.getVersionProtocol(packConverter.getGson(), "1.21.4")
                                 && from >= Util.getVersionProtocol(packConverter.getGson(), "1.21.4")) {
                             // Check for new overrides
@@ -113,10 +110,7 @@ public class ModelConverter extends Converter {
                                     jsonObject = createCustomModelData(modelJson, model);
                                 }
                             }
-                            from1_21_4 = true;
                         }
-
-
 
                         // Parent Stuff
                         if (jsonObject.has("parent")) {
@@ -253,7 +247,8 @@ public class ModelConverter extends Converter {
 
                         if (!JsonUtil.readJson(packConverter.getGson(), model).equals(jsonObject)) {
                             Logger.debug("Updating Model: " + model.getFileName());
-                            if (from1_21_4) {
+                            if (to < Util.getVersionProtocol(packConverter.getGson(), "1.21.4")
+                                    && from >= Util.getVersionProtocol(packConverter.getGson(), "1.21.4")) {
                                 Path itemsPath = pack.getWorkingPath().resolve("assets/minecraft/models/item");
                                 if (!itemsPath.toFile().exists()) {
                                     itemsPath.toFile().mkdirs();
