@@ -1,0 +1,80 @@
+{
+	"path": "moon_phases.png",
+	"width": 128,
+	"height": 64,
+	"delete": true,
+	"textures": [
+		{
+			"path": "celestial/moon/full_moon.png",
+			"box": {
+				"x": 0,
+				"y": 0,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/waning_gibbous.png",
+			"box": {
+				"x": 32,
+				"y": 0,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/third_quarter.png",
+			"box": {
+				"x": 64,
+				"y": 0,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/waning_crescent.png",
+			"box": {
+				"x": 96,
+				"y": 0,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/new_moon.png",
+			"box": {
+				"x": 0,
+				"y": 32,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/waxing_crescent.png",
+			"box": {
+				"x": 32,
+				"y": 32,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/first_quarter.png",
+			"box": {
+				"x": 64,
+				"y": 32,
+				"width": 32,
+				"height": 32
+			}
+		},
+		{
+			"path": "celestial/moon/waxing_gibbous.png",
+			"box": {
+				"x": 96,
+				"y": 32,
+				"width": 32,
+				"height": 32
+			}
+		}
+	]
+}

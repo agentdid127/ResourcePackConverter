@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.other.textures;
+package com.agentdid127.resourcepack.forwards.impl.v1_14.textures;
 
 import com.agentdid127.resourcepack.forwards.impl.v1_20.textures.GuiSlicerConverter1_20_2;
 import com.agentdid127.resourcepack.library.Converter;
@@ -14,11 +14,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-public class ParticlesSlicerConverter extends Converter {
+public class ParticlesSlicerConverter1_14 extends Converter {
     private final int from;
     private final int to;
 
-    public ParticlesSlicerConverter(PackConverter packConverter, int from, int to) {
+    public ParticlesSlicerConverter1_14(PackConverter packConverter, int from, int to) {
         super(packConverter);
         this.from = from;
         this.to = to;
@@ -26,7 +26,7 @@ public class ParticlesSlicerConverter extends Converter {
 
     @Override
     public boolean shouldConvert(Gson gson, int from, int to) {
-        return true;
+        return true; // TODO
     }
 
     /**

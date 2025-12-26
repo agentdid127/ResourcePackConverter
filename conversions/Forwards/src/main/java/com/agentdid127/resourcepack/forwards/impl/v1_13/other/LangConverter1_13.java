@@ -1,4 +1,4 @@
-package com.agentdid127.resourcepack.forwards.impl.v1_13;
+package com.agentdid127.resourcepack.forwards.impl.v1_13.other;
 
 import com.agentdid127.resourcepack.library.Converter;
 import com.agentdid127.resourcepack.library.PackConverter;
