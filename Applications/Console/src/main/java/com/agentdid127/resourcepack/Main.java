@@ -32,7 +32,7 @@ public class Main {
         boolean debug = optionSet.valueOf(Options.DEBUG);
         PrintStream out = System.out;
 
-        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT);
+        GsonBuilder gsonBuilder = new GsonBuilder().disableHtmlEscaping();
         if (!minify) {
             gsonBuilder.setPrettyPrinting();
         }

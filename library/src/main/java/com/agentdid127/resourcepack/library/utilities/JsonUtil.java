@@ -76,7 +76,6 @@ public class JsonUtil {
         String json = Util.readFromFile(path);
         if (isJson(gson, json)) {
             JsonReader reader = new JsonReader(new StringReader(json));
-            reader.setStrictness(Strictness.LENIENT);
             return gson.fromJson(reader, clazz);
         } else {
             return null;

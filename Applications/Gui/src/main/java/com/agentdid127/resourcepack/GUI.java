@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class GUI extends JPanel {
-    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().setStrictness(Strictness.LENIENT).disableHtmlEscaping().create();
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().disableHtmlEscaping().create();
 
     private PrintStream out;
     private final JTextArea outputLogPane;
